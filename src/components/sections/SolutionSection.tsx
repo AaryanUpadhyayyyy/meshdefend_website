@@ -30,16 +30,16 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
     summary:
       "Continuous topology and state synchronization across backup, storage, cloud, and security silos into a single, queryable Resilience Graph.",
     command: "resoc.observability --scan=heterogeneous-estate",
-    status: "4,820 WORKLOADS MAPPED · 0 BLIND SPOTS",
+    status: "ILLUSTRATIVE SCENARIO · 4,820 WORKLOADS MAPPED · 0 BLIND SPOTS",
     statusType: "success",
     metrics: [
-      { label: "Cross-Stack Coverage", value: "100%" },
-      { label: "Platforms Reconciled", value: "5 Vendors" },
-      { label: "Telemetry Latency", value: "< 2s" },
+      { label: "Cross-Stack Coverage [Illustrative]", value: "100%" },
+      { label: "Platforms Reconciled [Sample]", value: "5 Vendors" },
+      { label: "Telemetry Latency [Sample]", value: "< 2s" },
     ],
     proofPoints: [
-      "Commvault (1,840 VMs), Veeam (1,210 DBs) & NetWorker unified",
-      "AWS & Azure cloud backups reconciled against ServiceNow CMDB",
+      "Commvault (1,840 VMs) & Veeam (1,210 DBs) — sample workload figures",
+      "AWS & Azure cloud backups reconciled against ServiceNow CMDB (sample)",
       "Real-time drift detection across backup schedules and retention rules",
     ],
     ctaLabel: "Explore Observability Architecture →",
@@ -671,15 +671,39 @@ export function SolutionSection() {
               >
                 <div
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
-                    fontSize: 10.5,
-                    letterSpacing: "0.08em",
-                    color: "var(--muted)",
-                    textTransform: "uppercase",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                     marginBottom: 10,
                   }}
                 >
-                  ENTERPRISE VERIFICATION EVIDENCE
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "IBM Plex Mono", monospace',
+                      fontSize: 10.5,
+                      letterSpacing: "0.08em",
+                      color: "var(--muted)",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    ILLUSTRATIVE SCENARIO
+                  </div>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "IBM Plex Mono", monospace',
+                      fontSize: 9.5,
+                      letterSpacing: "0.06em",
+                      padding: "2px 6px",
+                      borderRadius: 3,
+                      background: "rgba(253, 71, 3, 0.10)",
+                      color: "var(--orange-ink, #b93608)",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Sample Data
+                  </span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
