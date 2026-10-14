@@ -4,15 +4,17 @@ interface BackupStageBeatsProps {
   currentBeat: 1 | 2 | 3;
   activeMorningStep: number;
   onSelectMorningStep: (step: number) => void;
+  hoveredMilestone?: number;
+  onHoverMilestone?: (milestone: number) => void;
 }
 
-const SCOPE_CHIPS = [
-  "Health",
-  "Exceptions",
-  "Triage",
-  "Remediation",
-  "Reporting",
-  "Recovery Readiness",
+const SCOPE_ITEMS = [
+  { index: "01", label: "Health", desc: "Job completion status & SLAs across all engines" },
+  { index: "02", label: "Exceptions", desc: "Upstream failure & drift correlation" },
+  { index: "03", label: "Triage", desc: "Context-assembled root cause diagnostics" },
+  { index: "04", label: "Remediation", desc: "Policy-governed corrective actions" },
+  { index: "05", label: "Reporting", desc: "Audit-ready operational trace & posture" },
+  { index: "06", label: "Recovery Readiness", desc: "Verified restore points & dependencies" },
 ];
 
 const MORNING_STEPS = [
@@ -25,13 +27,40 @@ export function BackupStageBeats({
   currentBeat,
   activeMorningStep,
   onSelectMorningStep,
+  hoveredMilestone = -1,
+  onHoverMilestone,
 }: BackupStageBeatsProps) {
+  const getBeatState = (beatIndex: 1 | 2 | 3) => {
+    if (currentBeat === beatIndex) {
+      return {
+        opacity: 1,
+        pointerEvents: "auto" as const,
+        visibility: "visible" as const,
+        transform: "translateY(0)",
+      };
+    }
+    if (currentBeat > beatIndex) {
+      return {
+        opacity: 0,
+        pointerEvents: "none" as const,
+        visibility: "hidden" as const,
+        transform: "translateY(-24px)",
+      };
+    }
+    return {
+      opacity: 0,
+      pointerEvents: "none" as const,
+      visibility: "hidden" as const,
+      transform: "translateY(24px)",
+    };
+  };
+
   return (
     <div
       style={{
         position: "relative",
         width: "100%",
-        minHeight: 460,
+        minHeight: 480,
         display: "flex",
         alignItems: "center",
       }}
@@ -44,10 +73,8 @@ export function BackupStageBeats({
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          opacity: currentBeat === 1 ? 1 : 0,
-          pointerEvents: currentBeat === 1 ? "auto" : "none",
-          transform: currentBeat === 1 ? "translateY(0)" : "translateY(-12px)",
-          transition: "opacity 0.28s ease, transform 0.28s ease",
+          transition: "opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 440ms cubic-bezier(0.16, 1, 0.3, 1)",
+          ...getBeatState(1),
         }}
         aria-hidden={currentBeat !== 1}
       >
@@ -58,7 +85,7 @@ export function BackupStageBeats({
             letterSpacing: "0.08em",
             color: "var(--muted)",
             textTransform: "uppercase",
-            marginBottom: 16,
+            marginBottom: 14,
             fontWeight: 600,
           }}
         >
@@ -86,7 +113,7 @@ export function BackupStageBeats({
             fontWeight: 500,
             lineHeight: 1.5,
             color: "var(--ink)",
-            margin: "0 0 14px 0",
+            margin: "0 0 12px 0",
           }}
         >
           MeshDefend does not replace the backup engines you already trust. It operates the space between them—turning separate job monitors into one governed workflow.
@@ -95,42 +122,69 @@ export function BackupStageBeats({
         <p
           style={{
             fontFamily: "var(--font-body), Inter, sans-serif",
-            fontSize: 15,
+            fontSize: 14.5,
             lineHeight: 1.6,
             color: "var(--muted)",
-            margin: "0 0 24px 0",
+            margin: "0 0 20px 0",
           }}
         >
           Bring Commvault, Veeam, Dell PowerProtect Data Manager, and Dell NetWorker into one operational layer covering health, exceptions, triage, remediation, reporting, and recovery readiness.
         </p>
 
-        {/* 6 Clean Hairline Chips Matching Sitemap Row 7 Verbatim */}
+        {/* Linear-Style 6-Item Typographic Scope Index */}
         <div
           style={{
+            borderTop: "1px solid var(--border)",
+            paddingTop: 12,
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 8,
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "8px 18px",
           }}
+          role="region"
+          aria-label="Scope milestones"
         >
-          {SCOPE_CHIPS.map((chip, idx) => (
-            <div
-              key={chip}
-              style={{
-                padding: "8px 12px",
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 3,
-                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                fontSize: 11,
-                color: idx === 1 ? "var(--orange)" : "var(--ink)",
-                fontWeight: 600,
-                textAlign: "center",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {chip}
-            </div>
-          ))}
+          {SCOPE_ITEMS.map((item, idx) => {
+            const isHovered = hoveredMilestone === idx;
+
+            return (
+              <div
+                key={item.index}
+                onMouseEnter={() => onHoverMilestone?.(idx)}
+                onMouseLeave={() => onHoverMilestone?.(-1)}
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 8,
+                  padding: "5px 0",
+                  cursor: "pointer",
+                  transition: "transform 0.18s ease, color 0.18s ease",
+                  transform: isHovered ? "translateX(4px)" : "none",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 10,
+                    color: isHovered ? "var(--orange)" : "var(--muted)",
+                    fontWeight: 600,
+                  }}
+                >
+                  {item.index}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-body), Inter, sans-serif",
+                    fontSize: 13,
+                    fontWeight: isHovered ? 600 : 500,
+                    color: isHovered ? "var(--orange)" : "var(--ink)",
+                    transition: "color 0.18s ease",
+                  }}
+                >
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -142,10 +196,8 @@ export function BackupStageBeats({
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          opacity: currentBeat === 2 ? 1 : 0,
-          pointerEvents: currentBeat === 2 ? "auto" : "none",
-          transform: currentBeat === 2 ? "translateY(0)" : "translateY(-12px)",
-          transition: "opacity 0.28s ease, transform 0.28s ease",
+          transition: "opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 440ms cubic-bezier(0.16, 1, 0.3, 1)",
+          ...getBeatState(2),
         }}
         aria-hidden={currentBeat !== 2}
       >
@@ -156,7 +208,7 @@ export function BackupStageBeats({
             letterSpacing: "0.08em",
             color: "var(--muted)",
             textTransform: "uppercase",
-            marginBottom: 16,
+            marginBottom: 14,
             fontWeight: 600,
           }}
         >
@@ -173,7 +225,7 @@ export function BackupStageBeats({
             background: "var(--surface)",
             border: "1px solid var(--border)",
             borderRadius: 4,
-            marginBottom: 20,
+            marginBottom: 18,
             width: "fit-content",
           }}
           role="tablist"
@@ -227,7 +279,7 @@ export function BackupStageBeats({
             fontWeight: 500,
             lineHeight: 1.5,
             color: "var(--ink)",
-            margin: "0 0 14px 0",
+            margin: "0 0 12px 0",
           }}
         >
           Start the morning with a single operational sequence: what changed overnight, what needs attention, and what needs action.
@@ -254,10 +306,8 @@ export function BackupStageBeats({
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          opacity: currentBeat === 3 ? 1 : 0,
-          pointerEvents: currentBeat === 3 ? "auto" : "none",
-          transform: currentBeat === 3 ? "translateY(0)" : "translateY(-12px)",
-          transition: "opacity 0.28s ease, transform 0.28s ease",
+          transition: "opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 440ms cubic-bezier(0.16, 1, 0.3, 1)",
+          ...getBeatState(3),
         }}
         aria-hidden={currentBeat !== 3}
       >
@@ -268,7 +318,7 @@ export function BackupStageBeats({
             letterSpacing: "0.08em",
             color: "var(--muted)",
             textTransform: "uppercase",
-            marginBottom: 16,
+            marginBottom: 14,
             fontWeight: 600,
           }}
         >
@@ -281,7 +331,7 @@ export function BackupStageBeats({
             fontSize: 14,
             fontWeight: 600,
             color: "color-mix(in srgb, var(--ink) 70%, transparent)",
-            marginBottom: 10,
+            marginBottom: 8,
           }}
         >
           Selective attention over repetitive checking.
@@ -295,7 +345,7 @@ export function BackupStageBeats({
             letterSpacing: "-0.03em",
             color: "var(--ink)",
             fontWeight: 400,
-            margin: "0 0 16px 0",
+            margin: "0 0 14px 0",
           }}
         >
           Your team shouldn’t have to check what’s already working.
@@ -307,7 +357,7 @@ export function BackupStageBeats({
             fontSize: 15,
             lineHeight: 1.6,
             color: "var(--muted)",
-            margin: "0 0 24px 0",
+            margin: "0 0 20px 0",
           }}
         >
           Operators shouldn&apos;t spend mornings verifying routine successful jobs. MeshDefend correlates backup, storage, and infrastructure signals upstream—keeping normal activity quiet and surfacing only the exceptions that require a decision.

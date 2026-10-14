@@ -1107,6 +1107,18 @@ html.js-reveal .line-inner.is-revealed {
     grid-template-columns: 1fr !important;
     gap: 8px !important;
   }
+  .triage-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .governed-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .evidence-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
 }
 
 @media (max-width: 600px) {

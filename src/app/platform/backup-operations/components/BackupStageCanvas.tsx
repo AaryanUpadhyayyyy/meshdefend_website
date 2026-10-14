@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
-import { useReducedMotion } from "@/app/platform/observability/hooks/useReducedMotion";
 
 const BackupSpineCanvas = dynamic(
   () => import("./spine/BackupSpineCanvas").then((mod) => mod.BackupSpineCanvas),
@@ -13,8 +12,8 @@ const BackupSpineCanvas = dynamic(
         style={{
           width: "100%",
           height: "100%",
-          minHeight: 460,
-          background: "var(--surface)",
+          minHeight: 520,
+          background: "transparent",
         }}
       />
     ),
@@ -25,14 +24,15 @@ interface BackupStageCanvasProps {
   progress: number;
   currentBeat: 1 | 2 | 3;
   activeMorningStep: number;
+  hoveredMilestone?: number;
 }
 
 export function BackupStageCanvas({
   progress,
   currentBeat,
   activeMorningStep,
+  hoveredMilestone = -1,
 }: BackupStageCanvasProps) {
-  const isReducedMotion = useReducedMotion();
   const [hasWebGL, setHasWebGL] = useState(true);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export function BackupStageCanvas({
     }
   }, []);
 
-  const useFallback = !hasWebGL || isReducedMotion;
+  const useFallback = !hasWebGL;
 
   return (
     <div
@@ -55,10 +55,11 @@ export function BackupStageCanvas({
         position: "relative",
         width: "100%",
         height: "100%",
-        minHeight: 460,
-        borderRadius: 4,
-        overflow: "hidden",
-        border: "1px solid var(--border)",
+        minHeight: 520,
+        display: "flex",
+        alignItems: "stretch",
+        justifyContent: "center",
+        background: "transparent",
       }}
       aria-label="The Operations Control Spine 3D visualization"
     >
@@ -67,14 +68,18 @@ export function BackupStageCanvas({
           progress={progress}
           currentBeat={currentBeat}
           activeMorningStep={activeMorningStep}
+          hoveredMilestone={hoveredMilestone}
         />
       ) : (
-        /* Fallback Poster */
+        /* High-Craft Fallback Poster for environments without WebGL context */
         <div
           style={{
             padding: 32,
-            background: "var(--surface)",
+            background: "var(--bg)",
+            border: "1px solid var(--border)",
+            borderRadius: 4,
             height: "100%",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -85,8 +90,10 @@ export function BackupStageCanvas({
             style={{
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
+              letterSpacing: "0.06em",
               color: "var(--muted)",
               marginBottom: 16,
+              textTransform: "uppercase",
             }}
           >
             FIG. 1B — OPERATIONS CONTROL SPINE (POSTER FALLBACK)
@@ -107,15 +114,15 @@ export function BackupStageCanvas({
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "10px 14px",
-                    background: "var(--bg)",
+                    background: "var(--surface)",
                     border: "1px solid var(--border)",
                     borderRadius: 3,
                   }}
                 >
                   <span
                     style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 12,
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 13,
                       color: "var(--ink)",
                     }}
                   >

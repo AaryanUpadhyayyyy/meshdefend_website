@@ -9,6 +9,7 @@ export function BackupStage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const progress = useStageProgress(containerRef);
   const [activeMorningStep, setActiveMorningStep] = useState<number>(0);
+  const [hoveredMilestone, setHoveredMilestone] = useState<number>(-1);
 
   // Beat 1: 0..0.30, Beat 2: 0.30..0.64, Beat 3: 0.64..1.0
   const currentBeat: 1 | 2 | 3 =
@@ -130,6 +131,8 @@ export function BackupStage() {
                 currentBeat={currentBeat}
                 activeMorningStep={activeMorningStep}
                 onSelectMorningStep={handleSelectMorningStep}
+                hoveredMilestone={hoveredMilestone}
+                onHoverMilestone={setHoveredMilestone}
               />
             </div>
 
@@ -139,6 +142,7 @@ export function BackupStage() {
                 progress={progress}
                 currentBeat={currentBeat}
                 activeMorningStep={activeMorningStep}
+                hoveredMilestone={hoveredMilestone}
               />
             </div>
           </div>
