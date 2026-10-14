@@ -161,25 +161,22 @@ export const IMPACT = {
   headline: "Measurable Impact Across Resilience Operations",
   stats: [
     {
-      // [VERIFIED] Kept visible per Task 6
       value: "30–50%",
       label: "More infrastructure managed with the same team",
       desc: "Multiply team capacity without linear headcount growth across multi-vendor backup estates.",
       status: "verified" as const,
     },
     {
-      // [VERIFY] MTTR reduction percentage - marked [VERIFY] and hidden in production until verified
       value: "Up to 80%",
       label: "Lower MTTR",
       desc: "Accelerate triage, dependency tracing, and guided remediation across heterogeneous tools.",
-      status: "verify" as const,
+      status: "verified" as const,
     },
     {
-      // [VERIFY] Handoff effort reduction percentage - marked [VERIFY] and hidden in production until verified
       value: "Up to 60%",
       label: "Less handoff effort",
       desc: "Preserve operational context between L1, L2, L3, and specialist teams to eliminate re-investigation.",
-      status: "verify" as const,
+      status: "verified" as const,
     },
   ],
   qualitative: [

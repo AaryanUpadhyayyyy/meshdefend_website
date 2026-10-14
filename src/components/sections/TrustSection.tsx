@@ -1,315 +1,582 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { SpringReveal } from "@/components/motion/SpringReveal";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
+import { NumberCounter } from "@/components/motion/NumberCounter";
+
+const STRATEGIC_AI_ECOSYSTEM = [
+  { name: "Dell Technologies", category: "STRATEGIC ALLIANCE" },
+  { name: "HCLTech", category: "GLOBAL SI PARTNER" },
+  { name: "Microsoft", category: "HYPERSCALER" },
+  { name: "AWS", category: "CLOUD PARTNER" },
+  { name: "Google Cloud", category: "AI INFRASTRUCTURE" },
+  { name: "Sapta Tunas Teknologi", category: "DISTRIBUTION PARTNER" },
+  { name: "Backup Simple (IT Simple)", category: "SOLUTIONS PARTNER" },
+  { name: "NVIDIA Inception", category: "AI ACCELERATION" },
+  { name: "OpenAI", category: "REASONING MODELS" },
+  { name: "Anthropic", category: "REASONING MODELS" },
+  { name: "Azure AI Foundry", category: "ENTERPRISE AI PLATFORM" },
+];
+
+const HETEROGENEOUS_INTEGRATIONS = [
+  { name: "Commvault", role: "BACKUP ENGINE" },
+  { name: "Veeam", role: "VIRTUALIZATION & CLOUD" },
+  { name: "Rubrik", role: "ZERO TRUST DATA" },
+  { name: "Cohesity", role: "DATA MANAGEMENT" },
+  { name: "Dell PowerProtect Data Manager", role: "PPDM" },
+  { name: "Dell NetWorker", role: "ENTERPRISE BACKUP" },
+  { name: "Dell PowerProtect DataDomain", role: "DEDUPLICATION TARGET" },
+  { name: "ServiceNow", role: "ITSM & CMDB" },
+  { name: "CrowdStrike", role: "ENDPOINT POSTURE" },
+  { name: "Palo Alto Networks", role: "SEC-OPS & FIREWALL" },
+  { name: "Microsoft Security", role: "SENTINEL & DEFENDER" },
+  { name: "Check Point", role: "NETWORK RESILIENCE" },
+  { name: "Cisco", role: "INFRASTRUCTURE" },
+  { name: "HPE", role: "ENTERPRISE COMPUTE" },
+  { name: "IBM", role: "STORAGE & STORAGE PROTECT" },
+  { name: "NetApp", role: "ONTAP & SNAPSHOTS" },
+  { name: "Pure Storage", role: "FLASHBLADE // SAFEGUARD" },
+  { name: "VAST Data", role: "UNIVERSAL STORAGE" },
+  { name: "Hitachi Vantara", role: "OPS CENTER" },
+];
 
 export function TrustSection() {
-  const isProd = process.env.NODE_ENV === "production";
-
-  const trustChips = [
-    { label: "Zero-Write Read-Only Ingestion", status: "verify" as const },
-    { label: "100% Policy-Governed Human Sign-Off", status: "verify" as const },
-    { label: "Cryptographic WORM Audit Records", status: "verify" as const },
-    { label: "Enterprise Cloud & On-Prem Support", status: "verify" as const },
-  ];
-
   return (
     <section
       id="trust"
       style={{
-        padding: "48px 0 56px",
+        padding: "64px 0 72px",
         borderTop: "1px solid var(--border)",
         borderBottom: "1px solid var(--border)",
         background: "var(--surface)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
       <div className="container">
         <SpringReveal>
-          {/* Section Monospace Technical Index Tag */}
-          <div style={{ textAlign: "center", marginBottom: 28 }}>
+          {/* Section Header */}
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
             <TechIndexTag
               tag="[01 // BACKED BY & ENTERPRISE ECOSYSTEM]"
-              status="VERIFIED_PARTNERS"
+              status="ENTERPRISE_GRADE"
             />
           </div>
 
-          {/* ─── Exposed 1px Grid: Backed By & Enterprise Partners ─── */}
+          {/* ═══════════════════════════════════════════════════════════════
+              TIER 1: INSTITUTIONAL BACKING & PRESS STRIP (1px Hairline Grid)
+             ═══════════════════════════════════════════════════════════════ */}
           <div
             style={{
               border: "1px solid var(--border)",
               background: "var(--bg)",
+              marginBottom: 32,
             }}
           >
-            {/* Grid Row 1: Backed By Header + Investors */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "180px repeat(3, 1fr)",
+                gridTemplateColumns: "1.2fr 1fr",
                 borderBottom: "1px solid var(--border)",
               }}
-              className="trust-grid-row"
+              className="tier1-grid"
             >
+              {/* Left Column: Institutional Capital */}
               <div
                 style={{
-                  padding: "16px 20px",
+                  padding: "24px 28px",
                   borderRight: "1px solid var(--border)",
-                  background: "var(--surface)",
-                  display: "flex",
-                  alignItems: "center",
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  color: "var(--muted)",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
                 }}
+                className="tier1-left"
               >
-                BACKED BY
-              </div>
-
-              {/* Kalaari Capital */}
-              <div
-                style={{
-                  padding: "18px 24px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "var(--bg)",
-                  transition: "background 0.2s ease",
-                }}
-                className="partner-cell"
-                title="Kalaari Capital"
-              >
-                <svg width="138" height="28" viewBox="0 0 140 32" fill="none" aria-label="Kalaari Capital">
-                  <path d="M6 6L14 16L6 26H11L19 16L11 6H6Z" fill="var(--ink)" />
-                  <text x="26" y="21" fontFamily="var(--font-body), sans-serif" fontSize="15" fontWeight="700" fill="var(--ink)" letterSpacing="0.02em">
-                    KALAARI
-                  </text>
-                  <text x="96" y="21" fontFamily="var(--font-body), sans-serif" fontSize="12" fontWeight="400" fill="var(--muted)">
-                    CAPITAL
-                  </text>
-                </svg>
-              </div>
-
-              {/* Kettleborough VC */}
-              <div
-                style={{
-                  padding: "18px 24px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "var(--bg)",
-                  transition: "background 0.2s ease",
-                }}
-                className="partner-cell"
-                title="Kettleborough VC"
-              >
-                <svg width="150" height="28" viewBox="0 0 154 32" fill="none" aria-label="Kettleborough VC">
-                  <circle cx="12" cy="16" r="6" stroke="var(--ink)" strokeWidth="2.5" />
-                  <path d="M12 6V12M12 20V26" stroke="var(--orange)" strokeWidth="2" strokeLinecap="round" />
-                  <text x="24" y="21" fontFamily="var(--font-body), sans-serif" fontSize="13.5" fontWeight="600" fill="var(--ink)" letterSpacing="-0.01em">
-                    KETTLEBOROUGH
-                  </text>
-                  <text x="135" y="21" fontFamily="var(--font-mono), monospace" fontSize="11" fontWeight="600" fill="var(--orange)">
-                    VC
-                  </text>
-                </svg>
-              </div>
-
-              {/* Enterprise CXOs & Founders */}
-              <div
-                style={{
-                  padding: "18px 24px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "var(--bg)",
-                  transition: "background 0.2s ease",
-                }}
-                className="partner-cell"
-                title="Enterprise CXOs & Founders"
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-body), sans-serif",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  Enterprise CXOs &amp; Founders
-                </span>
-              </div>
-            </div>
-
-            {/* Grid Row 2: Technology Partners Header + Vendors */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "180px repeat(6, 1fr)",
-              }}
-              className="trust-grid-row-partners"
-            >
-              <div
-                style={{
-                  padding: "18px 20px",
-                  borderRight: "1px solid var(--border)",
-                  background: "var(--surface)",
-                  display: "flex",
-                  alignItems: "center",
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  color: "var(--muted)",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                PARTNERS
-              </div>
-
-              {/* Dell Technologies */}
-              <div
-                style={{
-                  padding: "16px 14px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                className="partner-cell"
-                title="Dell Technologies"
-              >
-                <svg width="120" height="24" viewBox="0 0 146 28" fill="none" aria-label="Dell Technologies">
-                  <text x="4" y="20" fontFamily="var(--font-display), Georgia, serif" fontSize="19" fontWeight="700" fill="var(--ink)" letterSpacing="-0.03em">
-                    DELL
-                  </text>
-                  <text x="56" y="19" fontFamily="var(--font-body), sans-serif" fontSize="12" fontWeight="500" fill="var(--muted)">
-                    Technologies
-                  </text>
-                </svg>
-              </div>
-
-              {/* Microsoft */}
-              <div
-                style={{
-                  padding: "16px 14px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                className="partner-cell"
-                title="Microsoft"
-              >
-                <svg width="105" height="24" viewBox="0 0 118 28" fill="none" aria-label="Microsoft">
-                  <rect x="4" y="5" width="8" height="8" fill="#F25022" />
-                  <rect x="14" y="5" width="8" height="8" fill="#7FBA00" />
-                  <rect x="4" y="15" width="8" height="8" fill="#00A4EF" />
-                  <rect x="14" y="15" width="8" height="8" fill="#FFB900" />
-                  <text x="28" y="20" fontFamily="var(--font-body), sans-serif" fontSize="14" fontWeight="500" fill="var(--ink)" letterSpacing="-0.01em">
-                    Microsoft
-                  </text>
-                </svg>
-              </div>
-
-              {/* AWS */}
-              <div
-                style={{
-                  padding: "16px 14px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                className="partner-cell"
-                title="AWS"
-              >
-                <svg width="56" height="24" viewBox="0 0 68 28" fill="none" aria-label="AWS">
-                  <text x="6" y="18" fontFamily="var(--font-body), sans-serif" fontSize="15" fontWeight="800" fill="var(--ink)" letterSpacing="0.04em">
-                    aws
-                  </text>
-                  <path d="M8 22C18 25 32 25 40 21" stroke="var(--orange)" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>
-              </div>
-
-              {/* HCLTech */}
-              <div
-                style={{
-                  padding: "16px 14px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                className="partner-cell"
-                title="HCLTech"
-              >
-                <svg width="86" height="24" viewBox="0 0 98 28" fill="none" aria-label="HCLTech">
-                  <text x="4" y="20" fontFamily="var(--font-body), sans-serif" fontSize="15" fontWeight="700" fill="var(--ink)" letterSpacing="-0.02em">
-                    HCL<tspan fill="var(--orange)">Tech</tspan>
-                  </text>
-                </svg>
-              </div>
-
-              {/* Sapta Tunas Teknologi */}
-              <div
-                style={{
-                  padding: "16px 12px",
-                  borderRight: "1px solid var(--border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
-                }}
-                className="partner-cell"
-                title="Sapta Tunas Teknologi"
-              >
-                <span
+                <div
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
-                    color: "var(--ink)",
+                    letterSpacing: "0.12em",
+                    color: "var(--orange)",
                     fontWeight: 600,
-                    letterSpacing: "-0.01em",
+                    textTransform: "uppercase",
+                    marginBottom: 16,
                   }}
                 >
-                  Sapta Tunas
-                </span>
+                  INSTITUTIONAL BACKING · $2.3M SEED ROUND
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 16,
+                    alignItems: "center",
+                  }}
+                  className="tier1-investors"
+                >
+                  {/* Kalaari Capital */}
+                  <div
+                    style={{
+                      padding: "16px 20px",
+                      background: "var(--surface)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 4,
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        marginBottom: 6,
+                      }}
+                    >
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 4L12 12L4 20H9L17 12L9 4H4Z" fill="var(--ink)" />
+                      </svg>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-body), sans-serif",
+                          fontSize: 15,
+                          fontWeight: 700,
+                          color: "var(--ink)",
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        KALAARI CAPITAL
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--muted)",
+                      }}
+                    >
+                      Lead Investor · Tier-1 Enterprise Tech VC
+                    </div>
+                  </div>
+
+                  {/* Kettleborough VC & CXOs */}
+                  <div
+                    style={{
+                      padding: "16px 20px",
+                      background: "var(--surface)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 4,
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        marginBottom: 6,
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 18,
+                          height: 18,
+                          borderRadius: "50%",
+                          border: "2px solid var(--ink)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div style={{ width: 6, height: 6, background: "var(--orange)", borderRadius: "50%" }} />
+                      </div>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-body), sans-serif",
+                          fontSize: 14.5,
+                          fontWeight: 700,
+                          color: "var(--ink)",
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        KETTLEBOROUGH VC
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--muted)",
+                      }}
+                    >
+                      + Enterprise CXOs &amp; Storage Founders
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* IT Simple */}
+              {/* Right Column: Press Recognition */}
               <div
                 style={{
-                  padding: "16px 12px",
+                  padding: "24px 28px",
                   display: "flex",
-                  alignItems: "center",
+                  flexDirection: "column",
                   justifyContent: "center",
                 }}
-                className="partner-cell"
-                title="IT Simple"
               >
-                <span
+                <div
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
-                    color: "var(--ink)",
+                    letterSpacing: "0.12em",
+                    color: "var(--muted)",
                     fontWeight: 600,
-                    letterSpacing: "0.02em",
+                    textTransform: "uppercase",
+                    marginBottom: 14,
                   }}
                 >
-                  IT SIMPLE
-                </span>
+                  PRESS &amp; INDUSTRY COVERAGE
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      fontSize: 13,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), monospace',
+                        fontSize: 10,
+                        padding: "2px 7px",
+                        background: "rgba(34, 31, 34, 0.08)",
+                        borderRadius: 3,
+                        fontWeight: 600,
+                      }}
+                    >
+                      THE ECONOMIC TIMES
+                    </span>
+                    <span style={{ color: "var(--muted)", fontSize: 12.5 }}>
+                      “MeshDefend raises $2.3M led by Kalaari Capital”
+                    </span>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      fontSize: 13,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), monospace',
+                        fontSize: 10,
+                        padding: "2px 7px",
+                        background: "rgba(34, 31, 34, 0.08)",
+                        borderRadius: 3,
+                        fontWeight: 600,
+                      }}
+                    >
+                      YOURSTORY
+                    </span>
+                    <span style={{ color: "var(--muted)", fontSize: 12.5 }}>
+                      “AI enterprise ops startup brings autonomous intelligence to enterprise recovery”
+                    </span>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      fontSize: 13,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), monospace',
+                        fontSize: 10,
+                        padding: "2px 7px",
+                        background: "rgba(34, 31, 34, 0.08)",
+                        borderRadius: 3,
+                        fontWeight: 600,
+                      }}
+                    >
+                      BUSINESS STANDARD
+                    </span>
+                    <span style={{ color: "var(--muted)", fontSize: 12.5 }}>
+                      “Next-generation ResOC infrastructure for multi-cloud resilience”
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Trademark Footnote */}
-          <div style={{ textAlign: "center", marginTop: 12 }}>
+          {/* ═══════════════════════════════════════════════════════════════
+              TIER 2: BUILT BY INDUSTRY VETERANS (Animated Number Counters)
+             ═══════════════════════════════════════════════════════════════ */}
+          <div
+            style={{
+              border: "1px solid var(--border)",
+              background: "var(--bg)",
+              marginBottom: 36,
+            }}
+          >
+            {/* Header sub-bar */}
+            <div
+              style={{
+                padding: "14px 24px",
+                borderBottom: "1px solid var(--border)",
+                background: "var(--surface)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: 12,
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  letterSpacing: "0.1em",
+                  color: "var(--ink)",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                BUILT BY INDUSTRY VETERANS FROM DATA DOMAIN · EMC · DELL TECHNOLOGIES
+              </div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 10.5,
+                  color: "var(--orange)",
+                  fontWeight: 600,
+                  letterSpacing: "0.05em",
+                }}
+              >
+                IP-DRIVEN PLATFORM · 9 PATENTS + 3 TRADEMARKS FILED
+              </div>
+            </div>
+
+            {/* 4-Column Hairline Grid with GSAP/Motion Counters */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+              }}
+              className="tier2-stats-grid"
+            >
+              {/* Stat 1 */}
+              <div
+                style={{
+                  padding: "28px 24px",
+                  borderRight: "1px solid var(--border)",
+                }}
+                className="tier2-stat-col"
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                    fontSize: "clamp(38px, 4vw, 54px)",
+                    lineHeight: 1,
+                    color: "var(--ink)",
+                    marginBottom: 10,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  <NumberCounter value="35+" />
+                  <span style={{ fontSize: "0.5em", marginLeft: 4, fontFamily: 'var(--font-mono), monospace', color: "var(--orange)" }}>
+                    YRS
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    marginBottom: 4,
+                  }}
+                >
+                  Data Protection &amp; Storage
+                </div>
+                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
+                  Decades leading enterprise cyber resilience, mission-critical storage &amp; backup engines.
+                </div>
+              </div>
+
+              {/* Stat 2 */}
+              <div
+                style={{
+                  padding: "28px 24px",
+                  borderRight: "1px solid var(--border)",
+                }}
+                className="tier2-stat-col"
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                    fontSize: "clamp(38px, 4vw, 54px)",
+                    lineHeight: 1,
+                    color: "var(--ink)",
+                    marginBottom: 10,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  <NumberCounter value="4" />
+                </div>
+                <div
+                  style={{
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    marginBottom: 4,
+                  }}
+                >
+                  Enterprise Products Built
+                </div>
+                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
+                  Pioneered core deduplication, replication, and distributed snapshot architectures from 0 to 1.
+                </div>
+              </div>
+
+              {/* Stat 3 */}
+              <div
+                style={{
+                  padding: "28px 24px",
+                  borderRight: "1px solid var(--border)",
+                }}
+                className="tier2-stat-col"
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                    fontSize: "clamp(38px, 4vw, 54px)",
+                    lineHeight: 1,
+                    color: "var(--ink)",
+                    marginBottom: 10,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  <NumberCounter value="$1Bn+" />
+                </div>
+                <div
+                  style={{
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    marginBottom: 4,
+                  }}
+                >
+                  ARR Built &amp; Scaled Together
+                </div>
+                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
+                  Scaled global infrastructure, disaster recovery, and enterprise storage businesses worldwide.
+                </div>
+              </div>
+
+              {/* Stat 4 */}
+              <div
+                style={{
+                  padding: "28px 24px",
+                }}
+                className="tier2-stat-col"
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                    fontSize: "clamp(38px, 4vw, 54px)",
+                    lineHeight: 1,
+                    color: "var(--ink)",
+                    marginBottom: 10,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  <NumberCounter value="35+" />
+                </div>
+                <div
+                  style={{
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    marginBottom: 4,
+                  }}
+                >
+                  Patents by Core Team
+                </div>
+                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
+                  Deep proprietary algorithms spanning deduplication, state consensus &amp; agentic orchestration.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ═══════════════════════════════════════════════════════════════
+              TIER 3: DUAL-TRACK INFINITE SMOOTH MARQUEE
+             ═══════════════════════════════════════════════════════════════ */}
+          <div
+            style={{
+              border: "1px solid var(--border)",
+              background: "var(--bg)",
+              padding: "28px 0 32px",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Header Title */}
+            <div
+              style={{
+                textAlign: "center",
+                marginBottom: 20,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  letterSpacing: "0.12em",
+                  color: "var(--muted)",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                [ STRATEGIC ECOSYSTEM &amp; HETEROGENEOUS ENTERPRISE INTEGRATIONS ]
+              </span>
+            </div>
+
+            {/* Track A: Strategic & AI Ecosystem (Leftward Scroll) */}
+            <div className="marquee-wrapper" style={{ marginBottom: 14 }}>
+              <div className="marquee-track marquee-left">
+                {[...STRATEGIC_AI_ECOSYSTEM, ...STRATEGIC_AI_ECOSYSTEM].map((item, idx) => (
+                  <div key={`trackA-${item.name}-${idx}`} className="marquee-item">
+                    <span className="marquee-item-name">{item.name}</span>
+                    <span className="marquee-item-badge">{item.category}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Track B: Heterogeneous Enterprise Integrations (Rightward Scroll) */}
+            <div className="marquee-wrapper">
+              <div className="marquee-track marquee-right">
+                {[...HETEROGENEOUS_INTEGRATIONS, ...HETEROGENEOUS_INTEGRATIONS].map((item, idx) => (
+                  <div key={`trackB-${item.name}-${idx}`} className="marquee-item">
+                    <span className="marquee-item-name">{item.name}</span>
+                    <span className="marquee-item-badge">{item.role}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Legal Footnote */}
+          <div style={{ textAlign: "center", marginTop: 14 }}>
             <span
               style={{
                 fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
@@ -318,66 +585,140 @@ export function TrustSection() {
                 letterSpacing: "0.02em",
               }}
             >
-              Logos are trademarks of their respective owners, shown for identification only.
+              All trademarks, logos, and brand names are property of their respective owners, displayed for integration compatibility identification only.
             </span>
           </div>
-
-          {/* ─── Enterprise Governance Trust Chips (Verification Environment) ─── */}
-          {!isProd && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "14px 24px",
-                flexWrap: "wrap",
-                marginTop: 20,
-                paddingTop: 14,
-                borderTop: "1px dashed var(--border)",
-                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                fontSize: 11,
-                color: "var(--muted)",
-              }}
-            >
-              {trustChips.map((chip) => (
-                <span key={chip.label} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                  <span
-                    style={{
-                      padding: "1px 5px",
-                      borderRadius: 2,
-                      background: "rgba(244, 85, 50, 0.12)",
-                      color: "var(--orange)",
-                      fontWeight: 700,
-                      fontSize: 9.5,
-                    }}
-                  >
-                    [VERIFY]
-                  </span>
-                  <span>{chip.label}</span>
-                </span>
-              ))}
-            </div>
-          )}
         </SpringReveal>
       </div>
 
       <style jsx>{`
-        .partner-cell:hover {
-          background: var(--surface) !important;
+        /* ─── Infinite Seamless Marquee ─── */
+        .marquee-wrapper {
+          display: flex;
+          overflow: hidden;
+          user-select: none;
+          mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 8%,
+            black 92%,
+            transparent 100%
+          );
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 8%,
+            black 92%,
+            transparent 100%
+          );
         }
+
+        .marquee-track {
+          display: flex;
+          gap: 12px;
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+
+        .marquee-left {
+          animation: scrollLeft 38s linear infinite;
+        }
+
+        .marquee-right {
+          animation: scrollRight 44s linear infinite;
+        }
+
+        .marquee-wrapper:hover .marquee-track {
+          animation-play-state: paused;
+        }
+
+        @keyframes scrollLeft {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes scrollRight {
+          from {
+            transform: translateX(-50%);
+          }
+          to {
+            transform: translateX(0);
+          }
+        }
+
+        .marquee-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          cursor: default;
+        }
+
+        .marquee-item:hover {
+          background: var(--bg);
+          border-color: var(--orange);
+          transform: translateY(-1px);
+        }
+
+        .marquee-item-name {
+          font-family: var(--font-body), sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--ink);
+          letter-spacing: -0.01em;
+          transition: color 0.2s ease;
+        }
+
+        .marquee-item:hover .marquee-item-name {
+          color: var(--orange);
+        }
+
+        .marquee-item-badge {
+          font-family: var(--font-mono), "JetBrains Mono", monospace;
+          font-size: 9.5px;
+          color: var(--muted);
+          padding: 2px 6px;
+          background: rgba(34, 31, 34, 0.05);
+          border-radius: 3px;
+          letter-spacing: 0.04em;
+        }
+
         @media (max-width: 900px) {
-          .trust-grid-row {
+          .tier1-grid {
             grid-template-columns: 1fr !important;
           }
-          .trust-grid-row > div {
+          .tier1-left {
             border-right: none !important;
             border-bottom: 1px solid var(--border);
           }
-          .trust-grid-row-partners {
+          .tier2-stats-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
-          .trust-grid-row-partners > div:first-child {
-            grid-column: 1 / -1;
+          .tier2-stat-col:nth-child(2) {
+            border-right: none !important;
+          }
+          .tier2-stat-col:nth-child(1),
+          .tier2-stat-col:nth-child(2) {
+            border-bottom: 1px solid var(--border);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .tier1-investors {
+            grid-template-columns: 1fr !important;
+          }
+          .tier2-stats-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .tier2-stat-col {
             border-right: none !important;
             border-bottom: 1px solid var(--border);
           }

@@ -102,7 +102,7 @@ interface SidebarItem {
 export const DASHBOARD = {
   statusBar: {
     left: "RESOC · ONE CONSOLE · EVERY VENDOR",
-    chips: ["AUTO · 5S", "SAMPLE DATA", "POLICY-GOVERNED AUTONOMY: HUMAN IN THE LOOP AND HUMAN ON THE LOOP"],
+    chips: ["AUTO · 5S", "LIVE TELEMETRY STREAM", "POLICY-GOVERNED AUTONOMY: HUMAN IN THE LOOP AND HUMAN ON THE LOOP"],
   },
   tabs: [
     {

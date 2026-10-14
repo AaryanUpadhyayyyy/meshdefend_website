@@ -7,7 +7,6 @@ import { SITE } from "@/lib/content";
 export function Footer() {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const isProd = process.env.NODE_ENV === "production";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,8 +19,6 @@ export function Footer() {
     label: string;
     href: string;
     badge?: string;
-    verifyBadge?: string;
-    comingSoon?: boolean;
   }
 
   interface FooterNavGroup {
@@ -36,45 +33,44 @@ export function Footer() {
       title: "Platform",
       links: [
         { label: "Unified Resilience Observability", href: "/platform#observability" },
-        { label: "Backup & Recovery Operations", href: "#coming-soon", comingSoon: true },
+        { label: "Backup & Recovery Operations", href: "/platform#backup-operations" },
         { label: "Agentic Incident Resolution", href: "/platform#incident-resolution" },
-        { label: "Cyber Recovery Orchestration", href: "#coming-soon", comingSoon: true },
-        { label: "Heterogeneous Integrations", href: "#coming-soon", comingSoon: true },
+        { label: "Cyber Recovery Orchestration", href: "/platform#cyber-recovery" },
+        { label: "Heterogeneous Integrations", href: "/platform#integrations" },
       ],
     },
     {
       num: "02",
       title: "Capabilities",
       links: [
-        { label: "Enterprise Readiness", href: "#coming-soon", comingSoon: true },
-        { label: "Isolated & Air-Gapped Deploy", href: "#coming-soon", comingSoon: true },
-        { label: "Heterogeneous Architecture", href: "#coming-soon", comingSoon: true },
-        { label: "Human-in-the-Loop Governance", href: "#coming-soon", comingSoon: true },
-        { label: "Immutable Evidence Logging", href: "#coming-soon", comingSoon: true },
+        { label: "Enterprise Readiness", href: "/platform#enterprise-readiness" },
+        { label: "Isolated & Air-Gapped Deploy", href: "/platform#air-gapped" },
+        { label: "Heterogeneous Architecture", href: "/platform#architecture" },
+        { label: "Human-in-the-Loop Governance", href: "/platform#hitl-governance" },
+        { label: "Immutable Evidence Logging", href: "/platform#audit-logging" },
       ],
     },
     {
       num: "03",
       title: "Solutions",
       links: [
-        { label: "System Integrators", href: "#coming-soon", comingSoon: true },
-        { label: "Managed Service Providers", href: "#coming-soon", comingSoon: true },
-        { label: "Advisory & Consulting", href: "#coming-soon", comingSoon: true },
-        { label: "Global Enterprises", href: "#coming-soon", comingSoon: true },
+        { label: "System Integrators", href: "/solutions#system-integrators" },
+        { label: "Managed Service Providers", href: "/solutions#msp" },
+        { label: "Advisory & Consulting", href: "/solutions#advisory" },
+        { label: "Global Enterprises", href: "/solutions#enterprises" },
       ],
     },
     {
       num: "04",
       title: "Resources",
       links: [
-        { label: "Resilience Newsletter", href: "#coming-soon", comingSoon: true },
-        { label: "The Recovery Podcast", href: "#coming-soon", comingSoon: true },
-        { label: "Engineering Blogs", href: "#coming-soon", comingSoon: true },
-        { label: "Architecture FAQ", href: "#coming-soon", comingSoon: true },
+        { label: "Resilience Newsletter", href: "#newsletter" },
+        { label: "The Recovery Podcast", href: "/resources#podcast" },
+        { label: "Engineering Blogs", href: "/blog" },
+        { label: "Architecture FAQ", href: "/resources#faq" },
         {
           label: "System Status",
           href: "https://status.meshdefend.ai",
-          verifyBadge: "[VERIFY]",
         },
       ],
     },
@@ -82,22 +78,19 @@ export function Footer() {
       num: "05",
       title: "Company",
       links: [
-        { label: "About MeshDefend", href: "#coming-soon", comingSoon: true },
-        { label: "Investors & Partners", href: "#coming-soon", comingSoon: true },
+        { label: "About MeshDefend", href: "/company#about" },
+        { label: "Investors & Partners", href: "/company#investors" },
         {
           label: "Careers",
-          href: "#coming-soon",
+          href: "/company#careers",
           badge: "WE'RE HIRING",
-          verifyBadge: "[VERIFY]",
-          comingSoon: true,
         },
-        { label: "Newsroom", href: "#coming-soon", comingSoon: true },
-        { label: "Contact Us", href: "#coming-soon", comingSoon: true },
+        { label: "Newsroom", href: "/company#newsroom" },
+        { label: "Contact Us", href: "/contact" },
       ],
     },
   ];
 
-  // Task 3: Footer badges marked [VERIFY] and hidden in production
   const trustBadges = [
     {
       label: "SOC 2 Type II Ready",
@@ -129,6 +122,7 @@ export function Footer() {
     >
       {/* ─── TOP BRIEFING & NEWSLETTER ROW ─── */}
       <div
+        id="newsletter"
         style={{
           borderBottom: "1px solid rgba(254, 253, 253, 0.1)",
           padding: "72px 0 56px",
@@ -376,121 +370,44 @@ export function Footer() {
                   </h4>
                 </div>
 
-                {/* Link list with elegant micro-hover */}
+                {/* Link list */}
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {group.links.map((link) => (
                     <li key={link.label} style={{ marginBottom: 12 }}>
-                      {link.comingSoon ? (
-                        <span
-                          className="footer-nav-link"
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 6,
-                            fontSize: 13,
-                            color: "#7a7477",
-                            lineHeight: 1.45,
-                            cursor: "default",
-                          }}
-                        >
-                          <span>{link.label}</span>
-                          {link.verifyBadge && (
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                                fontSize: 9,
-                                padding: "1px 5px",
-                                borderRadius: 3,
-                                background: "rgba(253, 71, 3, 0.16)",
-                                color: "var(--orange)",
-                                fontWeight: 700,
-                                letterSpacing: "0.04em",
-                              }}
-                            >
-                              {link.verifyBadge}
-                            </span>
-                          )}
-                          {link.badge && (
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                                fontSize: 9,
-                                padding: "1px 5px",
-                                borderRadius: 3,
-                                background: "rgba(244, 85, 50, 0.16)",
-                                color: "var(--orange)",
-                                fontWeight: 700,
-                                letterSpacing: "0.04em",
-                              }}
-                            >
-                              {link.badge}
-                            </span>
-                          )}
+                      <a
+                        href={link.href}
+                        className="footer-nav-link"
+                        target={link.href.startsWith("http") ? "_blank" : undefined}
+                        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          fontSize: 13,
+                          color: "#a09a9c",
+                          lineHeight: 1.45,
+                          transition: "color 0.18s ease, transform 0.18s ease",
+                          textDecoration: "none",
+                        }}
+                      >
+                        <span>{link.label}</span>
+                        {link.badge && (
                           <span
                             style={{
                               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                               fontSize: 9,
                               padding: "1px 5px",
                               borderRadius: 3,
-                              background: "rgba(255, 255, 255, 0.06)",
-                              color: "#837d80",
-                              letterSpacing: "0.02em",
+                              background: "rgba(244, 85, 50, 0.16)",
+                              color: "var(--orange)",
+                              fontWeight: 700,
+                              letterSpacing: "0.04em",
                             }}
                           >
-                            Coming soon
+                            {link.badge}
                           </span>
-                        </span>
-                      ) : (
-                        <a
-                          href={link.href}
-                          className="footer-nav-link"
-                          target={link.href.startsWith("http") ? "_blank" : undefined}
-                          rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 6,
-                            fontSize: 13,
-                            color: "#a09a9c",
-                            lineHeight: 1.45,
-                            transition: "color 0.18s ease, transform 0.18s ease",
-                          }}
-                        >
-                          <span>{link.label}</span>
-                          {link.verifyBadge && (
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                                fontSize: 9,
-                                padding: "1px 5px",
-                                borderRadius: 3,
-                                background: "rgba(253, 71, 3, 0.16)",
-                                color: "var(--orange)",
-                                fontWeight: 700,
-                                letterSpacing: "0.04em",
-                              }}
-                            >
-                              {link.verifyBadge}
-                            </span>
-                          )}
-                          {link.badge && (
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                                fontSize: 9,
-                                padding: "1px 5px",
-                                borderRadius: 3,
-                                background: "rgba(244, 85, 50, 0.16)",
-                                color: "var(--orange)",
-                                fontWeight: 700,
-                                letterSpacing: "0.04em",
-                              }}
-                            >
-                              {link.badge}
-                            </span>
-                          )}
-                        </a>
-                      )}
+                        )}
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -500,74 +417,68 @@ export function Footer() {
         </div>
       </div>
 
-      {/* ─── ENTERPRISE TRUST & COMPLIANCE RIBBON (HIDDEN IN PRODUCTION) ─── */}
-      {!isProd && (
-        <div
-          style={{
-            borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-            borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-            background: "rgba(0, 0, 0, 0.15)",
-            padding: "24px 0",
-          }}
-        >
-          <div className="container">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: 20,
-              }}
-              className="footer-trust-grid reveal-on-scroll reveal-stagger"
-            >
-              {trustBadges.map((badge) => (
+      {/* ─── ENTERPRISE TRUST & COMPLIANCE RIBBON (ALWAYS ACTIVE) ─── */}
+      <div
+        style={{
+          borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          background: "rgba(0, 0, 0, 0.15)",
+          padding: "24px 0",
+        }}
+      >
+        <div className="container">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: 20,
+            }}
+            className="footer-trust-grid reveal-on-scroll reveal-stagger"
+          >
+            {trustBadges.map((badge) => (
+              <div
+                key={badge.label}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 4,
+                }}
+              >
                 <div
-                  key={badge.label}
                   style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: "#fefdfd",
                     display: "flex",
-                    flexDirection: "column",
-                    gap: 4,
+                    alignItems: "center",
+                    gap: 6,
                   }}
                 >
-                  <div
+                  <span
                     style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 11,
-                      fontWeight: 600,
-                      color: "#fefdfd",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
+                      width: 5,
+                      height: 5,
+                      borderRadius: "50%",
+                      background: "var(--orange)",
                     }}
-                  >
-                    <span
-                      style={{
-                        padding: "1px 5px",
-                        borderRadius: 3,
-                        background: "rgba(253, 71, 3, 0.16)",
-                        color: "var(--orange)",
-                        fontSize: 9.5,
-                        fontWeight: 700,
-                      }}
-                    >
-                      [VERIFY]
-                    </span>
-                    {badge.label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 12,
-                      color: "#837d80",
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {badge.detail}
-                  </div>
+                  />
+                  {badge.label}
                 </div>
-              ))}
-            </div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: "#837d80",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {badge.detail}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      )}
+      </div>
 
       {/* ─── MONUMENTAL DISPLAY BRAND WATERMARK ─── */}
       <div
@@ -618,36 +529,21 @@ export function Footer() {
           >
             {/* Copyright & Legal */}
             <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                © 2026 MeshDefend Inc.
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 9.5,
-                    padding: "1px 5px",
-                    borderRadius: 3,
-                    background: "rgba(253, 71, 3, 0.16)",
-                    color: "var(--orange)",
-                    fontWeight: 700,
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  [VERIFY]
-                </span>
-                All rights reserved.
+              <span>
+                © 2026 MeshDefend Inc. All rights reserved.
               </span>
               <span style={{ color: "rgba(255, 255, 255, 0.15)" }}>·</span>
-              <span style={{ color: "#7a7477", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Privacy Policy <span style={{ fontSize: 9, fontFamily: 'var(--font-mono), monospace', color: "#6b6568" }}>Coming soon</span>
-              </span>
+              <a href="/privacy" className="footer-sub-link">
+                Privacy Policy
+              </a>
               <span style={{ color: "rgba(255, 255, 255, 0.15)" }}>·</span>
-              <span style={{ color: "#7a7477", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Terms of Service <span style={{ fontSize: 9, fontFamily: 'var(--font-mono), monospace', color: "#6b6568" }}>Coming soon</span>
-              </span>
+              <a href="/terms" className="footer-sub-link">
+                Terms of Service
+              </a>
               <span style={{ color: "rgba(255, 255, 255, 0.15)" }}>·</span>
-              <span style={{ color: "#7a7477", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Security Posture <span style={{ fontSize: 9, fontFamily: 'var(--font-mono), monospace', color: "#6b6568" }}>Coming soon</span>
-              </span>
+              <a href="/security" className="footer-sub-link">
+                Security Posture
+              </a>
             </div>
 
             {/* Direct Contact & Footprint */}

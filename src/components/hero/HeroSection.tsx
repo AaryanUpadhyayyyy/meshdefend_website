@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { DashboardPreview } from "./DashboardPreview";
 import { MeshDefendBackground } from "./MeshDefendBackground";
 import { HERO } from "@/lib/content";
@@ -10,86 +11,88 @@ import { TechIndexTag } from "@/components/ui/TechIndexTag";
 import { TelemetryLogs } from "@/components/motion/TelemetryLogs";
 import { AnimatedLaserBeam } from "@/components/motion/AnimatedLaserBeam";
 
-/* ─── Smooth Sequential Typewriter with LOCKED Line Heights ─── */
-function HeadlineTyping({
+/* ─── Architectural Kinetic Split-Word Reveal ─── */
+function KineticHeadline({
   headlines,
 }: {
   headlines: readonly { line1: string; line2: string }[];
 }) {
   const [headlineIdx, setHeadlineIdx] = useState(0);
-  const [line1Chars, setLine1Chars] = useState(0);
-  const [line2Chars, setLine2Chars] = useState(0);
-  const [activeLine, setActiveLine] = useState<1 | 2>(1);
-  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeadlineIdx((prev) => (prev + 1) % headlines.length);
+    }, 6400);
+
+    return () => clearInterval(timer);
+  }, [headlines.length]);
 
   const current = headlines[headlineIdx];
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
+  return (
+    <div style={{ position: "relative", minHeight: "2.35em" }}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={headlineIdx}
+          initial={{ opacity: 0, y: 22, filter: "blur(3px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -20, filter: "blur(3px)" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span
+            style={{
+              display: "block",
+              color: "var(--ink)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.03em",
+            }}
+          >
+            {current.line1}
+          </span>
+          <span
+            className="display-italic"
+            style={{
+              color: "var(--orange)",
+              display: "block",
+              lineHeight: 1.05,
+              letterSpacing: "-0.03em",
+              marginTop: 4,
+            }}
+          >
+            {current.line2}
+          </span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
 
-    if (!isDeleting) {
-      if (line1Chars < current.line1.length) {
-        setActiveLine(1);
-        timer = setTimeout(() => {
-          setLine1Chars((prev) => prev + 1);
-        }, 36);
-      } else if (line2Chars < current.line2.length) {
-        setActiveLine(2);
-        timer = setTimeout(() => {
-          setLine2Chars((prev) => prev + 1);
-        }, 36);
-      } else {
-        setActiveLine(2);
-        timer = setTimeout(() => {
-          setIsDeleting(true);
-        }, 4200);
-      }
-    } else {
-      if (line2Chars > 0) {
-        setActiveLine(2);
-        timer = setTimeout(() => {
-          setLine2Chars((prev) => prev - 1);
-        }, 16);
-      } else if (line1Chars > 0) {
-        setActiveLine(1);
-        timer = setTimeout(() => {
-          setLine1Chars((prev) => prev - 1);
-        }, 16);
-      } else {
-        setIsDeleting(false);
-        setHeadlineIdx((prev) => (prev + 1) % headlines.length);
-        timer = setTimeout(() => {}, 220);
-      }
-    }
+/* ─── 3D Perspective Tilt-to-Flat Scroll Container ─── */
+function TiltDashboardContainer({ children }: { children: React.ReactNode }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 95%", "center 50%"],
+  });
 
-    return () => clearTimeout(timer);
-  }, [line1Chars, line2Chars, isDeleting, headlineIdx, current.line1, current.line2, headlines.length]);
-
-  const displayedLine1 = current.line1.slice(0, line1Chars);
-  const displayedLine2 = current.line2.slice(0, line2Chars);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [6, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.97, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.88, 1]);
 
   return (
-    <>
-      <span style={{ display: "block", minHeight: "1.1em" }}>
-        {displayedLine1}
-        {activeLine === 1 && (
-          <span className="typing-cursor" style={{ color: "var(--ink)" }} />
-        )}
-      </span>
-      <span
-        className="display-italic"
+    <div ref={containerRef} style={{ perspective: 1400, WebkitPerspective: 1400 }}>
+      <motion.div
         style={{
-          color: "var(--orange)",
-          display: "block",
-          minHeight: "2.35em",
+          rotateX,
+          scale,
+          opacity,
+          transformStyle: "preserve-3d",
+          transformOrigin: "center top",
         }}
       >
-        {displayedLine2}
-        {activeLine === 2 && (
-          <span className="typing-cursor" style={{ color: "var(--orange)" }} />
-        )}
-      </span>
-    </>
+        {children}
+      </motion.div>
+    </div>
   );
 }
 
@@ -122,7 +125,7 @@ export function HeroSection() {
             }}
             className="hero-header-grid"
           >
-            {/* Left Column: Eyebrow + Typing Headline */}
+            {/* Left Column: Eyebrow + Kinetic Headline */}
             <div style={{ minHeight: 240, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
               <TechIndexTag
                 tag="[00 // RESILIENCE OPERATIONS CENTER]"
@@ -140,11 +143,11 @@ export function HeroSection() {
                   position: "relative",
                 }}
               >
-                <HeadlineTyping headlines={HERO.headlines} />
+                <KineticHeadline headlines={HERO.headlines} />
               </h1>
             </div>
 
-            {/* Right Column: 340-380px (360px) with vertical hairline, paragraph 17-18px ink at ~75% */}
+            {/* Right Column: 360px with vertical hairline, paragraph 17-18px ink at ~75% */}
             <div
               style={{
                 borderLeft: "1px solid var(--border)",
@@ -157,66 +160,79 @@ export function HeroSection() {
               className="hero-right-col"
             >
               <p
-                className="text-reveal text-reveal-d2"
                 style={{
                   fontSize: 17.5,
                   lineHeight: 1.55,
                   color: "var(--ink)",
-                  opacity: 0.75,
+                  opacity: 0.78,
                   margin: 0,
                 }}
               >
                 {HERO.paragraph}
               </p>
 
-              {/* CTAs */}
-              <div
-                className="text-reveal text-reveal-d3"
-                style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}
-              >
-                <a
+              {/* CTAs with Magnetic Hover & Micro Arrow Translation */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                <motion.a
                   href="/demo"
                   className="btn btn-primary"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   style={{
                     fontSize: 14,
                     padding: "12px 24px",
                     fontWeight: 600,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    textDecoration: "none",
                   }}
                 >
-                  {HERO.ctaPrimary}
-                </a>
-                <a
+                  <span>{HERO.ctaPrimary}</span>
+                  <span style={{ transition: "transform 0.2s ease" }}>→</span>
+                </motion.a>
+
+                <motion.a
                   href="#solution"
                   className="btn btn-secondary"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   style={{
                     fontSize: 14,
                     padding: "12px 22px",
-                    border: "1px solid rgba(34, 31, 34, 0.35)",
+                    border: "1px solid rgba(34, 31, 34, 0.25)",
                     fontWeight: 500,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    textDecoration: "none",
                   }}
                 >
-                  {HERO.ctaSecondary}
-                </a>
+                  <span>{HERO.ctaSecondary}</span>
+                  <span style={{ opacity: 0.6 }}>↓</span>
+                </motion.a>
               </div>
             </div>
           </div>
 
-          {/* ─── HERO LIVE DASHBOARD CONSOLE (Same Left and Right Edges as Header & Nav) ─── */}
-          <div
-            className="text-reveal"
-            style={{
-              position: "relative",
-              zIndex: 3,
-              marginTop: 20,
-              animationDelay: "0.45s",
-            }}
-          >
-            <DashboardPreview />
-            <div style={{ marginTop: 16 }}>
-              <TelemetryLogs maxRows={3} />
+          {/* ─── HERO LIVE DASHBOARD CONSOLE WITH 3D PERSPECTIVE TILT-TO-FLAT ─── */}
+          <TiltDashboardContainer>
+            <div
+              style={{
+                position: "relative",
+                zIndex: 3,
+                marginTop: 20,
+              }}
+            >
+              <DashboardPreview />
+              <div style={{ marginTop: 16 }}>
+                <TelemetryLogs maxRows={3} />
+              </div>
+              <AnimatedLaserBeam variant="horizontal" style={{ marginTop: 24 }} />
             </div>
-            <AnimatedLaserBeam variant="horizontal" style={{ marginTop: 24 }} />
-          </div>
+          </TiltDashboardContainer>
         </div>
 
         <style jsx>{`

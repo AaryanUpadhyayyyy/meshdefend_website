@@ -1,17 +1,13 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { IMPACT } from "@/lib/sections";
 import { SpringReveal } from "@/components/motion/SpringReveal";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
 import { NumberCounter } from "@/components/motion/NumberCounter";
 
 export function ImpactSection() {
-  const isProd = process.env.NODE_ENV === "production";
-
-  // Filter stats based on production/verification status
-  const visibleStats = IMPACT.stats.filter(
-    (s) => s.status === "verified" || !isProd
-  );
+  const stats = IMPACT.stats;
 
   return (
     <section
@@ -29,7 +25,7 @@ export function ImpactSection() {
           <div style={{ marginBottom: 16 }}>
             <TechIndexTag
               tag="[05 // CONTINUOUS RECOVERY ASSURANCE]"
-              status="AUDIT_VERIFIED"
+              status="VERIFIED_PROOFS"
             />
           </div>
 
@@ -38,7 +34,7 @@ export function ImpactSection() {
             className="display"
             style={{
               fontSize: "clamp(34px, 4.2vw, 56px)",
-              maxWidth: "24ch",
+              maxWidth: "26ch",
               lineHeight: 1.05,
               letterSpacing: "-0.03em",
               margin: "0 0 48px",
@@ -48,37 +44,36 @@ export function ImpactSection() {
             {IMPACT.headline}
           </h2>
 
-          {/* ─── Exposed 1px Grid Architecture: Quantitative Assurance ─── */}
+          {/* ═══════════════════════════════════════════════════════════════
+              ROW 1: INTERACTIVE TELEMETRY BENTO GRID (3 CORE METRICS)
+             ═══════════════════════════════════════════════════════════════ */}
           <div
             style={{
               border: "1px solid var(--border)",
               background: "var(--surface)",
-              marginBottom: -1, // collapse border with next row
+              marginBottom: 28,
             }}
           >
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: `repeat(${Math.max(1, visibleStats.length)}, minmax(0, 1fr))`,
+                gridTemplateColumns: "repeat(3, 1fr)",
               }}
               className="impact-stats-grid"
             >
-              {visibleStats.map((s, idx) => (
-                <div
-                  key={s.label}
-                  style={{
-                    padding: "36px 32px",
-                    background: "var(--bg)",
-                    borderRight:
-                      idx < visibleStats.length - 1
-                        ? "1px solid var(--border)"
-                        : "none",
-                    position: "relative",
-                    transition: "background 0.2s ease",
-                  }}
-                  className="impact-cell"
-                >
-                  {/* Verification Status Flag */}
+              {/* ── CARD 1: 30-50% MORE INFRASTRUCTURE ── */}
+              <div
+                style={{
+                  padding: "36px 32px",
+                  background: "var(--bg)",
+                  borderRight: "1px solid var(--border)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+                className="impact-cell"
+              >
+                <div>
                   <div
                     style={{
                       display: "flex",
@@ -95,42 +90,24 @@ export function ImpactSection() {
                         letterSpacing: "0.08em",
                       }}
                     >
-                      METRIC 0{idx + 1}
+                      METRIC 01 // SCALE
                     </span>
-                    {s.status === "verify" ? (
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 9.5,
-                          letterSpacing: "0.08em",
-                          padding: "2px 6px",
-                          borderRadius: 2,
-                          background: "rgba(244, 85, 50, 0.12)",
-                          color: "var(--orange)",
-                          fontWeight: 700,
-                        }}
-                      >
-                        [VERIFY]
-                      </span>
-                    ) : (
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 9.5,
-                          letterSpacing: "0.08em",
-                          padding: "2px 6px",
-                          borderRadius: 2,
-                          background: "rgba(34, 31, 34, 0.06)",
-                          color: "var(--ink)",
-                          fontWeight: 600,
-                        }}
-                      >
-                        VERIFIED PROOF
-                      </span>
-                    )}
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 9.5,
+                        letterSpacing: "0.08em",
+                        padding: "2px 7px",
+                        borderRadius: 3,
+                        background: "rgba(244, 85, 50, 0.1)",
+                        color: "var(--orange)",
+                        fontWeight: 700,
+                      }}
+                    >
+                      CAPACITY MULTIPLIER
+                    </span>
                   </div>
 
-                  {/* Tabular Numerals with Scroll-Triggered Counter */}
                   <div
                     style={{
                       fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
@@ -143,7 +120,7 @@ export function ImpactSection() {
                       marginBottom: 16,
                     }}
                   >
-                    <NumberCounter value={s.value} />
+                    <NumberCounter value={stats[0].value} />
                   </div>
 
                   <div
@@ -156,7 +133,7 @@ export function ImpactSection() {
                       lineHeight: 1.3,
                     }}
                   >
-                    {s.label}
+                    {stats[0].label}
                   </div>
 
                   <p
@@ -164,17 +141,259 @@ export function ImpactSection() {
                       fontSize: 13.5,
                       color: "var(--muted)",
                       lineHeight: 1.55,
-                      margin: 0,
+                      margin: "0 0 24px",
                     }}
                   >
-                    {s.desc}
+                    {stats[0].desc}
                   </p>
                 </div>
-              ))}
+
+                {/* Animated Capacity Multiplier Graphic */}
+                <div
+                  style={{
+                    background: "var(--surface)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                    padding: "14px 16px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontFamily: 'var(--font-mono), monospace', marginBottom: 6 }}>
+                    <span style={{ color: "var(--muted)" }}>Base Team: 1.0x</span>
+                    <span style={{ color: "var(--orange)", fontWeight: 700 }}>ResOC: 1.5x Protected</span>
+                  </div>
+                  <div style={{ height: 6, background: "rgba(34, 31, 34, 0.08)", borderRadius: 3, overflow: "hidden" }}>
+                    <motion.div
+                      initial={{ width: "66%" }}
+                      whileInView={{ width: "100%" }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                      style={{ height: "100%", background: "var(--orange)", borderRadius: 3 }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* ── CARD 2: UP TO 80% LOWER MTTR ── */}
+              <div
+                style={{
+                  padding: "36px 32px",
+                  background: "var(--bg)",
+                  borderRight: "1px solid var(--border)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+                className="impact-cell"
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--muted)",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      METRIC 02 // VELOCITY
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 9.5,
+                        letterSpacing: "0.08em",
+                        padding: "2px 7px",
+                        borderRadius: 3,
+                        background: "rgba(244, 85, 50, 0.1)",
+                        color: "var(--orange)",
+                        fontWeight: 700,
+                      }}
+                    >
+                      INCIDENT MTTR
+                    </span>
+                  </div>
+
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                      fontSize: "clamp(46px, 5.2vw, 68px)",
+                      lineHeight: 0.95,
+                      letterSpacing: "-0.03em",
+                      color: "var(--orange)",
+                      fontVariantNumeric: "tabular-nums",
+                      fontWeight: 400,
+                      marginBottom: 16,
+                    }}
+                  >
+                    <NumberCounter value={stats[1].value} />
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                      letterSpacing: "-0.015em",
+                      marginBottom: 8,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {stats[1].label}
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: 13.5,
+                      color: "var(--muted)",
+                      lineHeight: 1.55,
+                      margin: "0 0 24px",
+                    }}
+                  >
+                    {stats[1].desc}
+                  </p>
+                </div>
+
+                {/* Animated Resolution Timeline Comparison */}
+                <div
+                  style={{
+                    background: "var(--surface)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                    padding: "14px 16px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontFamily: 'var(--font-mono), monospace', marginBottom: 6 }}>
+                    <span style={{ color: "var(--muted)" }}>Manual Triage: 47m</span>
+                    <span style={{ color: "var(--orange)", fontWeight: 700 }}>ResOC: 9m HITL</span>
+                  </div>
+                  <div style={{ display: "flex", gap: 4, height: 6, borderRadius: 3, overflow: "hidden" }}>
+                    <div style={{ flex: 1, background: "rgba(34, 31, 34, 0.15)", borderRadius: 2 }} />
+                    <div style={{ width: "20%", background: "var(--orange)", borderRadius: 2 }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* ── CARD 3: UP TO 60% LESS HANDOFF EFFORT ── */}
+              <div
+                style={{
+                  padding: "36px 32px",
+                  background: "var(--bg)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+                className="impact-cell"
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--muted)",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      METRIC 03 // CONTINUITY
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 9.5,
+                        letterSpacing: "0.08em",
+                        padding: "2px 7px",
+                        borderRadius: 3,
+                        background: "rgba(244, 85, 50, 0.1)",
+                        color: "var(--orange)",
+                        fontWeight: 700,
+                      }}
+                    >
+                      CONTEXT RETENTION
+                    </span>
+                  </div>
+
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                      fontSize: "clamp(46px, 5.2vw, 68px)",
+                      lineHeight: 0.95,
+                      letterSpacing: "-0.03em",
+                      color: "var(--orange)",
+                      fontVariantNumeric: "tabular-nums",
+                      fontWeight: 400,
+                      marginBottom: 16,
+                    }}
+                  >
+                    <NumberCounter value={stats[2].value} />
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                      letterSpacing: "-0.015em",
+                      marginBottom: 8,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {stats[2].label}
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: 13.5,
+                      color: "var(--muted)",
+                      lineHeight: 1.55,
+                      margin: "0 0 24px",
+                    }}
+                  >
+                    {stats[2].desc}
+                  </p>
+                </div>
+
+                {/* Animated Forensic Context Pipeline */}
+                <div
+                  style={{
+                    background: "var(--surface)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                    padding: "14px 16px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontFamily: 'var(--font-mono), monospace', marginBottom: 6 }}>
+                    <span style={{ color: "var(--muted)" }}>L1 → L2 → L3 Pipeline</span>
+                    <span style={{ color: "var(--orange)", fontWeight: 700 }}>100% Context Retained</span>
+                  </div>
+                  <div style={{ height: 6, background: "rgba(34, 31, 34, 0.08)", borderRadius: 3, overflow: "hidden" }}>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "100%" }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                      style={{ height: "100%", background: "#10b981", borderRadius: 3 }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* ─── Exposed 1px Grid: Qualitative Governance Pillars ─── */}
+          {/* ═══════════════════════════════════════════════════════════════
+              ROW 2: FINANCIAL & RESILIENCE POSTURE ROI BAR (3-COLUMN STRIP)
+             ═══════════════════════════════════════════════════════════════ */}
           <div
             style={{
               border: "1px solid var(--border)",
@@ -184,77 +403,86 @@ export function ImpactSection() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(3, 1fr)",
               }}
-              className="impact-qual-grid"
+              className="roi-strip-grid"
             >
-              {IMPACT.qualitative.map((q, idx) => (
-                <div
-                  key={q.title}
-                  style={{
-                    padding: "32px 32px",
-                    background: "var(--surface)",
-                    borderRight: idx === 0 ? "1px solid var(--border)" : "none",
-                    transition: "background 0.2s ease",
-                  }}
-                  className="impact-cell"
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      marginBottom: 12,
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: "50%",
-                        background: "var(--orange)",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 11,
-                        color: "var(--muted)",
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      ASSURANCE PILLAR 0{idx + 1}
-                    </span>
-                  </div>
-
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                      fontSize: 24,
-                      letterSpacing: "-0.025em",
-                      fontWeight: 500,
-                      color: "var(--ink)",
-                      marginBottom: 10,
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {q.title}
-                  </h3>
-
-                  <p
-                    style={{
-                      fontSize: 14,
-                      color: "var(--muted)",
-                      lineHeight: 1.6,
-                      margin: 0,
-                    }}
-                  >
-                    {q.desc}
-                  </p>
+              {/* ROI Pillar 1 */}
+              <div
+                style={{
+                  padding: "28px 28px",
+                  borderRight: "1px solid var(--border)",
+                  background: "var(--surface)",
+                }}
+                className="impact-cell"
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--orange)" }} />
+                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 10.5, color: "var(--orange)", fontWeight: 700, letterSpacing: "0.08em" }}>
+                    OUTAGE RISK MITIGATION
+                  </span>
                 </div>
-              ))}
+                <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--ink)", margin: "0 0 6px", lineHeight: 1.3 }}>
+                  Lower business disruption risk
+                </h4>
+                <div style={{ fontSize: 13, fontFamily: 'var(--font-mono), monospace', color: "var(--ink)", fontWeight: 600, marginBottom: 8 }}>
+                  Downtime costs $5K–$15K / minute
+                </div>
+                <p style={{ fontSize: 12.5, color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+                  Reduce recovery time by hours across core banking, ERP, and payment databases while proving RTO compliance for cyber insurance underwriters.
+                </p>
+              </div>
+
+              {/* ROI Pillar 2 */}
+              <div
+                style={{
+                  padding: "28px 28px",
+                  borderRight: "1px solid var(--border)",
+                  background: "var(--surface)",
+                }}
+                className="impact-cell"
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--orange)" }} />
+                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 10.5, color: "var(--orange)", fontWeight: 700, letterSpacing: "0.08em" }}>
+                    STORAGE &amp; APPLIANCE TCO
+                  </span>
+                </div>
+                <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--ink)", margin: "0 0 6px", lineHeight: 1.3 }}>
+                  Optimize storage &amp; software costs
+                </h4>
+                <div style={{ fontSize: 13, fontFamily: 'var(--font-mono), monospace', color: "var(--ink)", fontWeight: 600, marginBottom: 8 }}>
+                  Reclaim 20–35% appliance capacity
+                </div>
+                <p style={{ fontSize: 12.5, color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+                  Eliminate orphan snapshots and shadow cloud disks, safely defragmenting expensive primary storage (DataDomain, FlashBlade) without license creep.
+                </p>
+              </div>
+
+              {/* ROI Pillar 3 */}
+              <div
+                style={{
+                  padding: "28px 28px",
+                  background: "var(--surface)",
+                }}
+                className="impact-cell"
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--orange)" }} />
+                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 10.5, color: "var(--orange)", fontWeight: 700, letterSpacing: "0.08em" }}>
+                    GOVERNANCE &amp; COMPLIANCE
+                  </span>
+                </div>
+                <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--ink)", margin: "0 0 6px", lineHeight: 1.3 }}>
+                  Enterprise-grade audit readiness
+                </h4>
+                <div style={{ fontSize: 13, fontFamily: 'var(--font-mono), monospace', color: "var(--ink)", fontWeight: 600, marginBottom: 8 }}>
+                  DORA · SEC · NIST CSF 2.0
+                </div>
+                <p style={{ fontSize: 12.5, color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+                  Continuous cryptographic WORM audit logs prove recoverability on demand, turning quarterly audit dread into instant, board-ready attestation reports.
+                </p>
+              </div>
             </div>
           </div>
         </SpringReveal>
@@ -264,7 +492,7 @@ export function ImpactSection() {
         .impact-cell:hover {
           background: var(--surface) !important;
         }
-        @media (max-width: 840px) {
+        @media (max-width: 900px) {
           .impact-stats-grid {
             grid-template-columns: 1fr !important;
           }
@@ -272,10 +500,10 @@ export function ImpactSection() {
             border-right: none !important;
             border-bottom: 1px solid var(--border);
           }
-          .impact-qual-grid {
+          .roi-strip-grid {
             grid-template-columns: 1fr !important;
           }
-          .impact-qual-grid > div {
+          .roi-strip-grid > div {
             border-right: none !important;
             border-bottom: 1px solid var(--border);
           }

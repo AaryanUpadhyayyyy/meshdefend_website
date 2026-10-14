@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { FINAL_CTA } from "@/lib/sections";
 import { SpringReveal } from "@/components/motion/SpringReveal";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
@@ -18,6 +19,46 @@ export function FinalCTA() {
         borderTop: "1px solid rgba(254, 253, 253, 0.1)",
       }}
     >
+      {/* ─── Animated SVG Grid Background with Command HUD Pulse ─── */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          opacity: 0.18,
+          zIndex: 0,
+        }}
+      >
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="finalCtaGrid" width="48" height="48" patternUnits="userSpaceOnUse">
+              <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(254, 253, 253, 0.4)" strokeWidth="0.8" />
+              <circle cx="0" cy="0" r="1.5" fill="var(--orange)" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#finalCtaGrid)" />
+        </svg>
+
+        {/* Pulsing Central Laser Glow */}
+        <motion.div
+          animate={{
+            opacity: [0.15, 0.35, 0.15],
+            scale: [0.95, 1.05, 0.95],
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            position: "absolute",
+            top: "30%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "600px",
+            height: "300px",
+            background: "radial-gradient(ellipse at center, rgba(244, 85, 50, 0.18) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+      </div>
+
       <div className="container" style={{ textAlign: "center", maxWidth: 840, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <SpringReveal>
           {/* Section Monospace Technical Index Tag */}
@@ -68,9 +109,11 @@ export function FinalCTA() {
               marginBottom: 48,
             }}
           >
-            <a
+            <motion.a
               href="/demo"
               className="btn btn-primary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               style={{
                 fontSize: 14,
                 padding: "14px 28px",
@@ -78,23 +121,32 @@ export function FinalCTA() {
                 color: "#221f22",
                 fontWeight: 600,
                 borderRadius: 4,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                textDecoration: "none",
               }}
             >
-              {FINAL_CTA.ctaPrimary} →
-            </a>
-            <a
+              <span>{FINAL_CTA.ctaPrimary}</span>
+              <span>→</span>
+            </motion.a>
+
+            <motion.a
               href="/platform#observability"
               className="btn btn-secondary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               style={{
                 fontSize: 14,
                 padding: "14px 28px",
                 border: "1px solid rgba(254, 253, 253, 0.2)",
                 color: "#fefdfd",
                 borderRadius: 4,
+                textDecoration: "none",
               }}
             >
               {FINAL_CTA.ctaSecondary}
-            </a>
+            </motion.a>
           </div>
 
           <AnimatedLaserBeam variant="horizontal" style={{ marginBottom: 40 }} />
