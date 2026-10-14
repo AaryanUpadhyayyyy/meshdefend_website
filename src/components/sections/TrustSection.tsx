@@ -2,8 +2,6 @@
 
 import React from "react";
 import { SpringReveal } from "@/components/motion/SpringReveal";
-import { TechIndexTag } from "@/components/ui/TechIndexTag";
-import { NumberCounter } from "@/components/motion/NumberCounter";
 
 /* ─── Official Verified Strategic Partners (Verbatim from Slide / Deck) ───
    EXACTLY 8 Partners — Scaled up ~25-30% for high visual impact:
@@ -266,43 +264,37 @@ export function TrustSection() {
     >
       <div className="container">
         <SpringReveal>
-          {/* Section Monospace Technical Index Tag */}
-          <div style={{ textAlign: "center", marginBottom: 36 }}>
-            <TechIndexTag
-              tag="[01 // BACKED BY & ENTERPRISE ECOSYSTEM]"
-              status="INSTITUTIONAL_GRADE"
-            />
-          </div>
-
           {/* ═══════════════════════════════════════════════════════════════
-              TIER 1: INSTITUTIONAL BACKING & EDITORIAL PRESS STRIP
+              TIER 1: INSTITUTIONAL & ANGEL BACKING
              ═══════════════════════════════════════════════════════════════ */}
           <div
             style={{
               border: "1px solid var(--border)",
               background: "var(--surface)",
               marginBottom: 32,
+              padding: "24px 32px",
             }}
           >
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns: "1.2fr 1fr",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 24,
               }}
-              className="tier1-grid"
+              className="trust-backed-row"
             >
-              {/* Left Column: Institutional Capital */}
+              {/* Backed By Group */}
               <div
                 style={{
-                  padding: "26px 32px",
-                  borderRight: "1px solid var(--border)",
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 32,
+                  flexWrap: "wrap",
                 }}
-                className="tier1-left"
               >
-                <div
+                <span
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
@@ -310,345 +302,120 @@ export function TrustSection() {
                     color: "var(--muted)",
                     fontWeight: 600,
                     textTransform: "uppercase",
-                    marginBottom: 18,
                   }}
                 >
                   BACKED BY
-                </div>
+                </span>
 
+                {/* Kalaari Capital */}
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 36,
-                    flexWrap: "wrap",
+                    gap: 10,
+                    opacity: 0.95,
                   }}
-                  className="tier1-investors"
+                  title="Kalaari Capital — Lead Investor"
                 >
-                  {/* Kalaari Capital (Scaled Up Authentic Brush Star Logo) */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      opacity: 0.95,
-                      transition: "opacity 0.2s ease",
-                    }}
-                    title="Kalaari Capital — Lead Investor"
-                  >
-                    <svg height="38" viewBox="0 0 178 38" fill="none" aria-label="Kalaari Capital">
-                      <path
-                        d="M15 2C16 7 18 13 20 17C23 13 28 9 32 6C30 11 25 16 22 20C27 21 32 22 36 23C31 24 25 24 21 24C23 29 27 34 30 38C25 34 21 29 18 25C16 30 12 35 10 39C11 34 13 28 16 23C11 22 6 22 2 21C7 20 12 19 16 17C13 12 10 7 7 4C11 7 15 11 17 16L15 2Z"
-                        fill="#0056B3"
-                      />
-                      <text
-                        x="44"
-                        y="20"
-                        fontFamily="var(--font-body), sans-serif"
-                        fontSize="19"
-                        fontWeight="700"
-                        fill="var(--ink)"
-                        letterSpacing="-0.02em"
-                      >
-                        kalaari
-                      </text>
-                      <text
-                        x="44"
-                        y="33"
-                        fontFamily="var(--font-body), sans-serif"
-                        fontSize="13.5"
-                        fontWeight="500"
-                        fill="var(--muted)"
-                        letterSpacing="0.02em"
-                      >
-                        capital
-                      </text>
-                    </svg>
-                  </div>
+                  <svg height="34" viewBox="0 0 178 38" fill="none" aria-label="Kalaari Capital">
+                    <path
+                      d="M15 2C16 7 18 13 20 17C23 13 28 9 32 6C30 11 25 16 22 20C27 21 32 22 36 23C31 24 25 24 21 24C23 29 27 34 30 38C25 34 21 29 18 25C16 30 12 35 10 39C11 34 13 28 16 23C11 22 6 22 2 21C7 20 12 19 16 17C13 12 10 7 7 4C11 7 15 11 17 16L15 2Z"
+                      fill="#0056B3"
+                    />
+                    <text
+                      x="44"
+                      y="20"
+                      fontFamily="var(--font-body), sans-serif"
+                      fontSize="19"
+                      fontWeight="700"
+                      fill="var(--ink)"
+                      letterSpacing="-0.02em"
+                    >
+                      kalaari
+                    </text>
+                    <text
+                      x="44"
+                      y="33"
+                      fontFamily="var(--font-body), sans-serif"
+                      fontSize="13.5"
+                      fontWeight="500"
+                      fill="var(--muted)"
+                      letterSpacing="0.02em"
+                    >
+                      capital
+                    </text>
+                  </svg>
+                </div>
 
-                  {/* Kettleborough VC (Scaled Up Authentic Yin-Yang Logo) */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      opacity: 0.95,
-                      transition: "opacity 0.2s ease",
-                    }}
-                    title="Kettleborough VC"
-                  >
-                    <svg height="38" viewBox="0 0 205 38" fill="none" aria-label="Kettleborough VC">
-                      <circle cx="19" cy="19" r="15" fill="var(--ink)" />
-                      <path d="M19 4A15 15 0 0 1 19 34A7.5 7.5 0 0 1 19 19A7.5 7.5 0 0 0 19 4Z" fill="#ffffff" />
-                      <circle cx="19" cy="11.5" r="2.8" fill="var(--ink)" />
-                      <circle cx="19" cy="26.5" r="2.8" fill="#ffffff" />
-                      <text
-                        x="44"
-                        y="24"
-                        fontFamily="var(--font-body), sans-serif"
-                        fontSize="16"
-                        fontWeight="700"
-                        fill="var(--ink)"
-                        letterSpacing="-0.01em"
-                      >
-                        Kettleborough VC
-                      </text>
-                    </svg>
-                  </div>
+                {/* Kettleborough VC */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    opacity: 0.95,
+                  }}
+                  title="Kettleborough VC"
+                >
+                  <svg height="34" viewBox="0 0 205 38" fill="none" aria-label="Kettleborough VC">
+                    <circle cx="19" cy="19" r="15" fill="var(--ink)" />
+                    <path d="M19 4A15 15 0 0 1 19 34A7.5 7.5 0 0 1 19 19A7.5 7.5 0 0 0 19 4Z" fill="#ffffff" />
+                    <circle cx="19" cy="11.5" r="2.8" fill="var(--ink)" />
+                    <circle cx="19" cy="26.5" r="2.8" fill="#ffffff" />
+                    <text
+                      x="44"
+                      y="24"
+                      fontFamily="var(--font-body), sans-serif"
+                      fontSize="16"
+                      fontWeight="700"
+                      fill="var(--ink)"
+                      letterSpacing="-0.01em"
+                    >
+                      Kettleborough VC
+                    </text>
+                  </svg>
                 </div>
               </div>
 
-              {/* Right Column: Editorial Press Line */}
+              {/* 1px Hairline Divider + Enterprise CXOs and Founders */}
               <div
                 style={{
-                  padding: "26px 32px",
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  background: "var(--bg)",
+                  alignItems: "center",
+                  gap: 20,
                 }}
               >
                 <div
                   style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 11,
-                    letterSpacing: "0.12em",
-                    color: "var(--muted)",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    marginBottom: 10,
+                    width: 1,
+                    height: 28,
+                    background: "var(--border)",
                   }}
-                >
-                  PRESS RECOGNITION
-                </div>
-
-                <p
+                  className="backed-divider"
+                />
+                <span
                   style={{
-                    fontFamily: "var(--font-body), Inter, sans-serif",
-                    fontSize: 13.5,
-                    lineHeight: 1.55,
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                    fontSize: 18,
                     color: "var(--ink)",
-                    margin: 0,
+                    letterSpacing: "-0.01em",
+                    fontStyle: "italic",
                   }}
                 >
-                  Featured in <strong style={{ fontWeight: 600 }}>The Economic Times Tech</strong> · <strong style={{ fontWeight: 600 }}>Business Standard</strong> · <strong style={{ fontWeight: 600 }}>YourStory</strong> —{" "}
-                  <span style={{ color: "var(--muted)" }}>
-                    “MeshDefend raises $2.3M to bring autonomous intelligence to enterprise recovery.”
-                  </span>
-                </p>
+                  Enterprise CXOs and Founders
+                </span>
               </div>
             </div>
           </div>
 
           {/* ═══════════════════════════════════════════════════════════════
-              TIER 2: BUILT BY INDUSTRY VETERANS (4-Column Hairline Grid)
+              TIER 2: STRATEGIC & ENTERPRISE PARTNERS MARQUEE
              ═══════════════════════════════════════════════════════════════ */}
-          <div
-            style={{
-              border: "1px solid var(--border)",
-              background: "var(--surface)",
-              marginBottom: 24,
-            }}
-          >
-            {/* Header sub-bar */}
-            <div
-              style={{
-                padding: "12px 24px",
-                borderBottom: "1px solid var(--border)",
-                background: "var(--bg)",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: 12,
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--ink)",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                BUILT BY INDUSTRY VETERANS FROM DATA DOMAIN · EMC · DELL TECHNOLOGIES
-              </div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 10.5,
-                  color: "var(--muted)",
-                  fontWeight: 600,
-                  letterSpacing: "0.05em",
-                }}
-              >
-                IP-DRIVEN PLATFORM · 9 PATENTS + 3 TRADEMARKS FILED
-              </div>
-            </div>
-
-            {/* 4-Column Hairline Grid with Scroll-Triggered Counters */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-              }}
-              className="tier2-stats-grid"
-            >
-              {/* Stat 1 */}
-              <div
-                style={{
-                  padding: "28px 24px",
-                  borderRight: "1px solid var(--border)",
-                  background: "var(--surface)",
-                }}
-                className="tier2-stat-col"
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                    fontSize: "clamp(38px, 4vw, 54px)",
-                    lineHeight: 1,
-                    color: "var(--ink)",
-                    marginBottom: 10,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  <NumberCounter value="25+" />
-                </div>
-                <div
-                  style={{
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    marginBottom: 4,
-                  }}
-                >
-                  Years in Data Protection
-                </div>
-                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
-                  Architecting cyber resilience for Global 2000 enterprises across multi-cloud environments.
-                </div>
-              </div>
-
-              {/* Stat 2 */}
-              <div
-                style={{
-                  padding: "28px 24px",
-                  borderRight: "1px solid var(--border)",
-                  background: "var(--surface)",
-                }}
-                className="tier2-stat-col"
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                    fontSize: "clamp(38px, 4vw, 54px)",
-                    lineHeight: 1,
-                    color: "var(--ink)",
-                    marginBottom: 10,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  <NumberCounter value="4" />
-                </div>
-                <div
-                  style={{
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    marginBottom: 4,
-                  }}
-                >
-                  Enterprise Products Built
-                </div>
-                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
-                  Pioneered core deduplication, replication, and distributed snapshot architectures from 0 to 1.
-                </div>
-              </div>
-
-              {/* Stat 3 */}
-              <div
-                style={{
-                  padding: "28px 24px",
-                  borderRight: "1px solid var(--border)",
-                  background: "var(--surface)",
-                }}
-                className="tier2-stat-col"
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                    fontSize: "clamp(38px, 4vw, 54px)",
-                    lineHeight: 1,
-                    color: "var(--ink)",
-                    marginBottom: 10,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  <NumberCounter value="$1Bn+" />
-                </div>
-                <div
-                  style={{
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    marginBottom: 4,
-                  }}
-                >
-                  ARR Built &amp; Scaled Together
-                </div>
-                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
-                  Scaled global infrastructure, disaster recovery, and enterprise storage businesses worldwide.
-                </div>
-              </div>
-
-              {/* Stat 4 */}
-              <div
-                style={{
-                  padding: "28px 24px",
-                  background: "var(--surface)",
-                }}
-                className="tier2-stat-col"
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                    fontSize: "clamp(38px, 4vw, 54px)",
-                    lineHeight: 1,
-                    color: "var(--ink)",
-                    marginBottom: 10,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  <NumberCounter value="35+" />
-                </div>
-                <div
-                  style={{
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    marginBottom: 4,
-                  }}
-                >
-                  Patents by Core Team
-                </div>
-                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.45 }}>
-                  Deep proprietary algorithms spanning deduplication, state consensus &amp; agentic orchestration.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ═══════════════════════════════════════════════════════════════
-              TIER 3: SEAMLESS CIRCULAR CONTINUOUS LOGO MARQUEE (PARTNERS)
-             ═══════════════════════════════════════════════════════════════ */}
-          <div style={{ position: "relative", padding: "10px 0 0" }}>
+          <div style={{ position: "relative", padding: "6px 0 0" }}>
             <div
               style={{
                 textAlign: "center",
-                marginBottom: 18,
+                marginBottom: 16,
               }}
             >
               <span
@@ -661,7 +428,7 @@ export function TrustSection() {
                   fontWeight: 600,
                 }}
               >
-                [ STRATEGIC PARTNERS &amp; ECOSYSTEM ]
+                PARTNERS
               </span>
             </div>
 
@@ -748,36 +515,14 @@ export function TrustSection() {
           transform: translateY(-1px);
         }
 
-        @media (max-width: 900px) {
-          .tier1-grid {
-            grid-template-columns: 1fr !important;
+        @media (max-width: 768px) {
+          .trust-backed-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 16px !important;
           }
-          .tier1-left {
-            border-right: none !important;
-            border-bottom: 1px solid var(--border);
-          }
-          .tier2-stats-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          .tier2-stat-col:nth-child(2) {
-            border-right: none !important;
-          }
-          .tier2-stat-col:nth-child(1),
-          .tier2-stat-col:nth-child(2) {
-            border-bottom: 1px solid var(--border);
-          }
-        }
-
-        @media (max-width: 600px) {
-          .tier1-investors {
-            gap: 20px !important;
-          }
-          .tier2-stats-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .tier2-stat-col {
-            border-right: none !important;
-            border-bottom: 1px solid var(--border);
+          .backed-divider {
+            display: none !important;
           }
         }
       `}</style>

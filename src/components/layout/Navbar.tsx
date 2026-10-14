@@ -95,12 +95,12 @@ export function Navbar() {
             isOpen={openMenu === "platform"}
             onToggle={() => setOpenMenu(openMenu === "platform" ? null : "platform")}
           >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, padding: 24, minWidth: 480 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, padding: 24, minWidth: 640 }}>
               {NAV.platform.groups.map((group) => (
                 <div key={group.title}>
-                  <div className="mono-sm" style={{ marginBottom: 12, fontSize: 11 }}>{group.title}</div>
+                  <div className="mono-sm" style={{ marginBottom: 12, fontSize: 11, textTransform: "uppercase" }}>{group.title}</div>
                   {group.items.map((item) => (
-                    <MegaLink key={item.label} label={item.label} desc={item.desc} href={item.href} />
+                    <MegaLink key={item.label} label={item.label} desc={"desc" in item ? (item as any).desc : undefined} href={item.href} />
                   ))}
                 </div>
               ))}
@@ -121,9 +121,17 @@ export function Navbar() {
           </NavDropdown>
 
           {/* Support */}
-          <a href={NAV.support.href} className="nav-link" style={navLinkStyle}>
-            {NAV.support.label}
-          </a>
+          <NavDropdown
+            label={NAV.support.label}
+            isOpen={openMenu === "support"}
+            onToggle={() => setOpenMenu(openMenu === "support" ? null : "support")}
+          >
+            <div style={{ padding: 18, minWidth: 220 }}>
+              {NAV.support.items.map((item) => (
+                <MegaLink key={item.label} label={item.label} href={item.href} />
+              ))}
+            </div>
+          </NavDropdown>
 
           {/* Resources */}
           <NavDropdown
@@ -144,9 +152,9 @@ export function Navbar() {
             isOpen={openMenu === "company"}
             onToggle={() => setOpenMenu(openMenu === "company" ? null : "company")}
           >
-            <div style={{ padding: 24, minWidth: 240 }}>
+            <div style={{ padding: 24, minWidth: 280 }}>
               {NAV.company.items.map((item) => (
-                <MegaLink key={item.label} label={item.label} href={item.href} />
+                <MegaLink key={item.label} label={item.label} desc={"desc" in item ? (item as any).desc : undefined} href={item.href} />
               ))}
             </div>
           </NavDropdown>
@@ -202,9 +210,9 @@ export function Navbar() {
           }}
         >
           <nav aria-label="Mobile navigation" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {[NAV.platform, NAV.solutions, NAV.resources, NAV.company].map((section) => {
+            {[NAV.platform, NAV.solutions, NAV.support, NAV.resources, NAV.company].map((section) => {
               const items: {label: string; href: string}[] = "groups" in section
-                ? section.groups.flatMap((g): {label: string; desc: string; href: string}[] => [...g.items])
+                ? section.groups.flatMap((g): {label: string; desc?: string; href: string}[] => [...g.items])
                 : [...section.items];
               return (
                 <details key={section.label} style={{ borderBottom: "1px solid var(--border)", paddingBottom: 8 }}>
@@ -226,9 +234,6 @@ export function Navbar() {
                 </details>
               );
             })}
-            <a href={NAV.support.href} style={{ padding: "12px 0", fontSize: 15, fontWeight: 600 }}>
-              Support
-            </a>
             <div style={{ marginTop: 16 }}>
               <a href="/demo" className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>
                 Book a Demo
@@ -237,17 +242,6 @@ export function Navbar() {
           </nav>
         </div>
       )}
-
-      <style jsx>{`
-        @media (max-width: 900px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-toggle {
-            display: flex !important;
-          }
-        }
-      `}</style>
     </header>
   );
 }
@@ -325,12 +319,6 @@ function NavDropdown({
           {children}
         </div>
       )}
-      <style jsx>{`
-        @keyframes menuIn {
-          from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
-          to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-      `}</style>
     </div>
   );
 }

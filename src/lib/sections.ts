@@ -77,122 +77,130 @@ export const PAIN = {
 };
 
 export const SOLUTION = {
-  eyebrow: "OUR SOLUTION",
+  eyebrow: "03 // RESILIENCE OPERATIONS CENTER",
   headline: "ResOC: Resilience Operations Center",
-  lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments — with policy-governed autonomy: human in the loop and human on the loop.",
+  lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments.",
   items: [
     {
       num: "01",
       capability: "Unified Resilience Observability",
-      solves: "Siloed visibility, fragmented reporting, multi-vendor sprawl",
-      href: "/platform#observability",
+      solves: "Solves fragmented visibility across tools, vendors, and environments",
+      href: "/platform/observability",
     },
     {
       num: "02",
       capability: "Backup and Recovery Operations",
-      solves: "Manual operational effort, heterogeneous environments, repetitive L1/L2 work",
-      href: "/platform#backup-operations",
+      solves: "Solves manual operations and repetitive L1/L2 work",
+      href: "/platform/backup-operations",
     },
     {
       num: "03",
       capability: "Agentic Incident Resolution",
-      solves: "Slow investigation, fragmented context, specialist dependency, L1/L2/L3 handoffs",
-      href: "/platform#incident-resolution",
+      solves: "Solves slow diagnosis, lost context, and specialist dependency",
+      href: "/platform/incident-resolution",
     },
     {
       num: "04",
       capability: "Agentic Automation",
-      solves: "Brittle scripts, maintenance-heavy workflows, changing infrastructure",
-      href: "/platform#automation",
+      solves: "Solves brittle scripts and maintenance-heavy workflows",
+      href: "/platform/built-for-flexibility",
     },
     {
       num: "05",
       capability: "Cyber Recovery",
-      solves: "Low recovery confidence, unproven RTO/RPO, unverified recovery readiness",
-      href: "/platform#cyber-resilience",
+      solves: "Solves uncertain recovery readiness and unproven RTO/RPO",
+      href: "/platform/cyber-resilience",
     },
   ],
 };
 
 export const IMPACT = {
-  eyebrow: "BENEFITS & ROI",
+  eyebrow: "04 // PROVEN ENTERPRISE ROI",
   headline: "Measurable Impact Across Resilience Operations",
+  openingLine:
+    "From day-to-day operations to executive confidence, ResOC delivers measurable operational and business value.",
   stats: [
     {
       value: "30–50%",
-      label: "More infrastructure managed with the same team",
-      desc: "Multiply team capacity without linear headcount growth across multi-vendor backup estates.",
-      status: "verified" as const,
+      label: "More Infrastructure Managed",
+      desc: "Manage 30–50% more infrastructure with the same team.",
     },
     {
       value: "Up to 80%",
       label: "Lower MTTR",
-      desc: "Accelerate triage, dependency tracing, and guided remediation across heterogeneous tools.",
-      status: "verified" as const,
+      desc: "Accelerates investigation, diagnosis, and remediation to restore services faster. Offload repetitive tasks to MeshDefend's Agent Mesh with HITL/HIOL.",
     },
     {
       value: "Up to 60%",
-      label: "Less handoff effort",
-      desc: "Preserve operational context between L1, L2, L3, and specialist teams to eliminate re-investigation.",
-      status: "verified" as const,
+      label: "Less Handoff Effort",
+      desc: "Preserve context across L1, L2, L3, and specialist teams to reduce repeated investigation.",
     },
   ],
-  qualitative: [
-    {
-      title: "Lower business disruption risk",
-      desc: "Identify operational and recovery gaps earlier, prove application recovery readiness continuously, and strengthen recoverability before incidents occur.",
-    },
-    {
-      title: "Stronger governance",
-      desc: "Standardize operations with policy guardrails, policy-governed autonomy: human in the loop and human on the loop, and immutable audit logs across the entire multi-vendor resilience estate.",
-    },
-  ],
+  costOptimization: {
+    title: "Cost & Spend Optimization",
+    points: [
+      {
+        title: "Optimize Infrastructure Spend and Costs for resilience.",
+        desc: "Reclaim storage from stale and redundant copies of data; optimize cyber scanning cost and coverage.",
+      },
+      {
+        title: "Lower Cyber Insurance Costs.",
+        desc: "Reduce recovery time by hours when outages can cost $5K–$15K per minute.",
+      },
+    ],
+  },
+  resiliencePosture: {
+    title: "Stronger Resilience Posture",
+    points: [
+      "Unify business, IT infrastructure and security teams with a single pane of glass for establishing and managing resilience posture",
+      "Reduce operational and cyber risks with Minimum Viable Company (MVC) mapping and live system dependencies",
+      "Ensure business recovery, not just data recovery, across hybrid cloud and heterogeneous vendors.",
+      "Improved compliance and audit-ready evidence",
+      "Continuous business resilience posture with always-on observability, validation and readiness",
+    ],
+  },
 };
 
 export const AUDIENCE = {
-  eyebrow: "WHO IS IT FOR",
+  eyebrow: "05 // BUILT FOR ENTERPRISE RESILIENCE",
   headline: "Built for the Teams Accountable for Resilience",
   segments: [
     {
       id: "si",
-      title: "System Integrators",
-      badge: "REPEATABLE PRACTICE",
-      desc: "Create standardized advisory, implementation, integration, and governed managed resilience offerings across enterprise client estates.",
-      deliverables: ["Cross-vendor reference architecture", "Repeatable deployment models", "Client-facing compliance reporting"],
+      num: "01",
+      title: "Systems Integrators",
+      desc: "Build repeatable assessment, implementation, integration, and managed-service offerings around resilience.",
       href: "/solutions/system-integrators",
     },
     {
       id: "msp",
+      num: "02",
       title: "Managed Service Providers",
-      badge: "MULTI-TENANT SCALE",
-      desc: "Scale managed backup and recovery services without scaling engineer headcount linearly. Unify disparate tenant toolchains under one console.",
-      deliverables: ["Single-pane multi-tenant operations", "Automated L1 triage with guardrails", "Predictable service margins"],
+      desc: "Scale resilience services, improve margins, and support more customers without linear headcount growth.",
       href: "/solutions/managed-services",
     },
     {
       id: "advisory",
+      num: "03",
       title: "Advisory and Consulting",
-      badge: "MEASURABLE ROADMAPS",
-      desc: "Turn static resilience and cyber recovery posture assessments into continuous operational telemetry, verifiable RTO proofs, and remediation roadmaps.",
-      deliverables: ["Evidence-backed readiness audits", "Objective RTO/RPO verification", "Ongoing advisory retainers"],
+      desc: "Turn resilience assessments into actionable roadmaps, measurable outcomes, and ongoing improvement programs.",
       href: "/solutions/advisory-consulting",
     },
     {
       id: "enterprises",
+      num: "04",
       title: "Enterprises",
-      badge: "PROVEN RECOVERABILITY",
-      desc: "Eliminate recovery uncertainty across complex, multi-vendor enterprise estates. Empower infrastructure leads while keeping CISOs audit-ready.",
-      deliverables: ["Continuous application recovery testing", "policy-governed autonomy: human in the loop and human on the loop", "Zero unowned operational gaps"],
+      desc: "Reduce recovery uncertainty, operational complexity, and risk across large heterogeneous environments.",
       href: "/solutions/enterprises",
     },
   ],
 };
 
 export const FINAL_CTA = {
-  eyebrow: "GET STARTED",
+  eyebrow: "06 // GET STARTED",
   headline: "Don't Wait for the Next Incident to Test Your Resilience",
-  lede: "Modern resilience requires continuous visibility, readiness, and action. Recovery plans tested only after failure are no longer enough. See your environment through ResOC.",
-  ctaPrimary: "Book a demo",
+  lede: "Modern resilience requires continuous visibility, readiness, and action. Recovery plans tested only after failure are no longer enough.",
+  ctaPrimary: "Book a Demo",
   ctaSecondary: "See ResOC in action",
 };
 

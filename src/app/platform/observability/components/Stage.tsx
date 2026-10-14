@@ -100,7 +100,7 @@ export function Stage() {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          padding: 80px 0 24px;
+          padding: 96px 0 24px;
           overflow: hidden;
           background: var(--bg);
         }

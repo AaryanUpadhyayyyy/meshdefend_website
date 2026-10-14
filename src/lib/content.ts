@@ -36,21 +36,21 @@ export const NAV = {
     label: "Platform",
     groups: [
       {
-        title: "PRODUCT",
+        title: "Product (What it is)",
         items: [
-          { label: "Unified Resilience Observability", desc: "See the whole picture", href: "/platform#observability" },
-          { label: "Backup Operations", desc: "Operate with control", href: "/platform#backup-operations" },
-          { label: "Incident Resolution", desc: "Resolve with context", href: "/platform#incident-resolution" },
-          { label: "Cyber Resilience", desc: "Keep recovery ready", href: "/platform#cyber-resilience" },
-          { label: "Integrations", desc: "Connect your existing stack", href: "/platform#integrations" },
+          { label: "Unified Resilience Observability", href: "/platform/observability" },
+          { label: "Backup Operations", href: "/platform/backup-operations" },
+          { label: "Incident Resolution", href: "/platform/incident-resolution" },
+          { label: "Cyber Resilience", desc: "Resiliency Operations Centre", href: "/platform/cyber-resilience" },
+          { label: "Integrations", desc: "Commvault, Veeam, Dell PowerProtect Data Manager, Dell NetWorker, Dell PowerProtect DataDomain, ServiceNow", href: "/platform/integrations" },
         ],
       },
       {
-        title: "CAPABILITIES",
+        title: "Platform capabilities (How it is built)",
         items: [
-          { label: "Enterprise Readiness", desc: "Governance, security, and scale", href: "/platform#enterprise-readiness" },
-          { label: "Deploy", desc: "On-premises, cloud, hybrid, isolated", href: "/platform#deployment" },
-          { label: "Built for Flexibility", desc: "Your models, vendors, workflows", href: "/platform#flexibility" },
+          { label: "Enterprise readiness", desc: "Security (Includes AI also), Scale", href: "/platform/enterprise-readiness" },
+          { label: "Deploy", desc: "On-Premises, Cloud, Hybrid, Multi-Cloud", href: "/platform/deploy" },
+          { label: "Built for Flexibility", desc: "Bring your own Models, Backup softwares, Storage, Vendor Integration, ITSM Integration", href: "/platform/built-for-flexibility" },
         ],
       },
     ],
@@ -64,7 +64,12 @@ export const NAV = {
       { label: "Enterprises", href: "/solutions/enterprises" },
     ],
   },
-  support: { label: "Support", href: "/support" },
+  support: {
+    label: "Support",
+    items: [
+      { label: "MD Support Portal", href: "/support" },
+    ],
+  },
   resources: {
     label: "Resources",
     items: [
@@ -77,11 +82,11 @@ export const NAV = {
   company: {
     label: "Company",
     items: [
-      { label: "About Us", href: "/company/about" },
+      { label: "About Us", desc: "Mission/Vision, Leadership", href: "/company/about" },
       { label: "Investors & Partners", href: "/company/investors-partners" },
       { label: "Careers", href: "/company/careers" },
       { label: "Newsroom", href: "/company/newsroom" },
-      { label: "Contact Us", href: "/company/contact" },
+      { label: "Contact us", href: "/company/contact" },
     ],
   },
 } as const;

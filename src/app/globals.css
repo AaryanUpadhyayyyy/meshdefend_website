@@ -873,6 +873,228 @@ html.js-reveal .line-inner.is-revealed {
   );
 }
 
+/* ─── Footer Layout & Link Styles ───────────────────────────────── */
+.footer-nav-link:hover {
+  color: #fefdfd !important;
+  transform: translateX(2px);
+}
+.footer-sub-link {
+  color: #7a7477;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.footer-sub-link:hover {
+  color: #fefdfd !important;
+}
+.footer-email-link:hover {
+  text-decoration: underline !important;
+}
+
+@media (max-width: 1040px) {
+  .footer-top-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .footer-nav-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 36px 24px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-nav-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ─── Navbar Responsive & Menu Animation ────────────────────────── */
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+/* ─── Pain Section Responsive & Sticky Stage ────────────────────── */
+.pain-section-wrap {
+  min-height: 200vh;
+  padding: 0;
+}
+
+.pain-sticky-stage {
+  position: sticky;
+  top: 80px;
+  padding: 40px 0 60px;
+}
+
+.pillar-selector-btn:hover {
+  opacity: 0.85 !important;
+}
+
+@media (max-width: 960px) {
+  .pain-section-wrap {
+    min-height: auto !important;
+    padding: 48px 0 !important;
+  }
+
+  .pain-sticky-stage {
+    position: relative !important;
+    top: auto !important;
+    padding: 0 !important;
+  }
+
+  .pain-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pain-left-rail {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pain-grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─── Solution Section Responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+  .capability-index-row {
+    grid-template-columns: 44px 1fr auto !important;
+    gap: 16px !important;
+    padding: 24px 20px !important;
+  }
+  .capability-solves {
+    grid-column: 2 / -1 !important;
+    font-size: 14px !important;
+    margin-top: -4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .capability-index-row {
+    grid-template-columns: 1fr auto !important;
+    gap: 12px !important;
+    padding: 20px 16px !important;
+  }
+  .capability-title {
+    font-size: 20px !important;
+  }
+}
+
+/* ─── Audience Section Responsive ───────────────────────────────── */
+@media (max-width: 960px) {
+  .audience-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .audience-cell:nth-child(2) {
+    border-right: none !important;
+  }
+  .audience-cell:nth-child(1),
+  .audience-cell:nth-child(2) {
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 600px) {
+  .audience-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .audience-cell {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .audience-cell:last-child {
+    border-bottom: none !important;
+  }
+}
+
+/* ─── Impact Section Responsive ─────────────────────────────────── */
+@media (max-width: 900px) {
+  .impact-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .impact-cell {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .impact-cell:last-child {
+    border-bottom: none !important;
+  }
+  .impact-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .impact-left-col {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+/* ─── Backup Operations Page Responsive ─────────────────────────── */
+@media (max-width: 900px) {
+  .morning-timeline-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .compression-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .compression-left-col {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .triage-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .triage-left-col {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .governed-gate-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .governed-gate-grid > div:nth-child(2) {
+    border-right: none !important;
+  }
+  .governed-gate-grid > div:nth-child(1),
+  .governed-gate-grid > div:nth-child(2) {
+    border-bottom: 1px solid var(--border);
+  }
+  .audit-row-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .governed-gate-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .governed-gate-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .governed-gate-grid > div:last-child {
+    border-bottom: none !important;
+  }
+}
+
+
+
+
+
 
 
 

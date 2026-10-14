@@ -30,83 +30,55 @@ export function Footer() {
   const navGroups: FooterNavGroup[] = [
     {
       num: "01",
-      title: "Platform",
+      title: "Product",
       links: [
-        { label: "Unified Resilience Observability", href: "/platform#observability" },
-        { label: "Backup & Recovery Operations", href: "/platform#backup-operations" },
-        { label: "Agentic Incident Resolution", href: "/platform#incident-resolution" },
-        { label: "Cyber Recovery Orchestration", href: "/platform#cyber-recovery" },
-        { label: "Heterogeneous Integrations", href: "/platform#integrations" },
+        { label: "Unified Resilience Observability", href: "/platform/observability" },
+        { label: "Backup Operations", href: "/platform/backup-operations" },
+        { label: "Incident Resolution", href: "/platform/incident-resolution" },
+        { label: "Cyber Resilience", href: "/platform/cyber-resilience" },
+        { label: "Integrations", href: "/platform/integrations" },
       ],
     },
     {
       num: "02",
-      title: "Capabilities",
+      title: "Platform Capabilities",
       links: [
-        { label: "Enterprise Readiness", href: "/platform#enterprise-readiness" },
-        { label: "Isolated & Air-Gapped Deploy", href: "/platform#air-gapped" },
-        { label: "Heterogeneous Architecture", href: "/platform#architecture" },
-        { label: "Human-in-the-Loop Governance", href: "/platform#hitl-governance" },
-        { label: "Immutable Evidence Logging", href: "/platform#audit-logging" },
+        { label: "Enterprise readiness", href: "/platform/enterprise-readiness" },
+        { label: "Deploy", href: "/platform/deploy" },
+        { label: "Built for Flexibility", href: "/platform/built-for-flexibility" },
       ],
     },
     {
       num: "03",
       title: "Solutions",
       links: [
-        { label: "System Integrators", href: "/solutions#system-integrators" },
-        { label: "Managed Service Providers", href: "/solutions#msp" },
-        { label: "Advisory & Consulting", href: "/solutions#advisory" },
-        { label: "Global Enterprises", href: "/solutions#enterprises" },
+        { label: "System Integrators", href: "/solutions/system-integrators" },
+        { label: "Managed Services", href: "/solutions/managed-services" },
+        { label: "Advisory / Consulting", href: "/solutions/advisory-consulting" },
+        { label: "Enterprises", href: "/solutions/enterprises" },
       ],
     },
     {
       num: "04",
       title: "Resources",
       links: [
-        { label: "Resilience Newsletter", href: "#newsletter" },
-        { label: "The Recovery Podcast", href: "/resources#podcast" },
-        { label: "Engineering Blogs", href: "/blog" },
-        { label: "Architecture FAQ", href: "/resources#faq" },
-        {
-          label: "System Status",
-          href: "https://status.meshdefend.ai",
-        },
+        { label: "Newsletter", href: "/resources/newsletter" },
+        { label: "Podcast", href: "/resources/podcast" },
+        { label: "Blogs", href: "/resources/blogs" },
+        { label: "FAQ", href: "/resources/faq" },
       ],
     },
     {
       num: "05",
       title: "Company",
       links: [
-        { label: "About MeshDefend", href: "/company#about" },
-        { label: "Investors & Partners", href: "/company#investors" },
-        {
-          label: "Careers",
-          href: "/company#careers",
-          badge: "WE'RE HIRING",
-        },
-        { label: "Newsroom", href: "/company#newsroom" },
-        { label: "Contact Us", href: "/contact" },
+        { label: "About Us", href: "/company/about" },
+        { label: "Investors & Partners", href: "/company/investors-partners" },
+        { label: "Careers", href: "/company/careers" },
+        { label: "Newsroom", href: "/company/newsroom" },
+        { label: "Contact us", href: "/company/contact" },
+        { label: "MD Support Portal", href: "/support" },
       ],
-    },
-  ];
-
-  const trustBadges = [
-    {
-      label: "SOC 2 Type II Ready",
-      detail: "Continuous audit trails & policy verification",
-    },
-    {
-      label: "Policy-Governed Autonomy",
-      detail: "Policy-governed autonomy: human in the loop and human on the loop",
-    },
-    {
-      label: "Zero Runtime Overhead",
-      detail: "Non-invasive read telemetry across backup engines",
-    },
-    {
-      label: "Multi-Cloud & On-Prem",
-      detail: "Commvault · Veeam · Dell · DataDomain · AWS · Azure · ServiceNow",
     },
   ];
 
@@ -417,68 +389,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* ─── ENTERPRISE TRUST & COMPLIANCE RIBBON (ALWAYS ACTIVE) ─── */}
-      <div
-        style={{
-          borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-          background: "rgba(0, 0, 0, 0.15)",
-          padding: "24px 0",
-        }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 20,
-            }}
-            className="footer-trust-grid reveal-on-scroll reveal-stagger"
-          >
-            {trustBadges.map((badge) => (
-              <div
-                key={badge.label}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 4,
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 11,
-                    fontWeight: 600,
-                    color: "#fefdfd",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
-                      background: "var(--orange)",
-                    }}
-                  />
-                  {badge.label}
-                </div>
-                <div
-                  style={{
-                    fontSize: 12,
-                    color: "#837d80",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {badge.detail}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* ─── MONUMENTAL DISPLAY BRAND WATERMARK ─── */}
       <div
@@ -576,47 +486,6 @@ export function Footer() {
         </div>
       </div>
 
-      <style jsx>{`
-        .footer-nav-link:hover {
-          color: #fefdfd !important;
-          transform: translateX(2px);
-        }
-        .footer-sub-link {
-          color: #7a7477;
-          text-decoration: none;
-          transition: color 0.18s ease;
-        }
-        .footer-sub-link:hover {
-          color: #fefdfd;
-        }
-        .footer-email-link:hover {
-          text-decoration: underline !important;
-        }
-
-        @media (max-width: 1040px) {
-          .footer-top-grid {
-            grid-template-columns: 1fr !important;
-            gap: 36px !important;
-          }
-          .footer-nav-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 36px 24px !important;
-          }
-          .footer-trust-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 16px !important;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .footer-nav-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-          .footer-trust-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </footer>
   );
 }

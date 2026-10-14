@@ -64,7 +64,7 @@ export function PainSection() {
       <div className="pain-sticky-stage">
         <div className="container" style={{ position: "relative", zIndex: 2 }}>
           {/* ─── TOP EDITORIAL HEADER ─── */}
-          <div style={{ maxWidth: 960, marginBottom: 32 }}>
+          <div style={{ maxWidth: 960, marginBottom: 36 }}>
             {/* Eyebrow */}
             <div
               style={{
@@ -156,8 +156,8 @@ export function PainSection() {
                   background: "var(--surface)",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "space-between",
-                  gap: 28,
+                  justifyContent: "flex-start",
+                  gap: 20,
                   position: "relative",
                 }}
               >
@@ -170,7 +170,7 @@ export function PainSection() {
                       letterSpacing: "0.1em",
                       color: "var(--muted)",
                       textTransform: "uppercase",
-                      marginBottom: 16,
+                      marginBottom: 20,
                       fontWeight: 600,
                     }}
                   >
@@ -185,7 +185,7 @@ export function PainSection() {
                       paddingLeft: 12,
                       display: "flex",
                       flexDirection: "column",
-                      gap: 8,
+                      gap: 12,
                     }}
                   >
                     {PAIN.clusters.map((cluster, cIdx) => {
@@ -199,7 +199,7 @@ export function PainSection() {
                           onMouseEnter={() => handlePillarSelect(cIdx)}
                           style={{
                             textAlign: "left",
-                            padding: "14px 16px",
+                            padding: "16px 18px",
                             background: isActive ? "var(--bg)" : "transparent",
                             border: "1px solid",
                             borderColor: isActive ? "var(--border)" : "transparent",
@@ -207,7 +207,7 @@ export function PainSection() {
                             cursor: "pointer",
                             outline: "none",
                             position: "relative",
-                            opacity: isActive ? 1 : 0.38,
+                            opacity: isActive ? 1 : 0.45,
                             transition:
                               "opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, border-color 0.2s ease",
                             display: "flex",
@@ -271,484 +271,6 @@ export function PainSection() {
                     })}
                   </div>
                 </div>
-
-                {/* ─── MINIMALIST PAPER-AND-INK ARCHITECTURAL SVG DIAGRAM ─── */}
-                <div
-                  style={{
-                    background: "var(--bg)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 4,
-                    padding: "18px 18px 14px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10,
-                      letterSpacing: "0.08em",
-                      color: "var(--muted)",
-                      textTransform: "uppercase",
-                      marginBottom: 14,
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <span>ARCHITECTURAL STATE MODEL</span>
-                    <span style={{ color: "var(--orange)", fontWeight: 700 }}>
-                      DOMAIN 0{activeCluster + 1}
-                    </span>
-                  </div>
-
-                  {/* SVG DIAGRAM 01: Assumed Backup Success vs. Provable Application Recovery */}
-                  {activeCluster === 0 && (
-                    <svg width="100%" height="86" viewBox="0 0 340 86" fill="none">
-                      {/* Left Node: Backup Job [Completed] */}
-                      <rect
-                        x="2"
-                        y="14"
-                        width="112"
-                        height="58"
-                        rx="2"
-                        stroke="var(--ink)"
-                        strokeWidth="1"
-                        fill="var(--bg)"
-                      />
-                      <text
-                        x="10"
-                        y="33"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9"
-                        fontWeight="700"
-                        letterSpacing="0.04em"
-                        fill="var(--muted)"
-                      >
-                        JOB STATUS
-                      </text>
-                      <text
-                        x="10"
-                        y="49"
-                        fontFamily="var(--font-body), sans-serif"
-                        fontSize="12"
-                        fontWeight="600"
-                        fill="var(--ink)"
-                      >
-                        Backup Job
-                      </text>
-                      <text
-                        x="10"
-                        y="63"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9.5"
-                        fill="var(--ink)"
-                      >
-                        [Completed ✓]
-                      </text>
-
-                      {/* Middle Broken Connector Line with Orange Alert Tick */}
-                      <line
-                        x1="116"
-                        y1="43"
-                        x2="152"
-                        y2="43"
-                        stroke="var(--ink)"
-                        strokeWidth="1"
-                        strokeDasharray="3 3"
-                      />
-                      <circle
-                        cx="170"
-                        cy="43"
-                        r="10"
-                        stroke="var(--orange)"
-                        strokeWidth="1.5"
-                        fill="var(--bg)"
-                      />
-                      <path
-                        d="M170 38v5M170 47v1"
-                        stroke="var(--orange)"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-                      <line
-                        x1="188"
-                        y1="43"
-                        x2="224"
-                        y2="43"
-                        stroke="var(--ink)"
-                        strokeWidth="1"
-                        strokeDasharray="3 3"
-                      />
-                      <text
-                        x="170"
-                        y="66"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8"
-                        letterSpacing="0.04em"
-                        fill="var(--orange)"
-                        fontWeight="700"
-                      >
-                        GAP
-                      </text>
-
-                      {/* Right Node: Application Restore & RTO/RPO [Unverified] */}
-                      <rect
-                        x="226"
-                        y="14"
-                        width="112"
-                        height="58"
-                        rx="2"
-                        stroke="var(--orange)"
-                        strokeWidth="1"
-                        strokeDasharray="4 2"
-                        fill="var(--bg)"
-                      />
-                      <text
-                        x="234"
-                        y="33"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9"
-                        fontWeight="700"
-                        letterSpacing="0.04em"
-                        fill="var(--orange)"
-                      >
-                        APP RESTORE
-                      </text>
-                      <text
-                        x="234"
-                        y="49"
-                        fontFamily="var(--font-body), sans-serif"
-                        fontSize="12"
-                        fontWeight="600"
-                        fill="var(--ink)"
-                      >
-                        App Recovery
-                      </text>
-                      <text
-                        x="234"
-                        y="63"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9.5"
-                        fill="var(--muted)"
-                      >
-                        [Unverified]
-                      </text>
-                    </svg>
-                  )}
-
-                  {/* SVG DIAGRAM 02: 5 Parallel Horizontal Vendor/Cloud Planes at Disconnected Heights */}
-                  {activeCluster === 1 && (
-                    <svg width="100%" height="86" viewBox="0 0 340 86" fill="none">
-                      {/* Plane 1: Backup */}
-                      <line
-                        x1="12"
-                        y1="12"
-                        x2="260"
-                        y2="12"
-                        stroke="var(--border)"
-                        strokeWidth="1"
-                      />
-                      <circle cx="90" cy="12" r="3" fill="var(--ink)" />
-                      <text
-                        x="16"
-                        y="9"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8"
-                        fill="var(--muted)"
-                      >
-                        BACKUP
-                      </text>
-
-                      {/* Plane 2: Storage */}
-                      <line
-                        x1="45"
-                        y1="28"
-                        x2="310"
-                        y2="28"
-                        stroke="var(--border)"
-                        strokeWidth="1"
-                      />
-                      <circle cx="210" cy="28" r="3" fill="var(--ink)" />
-                      <text
-                        x="50"
-                        y="25"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8"
-                        fill="var(--muted)"
-                      >
-                        STORAGE
-                      </text>
-
-                      {/* Plane 3: Cloud (Drift) */}
-                      <line
-                        x1="8"
-                        y1="46"
-                        x2="280"
-                        y2="46"
-                        stroke="var(--border)"
-                        strokeWidth="1"
-                      />
-                      <circle cx="140" cy="46" r="3.5" fill="var(--orange)" />
-                      <text
-                        x="12"
-                        y="42"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8"
-                        fill="var(--orange)"
-                        fontWeight="700"
-                      >
-                        CLOUD DRIFT
-                      </text>
-
-                      {/* Plane 4: Security */}
-                      <line
-                        x1="60"
-                        y1="64"
-                        x2="330"
-                        y2="64"
-                        stroke="var(--border)"
-                        strokeWidth="1"
-                      />
-                      <circle cx="270" cy="64" r="3" fill="var(--ink)" />
-                      <text
-                        x="65"
-                        y="60"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8"
-                        fill="var(--muted)"
-                      >
-                        SECURITY
-                      </text>
-
-                      {/* Plane 5: ITSM */}
-                      <line
-                        x1="25"
-                        y1="80"
-                        x2="295"
-                        y2="80"
-                        stroke="var(--border)"
-                        strokeWidth="1"
-                      />
-                      <circle cx="175" cy="80" r="3" fill="var(--ink)" />
-                      <text
-                        x="30"
-                        y="77"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8"
-                        fill="var(--muted)"
-                      >
-                        ITSM
-                      </text>
-
-                      {/* Vertical Disconnected Break Marker (No Unifying Line) */}
-                      <line
-                        x1="140"
-                        y1="16"
-                        x2="140"
-                        y2="42"
-                        stroke="var(--orange)"
-                        strokeWidth="1"
-                        strokeDasharray="2 2"
-                      />
-                      <text
-                        x="146"
-                        y="24"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="7.5"
-                        fill="var(--orange)"
-                      >
-                        SILOED
-                      </text>
-                    </svg>
-                  )}
-
-                  {/* SVG DIAGRAM 03: Escalation Chain with Context-Losing Handoffs */}
-                  {activeCluster === 2 && (
-                    <svg width="100%" height="86" viewBox="0 0 340 86" fill="none">
-                      {/* Node 1: L1 Triage */}
-                      <rect
-                        x="6"
-                        y="16"
-                        width="84"
-                        height="52"
-                        rx="2"
-                        stroke="var(--ink)"
-                        strokeWidth="1.2"
-                        fill="var(--bg)"
-                      />
-                      <text
-                        x="48"
-                        y="34"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9"
-                        fontWeight="700"
-                        fill="var(--muted)"
-                      >
-                        L1 TRIAGE
-                      </text>
-                      <text
-                        x="48"
-                        y="52"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9"
-                        fill="var(--ink)"
-                      >
-                        100% signal
-                      </text>
-
-                      {/* Connector 1: ✕ Break (-58%) */}
-                      <line
-                        x1="92"
-                        y1="42"
-                        x2="108"
-                        y2="42"
-                        stroke="var(--ink)"
-                        strokeWidth="1.2"
-                      />
-                      <text
-                        x="113"
-                        y="45"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="10"
-                        fill="var(--orange)"
-                        fontWeight="700"
-                      >
-                        ✕
-                      </text>
-                      <line
-                        x1="118"
-                        y1="42"
-                        x2="134"
-                        y2="42"
-                        stroke="var(--ink)"
-                        strokeWidth="1"
-                        strokeDasharray="2 2"
-                      />
-                      <text
-                        x="113"
-                        y="32"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="7.5"
-                        fill="var(--orange)"
-                        fontWeight="700"
-                      >
-                        -58%
-                      </text>
-
-                      {/* Node 2: L2 Ops */}
-                      <rect
-                        x="136"
-                        y="16"
-                        width="84"
-                        height="52"
-                        rx="2"
-                        stroke="var(--ink)"
-                        strokeWidth="1"
-                        fill="var(--bg)"
-                      />
-                      <text
-                        x="178"
-                        y="34"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9"
-                        fontWeight="700"
-                        fill="var(--muted)"
-                      >
-                        L2 OPS
-                      </text>
-                      <text
-                        x="178"
-                        y="52"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="9"
-                        fill="var(--ink)"
-                      >
-                        Ticket recap
-                      </text>
-
-                      {/* Connector 2: ✕ Break (-82%) */}
-                      <line
-                        x1="222"
-                        y1="42"
-                        x2="238"
-                        y2="42"
-                        stroke="var(--ink)"
-                        strokeWidth="1"
-                        strokeDasharray="2 2"
-                      />
-                      <text
-                        x="243"
-                        y="45"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="10"
-                        fill="var(--orange)"
-                        fontWeight="700"
-                      >
-                        ✕
-                      </text>
-                      <line
-                        x1="248"
-                        y1="42"
-                        x2="264"
-                        y2="42"
-                        stroke="var(--border)"
-                        strokeWidth="0.75"
-                        strokeDasharray="1 2"
-                      />
-                      <text
-                        x="243"
-                        y="32"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="7.5"
-                        fill="var(--orange)"
-                        fontWeight="700"
-                      >
-                        -82%
-                      </text>
-
-                      {/* Node 3: L3 Specialist */}
-                      <rect
-                        x="266"
-                        y="16"
-                        width="70"
-                        height="52"
-                        rx="2"
-                        stroke="var(--border)"
-                        strokeWidth="1"
-                        strokeDasharray="3 2"
-                        fill="var(--bg)"
-                      />
-                      <text
-                        x="301"
-                        y="34"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8.5"
-                        fontWeight="700"
-                        fill="var(--muted)"
-                      >
-                        L3 SPEC
-                      </text>
-                      <text
-                        x="301"
-                        y="52"
-                        textAnchor="middle"
-                        fontFamily="var(--font-mono), monospace"
-                        fontSize="8.5"
-                        fill="var(--orange)"
-                      >
-                        Context lost
-                      </text>
-                    </svg>
-                  )}
-                </div>
               </div>
 
               {/* ─── RIGHT COLUMN (COLS 6–12, EXPOSED 1PX ARCHITECTURAL GRID) ─── */}
@@ -759,41 +281,6 @@ export function PainSection() {
                   background: "var(--bg)",
                 }}
               >
-                {/* Figure Caption Header Bar */}
-                <div
-                  style={{
-                    padding: "20px 32px",
-                    borderBottom: "1px solid var(--border)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    background: "var(--bg)",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10.5,
-                      letterSpacing: "0.08em",
-                      color: "var(--muted)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {current.diagramCaption}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10,
-                      color: "var(--orange)",
-                      fontWeight: 700,
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {current.items.length} MODES OF RECOVERY FAILURE
-                  </span>
-                </div>
-
                 {/* Exposed 1px Hairline Architectural Grid */}
                 <div style={{ flex: 1 }}>
                   <AnimatePresence mode="wait">
@@ -887,15 +374,15 @@ export function PainSection() {
                               {itemNum}
                             </div>
 
-                            {/* Exact Sitemap Title (Inter 19px semibold --ink) */}
+                            {/* Exact Sitemap Title (Inter 18px semibold --ink) */}
                             <h3
                               style={{
                                 fontFamily:
                                   "var(--font-body), Inter, -apple-system, sans-serif",
-                                fontSize: 19,
+                                fontSize: 18,
                                 fontWeight: 600,
                                 color: "var(--ink)",
-                                lineHeight: 1.3,
+                                lineHeight: 1.35,
                                 letterSpacing: "-0.015em",
                                 margin: "0 0 10px 0",
                               }}
@@ -922,94 +409,11 @@ export function PainSection() {
                     </motion.div>
                   </AnimatePresence>
                 </div>
-
-                {/* Bottom Status / Navigation Bar */}
-                <div
-                  style={{
-                    padding: "18px 32px",
-                    borderTop: "1px solid var(--border)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: 12,
-                    background: "var(--surface)",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 11,
-                      color: "var(--muted)",
-                    }}
-                  >
-                    ESTATE CONTEXT: 100% UNOWNED BETWEEN CONSOLES
-                  </span>
-                  <a
-                    href="#solution"
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 11.5,
-                      color: "var(--orange)",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <span>EXPLORE RESOC FABRIC</span>
-                    <span>→</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .pain-section-wrap {
-          min-height: 200vh;
-          padding: 0;
-        }
-
-        .pain-sticky-stage {
-          position: sticky;
-          top: 80px;
-          padding: 40px 0 60px;
-        }
-
-        .pillar-selector-btn:hover {
-          opacity: 0.85 !important;
-        }
-
-        @media (max-width: 960px) {
-          .pain-section-wrap {
-            min-height: auto !important;
-            padding: 48px 0 !important;
-          }
-
-          .pain-sticky-stage {
-            position: relative !important;
-            top: auto !important;
-            padding: 0 !important;
-          }
-
-          .pain-split-grid {
-            grid-template-columns: 1fr !important;
-          }
-
-          .pain-left-rail {
-            border-right: none !important;
-            border-bottom: 1px solid var(--border);
-          }
-
-          .pain-grid-4 {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

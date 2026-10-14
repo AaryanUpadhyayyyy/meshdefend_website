@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { AUDIENCE } from "@/lib/sections";
 import { SpringReveal } from "@/components/motion/SpringReveal";
-import { TechIndexTag } from "@/components/ui/TechIndexTag";
 
 export function AudienceSection() {
-  const [activePersona, setActivePersona] = useState<string>("msp");
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
     <section
@@ -15,35 +14,64 @@ export function AudienceSection() {
       style={{
         padding: "96px 0 112px",
         borderBottom: "1px solid var(--border)",
-        background: "var(--surface)",
+        background: "var(--bg)",
         position: "relative",
       }}
     >
       <div className="container">
         <SpringReveal>
-          {/* Section Monospace Technical Index Tag */}
-          <div style={{ marginBottom: 16 }}>
-            <TechIndexTag
-              tag="[06 // DEPLOYMENT TARGETS & OPERATOR PERSONAS]"
-              status="MULTI_TENANT_READY"
-            />
+          {/* ─── SECTION HEADER ─── */}
+          <div style={{ maxWidth: 880, marginBottom: 48 }}>
+            {/* Eyebrow */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 16,
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--orange)",
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  letterSpacing: "0.08em",
+                  color: "var(--muted)",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                {AUDIENCE.eyebrow}
+              </span>
+            </div>
+
+            {/* H2 Headline */}
+            <h2
+              className="display"
+              style={{
+                fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                fontSize: "clamp(38px, 4.6vw, 64px)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.03em",
+                margin: 0,
+                color: "var(--ink)",
+                fontWeight: 400,
+              }}
+            >
+              {AUDIENCE.headline}
+            </h2>
           </div>
 
-          <h2
-            className="display"
-            style={{
-              fontSize: "clamp(34px, 4.2vw, 56px)",
-              maxWidth: "26ch",
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-              margin: "0 0 48px",
-              color: "var(--ink)",
-            }}
-          >
-            {AUDIENCE.headline}
-          </h2>
-
-          {/* ─── 4-Panel Interactive Expanding Persona Workbench ─── */}
+          {/* ─── 4-COLUMN EXPOSED 1PX GRID ON VAR(--BG) ─── */}
           <div
             style={{
               border: "1px solid var(--border)",
@@ -53,254 +81,117 @@ export function AudienceSection() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(4, 1fr)",
               }}
               className="audience-grid"
             >
               {AUDIENCE.segments.map((seg, idx) => {
-                const isActive = activePersona === seg.id;
+                const isHovered = hoveredIdx === idx;
+                const isLast = idx === AUDIENCE.segments.length - 1;
 
                 return (
-                  <div
+                  <Link
                     key={seg.id}
-                    onClick={() => setActivePersona(seg.id)}
+                    href={seg.href}
+                    onMouseEnter={() => setHoveredIdx(idx)}
+                    onMouseLeave={() => setHoveredIdx(null)}
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
-                      padding: "36px 32px",
-                      background: isActive ? "#221f22" : "var(--bg)",
-                      color: isActive ? "#fefdfd" : "inherit",
-                      borderRight: idx % 2 === 0 ? "1px solid var(--border)" : "none",
-                      borderBottom: idx < 2 ? "1px solid var(--border)" : "none",
-                      cursor: "pointer",
+                      padding: "36px 28px",
+                      background: isHovered ? "var(--surface)" : "var(--bg)",
+                      borderRight: isLast ? "none" : "1px solid var(--border)",
                       position: "relative",
-                      transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                      textDecoration: "none",
+                      transition: "background 0.2s ease",
                     }}
                     className="audience-cell"
                   >
-                    {/* Active Accent Border Strip */}
-                    {isActive && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          left: 0,
-                          top: 0,
-                          bottom: 0,
-                          width: 3,
-                          background: "var(--orange)",
-                        }}
-                      />
-                    )}
+                    {/* Animated 2px Orange Top Border Line on Hover */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 2,
+                        background: "var(--orange)",
+                        transform: isHovered ? "scaleX(1)" : "scaleX(0)",
+                        transformOrigin: "left",
+                        transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                    />
 
                     <div>
-                      {/* HUD Tag Header */}
+                      {/* Numeral */}
                       <div
                         style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 12,
+                          color: isHovered ? "var(--orange)" : "var(--muted)",
                           marginBottom: 16,
+                          fontWeight: 600,
+                          transition: "color 0.2s ease",
                         }}
                       >
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                            fontSize: 11,
-                            color: "var(--orange)",
-                            fontWeight: 600,
-                            letterSpacing: "0.08em",
-                          }}
-                        >
-                          TARGET 0{idx + 1}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                            fontSize: 9.5,
-                            padding: "2px 7px",
-                            borderRadius: 3,
-                            background: isActive ? "rgba(255,255,255,0.08)" : "var(--surface)",
-                            border: `1px solid ${isActive ? "rgba(255,255,255,0.12)" : "var(--border)"}`,
-                            color: isActive ? "#d5d2d3" : "var(--muted)",
-                            letterSpacing: "0.06em",
-                            fontWeight: 600,
-                          }}
-                        >
-                          {seg.badge}
-                        </span>
+                        {seg.num}
                       </div>
 
+                      {/* Persona Title */}
                       <h3
                         style={{
                           fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                          fontSize: 28,
+                          fontSize: "clamp(24px, 2.2vw, 28px)",
                           lineHeight: 1.15,
-                          letterSpacing: "-0.03em",
+                          letterSpacing: "-0.02em",
                           fontWeight: 400,
-                          color: isActive ? "#fefdfd" : "var(--ink)",
-                          marginBottom: 12,
+                          color: "var(--ink)",
+                          margin: "0 0 14px 0",
+                          transform: isHovered ? "translateX(4px)" : "none",
+                          transition: "transform 0.2s ease",
                         }}
                       >
                         {seg.title}
                       </h3>
 
+                      {/* Exact 1-Sentence Sitemap Description */}
                       <p
                         style={{
-                          fontSize: 14,
-                          color: isActive ? "#a09a9c" : "var(--muted)",
+                          fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
+                          fontSize: 14.5,
+                          color: "var(--muted)",
                           lineHeight: 1.6,
-                          margin: "0 0 20px",
+                          margin: 0,
                         }}
                       >
                         {seg.desc}
                       </p>
-
-                      {/* Role-Specific Dynamic Mini-Diagram HUD */}
-                      <div
-                        style={{
-                          background: isActive ? "#181618" : "var(--surface)",
-                          border: `1px solid ${isActive ? "rgba(255,255,255,0.08)" : "var(--border)"}`,
-                          borderRadius: 4,
-                          padding: "14px 16px",
-                          marginBottom: 20,
-                        }}
-                      >
-                        {seg.id === "msp" && (
-                          <div>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#a09a9c" : "var(--muted)", marginBottom: 8 }}>
-                              <span>MULTI-TENANT FABRIC</span>
-                              <span style={{ color: "var(--orange)" }}>TENANT ISOLATION: 100%</span>
-                            </div>
-                            <div style={{ display: "flex", gap: 6 }}>
-                              {["Tenant Alpha (99.98%)", "Tenant Beta (100%)", "Tenant Gamma (99.95%)"].map((t) => (
-                                <span key={t} style={{ fontSize: 9.5, fontFamily: 'var(--font-mono), monospace', padding: "3px 6px", background: isActive ? "rgba(255,255,255,0.05)" : "var(--bg)", border: "1px solid var(--border)", borderRadius: 2, color: isActive ? "#d5d2d3" : "var(--ink)" }}>
-                                  {t}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {seg.id === "enterprises" && (
-                          <div>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#a09a9c" : "var(--muted)", marginBottom: 8 }}>
-                              <span>CROSS-REGION MULTI-CLOUD</span>
-                              <span style={{ color: "#10b981" }}>RECOVERY PROVEN: 4M 12S</span>
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#d5d2d3" : "var(--ink)" }}>
-                              <span>DataDomain (On-Prem)</span>
-                              <span style={{ color: "var(--orange)" }}>⇄</span>
-                              <span>AWS us-east-1</span>
-                              <span style={{ color: "var(--orange)" }}>⇄</span>
-                              <span>Azure Clean Room</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {seg.id === "si" && (
-                          <div>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#a09a9c" : "var(--muted)", marginBottom: 8 }}>
-                              <span>DELIVERY BLUEPRINT V2.4</span>
-                              <span style={{ color: "var(--orange)" }}>REPEATABLE PRACTICE</span>
-                            </div>
-                            <div style={{ display: "flex", gap: 6, fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#d5d2d3" : "var(--ink)" }}>
-                              <span>14 Cross-Vendor Connectors</span>
-                              <span>·</span>
-                              <span>Automated Client SLA Audits</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {seg.id === "advisory" && (
-                          <div>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#a09a9c" : "var(--muted)", marginBottom: 8 }}>
-                              <span>CONTINUOUS POSTURE SCORECARD</span>
-                              <span style={{ color: "#10b981" }}>AUDIT GRADE: A+</span>
-                            </div>
-                            <div style={{ display: "flex", gap: 6, fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: isActive ? "#d5d2d3" : "var(--ink)" }}>
-                              <span>Objective RTO/RPO Verification</span>
-                              <span>·</span>
-                              <span>Cryptographic Attestation</span>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Deliverables Checklist */}
-                      {seg.deliverables && (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 6,
-                            paddingTop: 16,
-                            borderTop: `1px solid ${isActive ? "rgba(255,255,255,0.08)" : "var(--border)"}`,
-                          }}
-                        >
-                          {seg.deliverables.map((item) => (
-                            <div
-                              key={item}
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 8,
-                                fontSize: 12.5,
-                                color: isActive ? "#d5d2d3" : "var(--ink)",
-                                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                              }}
-                            >
-                              <span style={{ color: "var(--orange)", fontWeight: 700 }}>+</span>
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
                     </div>
 
-                    <a
-                      href={seg.href}
+                    {/* Bottom Arrow Indicator */}
+                    <div
                       style={{
                         marginTop: 28,
-                        fontSize: 12,
-                        color: "var(--orange)",
                         display: "flex",
                         alignItems: "center",
-                        gap: 6,
-                        fontWeight: 600,
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        letterSpacing: "0.04em",
-                        textDecoration: "none",
+                        fontSize: 16,
+                        color: isHovered ? "var(--orange)" : "var(--muted)",
+                        fontWeight: 600,
+                        transition: "color 0.2s ease, transform 0.2s ease",
+                        transform: isHovered ? "translateX(4px)" : "none",
                       }}
                     >
-                      <span>DEPLOYMENT SPECIFICATION</span>
-                      <span>→</span>
-                    </a>
-                  </div>
+                      →
+                    </div>
+                  </Link>
                 );
               })}
             </div>
           </div>
         </SpringReveal>
       </div>
-
-      <style jsx>{`
-        .audience-cell:hover {
-          border-color: var(--orange);
-        }
-        @media (max-width: 800px) {
-          .audience-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .audience-grid > div {
-            border-right: none !important;
-            border-bottom: 1px solid var(--border) !important;
-          }
-          .audience-grid > div:last-child {
-            border-bottom: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
