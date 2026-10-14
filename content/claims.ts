@@ -1,1 +1,1 @@
-export * from "./src/content/claims";
+export * from "../src/content/claims";
