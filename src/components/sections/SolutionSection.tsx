@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SOLUTION } from "@/lib/sections";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
@@ -16,10 +16,9 @@ interface CapabilityDetail {
   command: string;
   status: string;
   statusType: "success" | "warning" | "active";
-  metrics: { label: string; value: string; pct: number }[];
+  metrics: { label: string; value: string }[];
   proofPoints: string[];
   ctaLabel: string;
-  terminalLogs: string[];
 }
 
 const CAPABILITY_DETAILS: CapabilityDetail[] = [
@@ -32,12 +31,12 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
     summary:
       "Continuous topology and state synchronization across backup, storage, cloud, and security silos into a single, queryable Resilience Graph.",
     command: "resoc.observability --scan=heterogeneous-estate",
-    status: "TOPOLOGY SYNCHRONIZED · 4,820 WORKLOADS MAPPED · 0 BLIND SPOTS",
+    status: "Topology synchronized · 4,820 workloads mapped",
     statusType: "success",
     metrics: [
-      { label: "Cross-Stack Coverage", value: "100%", pct: 100 },
-      { label: "Platforms Reconciled", value: "5 Vendors", pct: 90 },
-      { label: "Telemetry Latency", value: "< 2s", pct: 95 },
+      { label: "Cross-Stack Coverage", value: "100%" },
+      { label: "Platforms Reconciled", value: "5 Vendors" },
+      { label: "Telemetry Latency", value: "< 2s" },
     ],
     proofPoints: [
       "Commvault (1,840 VMs) & Veeam (1,210 DBs) mapped in real-time topology",
@@ -45,12 +44,6 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
       "Real-time drift detection across backup schedules and retention rules",
     ],
     ctaLabel: "Explore Observability Architecture →",
-    terminalLogs: [
-      "[0.012s] Ingesting Commvault v11.32 job catalog (1,840 VMs verified)",
-      "[0.045s] Connecting Veeam Backup & Replication API (1,210 DB targets)",
-      "[0.089s] Reconciling AWS EBS snapshots with ServiceNow CMDB cis",
-      "[0.134s] Resilience Graph compiled: 4,820 nodes · 0 unmonitored assets",
-    ],
   },
   {
     num: "02",
@@ -61,12 +54,12 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
     summary:
       "Operate complex multi-platform estates from a single console. Automate daily housekeeping, SLA tracking, and job health without vendor hopping.",
     command: "resoc.ops.reconcile --estate=acme-global-prod",
-    status: "SLA COMPLIANCE: 99.98% · 24 DRIFTS AUTO-NORMALIZED",
+    status: "SLA compliance: 99.98% · 24 drifts auto-normalized",
     statusType: "success",
     metrics: [
-      { label: "Automation Rate", value: "92%", pct: 92 },
-      { label: "Daily Hours Saved", value: "4.5h / admin", pct: 85 },
-      { label: "Policy Drift", value: "0 Unresolved", pct: 100 },
+      { label: "Automation Rate", value: "92%" },
+      { label: "Daily Hours Saved", value: "4.5h / admin" },
+      { label: "Policy Drift", value: "0 Unresolved" },
     ],
     proofPoints: [
       "24 drifted backup windows auto-normalized without human ticket escalation",
@@ -74,12 +67,6 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
       "Daily backup health briefs synthesized and delivered directly to Slack & ITSM",
     ],
     ctaLabel: "Inspect Operations Engine →",
-    terminalLogs: [
-      "[0.018s] Evaluating SLA windows across 32 enterprise backup policies",
-      "[0.052s] Detected 24 storage queue bottlenecks in primary Dell DataDomain",
-      "[0.088s] Auto-rebalanced concurrency limits across MediaAgents",
-      "[0.122s] Operations reconciled: 99.98% SLA target achieved · 0 tickets opened",
-    ],
   },
   {
     num: "03",
@@ -90,12 +77,12 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
     summary:
       "Agent Mesh™ investigates backup and replication failures in real time, correlates logs across infrastructure, and proposes verified remediation plans.",
     command: "mesh.agent.triage --incident=INC-8912 --target=payments-db",
-    status: "ROOT CAUSE IDENTIFIED · APPROVAL REQUIRED",
+    status: "Root cause isolated · Human sign-off staged",
     statusType: "warning",
     metrics: [
-      { label: "Investigation Time", value: "< 60s", pct: 98 },
-      { label: "Context Retention", value: "100%", pct: 100 },
-      { label: "MTTR Reduction", value: "Up to 80%", pct: 80 },
+      { label: "Investigation Time", value: "< 60s" },
+      { label: "Context Retention", value: "100%" },
+      { label: "MTTR Reduction", value: "Up to 80%" },
     ],
     proofPoints: [
       "Root cause traced: stale SAN snapshot lock blocked DataDomain replication",
@@ -103,12 +90,6 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
       "Remediation plan ready with human authorization gate: [ Authorize CHG ]",
     ],
     ctaLabel: "See Guided Remediation Flow →",
-    terminalLogs: [
-      "[0.021s] Incident INC-8912 triggered: payments-db snapshot freeze timeout",
-      "[0.064s] Agent Mesh dispatched: cross-querying vCenter, Pure Storage & Veeam",
-      "[0.098s] Root cause isolated: orphan lock file on datastore volume LUN-04",
-      "[0.145s] Staged ServiceNow change ticket with rollback script · Waiting for HITL",
-    ],
   },
   {
     num: "04",
@@ -119,12 +100,12 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
     summary:
       "Eliminate brittle custom scripts. ResOC executes declarative, policy-enforced playbooks that adapt dynamically to infrastructure changes.",
     command: "resoc.playbook.execute --policy=SEC-FAILOVER-04",
-    status: "POLICY PASS · DUAL-OPERATOR GATED",
+    status: "Policy verified · Dual-operator gated",
     statusType: "active",
     metrics: [
-      { label: "Custom Scripts", value: "0 Required", pct: 100 },
-      { label: "Human Verification", value: "Enforced", pct: 100 },
-      { label: "Workflow Reliability", value: "99.9%", pct: 99 },
+      { label: "Custom Scripts", value: "0 Required" },
+      { label: "Human Verification", value: "Enforced" },
+      { label: "Workflow Reliability", value: "99.9%" },
     ],
     proofPoints: [
       "Zero shell scripts to maintain; playbooks bind directly to platform APIs",
@@ -132,12 +113,6 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
       "Complete cryptographic audit log generated for change management compliance",
     ],
     ctaLabel: "View Codeless Playbooks →",
-    terminalLogs: [
-      "[0.015s] Initializing declarative playbook SEC-FAILOVER-04",
-      "[0.041s] Pre-flight dry run: verifying target compute quota & networking",
-      "[0.076s] Enforcing Policy Guardrails: RBAC sign-off from SecOps and Storage Admin",
-      "[0.110s] Execution complete: cryptographic WORM audit hash recorded",
-    ],
   },
   {
     num: "05",
@@ -148,12 +123,12 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
     summary:
       "Continuous recovery validation in isolated clean rooms. Turn recovery assumptions into mathematically verified, board-ready evidence.",
     command: "resoc.cyber.verify --app=ledger-core --cleanroom=isolated-vnet",
-    status: "RECOVERY VERIFIED · PASSED IN 4M 12S",
+    status: "Recovery verified · Passed in 4m 12s",
     statusType: "success",
     metrics: [
-      { label: "Verified RTO", value: "4m 12s", pct: 94 },
-      { label: "Untested Gaps", value: "0 Detected", pct: 100 },
-      { label: "Attestation", value: "Board-Ready", pct: 100 },
+      { label: "Verified RTO", value: "4m 12s" },
+      { label: "Untested Gaps", value: "0 Detected" },
+      { label: "Attestation", value: "Board-Ready" },
     ],
     proofPoints: [
       "Automated malware sweep completed on isolated replica snapshot",
@@ -161,12 +136,6 @@ const CAPABILITY_DETAILS: CapabilityDetail[] = [
       "Signed recovery readiness certificate generated for CISO & insurers",
     ],
     ctaLabel: "Explore Cyber Recovery Proofs →",
-    terminalLogs: [
-      "[0.024s] Spawning air-gapped clean-room sandbox on isolated vNet",
-      "[0.062s] Mounting immutable snapshot replica: SHA-256 integrity verified",
-      "[0.095s] Automated AV/EDR scan completed: 0 indicators of compromise",
-      "[0.138s] Application health probe HTTP 200 OK · Signed PDF Attestation generated",
-    ],
   },
 ];
 
@@ -305,7 +274,7 @@ export function SolutionSection() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Left Column: Interactive Capability Cards with Vertical Timeline */}
+          {/* Left Column: Interactive Capability Cards */}
           <div
             style={{
               display: "flex",
@@ -331,31 +300,6 @@ export function SolutionSection() {
               <span style={{ fontSize: 10, opacity: 0.7 }}>SELECT TO INSPECT</span>
             </div>
 
-            {/* Vertical Laser Progress Timeline Bar */}
-            <div
-              style={{
-                position: "absolute",
-                left: 22,
-                top: 50,
-                bottom: 20,
-                width: 2,
-                background: "var(--border)",
-                zIndex: 0,
-              }}
-            >
-              <motion.div
-                animate={{
-                  height: `${((activeIdx + 1) / CAPABILITY_DETAILS.length) * 100}%`,
-                }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                style={{
-                  width: "100%",
-                  background: "var(--orange)",
-                  boxShadow: "0 0 8px rgba(244, 85, 50, 0.6)",
-                }}
-              />
-            </div>
-
             {CAPABILITY_DETAILS.map((item, idx) => {
               const isSelected = activeIdx === idx;
 
@@ -376,40 +320,21 @@ export function SolutionSection() {
                     alignItems: "flex-start",
                     gap: 16,
                     padding: "16px 20px",
-                    background: "transparent",
+                    background: isSelected ? "var(--bg)" : "transparent",
                     border: "1px solid",
                     borderColor: isSelected ? "var(--border)" : "transparent",
+                    borderLeft: isSelected ? "3px solid var(--orange)" : "3px solid transparent",
                     borderRadius: 4,
                     position: "relative",
                     cursor: "pointer",
                     textAlign: "left",
-                    transition: "border-color 0.2s ease",
-                    zIndex: 1,
+                    transition: "all 0.18s ease",
                   }}
                   className={`capability-nav-card ${isSelected ? "selected" : ""}`}
                 >
-                  {/* Sliding layoutId active pill */}
-                  {isSelected && (
-                    <motion.div
-                      layoutId="solutionActiveTabPill"
-                      transition={{ type: "spring", stiffness: 120, damping: 20 }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "var(--bg)",
-                        border: "1px solid var(--border)",
-                        borderLeft: "3px solid var(--orange)",
-                        borderRadius: 4,
-                        zIndex: 0,
-                      }}
-                    />
-                  )}
-
                   {/* Icon + Number Badge */}
                   <div
                     style={{
-                      position: "relative",
-                      zIndex: 1,
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -439,7 +364,7 @@ export function SolutionSection() {
                   </div>
 
                   {/* Title + Tag + Problem Solved */}
-                  <div style={{ position: "relative", zIndex: 1, flex: 1 }}>
+                  <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 4 }}>
                       <span
                         style={{
@@ -459,8 +384,8 @@ export function SolutionSection() {
                           fontSize: 9.5,
                           padding: "2px 6px",
                           borderRadius: 2,
-                          background: isSelected ? "rgba(244, 85, 50, 0.12)" : "var(--border)",
-                          color: isSelected ? "var(--orange)" : "var(--muted)",
+                          background: isSelected ? "var(--surface)" : "var(--border)",
+                          color: isSelected ? "var(--ink)" : "var(--muted)",
                           fontWeight: 600,
                           letterSpacing: "0.06em",
                         }}
@@ -485,8 +410,6 @@ export function SolutionSection() {
                   {/* Chevron Indicator */}
                   <div
                     style={{
-                      position: "relative",
-                      zIndex: 1,
                       alignSelf: "center",
                       color: isSelected ? "var(--orange)" : "var(--border)",
                       transform: isSelected ? "translateX(2px)" : "translateX(0)",
@@ -502,17 +425,16 @@ export function SolutionSection() {
             })}
           </div>
 
-          {/* Right Column: Live Architectural Preview Console */}
+          {/* Right Column: Live Architectural Preview Console (100% PAPER-CONSISTENT, ZERO BLACK BOXES) */}
           <div
             style={{
               background: "var(--bg)",
               border: "1px solid var(--border)",
-              borderRadius: 8,
+              borderRadius: 6,
               padding: 0,
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
-              boxShadow: "0 8px 30px rgba(0, 0, 0, 0.04)",
               position: "relative",
             }}
           >
@@ -532,25 +454,24 @@ export function SolutionSection() {
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 {/* Window Dots */}
                 <div style={{ display: "flex", gap: 5 }}>
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--border)" }} />
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--border)" }} />
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--border)" }} />
+                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--border)" }} />
+                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--border)" }} />
+                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--border)" }} />
                 </div>
                 <span style={{ color: "var(--ink)", fontWeight: 600, letterSpacing: "0.04em" }}>
                   RESOC CONSOLE · ARCHITECTURE PREVIEW
                 </span>
               </div>
 
-              {/* Pulsing Live Fabric Pill */}
+              {/* Status Indicator */}
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <span
                   style={{
-                    width: 7,
-                    height: 7,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "var(--orange)",
                     display: "inline-block",
-                    boxShadow: "0 0 6px rgba(244, 85, 50, 0.4)",
                   }}
                 />
                 <span style={{ fontSize: 10.5, color: "var(--muted)", letterSpacing: "0.08em" }}>
@@ -559,14 +480,14 @@ export function SolutionSection() {
               </div>
             </div>
 
-            {/* Console Body with Smooth Content Transitions */}
+            {/* Console Body with Smooth Paper-Consistent Crossfade */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.num}
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   padding: "24px 28px",
                   display: "flex",
@@ -575,12 +496,12 @@ export function SolutionSection() {
                   flex: 1,
                 }}
               >
-                {/* Terminal Command Line */}
+                {/* Command Bar: Kept 100% on --surface (#f3f1f1) with --ink text and 1px hairline */}
                 <div
                   style={{
                     background: "var(--surface)",
                     border: "1px solid var(--border)",
-                    borderRadius: 5,
+                    borderRadius: 4,
                     padding: "10px 14px",
                     display: "flex",
                     alignItems: "center",
@@ -607,19 +528,9 @@ export function SolutionSection() {
                   </div>
                   <span
                     style={{
-                      fontSize: 10,
-                      padding: "3px 8px",
-                      borderRadius: 3,
-                      background:
-                        active.statusType === "warning"
-                          ? "rgba(244, 85, 50, 0.12)"
-                          : "var(--surface)",
-                      color:
-                        active.statusType === "warning"
-                          ? "var(--orange)"
-                          : "var(--ink)",
-                      fontWeight: 700,
-                      letterSpacing: "0.06em",
+                      fontSize: 10.5,
+                      color: "var(--muted)",
+                      letterSpacing: "0.02em",
                     }}
                   >
                     {active.status}
@@ -653,28 +564,7 @@ export function SolutionSection() {
                   </p>
                 </div>
 
-                {/* Live Terminal Streaming Log Lines */}
-                <div
-                  style={{
-                    background: "#191719",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 5,
-                    padding: "12px 14px",
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 11,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 6,
-                  }}
-                >
-                  {active.terminalLogs.map((log, lIdx) => (
-                    <div key={lIdx} style={{ color: lIdx === active.terminalLogs.length - 1 ? "var(--orange)" : "#a09a9c" }}>
-                      {log}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Telemetry Stat Cards with Animated SVG Bars */}
+                {/* Telemetry Metric Tiles: Pure Paper & Ink (Clean Instrument Serif 32px, NO Progress Bars) */}
                 <div
                   style={{
                     display: "grid",
@@ -689,50 +579,41 @@ export function SolutionSection() {
                         background: "var(--surface)",
                         border: "1px solid var(--border)",
                         borderRadius: 4,
-                        padding: "12px 14px",
+                        padding: "16px 16px",
                       }}
                     >
                       <div
                         style={{
-                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 17,
-                          fontWeight: 700,
+                          fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                          fontSize: 32,
+                          lineHeight: 1,
                           color: "var(--ink)",
                           letterSpacing: "-0.02em",
+                          marginBottom: 6,
                         }}
                       >
                         <NumberCounter value={m.value} />
                       </div>
                       <div
                         style={{
-                          fontSize: 11,
+                          fontFamily: "var(--font-body), Inter, sans-serif",
+                          fontSize: 12,
                           color: "var(--muted)",
-                          marginTop: 3,
-                          marginBottom: 8,
-                          lineHeight: 1.3,
+                          lineHeight: 1.35,
                         }}
                       >
                         {m.label}
-                      </div>
-                      {/* Metric bar */}
-                      <div style={{ height: 4, background: "rgba(34, 31, 34, 0.08)", borderRadius: 2, overflow: "hidden" }}>
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${m.pct}%` }}
-                          transition={{ duration: 0.8, ease: "easeOut" }}
-                          style={{ height: "100%", background: "var(--orange)", borderRadius: 2 }}
-                        />
                       </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Real Architectural Proof Points (100% PRODUCTION CONTENT) */}
+                {/* Architecture Verification (Clean Sentence-Case Editorial Labels) */}
                 <div
                   style={{
                     background: "var(--surface)",
                     border: "1px solid var(--border)",
-                    borderRadius: 6,
+                    borderRadius: 4,
                     padding: "16px 18px",
                   }}
                 >
@@ -747,29 +628,21 @@ export function SolutionSection() {
                     <div
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10.5,
-                        letterSpacing: "0.08em",
+                        fontSize: 11,
                         color: "var(--ink)",
-                        textTransform: "uppercase",
                         fontWeight: 600,
                       }}
                     >
-                      LIVE ARCHITECTURAL TELEMETRY
+                      Architecture verification
                     </div>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 9.5,
-                        letterSpacing: "0.06em",
-                        padding: "2px 7px",
-                        borderRadius: 3,
-                        background: "rgba(244, 85, 50, 0.12)",
-                        color: "var(--orange)",
-                        fontWeight: 700,
-                        textTransform: "uppercase",
+                        fontSize: 10,
+                        color: "var(--muted)",
                       }}
                     >
-                      POLICY-GOVERNED EXECUTION
+                      Policy-governed autonomy
                     </span>
                   </div>
 
@@ -835,7 +708,7 @@ export function SolutionSection() {
                       color: "var(--muted)",
                     }}
                   >
-                    POLICY-BOUND · AUDIT-READY EVIDENCE
+                    Policy-bound · Audit-ready evidence
                   </span>
                 </div>
               </motion.div>

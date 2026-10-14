@@ -3,116 +3,74 @@
    ────────────────────────────────────────────────────────────────── */
 
 export const PAIN = {
-  eyebrow: "THE PROBLEM",
+  eyebrow: "02 // THE REALITY OF ENTERPRISE RESILIENCE",
   headline: "The Reality of Business, Data & Cyber Resilience",
-  openingLine: "Modern enterprises face rising recovery uncertainty, growing infrastructure complexity, and operations that struggle to scale.",
-  caption: "Same five tools. Nothing replaced. The space between them is now operated.",
-  silos: [
-    {
-      id: "backup",
-      title: "Backup Engines",
-      sub: "Multi-platform estate",
-      detail: "Commvault · Veeam · Dell PowerProtect · NetWorker",
-      todayState: "Reports local jobs successful. Blind to storage retention drifts.",
-      resocState: "Continuous telemetry into Agent Mesh™. Cross-platform job normalization.",
-    },
-    {
-      id: "storage",
-      title: "Storage & Tiers",
-      sub: "Primary & Secondary",
-      detail: "Dell DataDomain · SAN / NAS · Object Storage",
-      todayState: "Replication and retention locks lag without live recovery proof.",
-      resocState: "Replication integrity, capacity drift, and retention locks continuously verified.",
-    },
-    {
-      id: "cloud",
-      title: "Cloud Workloads",
-      sub: "Hybrid & Multi-Cloud",
-      detail: "AWS · Azure · Enterprise hybrid workloads",
-      todayState: "Workloads and dependencies mutate faster than recovery runbooks.",
-      resocState: "Autonomous workload discovery and application topology dependency mapping.",
-    },
-    {
-      id: "security",
-      title: "Recovery Posture",
-      sub: "Governance & Access",
-      detail: "Air-gap locks · Immutable policies · Access keys",
-      todayState: "Recovery credentials and isolation policies untested until active incident.",
-      resocState: "Continuous sandbox restore readiness and immutability verification.",
-    },
-    {
-      id: "service",
-      title: "ITSM & Change",
-      sub: "Operations & Governance",
-      detail: "ServiceNow · Change Advisory · Audit trail",
-      todayState: "Manual tickets, context loss between L1/L2/L3, stale evidence.",
-      resocState: "Automated root-cause documentation and staged changes awaiting human approval.",
-    },
-  ],
-  gaps: [
-    {
-      num: "01",
-      name: "Retention & Replication Drift",
-      between: "Backup ↔ Storage",
-      todayRisk: "Backup catalogs log success, but storage replication or immutability locks lag silently without cross-verification.",
-      resocBridge: "Continuous reconciliation between backup job catalogs and DataDomain tier status.",
-    },
-    {
-      num: "02",
-      name: "Topology & Dependency Drift",
-      between: "Storage ↔ Cloud Workloads",
-      todayRisk: "Cloud instances, databases, and microservices change daily while static recovery runbooks drift out of date.",
-      resocBridge: "Agent Mesh™ maps active dependencies and proves recoverability against current architecture.",
-    },
-    {
-      num: "03",
-      name: "Unvalidated Recovery Posture",
-      between: "Cloud Workloads ↔ Security Posture",
-      todayRisk: "Air-gapped retention, keys, and isolated network recovery paths are never exercised until an outage occurs.",
-      resocBridge: "Automated non-disruptive sandbox recovery drills prove RTO and RPO before incidents strike.",
-    },
-    {
-      num: "04",
-      name: "Operational Context Leak",
-      between: "Security Posture ↔ ITSM & Change",
-      todayRisk: "Shift handoffs and escalations lose forensic context, forcing specialists to re-diagnose what L1 already found.",
-      resocBridge: "Pre-assembled investigation briefs and staged fix changes in ServiceNow with one-click human approval.",
-    },
-  ],
+  openingLine:
+    "Modern enterprises face rising recovery uncertainty, growing infrastructure complexity, and operations that struggle to scale.",
   clusters: [
     {
       num: "01",
       group: "Recovery Confidence",
-      title: "Can we actually recover?",
-      subtitle: "Confidence is assumed, not evidenced.",
+      diagramCaption: "FIG. 2.1 — ASSUMED BACKUP SUCCESS VS. PROVABLE APPLICATION RECOVERY",
       items: [
-        { label: "Cyber recovery gaps", desc: "Recovery strategies struggle to keep pace with the speed, scale, and complexity of modern cyberattacks." },
-        { label: "Low recovery confidence", desc: "Recovery readiness is uncertain. Teams lack continuous evidence that critical workloads can actually recover when needed." },
-        { label: "Unverified application recovery", desc: "Application-level recovery remains unproven. Successful backups do not guarantee that applications can be restored correctly." },
-        { label: "Unproven RTO/RPO", desc: "RTO and RPO are difficult to prove. Recovery objectives often remain assumptions until an actual recovery occurs." },
+        {
+          label: "Cyber Recovery Lags AI-Driven Attacks",
+          desc: "Recovery strategies struggle to match the speed, scale, and complexity of modern cyberattacks.",
+        },
+        {
+          label: "Low Recovery Confidence",
+          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
+        },
+        {
+          label: "Unverified Application Recovery",
+          desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
+        },
+        {
+          label: "Unproven RTO/RPO",
+          desc: "Recovery objectives often remain assumptions until they are actually tested.",
+        },
       ],
     },
     {
       num: "02",
       group: "Complexity at Scale",
-      title: "The estate outgrew the operating model.",
-      subtitle: "More platforms, more vendors, less of a single picture.",
+      diagramCaption: "FIG. 2.2 — DISCONNECTED PLATFORMS, CLOUDS, AND PROTECTION VENDORS",
       items: [
-        { label: "Multi-vendor sprawl", desc: "Each platform has its own console, its own language, its own alerting. Nobody holds the cross-vendor view." },
-        { label: "Fragmented reporting", desc: "Reports are built tool-by-tool. Reconciling them takes hours and the picture is stale before it is finished." },
-        { label: "Siloed visibility", desc: "Storage, backup, cloud, and security each see their own slice. No single team sees the whole night." },
+        {
+          label: "Data and Platform Sprawl",
+          desc: "Data and Dependencies span multiple platforms, clouds, and protection vendors.",
+        },
+        {
+          label: "Heterogeneous Environments",
+          desc: "Multi-cloud, multi-vendor environments are increasingly difficult to operate consistently at scale.",
+        },
+        {
+          label: "Siloed Visibility",
+          desc: "No single view connects protection health, failures, dependencies, and recovery risk.",
+        },
       ],
     },
     {
       num: "03",
       group: "Operational Friction",
-      title: "Every incident starts from zero.",
-      subtitle: "Knowledge, context, and automation all leak between handoffs.",
+      diagramCaption: "FIG. 2.3 — MANUAL CORRELATION AND CONTEXT LOSS ACROSS L1 / L2 / L3",
       items: [
-        { label: "Slow investigation", desc: "L1 collects the same diagnostics manually every time. Context is lost between shifts and escalations." },
-        { label: "Specialist dependency", desc: "Most issues wait for one person who knows that vendor. The queue grows while they sleep." },
-        { label: "Repeated L1/L2/L3 handoffs", desc: "Each escalation loses context. The specialist re-investigates what L1 already found." },
-        { label: "Brittle automation", desc: "Scripts break when infrastructure changes. Maintaining them is its own full-time job." },
+        {
+          label: "Fragmented knowledge",
+          desc: "Critical expertise is scattered across runbooks, tickets, tools, and specialists.",
+        },
+        {
+          label: "Slow investigation",
+          desc: "Teams manually correlate signals across systems before identifying root cause.",
+        },
+        {
+          label: "Context-Losing Handoffs",
+          desc: "Critical context is lost across L1, L2, L3, and specialist escalations.",
+        },
+        {
+          label: "Brittle Automation",
+          desc: "Scripts and workflows break as infrastructure changes, creating constant maintenance.",
+        },
       ],
     },
   ],

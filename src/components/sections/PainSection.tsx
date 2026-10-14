@@ -1,987 +1,967 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { PAIN } from "@/lib/sections";
 import { MeshDefendBackground } from "@/components/hero/MeshDefendBackground";
-import { TechIndexTag } from "@/components/ui/TechIndexTag";
-import { AnimatedLaserBeam } from "@/components/motion/AnimatedLaserBeam";
-import { MaskedLineReveal } from "@/components/motion/MaskedLineReveal";
-import { SpringReveal } from "@/components/motion/SpringReveal";
 
 export function PainSection() {
-  const [activeToggle, setActiveToggle] = useState<"today" | "resoc">("today");
-  const [selectedGap, setSelectedGap] = useState<number | null>(null);
-  const [activePillar, setActivePillar] = useState<number>(0);
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [activeCluster, setActiveCluster] = useState<number>(0);
+  const [hoveredCell, setHoveredCell] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isUserClicking = useRef<boolean>(false);
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Scroll tracking across 3 beats for desktop scroll-pinning
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      // Don't override if user recently clicked a pillar tab
+      if (isUserClicking.current) return;
+
+      if (latest < 0.33) {
+        setActiveCluster(0);
+      } else if (latest < 0.66) {
+        setActiveCluster(1);
+      } else {
+        setActiveCluster(2);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  const handlePillarSelect = useCallback((idx: number) => {
+    setActiveCluster(idx);
+    isUserClicking.current = true;
+    if (clickTimeout.current) clearTimeout(clickTimeout.current);
+    clickTimeout.current = setTimeout(() => {
+      isUserClicking.current = false;
+    }, 900);
+  }, []);
+
+  const current = PAIN.clusters[activeCluster];
 
   return (
     <section
       id="pain"
+      ref={sectionRef}
+      className="pain-section-wrap"
       style={{
-        padding: "80px 0 96px",
-        borderBottom: "1px solid var(--border)",
         background: "var(--bg)",
         position: "relative",
-        overflow: "hidden",
+        borderBottom: "1px solid var(--border)",
       }}
     >
-      {/* Subtle Living Resilience Mesh Background */}
+      {/* Living Resilience Mesh Background */}
       <MeshDefendBackground variant="subtle" density="sparse" />
 
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        {/* ─── EDITORIAL HEADER WITH INSTANT MASKED LINE REVEAL ─── */}
-        <div style={{ maxWidth: 980, marginBottom: 52 }}>
-          <TechIndexTag
-            tag="[02 // OPERATIONAL DISCONNECT & RECOVERY UNCERTAINTY]"
-            status="4_UNOWNED_GAPS"
-            style={{ marginBottom: 16 }}
-          />
+      {/* Sticky Stage Container */}
+      <div className="pain-sticky-stage">
+        <div className="container" style={{ position: "relative", zIndex: 2 }}>
+          {/* ─── TOP EDITORIAL HEADER ─── */}
+          <div style={{ maxWidth: 960, marginBottom: 32 }}>
+            {/* Eyebrow */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 16,
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--orange)",
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  letterSpacing: "0.08em",
+                  color: "var(--muted)",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                {PAIN.eyebrow}
+              </span>
+            </div>
 
-          <MaskedLineReveal
-            as="h2"
-            className="display"
-            lines={[PAIN.headline]}
-            style={{
-              fontSize: "clamp(34px, 4.4vw, 58px)",
-              lineHeight: 1.04,
-              letterSpacing: "-0.025em",
-              margin: 0,
-              color: "var(--ink)",
-            }}
-          />
+            {/* H2 Headline */}
+            <h2
+              className="display"
+              style={{
+                fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                fontSize: "clamp(38px, 4.6vw, 64px)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.03em",
+                margin: "0 0 16px 0",
+                color: "var(--ink)",
+                fontWeight: 400,
+              }}
+            >
+              {PAIN.headline}
+            </h2>
 
-          <MaskedLineReveal
-            as="div"
-            lines={[PAIN.openingLine]}
-            delay={0.15}
-            style={{
-              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-              fontSize: "clamp(22px, 2.3vw, 30px)",
-              fontStyle: "italic",
-              color: "var(--orange)",
-              letterSpacing: "-0.015em",
-              lineHeight: 1.25,
-              marginTop: 8,
-            }}
-          />
+            {/* Opening Lead */}
+            <p
+              className="display-italic"
+              style={{
+                fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                fontSize: "clamp(22px, 2.3vw, 30px)",
+                fontStyle: "italic",
+                color: "var(--orange)",
+                letterSpacing: "-0.015em",
+                lineHeight: 1.25,
+                maxWidth: "46ch",
+                margin: 0,
+              }}
+            >
+              {PAIN.openingLine}
+            </p>
+          </div>
 
-          <p
-            style={{
-              marginTop: 18,
-              fontSize: 15.5,
-              lineHeight: 1.6,
-              color: "var(--muted)",
-              maxWidth: "76ch",
-            }}
-          >
-            Every tool succeeds inside its own console. Yet enterprise recovery fails in the four unowned operational handoffs between backup, storage, cloud, posture, and change management.
-          </p>
-        </div>
-
-        {/* ═══════════════════════════════════════════════════════════════
-            PART A: INTERACTIVE 5-DOMAIN & 4-HANDOFF WORKBENCH
-           ═══════════════════════════════════════════════════════════════ */}
-        <SpringReveal>
+          {/* ═══════════════════════════════════════════════════════════════
+              12-COLUMN ARCHITECTURAL SPLIT-SCREEN STAGE
+             ═══════════════════════════════════════════════════════════════ */}
           <div
             style={{
               border: "1px solid var(--border)",
-              borderRadius: 6,
-              background: "var(--surface)",
-              marginBottom: 72,
-              overflow: "hidden",
-              boxShadow: "0 1px 4px rgba(0, 0, 0, 0.04)",
+              background: "var(--bg)",
             }}
           >
-            {/* Workbench Top Control Bar */}
             <div
+              className="pain-split-grid"
               style={{
-                padding: "16px 24px",
-                borderBottom: "1px solid var(--border)",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: 16,
-                background: "var(--bg)",
+                display: "grid",
+                gridTemplateColumns: "5fr 7fr",
               }}
             >
-              {/* Tactile Toggle with layoutId sliding pill */}
+              {/* ─── LEFT COLUMN (COLS 1–5, STICKY ON DESKTOP) ─── */}
               <div
-                role="group"
-                aria-label="Operating Model Comparison"
+                className="pain-left-rail"
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
+                  padding: "36px 32px",
+                  borderRight: "1px solid var(--border)",
                   background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 4,
-                  padding: 3,
-                  gap: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  gap: 28,
                   position: "relative",
                 }}
               >
-                <button
-                  type="button"
-                  className="workbench-toggle-btn"
-                  aria-pressed={activeToggle === "today"}
-                  onClick={() => {
-                    setActiveToggle("today");
-                    setSelectedGap(null);
-                  }}
-                  style={{
-                    position: "relative",
-                    padding: "7px 16px",
-                    borderRadius: 3,
-                    fontSize: 12,
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontWeight: 600,
-                    border: "none",
-                    outline: "none",
-                    cursor: "pointer",
-                    background: "transparent",
-                    color: activeToggle === "today" ? "var(--orange)" : "var(--muted)",
-                    transition: "color 0.2s ease",
-                  }}
-                >
-                  {activeToggle === "today" && (
-                    <motion.div
-                      layoutId="painTogglePill"
-                      transition={{ type: "spring", stiffness: 120, damping: 20 }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "var(--bg)",
-                        border: "1px solid var(--border)",
-                        borderRadius: 3,
-                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                        zIndex: 0,
-                      }}
-                    />
-                  )}
-                  <span style={{ position: "relative", zIndex: 1 }}>Today · The 4 Unowned Gaps</span>
-                </button>
-                <button
-                  type="button"
-                  className="workbench-toggle-btn"
-                  aria-pressed={activeToggle === "resoc"}
-                  onClick={() => {
-                    setActiveToggle("resoc");
-                    setSelectedGap(null);
-                  }}
-                  style={{
-                    position: "relative",
-                    padding: "7px 16px",
-                    borderRadius: 3,
-                    fontSize: 12,
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontWeight: 600,
-                    border: "none",
-                    outline: "none",
-                    cursor: "pointer",
-                    background: "transparent",
-                    color: activeToggle === "resoc" ? "var(--ink)" : "var(--muted)",
-                    transition: "color 0.2s ease",
-                  }}
-                >
-                  {activeToggle === "resoc" && (
-                    <motion.div
-                      layoutId="painTogglePill"
-                      transition={{ type: "spring", stiffness: 120, damping: 20 }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "var(--bg)",
-                        border: "1px solid var(--border)",
-                        borderRadius: 3,
-                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                        zIndex: 0,
-                      }}
-                    />
-                  )}
-                  <span style={{ position: "relative", zIndex: 1 }}>With ResOC · Operated Fabric</span>
-                </button>
-              </div>
-
-              {/* Status indicator */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  color: "var(--muted)",
-                  letterSpacing: "0.04em",
-                }}
-              >
-                <span
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: activeToggle === "today" ? "var(--orange)" : "#10b981",
-                    display: "inline-block",
-                    boxShadow: activeToggle === "today" ? "0 0 8px rgba(244, 85, 50, 0.5)" : "0 0 8px rgba(16, 185, 129, 0.5)",
-                  }}
-                />
-                <span>
-                  {activeToggle === "today"
-                    ? "5 ISOLATED CONSOLES · 4 UNOWNED GAPS LEAKING"
-                    : "UNIFIED AGENT MESH™ RESILIENCE FABRIC ACTIVE"}
-                </span>
-              </div>
-            </div>
-
-            {/* Glowing Laser Bus Line (When ResOC is Active) */}
-            {activeToggle === "resoc" && (
-              <div style={{ padding: "0 20px", background: "var(--bg)" }}>
-                <AnimatedLaserBeam variant="horizontal" />
-              </div>
-            )}
-
-            {/* 5-Column Architectural Grid */}
-            <div
-              className="workbench-grid"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(5, 1fr)",
-                background: "var(--bg)",
-                position: "relative",
-              }}
-            >
-              {PAIN.silos.map((silo, idx) => (
-                <div
-                  key={silo.id}
-                  style={{
-                    padding: "24px 20px",
-                    borderRight: idx < 4 ? "1px solid var(--border)" : "none",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    minHeight: 260,
-                    position: "relative",
-                    background:
-                      activeToggle === "resoc"
-                        ? "rgba(244, 85, 50, 0.02)"
-                        : "transparent",
-                    transition: "background 0.25s ease",
-                  }}
-                >
-                  {/* Fault line connector for "Today" */}
-                  {activeToggle === "today" && idx < 4 && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: -10,
-                        top: "45%",
-                        zIndex: 3,
-                        transform: "translateY(-50%)",
-                      }}
-                      className="broken-fault-line"
-                    >
-                      <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
-                        <path
-                          d="M2 2L18 8L4 16L18 26"
-                          stroke="var(--orange)"
-                          strokeWidth="2"
-                          strokeDasharray="3 3"
-                        />
-                      </svg>
-                    </div>
-                  )}
-
-                  {/* Column Meta */}
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "baseline",
-                        marginBottom: 8,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 10.5,
-                          letterSpacing: "0.08em",
-                          color: "var(--muted)",
-                          fontWeight: 600,
-                        }}
-                      >
-                        DOMAIN 0{idx + 1}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 9.5,
-                          padding: "2px 7px",
-                          borderRadius: 3,
-                          background:
-                            activeToggle === "today"
-                              ? "rgba(244, 85, 50, 0.08)"
-                              : "rgba(16, 185, 129, 0.12)",
-                          color:
-                            activeToggle === "today"
-                              ? "var(--orange)"
-                              : "#059669",
-                          fontWeight: 700,
-                          letterSpacing: "0.04em",
-                        }}
-                      >
-                        {activeToggle === "today" ? "SILO" : "UNIFIED"}
-                      </span>
-                    </div>
-
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-body), Inter, sans-serif',
-                        fontSize: 16,
-                        fontWeight: 600,
-                        color: "var(--ink)",
-                        marginBottom: 4,
-                        lineHeight: 1.25,
-                      }}
-                    >
-                      {silo.title}
-                    </h3>
-
-                    <div
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 11,
-                        color: activeToggle === "today" ? "var(--orange)" : "var(--ink)",
-                        marginBottom: 14,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {silo.sub}
-                    </div>
-
-                    {/* Stack Detail */}
-                    <div
-                      style={{
-                        fontSize: 12,
-                        color: "var(--muted)",
-                        lineHeight: 1.45,
-                        paddingBottom: 16,
-                        borderBottom: "1px solid var(--border)",
-                        marginBottom: 16,
-                      }}
-                    >
-                      {silo.detail}
-                    </div>
+                {/* 3 Pillar Selectors with Glide Indicator */}
+                <div style={{ position: "relative" }}>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10.5,
+                      letterSpacing: "0.1em",
+                      color: "var(--muted)",
+                      textTransform: "uppercase",
+                      marginBottom: 16,
+                      fontWeight: 600,
+                    }}
+                  >
+                    THREE CORE FAILURE DOMAINS
                   </div>
 
-                  {/* State Diagnostic */}
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 9.5,
-                        letterSpacing: "0.06em",
-                        textTransform: "uppercase",
-                        color: activeToggle === "today" ? "var(--orange)" : "var(--ink)",
-                        marginBottom: 4,
-                        fontWeight: 700,
-                      }}
-                    >
-                      {activeToggle === "today" ? "Console Blindspot" : "ResOC Telemetry"}
-                    </div>
-                    <p
-                      style={{
-                        fontSize: 12,
-                        lineHeight: 1.45,
-                        color: activeToggle === "today" ? "var(--muted)" : "var(--ink)",
-                        margin: 0,
-                      }}
-                    >
-                      {activeToggle === "today" ? silo.todayState : silo.resocState}
-                    </p>
+                  {/* Vertical Rail Line with Animated 2px Glide Indicator */}
+                  <div
+                    style={{
+                      position: "relative",
+                      borderLeft: "1px solid var(--border)",
+                      paddingLeft: 12,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                    }}
+                  >
+                    {PAIN.clusters.map((cluster, cIdx) => {
+                      const isActive = activeCluster === cIdx;
+
+                      return (
+                        <button
+                          type="button"
+                          key={cluster.num}
+                          onClick={() => handlePillarSelect(cIdx)}
+                          onMouseEnter={() => handlePillarSelect(cIdx)}
+                          style={{
+                            textAlign: "left",
+                            padding: "14px 16px",
+                            background: isActive ? "var(--bg)" : "transparent",
+                            border: "1px solid",
+                            borderColor: isActive ? "var(--border)" : "transparent",
+                            borderRadius: 4,
+                            cursor: "pointer",
+                            outline: "none",
+                            position: "relative",
+                            opacity: isActive ? 1 : 0.38,
+                            transition:
+                              "opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, border-color 0.2s ease",
+                            display: "flex",
+                            alignItems: "baseline",
+                            gap: 16,
+                          }}
+                          className="pillar-selector-btn"
+                        >
+                          {/* Animated 2px Active Indicator Bar Gliding along the Rail */}
+                          {isActive && (
+                            <motion.div
+                              layoutId="activePillarRailBar"
+                              transition={{
+                                type: "spring",
+                                stiffness: 220,
+                                damping: 26,
+                              }}
+                              style={{
+                                position: "absolute",
+                                left: -14,
+                                top: 4,
+                                bottom: 4,
+                                width: 2,
+                                background: "var(--orange)",
+                                borderRadius: 1,
+                              }}
+                            />
+                          )}
+
+                          {/* 01 / 02 / 03 Numeral */}
+                          <span
+                            style={{
+                              fontFamily:
+                                'var(--font-display), "Instrument Serif", Georgia, serif',
+                              fontSize: 36,
+                              lineHeight: 1,
+                              color: isActive ? "var(--orange)" : "var(--ink)",
+                              letterSpacing: "-0.03em",
+                              transition: "color 0.2s ease",
+                            }}
+                          >
+                            {cluster.num}
+                          </span>
+
+                          {/* Pillar Group Title */}
+                          <span
+                            style={{
+                              fontFamily:
+                                'var(--font-display), "Instrument Serif", Georgia, serif',
+                              fontSize: 28,
+                              lineHeight: 1.15,
+                              letterSpacing: "-0.02em",
+                              color: "var(--ink)",
+                              fontWeight: 400,
+                            }}
+                          >
+                            {cluster.group}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* 4 Interactive Handoff Connectors Track */}
-            <div
-              style={{
-                padding: "16px 24px",
-                borderTop: "1px solid var(--border)",
-                borderBottom: "1px solid var(--border)",
-                background: "var(--surface)",
-              }}
-            >
+                {/* ─── MINIMALIST PAPER-AND-INK ARCHITECTURAL SVG DIAGRAM ─── */}
+                <div
+                  style={{
+                    background: "var(--bg)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                    padding: "18px 18px 14px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10,
+                      letterSpacing: "0.08em",
+                      color: "var(--muted)",
+                      textTransform: "uppercase",
+                      marginBottom: 14,
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <span>ARCHITECTURAL STATE MODEL</span>
+                    <span style={{ color: "var(--orange)", fontWeight: 700 }}>
+                      DOMAIN 0{activeCluster + 1}
+                    </span>
+                  </div>
+
+                  {/* SVG DIAGRAM 01: Assumed Backup Success vs. Provable Application Recovery */}
+                  {activeCluster === 0 && (
+                    <svg width="100%" height="86" viewBox="0 0 340 86" fill="none">
+                      {/* Left Node: Backup Job [Completed] */}
+                      <rect
+                        x="2"
+                        y="14"
+                        width="112"
+                        height="58"
+                        rx="2"
+                        stroke="var(--ink)"
+                        strokeWidth="1"
+                        fill="var(--bg)"
+                      />
+                      <text
+                        x="10"
+                        y="33"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9"
+                        fontWeight="700"
+                        letterSpacing="0.04em"
+                        fill="var(--muted)"
+                      >
+                        JOB STATUS
+                      </text>
+                      <text
+                        x="10"
+                        y="49"
+                        fontFamily="var(--font-body), sans-serif"
+                        fontSize="12"
+                        fontWeight="600"
+                        fill="var(--ink)"
+                      >
+                        Backup Job
+                      </text>
+                      <text
+                        x="10"
+                        y="63"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9.5"
+                        fill="var(--ink)"
+                      >
+                        [Completed ✓]
+                      </text>
+
+                      {/* Middle Broken Connector Line with Orange Alert Tick */}
+                      <line
+                        x1="116"
+                        y1="43"
+                        x2="152"
+                        y2="43"
+                        stroke="var(--ink)"
+                        strokeWidth="1"
+                        strokeDasharray="3 3"
+                      />
+                      <circle
+                        cx="170"
+                        cy="43"
+                        r="10"
+                        stroke="var(--orange)"
+                        strokeWidth="1.5"
+                        fill="var(--bg)"
+                      />
+                      <path
+                        d="M170 38v5M170 47v1"
+                        stroke="var(--orange)"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <line
+                        x1="188"
+                        y1="43"
+                        x2="224"
+                        y2="43"
+                        stroke="var(--ink)"
+                        strokeWidth="1"
+                        strokeDasharray="3 3"
+                      />
+                      <text
+                        x="170"
+                        y="66"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8"
+                        letterSpacing="0.04em"
+                        fill="var(--orange)"
+                        fontWeight="700"
+                      >
+                        GAP
+                      </text>
+
+                      {/* Right Node: Application Restore & RTO/RPO [Unverified] */}
+                      <rect
+                        x="226"
+                        y="14"
+                        width="112"
+                        height="58"
+                        rx="2"
+                        stroke="var(--orange)"
+                        strokeWidth="1"
+                        strokeDasharray="4 2"
+                        fill="var(--bg)"
+                      />
+                      <text
+                        x="234"
+                        y="33"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9"
+                        fontWeight="700"
+                        letterSpacing="0.04em"
+                        fill="var(--orange)"
+                      >
+                        APP RESTORE
+                      </text>
+                      <text
+                        x="234"
+                        y="49"
+                        fontFamily="var(--font-body), sans-serif"
+                        fontSize="12"
+                        fontWeight="600"
+                        fill="var(--ink)"
+                      >
+                        App Recovery
+                      </text>
+                      <text
+                        x="234"
+                        y="63"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9.5"
+                        fill="var(--muted)"
+                      >
+                        [Unverified]
+                      </text>
+                    </svg>
+                  )}
+
+                  {/* SVG DIAGRAM 02: 5 Parallel Horizontal Vendor/Cloud Planes at Disconnected Heights */}
+                  {activeCluster === 1 && (
+                    <svg width="100%" height="86" viewBox="0 0 340 86" fill="none">
+                      {/* Plane 1: Backup */}
+                      <line
+                        x1="12"
+                        y1="12"
+                        x2="260"
+                        y2="12"
+                        stroke="var(--border)"
+                        strokeWidth="1"
+                      />
+                      <circle cx="90" cy="12" r="3" fill="var(--ink)" />
+                      <text
+                        x="16"
+                        y="9"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8"
+                        fill="var(--muted)"
+                      >
+                        BACKUP
+                      </text>
+
+                      {/* Plane 2: Storage */}
+                      <line
+                        x1="45"
+                        y1="28"
+                        x2="310"
+                        y2="28"
+                        stroke="var(--border)"
+                        strokeWidth="1"
+                      />
+                      <circle cx="210" cy="28" r="3" fill="var(--ink)" />
+                      <text
+                        x="50"
+                        y="25"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8"
+                        fill="var(--muted)"
+                      >
+                        STORAGE
+                      </text>
+
+                      {/* Plane 3: Cloud (Drift) */}
+                      <line
+                        x1="8"
+                        y1="46"
+                        x2="280"
+                        y2="46"
+                        stroke="var(--border)"
+                        strokeWidth="1"
+                      />
+                      <circle cx="140" cy="46" r="3.5" fill="var(--orange)" />
+                      <text
+                        x="12"
+                        y="42"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8"
+                        fill="var(--orange)"
+                        fontWeight="700"
+                      >
+                        CLOUD DRIFT
+                      </text>
+
+                      {/* Plane 4: Security */}
+                      <line
+                        x1="60"
+                        y1="64"
+                        x2="330"
+                        y2="64"
+                        stroke="var(--border)"
+                        strokeWidth="1"
+                      />
+                      <circle cx="270" cy="64" r="3" fill="var(--ink)" />
+                      <text
+                        x="65"
+                        y="60"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8"
+                        fill="var(--muted)"
+                      >
+                        SECURITY
+                      </text>
+
+                      {/* Plane 5: ITSM */}
+                      <line
+                        x1="25"
+                        y1="80"
+                        x2="295"
+                        y2="80"
+                        stroke="var(--border)"
+                        strokeWidth="1"
+                      />
+                      <circle cx="175" cy="80" r="3" fill="var(--ink)" />
+                      <text
+                        x="30"
+                        y="77"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8"
+                        fill="var(--muted)"
+                      >
+                        ITSM
+                      </text>
+
+                      {/* Vertical Disconnected Break Marker (No Unifying Line) */}
+                      <line
+                        x1="140"
+                        y1="16"
+                        x2="140"
+                        y2="42"
+                        stroke="var(--orange)"
+                        strokeWidth="1"
+                        strokeDasharray="2 2"
+                      />
+                      <text
+                        x="146"
+                        y="24"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="7.5"
+                        fill="var(--orange)"
+                      >
+                        SILOED
+                      </text>
+                    </svg>
+                  )}
+
+                  {/* SVG DIAGRAM 03: Escalation Chain with Context-Losing Handoffs */}
+                  {activeCluster === 2 && (
+                    <svg width="100%" height="86" viewBox="0 0 340 86" fill="none">
+                      {/* Node 1: L1 Triage */}
+                      <rect
+                        x="6"
+                        y="16"
+                        width="84"
+                        height="52"
+                        rx="2"
+                        stroke="var(--ink)"
+                        strokeWidth="1.2"
+                        fill="var(--bg)"
+                      />
+                      <text
+                        x="48"
+                        y="34"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9"
+                        fontWeight="700"
+                        fill="var(--muted)"
+                      >
+                        L1 TRIAGE
+                      </text>
+                      <text
+                        x="48"
+                        y="52"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9"
+                        fill="var(--ink)"
+                      >
+                        100% signal
+                      </text>
+
+                      {/* Connector 1: ✕ Break (-58%) */}
+                      <line
+                        x1="92"
+                        y1="42"
+                        x2="108"
+                        y2="42"
+                        stroke="var(--ink)"
+                        strokeWidth="1.2"
+                      />
+                      <text
+                        x="113"
+                        y="45"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="10"
+                        fill="var(--orange)"
+                        fontWeight="700"
+                      >
+                        ✕
+                      </text>
+                      <line
+                        x1="118"
+                        y1="42"
+                        x2="134"
+                        y2="42"
+                        stroke="var(--ink)"
+                        strokeWidth="1"
+                        strokeDasharray="2 2"
+                      />
+                      <text
+                        x="113"
+                        y="32"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="7.5"
+                        fill="var(--orange)"
+                        fontWeight="700"
+                      >
+                        -58%
+                      </text>
+
+                      {/* Node 2: L2 Ops */}
+                      <rect
+                        x="136"
+                        y="16"
+                        width="84"
+                        height="52"
+                        rx="2"
+                        stroke="var(--ink)"
+                        strokeWidth="1"
+                        fill="var(--bg)"
+                      />
+                      <text
+                        x="178"
+                        y="34"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9"
+                        fontWeight="700"
+                        fill="var(--muted)"
+                      >
+                        L2 OPS
+                      </text>
+                      <text
+                        x="178"
+                        y="52"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="9"
+                        fill="var(--ink)"
+                      >
+                        Ticket recap
+                      </text>
+
+                      {/* Connector 2: ✕ Break (-82%) */}
+                      <line
+                        x1="222"
+                        y1="42"
+                        x2="238"
+                        y2="42"
+                        stroke="var(--ink)"
+                        strokeWidth="1"
+                        strokeDasharray="2 2"
+                      />
+                      <text
+                        x="243"
+                        y="45"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="10"
+                        fill="var(--orange)"
+                        fontWeight="700"
+                      >
+                        ✕
+                      </text>
+                      <line
+                        x1="248"
+                        y1="42"
+                        x2="264"
+                        y2="42"
+                        stroke="var(--border)"
+                        strokeWidth="0.75"
+                        strokeDasharray="1 2"
+                      />
+                      <text
+                        x="243"
+                        y="32"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="7.5"
+                        fill="var(--orange)"
+                        fontWeight="700"
+                      >
+                        -82%
+                      </text>
+
+                      {/* Node 3: L3 Specialist */}
+                      <rect
+                        x="266"
+                        y="16"
+                        width="70"
+                        height="52"
+                        rx="2"
+                        stroke="var(--border)"
+                        strokeWidth="1"
+                        strokeDasharray="3 2"
+                        fill="var(--bg)"
+                      />
+                      <text
+                        x="301"
+                        y="34"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8.5"
+                        fontWeight="700"
+                        fill="var(--muted)"
+                      >
+                        L3 SPEC
+                      </text>
+                      <text
+                        x="301"
+                        y="52"
+                        textAnchor="middle"
+                        fontFamily="var(--font-mono), monospace"
+                        fontSize="8.5"
+                        fill="var(--orange)"
+                      >
+                        Context lost
+                      </text>
+                    </svg>
+                  )}
+                </div>
+              </div>
+
+              {/* ─── RIGHT COLUMN (COLS 6–12, EXPOSED 1PX ARCHITECTURAL GRID) ─── */}
               <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: 12,
-                  flexWrap: "wrap",
-                  gap: 8,
+                  flexDirection: "column",
+                  background: "var(--bg)",
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: "0.06em",
-                    color: activeToggle === "today" ? "var(--orange)" : "var(--ink)",
-                  }}
-                >
-                  {activeToggle === "today"
-                    ? "FOUR OPERATIONAL HANDOFFS WHERE RESILIENCE LEAKS"
-                    : "FOUR BRIDGED OPERATING CORRIDORS (BRIDGED BY AGENT MESH™)"}
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 10.5,
-                    color: "var(--muted)",
-                  }}
-                >
-                  Click any handoff to inspect forensic impact
-                </span>
-              </div>
-
-              {/* 4 Interactive Gaps / Bridges with Laser Conduits */}
-              <div
-                className="handoff-gaps-grid"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
-                  gap: 12,
-                }}
-              >
-                {PAIN.gaps.map((gap, gIdx) => {
-                  const isSelected = selectedGap === gIdx;
-                  return (
-                    <button
-                      key={gap.num}
-                      type="button"
-                      onClick={() => setSelectedGap(isSelected ? null : gIdx)}
-                      style={{
-                        textAlign: "left",
-                        padding: "12px 14px",
-                        borderRadius: 4,
-                        border: "1px solid",
-                        borderColor: isSelected
-                          ? "var(--orange)"
-                          : "var(--border)",
-                        background: isSelected
-                          ? "rgba(244, 85, 50, 0.08)"
-                          : "var(--bg)",
-                        cursor: "pointer",
-                        outline: "none",
-                        transition: "all 0.16s ease",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                            fontSize: 10,
-                            fontWeight: 700,
-                            color:
-                              activeToggle === "today"
-                                ? "var(--orange)"
-                                : "#059669",
-                          }}
-                        >
-                          {activeToggle === "today" ? `GAP ${gap.num}` : `BRIDGE ${gap.num}`}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                            fontSize: 9.5,
-                            color: "var(--muted)",
-                          }}
-                        >
-                          {gap.between}
-                        </span>
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 12.5,
-                          fontWeight: 600,
-                          color: "var(--ink)",
-                          lineHeight: 1.3,
-                          marginBottom: 4,
-                        }}
-                      >
-                        {gap.name}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--muted)",
-                          lineHeight: 1.35,
-                        }}
-                      >
-                        {activeToggle === "today" ? gap.todayRisk : gap.resocBridge}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Bottom Diagnostic Banner */}
-            <div
-              style={{
-                padding: "20px 24px",
-                background: "var(--bg)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                gap: 20,
-              }}
-            >
-              <div style={{ maxWidth: 820 }}>
+                {/* Figure Caption Header Bar */}
                 <div
                   style={{
+                    padding: "20px 32px",
+                    borderBottom: "1px solid var(--border)",
                     display: "flex",
                     alignItems: "center",
-                    gap: 8,
-                    marginBottom: 6,
+                    justifyContent: "space-between",
+                    background: "var(--bg)",
                   }}
                 >
                   <span
                     style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: 2,
-                      background: activeToggle === "today" ? "var(--orange)" : "#10b981",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10.5,
+                      letterSpacing: "0.08em",
+                      color: "var(--muted)",
+                      fontWeight: 600,
                     }}
-                  />
+                  >
+                    {current.diagramCaption}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10,
+                      color: "var(--orange)",
+                      fontWeight: 700,
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {current.items.length} MODES OF RECOVERY FAILURE
+                  </span>
+                </div>
+
+                {/* Exposed 1px Hairline Architectural Grid */}
+                <div style={{ flex: 1 }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={current.num}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className={
+                        current.items.length === 4
+                          ? "pain-grid-4"
+                          : "pain-grid-3"
+                      }
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns:
+                          current.items.length === 4 ? "repeat(2, 1fr)" : "1fr",
+                        height: "100%",
+                      }}
+                    >
+                      {current.items.map((item, iIdx) => {
+                        const isHovered = hoveredCell === iIdx;
+                        const itemNum = `${current.num}.${iIdx + 1}`;
+
+                        // Calculate shared 1px borders
+                        const is4 = current.items.length === 4;
+                        const hasRightBorder = is4 && iIdx % 2 === 0;
+                        const hasBottomBorder = is4
+                          ? iIdx < 2
+                          : iIdx < current.items.length - 1;
+
+                        return (
+                          <motion.div
+                            key={item.label}
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                              duration: 0.28,
+                              delay: iIdx * 0.05,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                            onMouseEnter={() => setHoveredCell(iIdx)}
+                            onMouseLeave={() => setHoveredCell(null)}
+                            style={{
+                              padding: "36px 32px",
+                              borderRight: hasRightBorder
+                                ? "1px solid var(--border)"
+                                : "none",
+                              borderBottom: hasBottomBorder
+                                ? "1px solid var(--border)"
+                                : "none",
+                              position: "relative",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "flex-start",
+                              background: "var(--bg)",
+                              cursor: "default",
+                            }}
+                          >
+                            {/* Animated 1px #f45532 Top Border Line on Hover */}
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                height: 1,
+                                background: "var(--orange)",
+                                transform: isHovered ? "scaleX(1)" : "scaleX(0)",
+                                transformOrigin: "left",
+                                transition:
+                                  "transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)",
+                              }}
+                            />
+
+                            {/* Subtle Index Number (e.g. 01.1, 01.2) */}
+                            <div
+                              style={{
+                                fontFamily:
+                                  'var(--font-mono), "JetBrains Mono", monospace',
+                                fontSize: 11,
+                                color: isHovered
+                                  ? "var(--orange)"
+                                  : "var(--muted)",
+                                marginBottom: 14,
+                                fontWeight: 600,
+                                transition: "color 0.2s ease",
+                              }}
+                            >
+                              {itemNum}
+                            </div>
+
+                            {/* Exact Sitemap Title (Inter 19px semibold --ink) */}
+                            <h3
+                              style={{
+                                fontFamily:
+                                  "var(--font-body), Inter, -apple-system, sans-serif",
+                                fontSize: 19,
+                                fontWeight: 600,
+                                color: "var(--ink)",
+                                lineHeight: 1.3,
+                                letterSpacing: "-0.015em",
+                                margin: "0 0 10px 0",
+                              }}
+                            >
+                              {item.label}
+                            </h3>
+
+                            {/* Exact Sitemap Description (Inter 15px --muted, line-height 1.6) */}
+                            <p
+                              style={{
+                                fontFamily:
+                                  "var(--font-body), Inter, -apple-system, sans-serif",
+                                fontSize: 15,
+                                color: "var(--muted)",
+                                lineHeight: 1.6,
+                                margin: 0,
+                              }}
+                            >
+                              {item.desc}
+                            </p>
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Bottom Status / Navigation Bar */}
+                <div
+                  style={{
+                    padding: "18px 32px",
+                    borderTop: "1px solid var(--border)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    gap: 12,
+                    background: "var(--surface)",
+                  }}
+                >
                   <span
                     style={{
                       fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 11,
-                      fontWeight: 700,
-                      letterSpacing: "0.08em",
-                      color: activeToggle === "today" ? "var(--orange)" : "var(--ink)",
+                      color: "var(--muted)",
                     }}
                   >
-                    {activeToggle === "today"
-                      ? "RECOVERY RISK IN THE UNOWNED SPACE"
-                      : "RESOC™ UNIFIED RESILIENCE FABRIC"}
+                    ESTATE CONTEXT: 100% UNOWNED BETWEEN CONSOLES
                   </span>
-                </div>
-                <p
-                  style={{
-                    fontSize: 13.5,
-                    lineHeight: 1.5,
-                    color: "var(--muted)",
-                    margin: 0,
-                  }}
-                >
-                  {activeToggle === "today"
-                    ? "No vendor console holds this space. No single team owns it. Four operational handoffs where recovery context, RTO proofs, and runbooks silently drift until disaster strikes."
-                    : "Same five enterprise tools. Nothing replaced. The space between them is now operated by Agent Mesh™ with continuous proof and policy-governed autonomy: human in the loop and human on the loop."}
-                </p>
-              </div>
-
-              {/* Action CTA / Badges */}
-              {activeToggle === "today" ? (
-                <button
-                  type="button"
-                  onClick={() => setActiveToggle("resoc")}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "9px 18px",
-                    borderRadius: 5,
-                    background: "var(--orange)",
-                    color: "#fefdfd",
-                    fontSize: 12.5,
-                    fontWeight: 600,
-                    fontFamily: 'var(--font-body), Inter, sans-serif',
-                    border: "none",
-                    outline: "none",
-                    cursor: "pointer",
-                    transition: "background 0.2s ease",
-                    whiteSpace: "nowrap",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "var(--ink)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "var(--orange)";
-                  }}
-                >
-                  Operate with ResOC →
-                </button>
-              ) : (
-                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                  {["HUMAN-APPROVED", "POLICY-BOUND", "AUDIT-READY", "ZERO DISRUPTION"].map((pill) => (
-                    <span
-                      key={pill}
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10,
-                        padding: "5px 10px",
-                        borderRadius: 3,
-                        background: "rgba(244, 85, 50, 0.1)",
-                        color: "var(--orange)",
-                        fontWeight: 700,
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      {pill}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </SpringReveal>
-
-        {/* ═══════════════════════════════════════════════════════════════
-            PART B: 3-PILLAR BENTO DIAGNOSTIC DECK WITH LIVE MICRO-HUD GRAPHICS
-           ═══════════════════════════════════════════════════════════════ */}
-        <div>
-          {/* Header Title for Diagnostic Deck */}
-          <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--orange)",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  marginBottom: 4,
-                }}
-              >
-                DEEP OPERATIONAL DIAGNOSTICS
-              </div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                  fontSize: "clamp(24px, 2.5vw, 34px)",
-                  color: "var(--ink)",
-                  margin: 0,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Three Architectural Failure Modes Across Enterprise Estates
-              </h3>
-            </div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                fontSize: 11,
-                color: "var(--muted)",
-              }}
-            >
-              Interactive diagnostic breakdown
-            </div>
-          </div>
-
-          {/* 3-Column Bento Grid */}
-          <div
-            className="bento-diagnostic-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 20,
-            }}
-          >
-            {/* ── PILLAR 01: RECOVERY CONFIDENCE ── */}
-            <div
-              style={{
-                border: "1px solid var(--border)",
-                borderRadius: 6,
-                background: "var(--bg)",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-              }}
-              className="bento-pillar-card"
-            >
-              {/* Pillar Header */}
-              <div style={{ padding: "20px 22px", borderBottom: "1px solid var(--border)", background: "var(--surface)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
-                  <span style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 32, color: "var(--orange)", lineHeight: 1 }}>
-                    01
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 10, color: "var(--muted)", fontWeight: 600, letterSpacing: "0.08em" }}>
-                    CONFIDENCE DEFICIT
-                  </span>
-                </div>
-                <h4 style={{ fontSize: 17, fontWeight: 600, color: "var(--ink)", margin: "0 0 4px" }}>
-                  Can we actually recover?
-                </h4>
-                <div style={{ fontSize: 12.5, fontStyle: "italic", color: "var(--muted)", fontFamily: 'var(--font-display), serif' }}>
-                  “Confidence is assumed, not evidenced.”
-                </div>
-              </div>
-
-              {/* Micro-HUD Telemetry Graphic: RPO/RTO Drift Gauge */}
-              <div
-                style={{
-                  padding: "16px 20px",
-                  background: "#1c1a1c",
-                  color: "#fefdfd",
-                  borderBottom: "1px solid var(--border)",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 9.5, color: "#a09a9c", letterSpacing: "0.06em" }}>
-                    HUD // RPO &amp; RTO DRIFT TELEMETRY
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 9, color: "var(--orange)", padding: "1px 5px", background: "rgba(244,85,50,0.15)", borderRadius: 2 }}>
-                    DRIFT DETECTED
-                  </span>
-                </div>
-
-                {/* Dual Telemetry Bars */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  <div>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontFamily: 'var(--font-mono), monospace', marginBottom: 4 }}>
-                      <span style={{ color: "#d5d2d3" }}>RPO Target: 15m</span>
-                      <span style={{ color: "var(--orange)", fontWeight: 700 }}>Actual: 4h 12m (+16.8x)</span>
-                    </div>
-                    <div style={{ height: 6, background: "rgba(255,255,255,0.1)", borderRadius: 3, overflow: "hidden" }}>
-                      <div style={{ width: "82%", height: "100%", background: "var(--orange)", borderRadius: 3 }} />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontFamily: 'var(--font-mono), monospace', marginBottom: 4 }}>
-                      <span style={{ color: "#d5d2d3" }}>RTO Proof Drill</span>
-                      <span style={{ color: "#eab308", fontWeight: 700 }}>92d Stale (Quarterly Gap)</span>
-                    </div>
-                    <div style={{ height: 6, background: "rgba(255,255,255,0.1)", borderRadius: 3, overflow: "hidden" }}>
-                      <div style={{ width: "35%", height: "100%", background: "#eab308", borderRadius: 3 }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sub-Items List */}
-              <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12, flexGrow: 1 }}>
-                {PAIN.clusters[0].items.map((item) => (
-                  <div
-                    key={item.label}
+                  <a
+                    href="#solution"
                     style={{
-                      paddingBottom: 10,
-                      borderBottom: "1px solid rgba(34, 31, 34, 0.06)",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11.5,
+                      color: "var(--orange)",
+                      fontWeight: 600,
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
                     }}
                   >
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                      <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--orange)" }} />
-                      {item.label}
-                    </div>
-                    <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, paddingLeft: 10, lineHeight: 1.45 }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── PILLAR 02: COMPLEXITY AT SCALE ── */}
-            <div
-              style={{
-                border: "1px solid var(--border)",
-                borderRadius: 6,
-                background: "var(--bg)",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-              }}
-              className="bento-pillar-card"
-            >
-              {/* Pillar Header */}
-              <div style={{ padding: "20px 22px", borderBottom: "1px solid var(--border)", background: "var(--surface)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
-                  <span style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 32, color: "var(--orange)", lineHeight: 1 }}>
-                    02
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 10, color: "var(--muted)", fontWeight: 600, letterSpacing: "0.08em" }}>
-                    OPERATING SPRAWL
-                  </span>
+                    <span>EXPLORE RESOC FABRIC</span>
+                    <span>→</span>
+                  </a>
                 </div>
-                <h4 style={{ fontSize: 17, fontWeight: 600, color: "var(--ink)", margin: "0 0 4px" }}>
-                  The estate outgrew the model.
-                </h4>
-                <div style={{ fontSize: 12.5, fontStyle: "italic", color: "var(--muted)", fontFamily: 'var(--font-display), serif' }}>
-                  “More platforms, less of a single picture.”
-                </div>
-              </div>
-
-              {/* Micro-HUD Telemetry Graphic: Multi-Vendor Sprawl Node Graph */}
-              <div
-                style={{
-                  padding: "16px 20px",
-                  background: "#1c1a1c",
-                  color: "#fefdfd",
-                  borderBottom: "1px solid var(--border)",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 9.5, color: "#a09a9c", letterSpacing: "0.06em" }}>
-                    HUD // SPRAWL TOPOLOGY MAP
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 9, color: "#60a5fa", padding: "1px 5px", background: "rgba(96,165,250,0.15)", borderRadius: 2 }}>
-                    6 ISOLATED SILOS
-                  </span>
-                </div>
-
-                {/* Topology Network Nodes Preview */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginBottom: 4 }}>
-                  {["COMMVAULT", "VEEAM", "DATADOMAIN", "AWS EBS", "AZURE BLOB", "SERVICENOW"].map((node) => (
-                    <div
-                      key={node}
-                      style={{
-                        padding: "5px 6px",
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: 3,
-                        textAlign: "center",
-                        fontSize: 9,
-                        fontFamily: 'var(--font-mono), monospace',
-                        color: "#a09a9c",
-                      }}
-                    >
-                      {node}
-                    </div>
-                  ))}
-                </div>
-                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: "#7a7477", marginTop: 8 }}>
-                  ↳ 0 cross-tool correlation · 4h daily manual reconciliation
-                </div>
-              </div>
-
-              {/* Sub-Items List */}
-              <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12, flexGrow: 1 }}>
-                {PAIN.clusters[1].items.map((item) => (
-                  <div
-                    key={item.label}
-                    style={{
-                      paddingBottom: 10,
-                      borderBottom: "1px solid rgba(34, 31, 34, 0.06)",
-                    }}
-                  >
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                      <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--orange)" }} />
-                      {item.label}
-                    </div>
-                    <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, paddingLeft: 10, lineHeight: 1.45 }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── PILLAR 03: OPERATIONAL FRICTION ── */}
-            <div
-              style={{
-                border: "1px solid var(--border)",
-                borderRadius: 6,
-                background: "var(--bg)",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-              }}
-              className="bento-pillar-card"
-            >
-              {/* Pillar Header */}
-              <div style={{ padding: "20px 22px", borderBottom: "1px solid var(--border)", background: "var(--surface)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
-                  <span style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 32, color: "var(--orange)", lineHeight: 1 }}>
-                    03
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 10, color: "var(--muted)", fontWeight: 600, letterSpacing: "0.08em" }}>
-                    CONTEXT LEAK
-                  </span>
-                </div>
-                <h4 style={{ fontSize: 17, fontWeight: 600, color: "var(--ink)", margin: "0 0 4px" }}>
-                  Every incident starts from zero.
-                </h4>
-                <div style={{ fontSize: 12.5, fontStyle: "italic", color: "var(--muted)", fontFamily: 'var(--font-display), serif' }}>
-                  “Knowledge and context leak between handoffs.”
-                </div>
-              </div>
-
-              {/* Micro-HUD Telemetry Graphic: L1 -> L2 -> L3 Context Loss Decay Bar */}
-              <div
-                style={{
-                  padding: "16px 20px",
-                  background: "#1c1a1c",
-                  color: "#fefdfd",
-                  borderBottom: "1px solid var(--border)",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 9.5, color: "#a09a9c", letterSpacing: "0.06em" }}>
-                    HUD // HANDOFF CONTEXT RETENTION
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: 9, color: "#f87171", padding: "1px 5px", background: "rgba(248,113,113,0.15)", borderRadius: 2 }}>
-                    DECAY: -60%
-                  </span>
-                </div>
-
-                {/* Handoff Step Decay Graph */}
-                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-                  <div style={{ flex: 1, textAlign: "center" }}>
-                    <div style={{ height: 6, background: "#10b981", borderRadius: 2, marginBottom: 4 }} />
-                    <span style={{ fontSize: 9, fontFamily: 'var(--font-mono), monospace', color: "#a09a9c" }}>L1 (100%)</span>
-                  </div>
-                  <span style={{ color: "#7a7477", fontSize: 10 }}>→</span>
-                  <div style={{ flex: 1, textAlign: "center" }}>
-                    <div style={{ height: 6, background: "#eab308", borderRadius: 2, marginBottom: 4 }} />
-                    <span style={{ fontSize: 9, fontFamily: 'var(--font-mono), monospace', color: "#a09a9c" }}>L2 (42%)</span>
-                  </div>
-                  <span style={{ color: "#7a7477", fontSize: 10 }}>→</span>
-                  <div style={{ flex: 1, textAlign: "center" }}>
-                    <div style={{ height: 6, background: "var(--orange)", borderRadius: 2, marginBottom: 4 }} />
-                    <span style={{ fontSize: 9, fontFamily: 'var(--font-mono), monospace', color: "#a09a9c" }}>L3 (18%)</span>
-                  </div>
-                </div>
-                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono), monospace', color: "var(--orange)" }}>
-                  ★ ResOC Agent Mesh: 100% Forensic Brief Retained
-                </div>
-              </div>
-
-              {/* Sub-Items List */}
-              <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12, flexGrow: 1 }}>
-                {PAIN.clusters[2].items.map((item) => (
-                  <div
-                    key={item.label}
-                    style={{
-                      paddingBottom: 10,
-                      borderBottom: "1px solid rgba(34, 31, 34, 0.06)",
-                    }}
-                  >
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                      <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--orange)" }} />
-                      {item.label}
-                    </div>
-                    <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, paddingLeft: 10, lineHeight: 1.45 }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
@@ -989,41 +969,43 @@ export function PainSection() {
       </div>
 
       <style jsx>{`
-        .bento-pillar-card:hover {
-          border-color: var(--orange) !important;
-          box-shadow: 0 4px 16px rgba(244, 85, 50, 0.08);
+        .pain-section-wrap {
+          min-height: 200vh;
+          padding: 0;
         }
 
-        @keyframes pulseLine {
-          0%, 100% {
-            opacity: 0.4;
-          }
-          50% {
-            opacity: 1;
-          }
+        .pain-sticky-stage {
+          position: sticky;
+          top: 80px;
+          padding: 40px 0 60px;
         }
 
-        .broken-fault-line {
-          animation: pulseLine 2s infinite ease-in-out;
+        .pillar-selector-btn:hover {
+          opacity: 0.85 !important;
         }
 
-        @media (max-width: 1040px) {
-          .workbench-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+        @media (max-width: 960px) {
+          .pain-section-wrap {
+            min-height: auto !important;
+            padding: 48px 0 !important;
           }
-          .handoff-gaps-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+
+          .pain-sticky-stage {
+            position: relative !important;
+            top: auto !important;
+            padding: 0 !important;
           }
-          .bento-diagnostic-grid {
+
+          .pain-split-grid {
             grid-template-columns: 1fr !important;
           }
-        }
 
-        @media (max-width: 640px) {
-          .workbench-grid {
-            grid-template-columns: 1fr !important;
+          .pain-left-rail {
+            border-right: none !important;
+            border-bottom: 1px solid var(--border);
           }
-          .handoff-gaps-grid {
+
+          .pain-grid-4 {
             grid-template-columns: 1fr !important;
           }
         }

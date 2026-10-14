@@ -372,6 +372,26 @@ export function MeshDefendBackground({
       }}
       aria-hidden="true"
     >
+      {/* ─── LAYER 0: ARCHITECTURAL GRID (48PX CELL, VERY LOW 4% OPACITY, TOP INVISIBLE) ─── */}
+      <div
+        className="architectural-bg-grid"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(to right, var(--grid-line, rgba(34, 31, 34, 0.04)) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--grid-line, rgba(34, 31, 34, 0.04)) 1px, transparent 1px)
+          `,
+          backgroundSize: "48px 48px",
+          backgroundPosition: "center top",
+          pointerEvents: "none",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, transparent 22%, black 55%, black 82%, rgba(0, 0, 0, 0.25) 95%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, transparent 22%, black 55%, black 82%, rgba(0, 0, 0, 0.25) 95%, transparent 100%)",
+        }}
+      />
+
       {/* ─── LAYER 1: AMBIENT VIGNETTE GLOW ─── */}
       {variant === "hero" && (
         <div
