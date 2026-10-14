@@ -56,7 +56,7 @@ export function Ask() {
           font-family: var(--font-display), Georgia, serif;
           font-size: clamp(42px, 5vw, 72px);
           line-height: 1.0;
-          letter-spacing: -0.01em;
+          letter-spacing: -0.03em;
           color: var(--ink);
           font-weight: 400;
           text-wrap: balance;

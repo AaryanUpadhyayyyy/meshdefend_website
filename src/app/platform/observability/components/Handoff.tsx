@@ -226,7 +226,7 @@ export function Handoff() {
           font-family: var(--font-display), Georgia, serif;
           font-size: clamp(44px, 5.4vw, 80px);
           line-height: 1.05;
-          letter-spacing: -0.01em;
+          letter-spacing: -0.03em;
           text-wrap: balance;
           font-weight: 400;
           margin: 0;

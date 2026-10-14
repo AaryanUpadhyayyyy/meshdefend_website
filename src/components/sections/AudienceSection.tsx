@@ -1,110 +1,208 @@
 "use client";
 
 import { AUDIENCE } from "@/lib/sections";
-import { useReveal } from "@/lib/useReveal";
-import { TextReveal } from "@/components/ui/TextReveal";
+import { SpringReveal } from "@/components/motion/SpringReveal";
+import { TechIndexTag } from "@/components/ui/TechIndexTag";
 
 export function AudienceSection() {
-  const sectionRef = useReveal<HTMLElement>({ y: 35 });
-
   return (
     <section
-      ref={sectionRef}
       id="audience"
       style={{
-        padding: "96px 0",
+        padding: "96px 0 112px",
         borderBottom: "1px solid var(--border)",
-        background: "var(--surface-raised)",
+        background: "var(--surface)",
         position: "relative",
       }}
     >
       <div className="container">
-        <div className="reveal-on-scroll">
-          <div className="eyebrow text-blur-in" style={{ marginBottom: 20 }}>
-            <span className="eyebrow-dot" />
-            {AUDIENCE.eyebrow}
+        <SpringReveal>
+          {/* Section Monospace Technical Index Tag */}
+          <div style={{ marginBottom: 16 }}>
+            <TechIndexTag
+              tag="[06 // DEPLOYMENT TARGETS & OPERATOR PERSONAS]"
+              status="MULTI_TENANT_READY"
+            />
           </div>
 
-          <TextReveal
-            as="h2"
+          <h2
             className="display"
-            text={AUDIENCE.headline}
-            stagger={0.04}
             style={{
-              fontSize: "clamp(30px, 4vw, 50px)",
-              maxWidth: "22ch",
+              fontSize: "clamp(34px, 4.2vw, 56px)",
+              maxWidth: "24ch",
               lineHeight: 1.05,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.03em",
+              margin: "0 0 48px",
+              color: "var(--ink)",
             }}
-          />
-        </div>
+          >
+            {AUDIENCE.headline}
+          </h2>
 
-        {/* Audience cards grid */}
-        <div
-          className="reveal-on-scroll reveal-stagger"
-          style={{
-            marginTop: 56,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 20,
-          }}
-        >
-          {AUDIENCE.segments.map((seg, idx) => (
-            <a
-              key={seg.title}
-              href={seg.href}
-              className="card-hover"
+          {/* ─── Exposed 1px Grid Architecture (divide-x divide-y) ─── */}
+          <div
+            style={{
+              border: "1px solid var(--border)",
+              background: "var(--bg)",
+            }}
+          >
+            <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                padding: "32px 26px",
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 8,
-                textDecoration: "none",
-                color: "inherit",
-                transition: "transform 0.25s, box-shadow 0.25s, border-color 0.25s",
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
               }}
+              className="audience-grid"
             >
-              <div>
-                <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange)", marginBottom: 12 }}>
-                  SEGMENT 0{idx + 1}
-                </div>
-                <div
+              {AUDIENCE.segments.map((seg, idx) => (
+                <a
+                  key={seg.title}
+                  href={seg.href}
                   style={{
-                    fontFamily: "var(--font-display), Georgia, serif",
-                    fontSize: 24,
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.012em",
-                    fontWeight: 500,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    padding: "36px 32px",
+                    background: "var(--bg)",
+                    borderRight: idx % 2 === 0 ? "1px solid var(--border)" : "none",
+                    borderBottom: idx < 2 ? "1px solid var(--border)" : "none",
+                    textDecoration: "none",
+                    color: "inherit",
+                    transition: "background 0.2s ease",
                   }}
+                  className="audience-cell"
                 >
-                  {seg.title}
-                </div>
-                <p style={{ fontSize: 14.5, color: "var(--muted)", marginTop: 12, lineHeight: 1.6 }}>
-                  {seg.desc}
-                </p>
-              </div>
+                  <div>
+                    {/* HUD Coordinate / Tag Header */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 16,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 11,
+                          color: "var(--orange)",
+                          fontWeight: 600,
+                          letterSpacing: "0.08em",
+                        }}
+                      >
+                        TARGET 0{idx + 1}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 9.5,
+                          padding: "2px 6px",
+                          borderRadius: 2,
+                          background: "var(--surface)",
+                          border: "1px solid var(--border)",
+                          color: "var(--muted)",
+                          letterSpacing: "0.06em",
+                        }}
+                      >
+                        {seg.badge}
+                      </span>
+                    </div>
 
-              <div
-                style={{
-                  marginTop: 24,
-                  fontSize: 13,
-                  color: "var(--orange)",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  fontWeight: 600,
-                  fontFamily: "var(--font-mono), monospace",
-                }}
-              >
-                Explore Solutions →
-              </div>
-            </a>
-          ))}
-        </div>
+                    <h3
+                      style={{
+                        fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                        fontSize: 26,
+                        lineHeight: 1.15,
+                        letterSpacing: "-0.03em",
+                        fontWeight: 400,
+                        color: "var(--ink)",
+                        marginBottom: 12,
+                      }}
+                    >
+                      {seg.title}
+                    </h3>
+
+                    <p
+                      style={{
+                        fontSize: 14,
+                        color: "var(--muted)",
+                        lineHeight: 1.6,
+                        margin: "0 0 20px",
+                      }}
+                    >
+                      {seg.desc}
+                    </p>
+
+                    {/* Deliverables Checklist */}
+                    {seg.deliverables && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 6,
+                          paddingTop: 16,
+                          borderTop: "1px solid var(--border)",
+                        }}
+                      >
+                        {seg.deliverables.map((item) => (
+                          <div
+                            key={item}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                              fontSize: 12.5,
+                              color: "var(--ink)",
+                              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            }}
+                          >
+                            <span style={{ color: "var(--orange)", fontWeight: 700 }}>+</span>
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: 28,
+                      fontSize: 12,
+                      color: "var(--orange)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    DEPLOYMENT SPECIFICATION →
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </SpringReveal>
       </div>
+
+      <style jsx>{`
+        .audience-cell:hover {
+          background: var(--surface) !important;
+        }
+        @media (max-width: 800px) {
+          .audience-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .audience-grid > a {
+            border-right: none !important;
+            border-bottom: 1px solid var(--border) !important;
+          }
+          .audience-grid > a:last-child {
+            border-bottom: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

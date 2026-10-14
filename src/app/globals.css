@@ -8,33 +8,40 @@
   --orange-accessible: #c5401f;
   --orange-soft: #fef0ec;
   --dark: #221f22;
+  --dark-elevated: #2a272a;
   --white: #fefdfd;
 
   /* Surfaces — Light */
   --bg: #fefdfd;
+  --bg-pure: #ffffff;
   --ink: #221f22;
   --muted: #6b6568;
-  --border: #e5e2e3;
-  --surface-raised: #f3f1f1;
+  --border: rgba(34, 31, 34, 0.1);
+  --border-hairline: rgba(34, 31, 34, 0.1);
+  --surface: #f5f4f2;
+  --surface-raised: #f5f4f2;
   --surface-panel: #221f22; /* dashboard sidebar, always dark */
 
   /* Functional */
-  --nav-bg: rgba(254, 253, 253, 0.92);
-  --nav-border: #e5e2e3;
-  --radius: 5px;
+  --nav-bg: rgba(254, 253, 253, 0.94);
+  --nav-border: rgba(34, 31, 34, 0.1);
+  --radius: 4px;
   --max-w: 1200px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 [data-theme="dark"] {
   --bg: #221f22;
+  --bg-pure: #221f22;
   --ink: #fefdfd;
   --muted: #a09a9c;
-  --border: #3d393b;
-  --surface-raised: #2b282b;
+  --border: rgba(254, 253, 253, 0.1);
+  --border-hairline: rgba(254, 253, 253, 0.1);
+  --surface: #2a272a;
+  --surface-raised: #2a272a;
   --orange-soft: #3a2420;
-  --nav-bg: rgba(34, 31, 34, 0.92);
-  --nav-border: #3d393b;
+  --nav-bg: rgba(34, 31, 34, 0.94);
+  --nav-border: rgba(254, 253, 253, 0.1);
 }
 
 /* ─── Tailwind v4 Theme ─────────────────────────────────────────── */
@@ -110,8 +117,9 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4 {
   margin: 0;
+  letter-spacing: -0.03em;
 }
 
 img {
@@ -123,14 +131,14 @@ svg {
   display: block;
 }
 
-/* ─── Typography ─────────────────────────────────────────────────── */
+/* ─── Typography (HUD Aesthetic: tight tracking -0.03em) ────────── */
 
 .display {
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(56px, 6.8vw, 112px);
+  font-size: clamp(54px, 6.2vw, 98px);
   font-weight: 400;
-  line-height: 0.92;
-  letter-spacing: -0.035em;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
 }
 
 .display-italic {
@@ -152,7 +160,53 @@ svg {
   font-size: 24px;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+}
+
+/* ─── HUD Exposed 1px Grid Utilities (divide-x divide-y) ───────── */
+
+.hud-grid {
+  display: grid;
+  border: 1px solid var(--border-hairline);
+  background: transparent;
+}
+
+.hud-grid-dark {
+  border: 1px solid rgba(254, 253, 253, 0.1);
+}
+
+.hud-cell {
+  background: var(--bg);
+  border-right: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  transition: background 0.2s ease;
+}
+
+.hud-cell:hover {
+  background: var(--surface);
+}
+
+.hud-cell-dark {
+  background: #221f22;
+  border-right: 1px solid rgba(254, 253, 253, 0.1);
+  border-bottom: 1px solid rgba(254, 253, 253, 0.1);
+  transition: background 0.2s ease;
+}
+
+.hud-cell-dark:hover {
+  background: #2a272a;
+}
+
+.tech-tag {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .body-lg {

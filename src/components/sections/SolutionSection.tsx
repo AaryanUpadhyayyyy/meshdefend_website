@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { SOLUTION } from "@/lib/sections";
 import { TextReveal } from "@/components/ui/TextReveal";
+import { TechIndexTag } from "@/components/ui/TechIndexTag";
+import { NumberCounter } from "@/components/motion/NumberCounter";
 
 /* ─── Architectural Details for Each Capability ─── */
 interface CapabilityDetail {
@@ -271,10 +274,11 @@ export function SolutionSection() {
             marginBottom: 44,
           }}
         >
-          <div className="eyebrow text-blur-in" style={{ marginBottom: 16 }}>
-            <span className="eyebrow-dot" />
-            {SOLUTION.eyebrow}
-          </div>
+          <TechIndexTag
+            tag="[03 // RESOC ARCHITECTURE & CAPABILITIES]"
+            status="AGENT_MESH™_CORE"
+            style={{ marginBottom: 16 }}
+          />
 
           <TextReveal
             as="h2"
@@ -284,7 +288,7 @@ export function SolutionSection() {
             style={{
               fontSize: "clamp(34px, 4.4vw, 62px)",
               lineHeight: 1.02,
-              letterSpacing: "-0.025em",
+              letterSpacing: "-0.03em",
               marginBottom: 16,
             }}
           />
@@ -362,35 +366,39 @@ export function SolutionSection() {
                     alignItems: "flex-start",
                     gap: 16,
                     padding: "16px 20px",
-                    background: isSelected ? "var(--bg)" : "transparent",
+                    background: "transparent",
                     border: "1px solid",
                     borderColor: isSelected ? "var(--border)" : "transparent",
-                    borderRadius: 6,
+                    borderRadius: 4,
                     position: "relative",
                     cursor: "pointer",
                     textAlign: "left",
-                    transition: "all 0.22s ease",
-                    boxShadow: isSelected ? "0 4px 16px rgba(0, 0, 0, 0.05)" : "none",
+                    transition: "border-color 0.2s ease",
                   }}
                   className={`capability-nav-card ${isSelected ? "selected" : ""}`}
                 >
-                  {/* Left Accent indicator line */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: -1,
-                      top: 10,
-                      bottom: 10,
-                      width: 3.5,
-                      borderRadius: "0 2px 2px 0",
-                      background: isSelected ? "var(--orange)" : "transparent",
-                      transition: "all 0.2s ease",
-                    }}
-                  />
+                  {/* Sliding layoutId active pill */}
+                  {isSelected && (
+                    <motion.div
+                      layoutId="solutionActiveTabPill"
+                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "var(--bg)",
+                        border: "1px solid var(--border)",
+                        borderLeft: "3px solid var(--orange)",
+                        borderRadius: 4,
+                        zIndex: 0,
+                      }}
+                    />
+                  )}
 
                   {/* Icon + Number Badge */}
                   <div
                     style={{
+                      position: "relative",
+                      zIndex: 1,
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -420,15 +428,15 @@ export function SolutionSection() {
                   </div>
 
                   {/* Title + Tag + Problem Solved */}
-                  <div style={{ flex: 1 }}>
+                  <div style={{ position: "relative", zIndex: 1, flex: 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 4 }}>
                       <span
                         style={{
                           fontFamily: "var(--font-display), Georgia, serif",
                           fontSize: 18,
                           fontWeight: 500,
-                          color: isSelected ? "var(--ink)" : "var(--ink)",
-                          letterSpacing: "-0.01em",
+                          color: "var(--ink)",
+                          letterSpacing: "-0.02em",
                           lineHeight: 1.25,
                         }}
                       >
@@ -439,7 +447,7 @@ export function SolutionSection() {
                           fontFamily: "var(--font-mono), monospace",
                           fontSize: 9.5,
                           padding: "2px 6px",
-                          borderRadius: 3,
+                          borderRadius: 2,
                           background: isSelected ? "rgba(244, 85, 50, 0.12)" : "var(--border)",
                           color: isSelected ? "var(--orange)" : "var(--muted)",
                           fontWeight: 600,
@@ -466,6 +474,8 @@ export function SolutionSection() {
                   {/* Chevron Indicator */}
                   <div
                     style={{
+                      position: "relative",
+                      zIndex: 1,
                       alignSelf: "center",
                       color: isSelected ? "var(--orange)" : "var(--border)",
                       transform: isSelected ? "translateX(2px)" : "translateX(0)",
@@ -569,6 +579,16 @@ export function SolutionSection() {
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ color: "var(--orange)", fontWeight: 700 }}>$</span>
                   <span style={{ color: "var(--ink)", fontWeight: 500 }}>{active.command}</span>
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                    style={{
+                      display: "inline-block",
+                      width: 6,
+                      height: 12,
+                      background: "var(--orange)",
+                    }}
+                  />
                 </div>
                 <span
                   style={{
@@ -601,6 +621,7 @@ export function SolutionSection() {
                     color: "var(--ink)",
                     margin: "0 0 8px 0",
                     lineHeight: 1.25,
+                    letterSpacing: "-0.03em",
                   }}
                 >
                   {active.capability}
@@ -631,20 +652,20 @@ export function SolutionSection() {
                     style={{
                       background: "var(--surface)",
                       border: "1px solid var(--border)",
-                      borderRadius: 5,
+                      borderRadius: 4,
                       padding: "12px 14px",
                     }}
                   >
                     <div
                       style={{
-                        fontFamily: "var(--font-mono), monospace",
-                        fontSize: 16,
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 17,
                         fontWeight: 700,
                         color: "var(--ink)",
                         letterSpacing: "-0.02em",
                       }}
                     >
-                      {m.value}
+                      <NumberCounter value={m.value} />
                     </div>
                     <div
                       style={{

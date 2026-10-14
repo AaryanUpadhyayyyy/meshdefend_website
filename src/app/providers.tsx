@@ -3,6 +3,7 @@
 import { ThemeProvider } from "next-themes";
 import { type ReactNode } from "react";
 import { ScrollRevealObserver } from "@/lib/useReveal";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
@@ -12,9 +13,10 @@ export function Providers({ children }: { children: ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <ScrollRevealObserver />
-      {children}
+      <SmoothScroll>
+        <ScrollRevealObserver />
+        {children}
+      </SmoothScroll>
     </ThemeProvider>
   );
 }
-

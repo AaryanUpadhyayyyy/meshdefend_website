@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { DASHBOARD } from "@/lib/content";
 import { useHeroState } from "@/lib/heroState";
 
@@ -124,17 +125,29 @@ export function DashboardPreview() {
                 position: "relative",
                 padding: "12px 16px",
                 textAlign: "left",
-                background: isActive ? "var(--bg)" : "transparent",
+                background: "transparent",
                 border: "none",
                 borderRight: idx < 2 ? "1px solid var(--border)" : "none",
                 cursor: "pointer",
-                transition: "background 0.2s",
                 display: "flex",
                 flexDirection: "column",
                 gap: 2,
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              {isActive && (
+                <motion.div
+                  layoutId="dashboardTabActivePill"
+                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "var(--bg)",
+                    borderBottom: "2px solid var(--orange)",
+                    zIndex: 0,
+                  }}
+                />
+              )}
+              <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span
                   style={{
                     fontFamily: "var(--font-mono), monospace",
@@ -158,6 +171,8 @@ export function DashboardPreview() {
               </div>
               <span
                 style={{
+                  position: "relative",
+                  zIndex: 1,
                   fontSize: 12,
                   color: "var(--muted)",
                   whiteSpace: "nowrap",

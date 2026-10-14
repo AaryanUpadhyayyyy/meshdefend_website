@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { PAIN } from "@/lib/sections";
 import { MeshDefendBackground } from "@/components/hero/MeshDefendBackground";
+import { TechIndexTag } from "@/components/ui/TechIndexTag";
+import { AnimatedLaserBeam } from "@/components/motion/AnimatedLaserBeam";
 
 export function PainSection() {
   const [activeToggle, setActiveToggle] = useState<"today" | "resoc">("today");
@@ -114,18 +117,16 @@ export function PainSection() {
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
         {/* ─── EDITORIAL HEADER ─── */}
         <div ref={headerRef} style={{ maxWidth: 980, marginBottom: 52 }}>
-          <div
-            className="eyebrow"
+          <TechIndexTag
+            tag="[02 // OPERATIONAL DISCONNECT & RECOVERY UNCERTAINTY]"
+            status="4_UNOWNED_GAPS"
             style={{
               marginBottom: 16,
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(6px)",
               transition: "opacity 0.5s ease, transform 0.5s ease",
             }}
-          >
-            <span className="eyebrow-dot" />
-            THE REALITY OF ENTERPRISE RESILIENCE
-          </div>
+          />
 
           {/* Headline with Layout-Locked Typing Animation */}
           <div style={{ display: "grid", marginBottom: 14 }}>
@@ -236,7 +237,7 @@ export function PainSection() {
               background: "var(--bg)",
             }}
           >
-            {/* Tactile Toggle */}
+            {/* Tactile Toggle with layoutId */}
             <div
               role="group"
               aria-label="Operating Model Comparison"
@@ -245,9 +246,10 @@ export function PainSection() {
                 alignItems: "center",
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
-                borderRadius: 5,
+                borderRadius: 4,
                 padding: 3,
                 gap: 2,
+                position: "relative",
               }}
             >
               <button
@@ -259,22 +261,36 @@ export function PainSection() {
                   setSelectedGap(null);
                 }}
                 style={{
-                  padding: "6px 16px",
-                  borderRadius: 4,
+                  position: "relative",
+                  padding: "7px 16px",
+                  borderRadius: 3,
                   fontSize: 12,
                   fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontWeight: 600,
                   border: "none",
                   outline: "none",
-                  boxShadow: "none",
                   cursor: "pointer",
-                  WebkitTapHighlightColor: "transparent",
-                  background: activeToggle === "today" ? "var(--bg)" : "transparent",
+                  background: "transparent",
                   color: activeToggle === "today" ? "var(--orange)" : "var(--muted)",
-                  transition: "all 0.18s ease",
+                  transition: "color 0.2s ease",
                 }}
               >
-                Today · The 4 Unowned Gaps
+                {activeToggle === "today" && (
+                  <motion.div
+                    layoutId="painTogglePill"
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "var(--bg)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 3,
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                      zIndex: 0,
+                    }}
+                  />
+                )}
+                <span style={{ position: "relative", zIndex: 1 }}>Today · The 4 Unowned Gaps</span>
               </button>
               <button
                 type="button"
@@ -285,22 +301,36 @@ export function PainSection() {
                   setSelectedGap(null);
                 }}
                 style={{
-                  padding: "6px 16px",
-                  borderRadius: 4,
+                  position: "relative",
+                  padding: "7px 16px",
+                  borderRadius: 3,
                   fontSize: 12,
                   fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontWeight: 600,
                   border: "none",
                   outline: "none",
-                  boxShadow: "none",
                   cursor: "pointer",
-                  WebkitTapHighlightColor: "transparent",
-                  background: activeToggle === "resoc" ? "var(--bg)" : "transparent",
+                  background: "transparent",
                   color: activeToggle === "resoc" ? "var(--ink)" : "var(--muted)",
-                  transition: "all 0.18s ease",
+                  transition: "color 0.2s ease",
                 }}
               >
-                With ResOC · Operated Fabric
+                {activeToggle === "resoc" && (
+                  <motion.div
+                    layoutId="painTogglePill"
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "var(--bg)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 3,
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                      zIndex: 0,
+                    }}
+                  />
+                )}
+                <span style={{ position: "relative", zIndex: 1 }}>With ResOC · Operated Fabric</span>
               </button>
             </div>
 
@@ -514,7 +544,12 @@ export function PainSection() {
               </span>
             </div>
 
-            {/* 4 Interactive Gaps / Bridges */}
+            {/* 4 Interactive Gaps / Bridges with Laser Conduits */}
+            {activeToggle === "resoc" && (
+              <div style={{ marginBottom: 12 }}>
+                <AnimatedLaserBeam variant="horizontal" />
+              </div>
+            )}
             <div
               className="handoff-gaps-grid reveal-stagger"
               style={{

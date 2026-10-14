@@ -120,17 +120,17 @@ export function Footer() {
   return (
     <footer
       style={{
-        background: "#1c191c",
+        background: "#221f22",
         color: "#fefdfd",
         position: "relative",
-        borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+        borderTop: "1px solid rgba(254, 253, 253, 0.1)",
         overflow: "hidden",
       }}
     >
       {/* ─── TOP BRIEFING & NEWSLETTER ROW ─── */}
       <div
         style={{
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          borderBottom: "1px solid rgba(254, 253, 253, 0.1)",
           padding: "72px 0 56px",
         }}
       >

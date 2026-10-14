@@ -6,6 +6,10 @@ import { MeshDefendBackground } from "./MeshDefendBackground";
 import { HERO } from "@/lib/content";
 import { HeroStateProvider } from "@/lib/heroState";
 
+import { TechIndexTag } from "@/components/ui/TechIndexTag";
+import { TelemetryLogs } from "@/components/motion/TelemetryLogs";
+import { AnimatedLaserBeam } from "@/components/motion/AnimatedLaserBeam";
+
 /* ─── Smooth Sequential Typewriter with LOCKED Line Heights ─── */
 function HeadlineTyping({
   headlines,
@@ -120,31 +124,11 @@ export function HeroSection() {
           >
             {/* Left Column: Eyebrow + Typing Headline */}
             <div style={{ minHeight: 240, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
-              <div
-                className="eyebrow text-reveal text-reveal-d1"
-                style={{
-                  marginBottom: 14,
-                  fontSize: 12.5,
-                  fontFamily: "var(--font-mono), monospace",
-                  letterSpacing: "0.1em",
-                  color: "var(--ink)",
-                  opacity: 0.70,
-                }}
-              >
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "var(--ink)",
-                    opacity: 0.6,
-                    marginRight: 8,
-                    verticalAlign: "middle",
-                  }}
-                />
-                {HERO.eyebrow}
-              </div>
+              <TechIndexTag
+                tag="[00 // RESILIENCE OPERATIONS CENTER]"
+                status="KERNEL: ACTIVE"
+                style={{ marginBottom: 14 }}
+              />
 
               <h1
                 className="display"
@@ -228,6 +212,10 @@ export function HeroSection() {
             }}
           >
             <DashboardPreview />
+            <div style={{ marginTop: 16 }}>
+              <TelemetryLogs maxRows={3} />
+            </div>
+            <AnimatedLaserBeam variant="horizontal" style={{ marginTop: 24 }} />
           </div>
         </div>
 

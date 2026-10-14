@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { AGENT_MESH } from "@/lib/content";
 import { TextReveal } from "@/components/ui/TextReveal";
+import { TechIndexTag } from "@/components/ui/TechIndexTag";
 
 /* ─── Procedural 3D Point Generation for the Human Bust + Dust Field ─── */
 interface Point3D {
@@ -387,12 +388,18 @@ export function AgentMeshSection() {
           <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 560 }}>
             {/* Display Headline: Locked to 2 Clean Lines */}
             <div className="reveal-on-scroll">
+              <TechIndexTag
+                tag="[04 // AGENT MESH™ AUTONOMOUS REASONING FABRIC]"
+                status="POLICY_GOVERNED"
+                dark={true}
+                style={{ marginBottom: 16 }}
+              />
               <h2
                 style={{
                   fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                   fontSize: "clamp(38px, 4.2vw, 60px)",
                   lineHeight: 1.08,
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "-0.03em",
                   fontWeight: 400,
                   color: "#fefdfd",
                   margin: "0 0 14px",

@@ -1,167 +1,286 @@
 "use client";
 
 import { IMPACT } from "@/lib/sections";
-import { useReveal } from "@/lib/useReveal";
-import { TextReveal } from "@/components/ui/TextReveal";
+import { SpringReveal } from "@/components/motion/SpringReveal";
+import { TechIndexTag } from "@/components/ui/TechIndexTag";
+import { NumberCounter } from "@/components/motion/NumberCounter";
 
 export function ImpactSection() {
-  const sectionRef = useReveal<HTMLElement>({ y: 35 });
+  const isProd = process.env.NODE_ENV === "production";
+
+  // Filter stats based on production/verification status
+  const visibleStats = IMPACT.stats.filter(
+    (s) => s.status === "verified" || !isProd
+  );
 
   return (
     <section
-      ref={sectionRef}
       id="impact"
       style={{
-        padding: "96px 0",
+        padding: "96px 0 112px",
         borderBottom: "1px solid var(--border)",
+        background: "var(--bg)",
         position: "relative",
       }}
     >
       <div className="container">
-        <div className="reveal-on-scroll">
-          <div className="eyebrow text-blur-in" style={{ marginBottom: 20 }}>
-            <span className="eyebrow-dot" />
-            {IMPACT.eyebrow}
+        <SpringReveal>
+          {/* Section Monospace Technical Index Tag */}
+          <div style={{ marginBottom: 16 }}>
+            <TechIndexTag
+              tag="[05 // CONTINUOUS RECOVERY ASSURANCE]"
+              status="AUDIT_VERIFIED"
+            />
           </div>
 
-          <TextReveal
-            as="h2"
+          {/* Heading with tight tracking */}
+          <h2
             className="display"
-            text={IMPACT.headline}
-            stagger={0.035}
             style={{
-              fontSize: "clamp(30px, 4vw, 50px)",
+              fontSize: "clamp(34px, 4.2vw, 56px)",
               maxWidth: "24ch",
               lineHeight: 1.05,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.03em",
+              margin: "0 0 48px",
+              color: "var(--ink)",
             }}
-          />
-        </div>
+          >
+            {IMPACT.headline}
+          </h2>
 
-        {/* Stat numbers */}
-        {(() => {
-          const isProd = process.env.NODE_ENV === "production";
-          // Task 6: Keep '30-50% more infrastructure managed with the same team'. Mark 'Up to 80% lower MTTR' and 'Up to 60% less handoff effort' as [VERIFY] and hide them in production.
-          const visibleStats = IMPACT.stats.filter(
-            (s) => s.status === "verified" || !isProd
-          );
-
-          return (
+          {/* ─── Exposed 1px Grid Architecture: Quantitative Assurance ─── */}
+          <div
+            style={{
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
+              marginBottom: -1, // collapse border with next row
+            }}
+          >
             <div
-              className="reveal-on-scroll reveal-stagger"
               style={{
-                marginTop: 56,
                 display: "grid",
-                gridTemplateColumns: `repeat(${Math.max(1, visibleStats.length)}, minmax(260px, 1fr))`,
-                gap: 20,
+                gridTemplateColumns: `repeat(${Math.max(1, visibleStats.length)}, minmax(0, 1fr))`,
               }}
+              className="impact-stats-grid"
             >
-              {visibleStats.map((s) => (
+              {visibleStats.map((s, idx) => (
                 <div
                   key={s.label}
-                  className="card-hover"
                   style={{
-                    padding: "32px 26px",
-                    background: "var(--surface)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 8,
+                    padding: "36px 32px",
+                    background: "var(--bg)",
+                    borderRight:
+                      idx < visibleStats.length - 1
+                        ? "1px solid var(--border)"
+                        : "none",
                     position: "relative",
+                    transition: "background 0.2s ease",
                   }}
+                  className="impact-cell"
                 >
-                  {s.status === "verify" && (
-                    <div
+                  {/* Verification Status Flag */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <span
                       style={{
-                        position: "absolute",
-                        top: 14,
-                        right: 14,
-                        fontFamily: 'var(--font-mono), "IBM Plex Mono", monospace',
-                        fontSize: 10,
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--muted)",
                         letterSpacing: "0.08em",
-                        padding: "2px 6px",
-                        borderRadius: 3,
-                        background: "rgba(253, 71, 3, 0.12)",
-                        color: "var(--orange-ink, #b93608)",
-                        fontWeight: 600,
                       }}
                     >
-                      [VERIFY]
-                    </div>
-                  )}
+                      METRIC 0{idx + 1}
+                    </span>
+                    {s.status === "verify" ? (
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 9.5,
+                          letterSpacing: "0.08em",
+                          padding: "2px 6px",
+                          borderRadius: 2,
+                          background: "rgba(244, 85, 50, 0.12)",
+                          color: "var(--orange)",
+                          fontWeight: 700,
+                        }}
+                      >
+                        [VERIFY]
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 9.5,
+                          letterSpacing: "0.08em",
+                          padding: "2px 6px",
+                          borderRadius: 2,
+                          background: "rgba(34, 31, 34, 0.06)",
+                          color: "var(--ink)",
+                          fontWeight: 600,
+                        }}
+                      >
+                        VERIFIED PROOF
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Tabular Numerals with Scroll-Triggered Counter */}
                   <div
-                    className="stat-glow"
                     style={{
-                      fontFamily: "var(--font-display), Georgia, serif",
-                      fontSize: "clamp(38px, 4.8vw, 58px)",
+                      fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                      fontSize: "clamp(46px, 5.2vw, 68px)",
                       lineHeight: 0.95,
                       letterSpacing: "-0.03em",
                       color: "var(--orange)",
                       fontVariantNumeric: "tabular-nums",
-                      fontWeight: 500,
+                      fontWeight: 400,
+                      marginBottom: 16,
                     }}
                   >
-                    {s.value}
+                    <NumberCounter value={s.value} />
                   </div>
-                  <div style={{ fontSize: 16.5, marginTop: 16, fontWeight: 600, color: "var(--ink)" }}>
+
+                  <div
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                      letterSpacing: "-0.015em",
+                      marginBottom: 8,
+                      lineHeight: 1.3,
+                    }}
+                  >
                     {s.label}
                   </div>
-                  <p style={{ fontSize: 14, color: "var(--muted)", marginTop: 8, lineHeight: 1.55 }}>
+
+                  <p
+                    style={{
+                      fontSize: 13.5,
+                      color: "var(--muted)",
+                      lineHeight: 1.55,
+                      margin: 0,
+                    }}
+                  >
                     {s.desc}
                   </p>
                 </div>
               ))}
             </div>
-          );
-        })()}
+          </div>
 
-        {/* Qualitative items */}
-        <div
-          className="reveal-on-scroll reveal-stagger"
-          style={{
-            marginTop: 24,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 20,
-          }}
-        >
-          {IMPACT.qualitative.map((q) => (
+          {/* ─── Exposed 1px Grid: Qualitative Governance Pillars ─── */}
+          <div
+            style={{
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
+            }}
+          >
             <div
-              key={q.title}
-              className="card-hover"
               style={{
-                padding: "26px 26px",
-                background: "var(--surface-raised)",
-                border: "1px solid var(--border)",
-                borderRadius: 8,
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
               }}
+              className="impact-qual-grid"
             >
-              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                <span
+              {IMPACT.qualitative.map((q, idx) => (
+                <div
+                  key={q.title}
                   style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "var(--orange)",
-                    flexShrink: 0,
+                    padding: "32px 32px",
+                    background: "var(--surface)",
+                    borderRight: idx === 0 ? "1px solid var(--border)" : "none",
+                    transition: "background 0.2s ease",
                   }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-display), Georgia, serif",
-                    fontSize: 22,
-                    letterSpacing: "-0.01em",
-                    fontWeight: 500,
-                  }}
+                  className="impact-cell"
                 >
-                  {q.title}
-                </span>
-              </div>
-              <p style={{ fontSize: 14.5, color: "var(--muted)", marginTop: 10, paddingLeft: 20, lineHeight: 1.55 }}>
-                {q.desc}
-              </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      marginBottom: 12,
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        background: "var(--orange)",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--muted)",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      ASSURANCE PILLAR 0{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                      fontSize: 24,
+                      letterSpacing: "-0.025em",
+                      fontWeight: 500,
+                      color: "var(--ink)",
+                      marginBottom: 10,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {q.title}
+                  </h3>
+
+                  <p
+                    style={{
+                      fontSize: 14,
+                      color: "var(--muted)",
+                      lineHeight: 1.6,
+                      margin: 0,
+                    }}
+                  >
+                    {q.desc}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        </SpringReveal>
       </div>
+
+      <style jsx>{`
+        .impact-cell:hover {
+          background: var(--surface) !important;
+        }
+        @media (max-width: 840px) {
+          .impact-stats-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .impact-stats-grid > div {
+            border-right: none !important;
+            border-bottom: 1px solid var(--border);
+          }
+          .impact-qual-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .impact-qual-grid > div {
+            border-right: none !important;
+            border-bottom: 1px solid var(--border);
+          }
+        }
+      `}</style>
     </section>
   );
 }
