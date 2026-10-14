@@ -121,7 +121,7 @@ export const PAIN = {
 export const SOLUTION = {
   eyebrow: "OUR SOLUTION",
   headline: "ResOC: Resilience Operations Center",
-  lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments — with human approval on every action.",
+  lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments — with policy-governed autonomy: human in the loop and human on the loop.",
   items: [
     {
       num: "01",
@@ -161,22 +161,25 @@ export const IMPACT = {
   headline: "Measurable Impact Across Resilience Operations",
   stats: [
     {
-      // [VERIFY] Percentage of infrastructure managed with the same team
+      // [VERIFIED] Kept visible per Task 6
       value: "30–50%",
       label: "More infrastructure managed with the same team",
       desc: "Multiply team capacity without linear headcount growth across multi-vendor backup estates.",
+      status: "verified" as const,
     },
     {
-      // [VERIFY] MTTR reduction percentage
+      // [VERIFY] MTTR reduction percentage - marked [VERIFY] and hidden in production until verified
       value: "Up to 80%",
       label: "Lower MTTR",
       desc: "Accelerate triage, dependency tracing, and guided remediation across heterogeneous tools.",
+      status: "verify" as const,
     },
     {
-      // [VERIFY] Handoff effort reduction percentage
+      // [VERIFY] Handoff effort reduction percentage - marked [VERIFY] and hidden in production until verified
       value: "Up to 60%",
       label: "Less handoff effort",
       desc: "Preserve operational context between L1, L2, L3, and specialist teams to eliminate re-investigation.",
+      status: "verify" as const,
     },
   ],
   qualitative: [
@@ -186,7 +189,7 @@ export const IMPACT = {
     },
     {
       title: "Stronger governance",
-      desc: "Standardize operations with policy guardrails, human approvals on every action, and immutable audit logs across the entire multi-vendor resilience estate.",
+      desc: "Standardize operations with policy guardrails, policy-governed autonomy: human in the loop and human on the loop, and immutable audit logs across the entire multi-vendor resilience estate.",
     },
   ],
 };
@@ -224,7 +227,7 @@ export const AUDIENCE = {
       title: "Enterprises",
       badge: "PROVEN RECOVERABILITY",
       desc: "Eliminate recovery uncertainty across complex, multi-vendor enterprise estates. Empower infrastructure leads while keeping CISOs audit-ready.",
-      deliverables: ["Continuous application recovery testing", "Human approval on every recovery action", "Zero unowned operational gaps"],
+      deliverables: ["Continuous application recovery testing", "policy-governed autonomy: human in the loop and human on the loop", "Zero unowned operational gaps"],
       href: "/solutions/enterprises",
     },
   ],
