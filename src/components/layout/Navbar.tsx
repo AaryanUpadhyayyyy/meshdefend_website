@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Logo, LogoMark } from "@/components/brand/Logo";
+import Link from "next/link";
+import { LogoMark } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { NAV } from "@/lib/content";
 
@@ -66,7 +67,7 @@ export function Navbar() {
         }}
       >
         {/* Logo: 28px mark + 20px semibold wordmark */}
-        <a href="/" aria-label="MeshDefend home" style={{ display: "inline-flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+        <Link href="/" aria-label="MeshDefend home" style={{ display: "inline-flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
           <LogoMark size={28} />
           <span
             style={{
@@ -79,7 +80,7 @@ export function Navbar() {
           >
             MeshDefend
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="desktop-nav" aria-label="Main navigation" style={{

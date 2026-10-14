@@ -131,7 +131,7 @@ export function HealingMesh() {
       const agentCount = isMobile ? 3 : 6;
       for (let a = 0; a < agentCount; a++) {
         const fromC = Math.floor(Math.random() * CLUSTERS.length);
-        let toC = (fromC + 1 + Math.floor(Math.random() * (CLUSTERS.length - 1))) % CLUSTERS.length;
+        const toC = (fromC + 1 + Math.floor(Math.random() * (CLUSTERS.length - 1))) % CLUSTERS.length;
         agents.push({
           x: CLUSTERS[fromC].cx * width,
           y: CLUSTERS[fromC].cy * height,

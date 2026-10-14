@@ -1,6 +1,5 @@
 "use client";
 
-import { TextReveal } from "@/components/ui/TextReveal";
 
 export function TrustSection() {
   const isProd = process.env.NODE_ENV === "production";

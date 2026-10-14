@@ -35,6 +35,20 @@ export const metadata: Metadata = {
       "Recovery you can prove. Operations without human error.",
     siteName: "MeshDefend",
     type: "website",
+    images: [
+      {
+        url: "/brand/wordmark.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend — Agentic AI for Enterprise Resilience",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MeshDefend — Agentic AI for Enterprise Resilience",
+    description: "Recovery you can prove. Operations without human error.",
+    images: ["/brand/wordmark.png"],
   },
 };
 
