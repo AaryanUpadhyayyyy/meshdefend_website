@@ -25,7 +25,7 @@ export const HERO = {
   ctaPrimary: "Book a demo",
   ctaSecondary: "See ResOC in action",
   trustRow: [
-    "Human approval on every action",
+    "Policy-governed autonomy: human in the loop and human on the loop",
     "Policy-bound",
     "Audit-ready evidence",
   ],
@@ -102,7 +102,7 @@ interface SidebarItem {
 export const DASHBOARD = {
   statusBar: {
     left: "RESOC · ONE CONSOLE · EVERY VENDOR",
-    chips: ["AUTO · 5S", "SAMPLE DATA", "HUMAN APPROVAL ON EVERY ACTION"],
+    chips: ["AUTO · 5S", "SAMPLE DATA", "POLICY-GOVERNED AUTONOMY: HUMAN IN THE LOOP AND HUMAN ON THE LOOP"],
   },
   tabs: [
     {
@@ -273,7 +273,7 @@ export const TRUST = {
 export const AGENT_MESH = {
   eyebrow: "POWERED BY AGENT MESH™",
   headline: "The intelligence to act. The discipline to stop.",
-  lede: "Agent Mesh™ is the agentic AI core of MeshDefend — it connects to your entire infrastructure, learns from every signal, and acts only with human approval.",
+  lede: "Agent Mesh™ is the agentic AI core of MeshDefend — it connects to your entire infrastructure, learns from every signal, with policy-governed autonomy: human in the loop and human on the loop.",
   beats: [
     {
       num: "01",

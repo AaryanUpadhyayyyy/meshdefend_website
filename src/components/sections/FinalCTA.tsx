@@ -135,7 +135,7 @@ export function FinalCTA() {
               <span style={{ color: "var(--orange)", fontWeight: 600 }}>EVALUATION:</span> Live Estate or Guided Proof
             </div>
             <div>
-              <span style={{ color: "var(--orange)", fontWeight: 600 }}>GOVERNANCE:</span> 100% Policy-Enforced Human Approval
+              <span style={{ color: "var(--orange)", fontWeight: 600 }}>GOVERNANCE:</span> Policy-governed autonomy: human in the loop and human on the loop
             </div>
             <div>
               <span style={{ color: "var(--orange)", fontWeight: 600 }}>AUDIT:</span> WORM Immutable Evidence Log

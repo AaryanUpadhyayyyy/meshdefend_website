@@ -658,7 +658,7 @@ export function PainSection() {
               >
                 {activeToggle === "today"
                   ? "No vendor console holds this space. No single team owns it. Four operational handoffs where recovery context, RTO proofs, and runbooks silently drift until disaster strikes."
-                  : "Same five enterprise tools. Nothing replaced. The space between them is now operated by Agent Mesh™ with continuous proof and human approval on every action."}
+                  : "Same five enterprise tools. Nothing replaced. The space between them is now operated by Agent Mesh™ with continuous proof and policy-governed autonomy: human in the loop and human on the loop."}
               </p>
             </div>
 
