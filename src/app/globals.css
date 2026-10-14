@@ -1044,7 +1044,38 @@ html.js-reveal .line-inner.is-revealed {
 }
 
 /* ─── Backup Operations Page Responsive ─────────────────────────── */
+@media (max-width: 1024px) {
+  .backup-stage-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
 @media (max-width: 900px) {
+  .backup-stage-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .governed-gate-5grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .governed-gate-5grid > div {
+    border-right: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .governed-gate-5grid > div:nth-child(2n) {
+    border-right: none !important;
+  }
+  .readiness-signals-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .readiness-signals-grid > div {
+    border-right: 1px solid rgba(254, 253, 253, 0.1) !important;
+    border-bottom: 1px solid rgba(254, 253, 253, 0.1) !important;
+  }
+  .readiness-signals-grid > div:nth-child(2n) {
+    border-right: none !important;
+  }
   .morning-timeline-grid {
     grid-template-columns: 1fr !important;
   }
@@ -1079,6 +1110,26 @@ html.js-reveal .line-inner.is-revealed {
 }
 
 @media (max-width: 600px) {
+  .governed-gate-5grid {
+    grid-template-columns: 1fr !important;
+  }
+  .governed-gate-5grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .governed-gate-5grid > div:last-child {
+    border-bottom: none !important;
+  }
+  .readiness-signals-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .readiness-signals-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(254, 253, 253, 0.1) !important;
+  }
+  .readiness-signals-grid > div:last-child {
+    border-bottom: none !important;
+  }
   .governed-gate-grid {
     grid-template-columns: 1fr !important;
   }

@@ -137,15 +137,14 @@ export function OperationalEvidenceFold() {
                 <div>
                   <div
                     style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10.5,
-                      letterSpacing: "0.1em",
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 12,
+                      fontWeight: 600,
                       color: "var(--muted)",
-                      textTransform: "uppercase",
                       marginBottom: 6,
                     }}
                   >
-                    CERTIFIED OPERATIONAL INCIDENT RECORD // RESOC-AUDIT-V2
+                    Operational audit record · Traceable shift timeline
                   </div>
                   <div
                     style={{
@@ -266,7 +265,7 @@ export function OperationalEvidenceFold() {
                 })}
               </div>
 
-              {/* Bottom Archival Guarantee Bar */}
+              {/* Bottom Archival Guarantee Bar (Exact Sitemap Row 12 Intent) */}
               <div
                 style={{
                   marginTop: 24,
@@ -282,25 +281,12 @@ export function OperationalEvidenceFold() {
                 <span
                   style={{
                     fontFamily: "var(--font-body), Inter, sans-serif",
-                    fontSize: 12.5,
+                    fontSize: 13,
                     color: "var(--muted)",
+                    lineHeight: 1.5,
                   }}
                 >
-                  Preserves operational context between shifts and satisfies SOC 2 Type II / DORA Article 11 recovery verification.
-                </span>
-
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 10.5,
-                    color: "var(--ink)",
-                    background: "var(--surface)",
-                    padding: "3px 8px",
-                    borderRadius: 3,
-                    border: "1px solid var(--border)",
-                  }}
-                >
-                  CHAIN-OF-CUSTODY COMPLIANT
+                  Every action leaves a complete record—recommendation, reason, approver, evidence, and outcome—so the next shift and compliance teams can trace exactly what happened.
                 </span>
               </div>
             </div>

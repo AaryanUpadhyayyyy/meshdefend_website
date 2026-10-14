@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { BackupHeroFold } from "./components/BackupHeroFold";
-import { MorningWorkflowFold } from "./components/MorningWorkflowFold";
-import { ExceptionDrivenFold } from "./components/ExceptionDrivenFold";
+import { BackupStage } from "./components/BackupStage";
 import { GuidedTriageFold } from "./components/GuidedTriageFold";
 import { GovernedExecutionFold } from "./components/GovernedExecutionFold";
 import { OperationalEvidenceFold } from "./components/OperationalEvidenceFold";
@@ -27,14 +25,8 @@ export default function BackupOperationsPage() {
     <>
       <Navbar />
       <main id="main">
-        {/* FOLD 1: CLARIFY MESHDEFEND'S ROLE (Role & Scope Orientation + SVG Convergence) */}
-        <BackupHeroFold />
-
-        {/* FOLD 2: MORNING OPERATIONS WORKFLOW ("The 08:00 AM Shift Start") */}
-        <MorningWorkflowFold />
-
-        {/* FOLD 3: EXCEPTION-DRIVEN OPERATIONS (Selective Attention + Signal Compression Matrix) */}
-        <ExceptionDrivenFold />
+        {/* FOLDS 1–3: THE OPERATIONS CONTROL SPINE (3D WebGL Pinned Stage · Role, Morning Workflow, Exceptions) */}
+        <BackupStage />
 
         {/* FOLD 4: GUIDED TRIAGE & REMEDIATION (Evidence Before Trust + 7/5 Asymmetric Graph) */}
         <GuidedTriageFold />

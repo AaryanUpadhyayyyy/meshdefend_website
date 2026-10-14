@@ -76,7 +76,7 @@ export function GovernedExecutionFold() {
             </p>
           </div>
 
-          {/* ─── INTERACTIVE GOVERNED EXECUTION GATE PIPELINE ─── */}
+          {/* ─── 5-COLUMN GOVERNED EXECUTION CONTROL MECHANISMS ─── */}
           <div
             style={{
               border: "1px solid var(--border)",
@@ -85,7 +85,7 @@ export function GovernedExecutionFold() {
               overflow: "hidden",
             }}
           >
-            {/* Stage Pipeline Header Bar */}
+            {/* Header Bar */}
             <div
               style={{
                 padding: "16px 24px",
@@ -101,15 +101,13 @@ export function GovernedExecutionFold() {
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: "0.06em",
+                    fontFamily: "var(--font-body), Inter, sans-serif",
+                    fontSize: 12,
+                    fontWeight: 600,
                     color: "var(--ink)",
-                    textTransform: "uppercase",
                   }}
                 >
-                  AUTONOMY LEVEL // POLICY-BOUND (HITL &amp; HIOL)
+                  Policy-governed autonomy · Human in the loop and human on the loop
                 </span>
               </div>
 
@@ -123,8 +121,8 @@ export function GovernedExecutionFold() {
                   }}
                 >
                   {isApproved
-                    ? "STATUS: REMEDIATION EXECUTED &amp; VERIFIED"
-                    : "STATUS: PAUSED AT GATE 04 FOR OPERATOR APPROVAL"}
+                    ? "Status: Remediation executed & verified"
+                    : "Status: Paused at Gate 05 for operator approval"}
                 </span>
                 {isApproved && (
                   <button
@@ -147,18 +145,18 @@ export function GovernedExecutionFold() {
               </div>
             </div>
 
-            {/* 4-Stage Horizontal Grid */}
+            {/* 5-Column Grid */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
+                gridTemplateColumns: "repeat(5, 1fr)",
               }}
-              className="governed-gate-grid"
+              className="governed-gate-5grid"
             >
-              {/* Gate 01 */}
+              {/* Mechanism 01: Policy Guardrails */}
               <div
                 style={{
-                  padding: "28px 24px",
+                  padding: "24px 20px",
                   borderRight: "1px solid var(--border)",
                   background: "var(--bg)",
                   display: "flex",
@@ -172,25 +170,24 @@ export function GovernedExecutionFold() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      marginBottom: 12,
+                      marginBottom: 10,
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10.5,
+                        fontSize: 10,
                         letterSpacing: "0.06em",
                         color: "var(--muted)",
-                        textTransform: "uppercase",
                         fontWeight: 600,
                       }}
                     >
-                      GATE 01
+                      01
                     </span>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10,
+                        fontSize: 9.5,
                         padding: "2px 6px",
                         background: "rgba(34,31,34,0.06)",
                         borderRadius: 3,
@@ -205,7 +202,7 @@ export function GovernedExecutionFold() {
                   <h3
                     style={{
                       fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                      fontSize: 22,
+                      fontSize: 20,
                       lineHeight: 1.2,
                       color: "var(--ink)",
                       marginBottom: 8,
@@ -217,32 +214,21 @@ export function GovernedExecutionFold() {
                   <p
                     style={{
                       fontFamily: "var(--font-body), Inter, sans-serif",
-                      fontSize: 13.5,
+                      fontSize: 13,
                       color: "var(--muted)",
                       lineHeight: 1.5,
                       margin: 0,
                     }}
                   >
-                    Read-only diagnostics allowed; destructive storage deletes blocked by policy.
+                    Read-only diagnostics run automatically; state-changing storage actions bound by policy.
                   </p>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 20,
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 10,
-                    color: "var(--muted)",
-                  }}
-                >
-                  SEC-POL-882 · ACTIVE
                 </div>
               </div>
 
-              {/* Gate 02 */}
+              {/* Mechanism 02: Role Permissions */}
               <div
                 style={{
-                  padding: "28px 24px",
+                  padding: "24px 20px",
                   borderRight: "1px solid var(--border)",
                   background: "var(--bg)",
                   display: "flex",
@@ -256,25 +242,24 @@ export function GovernedExecutionFold() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      marginBottom: 12,
+                      marginBottom: 10,
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10.5,
+                        fontSize: 10,
                         letterSpacing: "0.06em",
                         color: "var(--muted)",
-                        textTransform: "uppercase",
                         fontWeight: 600,
                       }}
                     >
-                      GATE 02
+                      02
                     </span>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10,
+                        fontSize: 9.5,
                         padding: "2px 6px",
                         background: "rgba(34,31,34,0.06)",
                         borderRadius: 3,
@@ -289,7 +274,7 @@ export function GovernedExecutionFold() {
                   <h3
                     style={{
                       fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                      fontSize: 22,
+                      fontSize: 20,
                       lineHeight: 1.2,
                       color: "var(--ink)",
                       marginBottom: 8,
@@ -301,32 +286,21 @@ export function GovernedExecutionFold() {
                   <p
                     style={{
                       fontFamily: "var(--font-body), Inter, sans-serif",
-                      fontSize: 13.5,
+                      fontSize: 13,
                       color: "var(--muted)",
                       lineHeight: 1.5,
                       margin: 0,
                     }}
                   >
-                    Requires Backup Lead or Storage Admin role for storage handle release.
+                    Requires authorized Backup Lead or Storage Admin role for snapshot lock release.
                   </p>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 20,
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 10,
-                    color: "var(--muted)",
-                  }}
-                >
-                  RBAC: BACKUP-LEAD
                 </div>
               </div>
 
-              {/* Gate 03 */}
+              {/* Mechanism 03: Change Windows */}
               <div
                 style={{
-                  padding: "28px 24px",
+                  padding: "24px 20px",
                   borderRight: "1px solid var(--border)",
                   background: "var(--bg)",
                   display: "flex",
@@ -340,25 +314,24 @@ export function GovernedExecutionFold() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      marginBottom: 12,
+                      marginBottom: 10,
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10.5,
+                        fontSize: 10,
                         letterSpacing: "0.06em",
                         color: "var(--muted)",
-                        textTransform: "uppercase",
                         fontWeight: 600,
                       }}
                     >
-                      GATE 03
+                      03
                     </span>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10,
+                        fontSize: 9.5,
                         padding: "2px 6px",
                         background: "rgba(34,31,34,0.06)",
                         borderRadius: 3,
@@ -373,44 +346,105 @@ export function GovernedExecutionFold() {
                   <h3
                     style={{
                       fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                      fontSize: 22,
+                      fontSize: 20,
                       lineHeight: 1.2,
                       color: "var(--ink)",
                       marginBottom: 8,
                     }}
                   >
-                    Change Window
+                    Change Windows
                   </h3>
 
                   <p
                     style={{
                       fontFamily: "var(--font-body), Inter, sans-serif",
-                      fontSize: 13.5,
+                      fontSize: 13,
                       color: "var(--muted)",
                       lineHeight: 1.5,
                       margin: 0,
                     }}
                   >
-                    Within approved maintenance window (02:00–05:00 UTC). Current: 02:44 UTC.
+                    Validated against approved maintenance window (02:00–05:00 UTC) in ServiceNow.
                   </p>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 20,
-                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 10,
-                    color: "var(--muted)",
-                  }}
-                >
-                  WINDOW OPEN (2h 16m LEFT)
                 </div>
               </div>
 
-              {/* Gate 04: Human Sign-Off (Interactive) */}
+              {/* Mechanism 04: Confidence Thresholds */}
               <div
                 style={{
-                  padding: "28px 24px",
+                  padding: "24px 20px",
+                  borderRight: "1px solid var(--border)",
+                  background: "var(--bg)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginBottom: 10,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 10,
+                        letterSpacing: "0.06em",
+                        color: "var(--muted)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      04
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 9.5,
+                        padding: "2px 6px",
+                        background: "rgba(34,31,34,0.06)",
+                        borderRadius: 3,
+                        color: "var(--ink)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Verified ✓
+                    </span>
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                      fontSize: 20,
+                      lineHeight: 1.2,
+                      color: "var(--ink)",
+                      marginBottom: 8,
+                    }}
+                  >
+                    Confidence Thresholds
+                  </h3>
+
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 13,
+                      color: "var(--muted)",
+                      lineHeight: 1.5,
+                      margin: 0,
+                    }}
+                  >
+                    Root-cause match exceeds policy threshold across job history, storage state, and change records.
+                  </p>
+                </div>
+              </div>
+
+              {/* Mechanism 05: Approval Gate (Interactive) */}
+              <div
+                style={{
+                  padding: "24px 20px",
                   background: isApproved ? "rgba(244, 85, 50, 0.04)" : "var(--surface)",
                   display: "flex",
                   flexDirection: "column",
@@ -426,25 +460,24 @@ export function GovernedExecutionFold() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      marginBottom: 12,
+                      marginBottom: 10,
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10.5,
+                        fontSize: 10,
                         letterSpacing: "0.06em",
                         color: isApproved ? "var(--ink)" : "var(--orange)",
-                        textTransform: "uppercase",
                         fontWeight: 700,
                       }}
                     >
-                      GATE 04 // FINAL SIGN-OFF
+                      05
                     </span>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10,
+                        fontSize: 9.5,
                         padding: "2px 6px",
                         background: isApproved ? "var(--orange)" : "rgba(244, 85, 50, 0.12)",
                         color: isApproved ? "#ffffff" : "var(--orange)",
@@ -452,34 +485,34 @@ export function GovernedExecutionFold() {
                         fontWeight: 700,
                       }}
                     >
-                      {isApproved ? "Executed ✓" : "Pending Sign-off"}
+                      {isApproved ? "Executed ✓" : "Pending sign-off"}
                     </span>
                   </div>
 
                   <h3
                     style={{
                       fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                      fontSize: 22,
+                      fontSize: 20,
                       lineHeight: 1.2,
                       color: "var(--ink)",
                       marginBottom: 8,
                     }}
                   >
-                    Human Sign-Off
+                    Approval Gate
                   </h3>
 
                   <p
                     style={{
                       fontFamily: "var(--font-body), Inter, sans-serif",
-                      fontSize: 13,
+                      fontSize: 12.5,
                       color: "var(--muted)",
-                      lineHeight: 1.5,
-                      margin: "0 0 16px 0",
+                      lineHeight: 1.45,
+                      margin: "0 0 14px 0",
                     }}
                   >
                     {isApproved
-                      ? "Approved by R. Sharma (Shift Lead). Released stale snapshot handle; Veeam backup job #1849 triggered."
-                      : "Action paused. Operator review required before releasing storage locks on payments-db."}
+                      ? "Approved by R. Sharma. Stale snapshot handle released; Veeam backup job #1849 active."
+                      : "Operator sign-off required to release SAN volume snapshot lock on payments-db."}
                   </p>
                 </div>
 
@@ -492,36 +525,36 @@ export function GovernedExecutionFold() {
                       className="btn btn-primary"
                       style={{
                         width: "100%",
-                        fontSize: 12.5,
-                        padding: "10px 14px",
+                        fontSize: 12,
+                        padding: "9px 12px",
                         justifyContent: "center",
                         cursor: isExecuting ? "wait" : "pointer",
                       }}
                     >
-                      {isExecuting ? "Executing Action..." : "Approve & Execute Remediation"}
+                      {isExecuting ? "Executing..." : "Approve & execute remediation"}
                     </button>
                   ) : (
                     <div
                       style={{
-                        padding: "8px 12px",
+                        padding: "6px 10px",
                         background: "var(--bg)",
                         border: "1px solid var(--border)",
                         borderRadius: 3,
                         display: "flex",
                         alignItems: "center",
-                        gap: 8,
+                        gap: 6,
                       }}
                     >
-                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--orange)" }} />
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--orange)" }} />
                       <span
                         style={{
                           fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 11,
+                          fontSize: 10.5,
                           color: "var(--ink)",
                           fontWeight: 600,
                         }}
                       >
-                        Verification running · Job #1849
+                        Verification running
                       </span>
                     </div>
                   )}

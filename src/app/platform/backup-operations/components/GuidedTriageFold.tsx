@@ -14,33 +14,45 @@ const CONTEXT_ROWS: ContextRow[] = [
   {
     index: "01",
     dimension: "Job history",
-    evidence: "Succeeded 14 consecutive nights; failed at 02:41 after config change",
-    source: "Veeam B&R Telemetry Log",
+    evidence: "Succeeded 14 consecutive nights; failed at 02:41 after configuration update",
+    source: "Veeam Backup & Replication",
   },
   {
     index: "02",
     dimension: "Infrastructure state",
-    evidence: "Stale snapshot handle held on primary storage array volume vol-094",
-    source: "Pure/Dell SAN Array API",
+    evidence: "Stale snapshot handle held on primary storage volume vol-094",
+    source: "Dell PowerProtect DataDomain",
   },
   {
     index: "03",
     dimension: "Protection configuration",
-    evidence: "4-hour RPO policy; next scheduled window in 1h 18m",
-    source: "ResOC Policy Catalog",
+    evidence: "4-hour RPO policy; next scheduled backup window in 1h 18m",
+    source: "Policy configuration",
   },
   {
     index: "04",
     dimension: "Recent changes",
     evidence: "ServiceNow CHG0019201 updated storage multipath policy at 01:50",
-    source: "ServiceNow CMDB Sync",
+    source: "ServiceNow ITSM & CMDB",
   },
   {
     index: "05",
+    dimension: "Capacity",
+    evidence: "Target protection storage pool at 78% utilization; snapshot reserve within threshold",
+    source: "Dell PowerProtect DataDomain",
+  },
+  {
+    index: "06",
     dimension: "Asset criticality",
     evidence: "Tier-1 database · 3 dependent customer-facing applications",
-    source: "MVC Application Map",
+    source: "Application dependency map",
   },
+];
+
+const GROUNDING_ITEMS = [
+  "Ticket intelligence (prior resolved incidents)",
+  "Runbook & SOP repositories",
+  "Cross-vendor configuration lineage",
 ];
 
 export function GuidedTriageFold() {
@@ -150,15 +162,14 @@ export function GuidedTriageFold() {
                     />
                     <span
                       style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 10.5,
-                        fontWeight: 700,
+                        fontFamily: "var(--font-body), Inter, sans-serif",
+                        fontSize: 12,
+                        fontWeight: 600,
                         color: "var(--orange)",
-                        letterSpacing: "0.08em",
-                        textTransform: "uppercase",
+                        letterSpacing: "-0.01em",
                       }}
                     >
-                      ACTIVE EXCEPTION // TRIAGE VERDICT
+                      Active exception · Guided diagnosis
                     </span>
                   </div>
 
@@ -235,41 +246,50 @@ export function GuidedTriageFold() {
                   </div>
                 </div>
 
-                {/* Grounding Confidence Strip */}
+                {/* Grounded in Operational Knowledge (Sitemap Row 10) */}
                 <div
                   style={{
-                    padding: "12px 16px",
+                    padding: "16px 18px",
                     background: "var(--bg)",
                     border: "1px solid var(--border)",
                     borderRadius: 4,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
                   }}
                 >
-                  <span
+                  <div
                     style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 11,
-                      color: "var(--ink)",
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 11.5,
                       fontWeight: 600,
+                      color: "var(--ink)",
+                      marginBottom: 8,
+                      letterSpacing: "-0.01em",
                     }}
                   >
-                    CONFIDENCE: 98%
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10.5,
-                      color: "var(--muted)",
-                    }}
-                  >
-                    GROUNDED IN 5 SIGNALS →
-                  </span>
+                    Grounded in operational knowledge:
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {GROUNDING_ITEMS.map((item) => (
+                      <div
+                        key={item}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          fontFamily: "var(--font-body), Inter, sans-serif",
+                          fontSize: 12.5,
+                          color: "var(--muted)",
+                        }}
+                      >
+                        <span style={{ color: "var(--orange)", fontSize: 10 }}>•</span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column (7 Cols): 5 Connected Context Rows */}
+              {/* Right Column (7 Cols): 6 Connected Context Rows */}
               <div
                 style={{
                   background: "var(--bg)",
@@ -297,7 +317,7 @@ export function GuidedTriageFold() {
                       fontWeight: 600,
                     }}
                   >
-                    CONNECTED CONTEXT CORRELATIONS (5 SIGNALS)
+                    CONNECTED CONTEXT CORRELATIONS (6 DIMENSIONS)
                   </span>
                   <span
                     style={{
@@ -320,7 +340,7 @@ export function GuidedTriageFold() {
                       onMouseEnter={() => setHoveredIdx(idx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                       style={{
-                        padding: "24px 28px",
+                        padding: "22px 28px",
                         borderBottom: isLast ? "none" : "1px solid var(--border)",
                         background: isHovered ? "var(--surface)" : "var(--bg)",
                         position: "relative",
@@ -347,7 +367,7 @@ export function GuidedTriageFold() {
                           display: "flex",
                           alignItems: "baseline",
                           justifyContent: "space-between",
-                          marginBottom: 8,
+                          marginBottom: 6,
                           gap: 12,
                         }}
                       >
@@ -389,7 +409,7 @@ export function GuidedTriageFold() {
                       <p
                         style={{
                           fontFamily: "var(--font-body), Inter, sans-serif",
-                          fontSize: 14,
+                          fontSize: 13.5,
                           lineHeight: 1.5,
                           color: isHovered ? "var(--ink)" : "var(--muted)",
                           margin: 0,

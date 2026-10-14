@@ -3,9 +3,29 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
+const READINESS_SIGNALS = [
+  {
+    label: "Protection status",
+    detail: "All tier-1 workloads protected · payments-db incremental job restored",
+  },
+  {
+    label: "Recovery-point availability",
+    detail: "Latest clean recovery point verified on Dell PowerProtect DataDomain",
+  },
+  {
+    label: "Policy compliance",
+    detail: "RPO & retention policies aligned across Commvault, Veeam, and NetWorker",
+  },
+  {
+    label: "Application dependencies",
+    detail: "payments-db mapped to 3 dependent services · ready for deeper recovery validation",
+  },
+];
+
 export function BackupHandoffFold() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleTextRef = useRef<HTMLSpanElement>(null);
+  const chipRef = useRef<HTMLDivElement>(null);
   const [animStage, setAnimStage] = useState<"idle" | "drawing" | "completed">("idle");
   const [isHovered, setIsHovered] = useState(false);
   const [lineCoords, setLineCoords] = useState<{ targetX: number; targetY: number } | null>(null);
@@ -57,8 +77,8 @@ export function BackupHandoffFold() {
     return () => observer.disconnect();
   }, [updateCoords]);
 
-  const chipWidth = 320;
-  const chipSlideX = lineCoords ? Math.max(0, lineCoords.targetX - chipWidth - 16) : 0;
+  const chipW = chipRef.current?.offsetWidth || 340;
+  const chipSlideX = lineCoords ? Math.max(24, lineCoords.targetX - chipW - 28) : 0;
 
   return (
     <section
@@ -125,11 +145,86 @@ export function BackupHandoffFold() {
             lineHeight: 1.6,
             color: "rgba(254, 253, 253, 0.7)",
             maxWidth: "68ch",
-            margin: "0 0 64px 0",
+            margin: "0 0 52px 0",
           }}
         >
           Everyday backup operations establish the foundation—healthy jobs, verified replication, and policy compliance. See how MeshDefend extends operational health into continuous application dependency mapping and clean-room recovery assurance.
         </p>
+
+        {/* ─── OPERATIONAL RECOVERY READINESS SIGNALS (SITEMAP ROW 14) ─── */}
+        <div
+          style={{
+            border: "1px solid rgba(254, 253, 253, 0.14)",
+            borderRadius: 4,
+            background: "rgba(254, 253, 253, 0.03)",
+            marginBottom: 56,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              padding: "12px 20px",
+              borderBottom: "1px solid rgba(254, 253, 253, 0.1)",
+              fontFamily: "var(--font-body), Inter, sans-serif",
+              fontSize: 11.5,
+              fontWeight: 600,
+              color: "#fefdfd",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Operational readiness signals before handoff:
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+            }}
+            className="readiness-signals-grid"
+          >
+            {READINESS_SIGNALS.map((sig, idx) => {
+              const isLast = idx === READINESS_SIGNALS.length - 1;
+
+              return (
+                <div
+                  key={sig.label}
+                  style={{
+                    padding: "20px 20px",
+                    borderRight: isLast ? "none" : "1px solid rgba(254, 253, 253, 0.1)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 6,
+                  }}
+                  className="readiness-signal-cell"
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10,
+                      color: "var(--orange)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {sig.label}
+                  </div>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 13,
+                      lineHeight: 1.45,
+                      color: "rgba(254, 253, 253, 0.8)",
+                      margin: 0,
+                    }}
+                  >
+                    {sig.detail}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Asymmetric Giant Link Section */}
         <div
@@ -137,7 +232,7 @@ export function BackupHandoffFold() {
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
-            marginTop: 40,
+            marginTop: 20,
           }}
         >
           <Link
@@ -161,8 +256,13 @@ export function BackupHandoffFold() {
                 fontSize: "clamp(34px, 4.2vw, 56px)",
                 lineHeight: 1.05,
                 letterSpacing: "-0.025em",
-                color: isHovered ? "var(--orange)" : "#fefdfd",
-                transition: "color 0.2s ease",
+                color:
+                  animStage === "completed" || isHovered
+                    ? isHovered
+                      ? "var(--orange)"
+                      : "#fefdfd"
+                    : "rgba(254, 253, 253, 0.45)",
+                transition: "color 0.24s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
               Cyber Resilience ↗
@@ -171,7 +271,7 @@ export function BackupHandoffFold() {
         </div>
       </div>
 
-      {/* ─── Animated 1px Line & Moving Chip ─── */}
+      {/* ─── Animated 1px Line & Moving Chip (Stops 28px before link, fades on complete) ─── */}
       {lineCoords && (
         <div
           style={{
@@ -201,11 +301,11 @@ export function BackupHandoffFold() {
 
           {/* Traveling Chip */}
           <div
+            ref={chipRef}
             style={{
               position: "absolute",
               left: 0,
               top: -14,
-              width: chipWidth,
               padding: "4px 10px",
               background: "rgba(34, 31, 34, 0.95)",
               border: "1px solid rgba(254, 253, 253, 0.25)",
@@ -218,9 +318,9 @@ export function BackupHandoffFold() {
               transform:
                 animStage === "drawing" || animStage === "completed"
                   ? `translateX(${chipSlideX}px)`
-                  : "translateX(20px)",
-              opacity: animStage === "drawing" ? 1 : animStage === "completed" ? 0.8 : 0,
-              transition: "transform 0.9s cubic-bezier(0.65, 0, 0.15, 1), opacity 0.4s ease",
+                  : "translateX(24px)",
+              opacity: animStage === "drawing" ? 1 : 0,
+              transition: "transform 0.9s cubic-bezier(0.65, 0, 0.15, 1), opacity 0.3s ease",
             }}
           >
             payments-db · backup healthy → verify application recovery
