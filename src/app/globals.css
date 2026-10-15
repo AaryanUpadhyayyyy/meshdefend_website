@@ -1154,6 +1154,57 @@ html.js-reveal .line-inner.is-revealed {
   }
 }
 
+/* ─── Incident Resolution Page Responsive ───────────────────────── */
+@media (max-width: 900px) {
+  .forensic-dossier-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .authority-matrix-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .authority-matrix-grid > div:nth-child(2) {
+    border-right: none !important;
+  }
+  .authority-matrix-grid > div:nth-child(1),
+  .authority-matrix-grid > div:nth-child(2) {
+    border-bottom: 1px solid var(--border);
+  }
+  .impact-bento-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .authority-matrix-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .authority-matrix-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .authority-matrix-grid > div:last-child {
+    border-bottom: none !important;
+  }
+  .impact-rail-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ─── Cyber Resilience Page Responsive ─────────────────────────── */
+@media (max-width: 900px) {
+  .posture-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .posture-split-grid > div:first-child {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .resilience-bridge-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 
 
 

@@ -99,7 +99,7 @@ export function Handoff() {
         {/* ─── Asymmetric Giant Link (Cols 5-12, bottom-right) ──────── */}
         <div className="handoff-link-wrapper">
           <a
-            href="/platform#incident-resolution"
+            href="/platform/incident-resolution"
             className="giant-resolution-link"
             aria-label="Incident Resolution: see how MeshDefend takes action"
             onMouseEnter={() => setIsHovered(true)}
