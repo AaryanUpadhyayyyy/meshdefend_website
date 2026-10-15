@@ -224,3 +224,41 @@ Only three color values are permitted:
    - Three crisp vector/SVG rendered posters capturing Beat 1, Beat 2, and Beat 3 with identical typography and hairline framing.
    - Smooth CSS crossfade driven by the same segmented control toggle.
    - Zero degraded degradation feel—looks like a deliberate, refined print layout.
+
+---
+
+## 9. The Reveal: Homepage Hero Architecture & Scroll Choreography
+
+### 9.1 Core Concept & Narrative Job
+- **First Impression (p = 0):** A calm, cinematic editorial canvas: the painting (`mainapagebg.png`), the sentence-case headline (`Your backups work. / Can your business recover?`), and clean inline CTAs without arrows. No right column, no vertical hairline, no ALL-CAPS mono status bar, and no dashboard clutter in the first viewport.
+- **The Scroll Reveal (p = 0 -> 1):** Native vertical scrolling pushes the camera toward the illuminated data-center hub in the painting, a compact ResOC console rises from below into a docked position, an orange connecting thread illuminates from the hub into an active failure row, and human approval restores power, causing three warm-light sprites to illuminate the painted blackout buildings.
+
+### 9.2 Layered Desktop Stage Architecture (>= 1100px)
+- **Container:** `<section id="hero">` with `height: 260vh`. Inside sits a sticky stage: `position: sticky; top: 0; height: 100svh; overflow: hidden;`.
+- **Layer Hierarchy (Bottom to Top):**
+  1. **`.world` Wrapper:** Full-bleed image (`mainapagebg.png`) with `object-fit: cover` and `object-position: 85% 65%` (hub and bridge sit bottom-right, left half open). Normalized coordinates lock hub (`u: 0.6738, v: 0.3802`) and 3 blackout warm-light sprites directly to image space.
+  2. **Legibility Gradient:**
+     - **Dark theme:** $\le 30\%$ flat charcoal wash plus a $70\% \rightarrow 0\%$ left-to-right gradient over the left 55%.
+     - **Light theme:** $0\%$ wash, $40\%$ `#fefdfd` gradient over the left 45%.
+     - The net, hub, and blackout buildings remain completely legible in both themes.
+  3. **SVG Thread Overlay:** Dynamic bezier curve connecting the hub's image anchor to the left edge of the failure row inside the docked console.
+  4. **Text Column:** Columns 1–7 (max-width `580px`), stacked, sentence-case H1 (`clamp(48px, 5.8vw, 92px)`), Inter paragraph (`18px`), inline CTAs ("Book a demo" + "See ResOC in action" with hover underline), and bottom-left VC endorsement ("Backed by Kalaari Capital · Kettleborough VC").
+  5. **Compact ResOC Console:** Docked at right (`width: min(42vw, 560px)`), bleeding 48px off the bottom.
+
+### 9.3 Scroll Choreography Breakdown ($p \in [0, 1]$ over 160vh)
+- **$p \in [0.00, 0.10]$ (Rest):** First impression viewport. Nothing moves.
+- **$p \in [0.10, 0.45]$ (Camera Push):** `.world` scales $1.00 \rightarrow 1.06$ (capped at $1.06$ due to source image width $< 2560\text{px}$) with `transform-origin` at hub coordinates (`67.4% 38.0%`) and drifts $-2\%$ in $y$.
+- **$p \in [0.25, 0.55]$ (Console Rise):** Compact console rises from `translateY(110vh)` to `translateY(0)` with scale $0.96 \rightarrow 1.0$ and drop shadow fading in. For $p < 0.5$, console is `inert` and `aria-hidden`.
+- **$p \ge 0.55$ (Real-Time Trigger):**
+  - $t = 0\text{ms}$: Orange thread draws across stage (900ms stroke-dashoffset).
+  - $t = +600\text{ms}$: `state = "failed"` (P2 Recovery test failure row appears).
+  - $t = +2400\text{ms}$: `state = "proposed"` (Approve button enabled).
+  - On Approve click or $+7000\text{ms}$ auto: `state = "verified"` (console badge displays "✓ Verified", 3 warm-light sprites fade in over blackout buildings with `mix-blend-mode: screen`, $1.2\text{s}$).
+- **$p \in [0.55, 1.00]$ (Hold & Release):** Stage holds for user inspection. At $p = 1.00$, stage unpins naturally into `<section id="console">` ("The console" with the complete `DashboardPreview` surface).
+- **Reverse Scroll ($p < 0.50$):** Console lowers, state machine resets to `idle`, enabling replays.
+
+### 9.4 Mobile & Accessibility Compliance
+- **Mobile (< 1100px):** Unpinned stack: 45vh banner (cropped to hub & bridge) $\rightarrow$ text column $\rightarrow$ full-width compact console. Story triggers via `IntersectionObserver` at 40% viewport entry.
+- **Reduced Motion:** Static proposed state with Approve button available, no zoom, rise, or thread animation.
+- **Focus Ring Discipline:** `:focus:not(:focus-visible)` suppressed across buttons/ThemeToggle; 2px orange ring on `:focus-visible`.
+

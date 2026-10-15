@@ -1,50 +1,41 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
 import { motion } from "framer-motion";
 
-export function AssessmentPathwaysFold() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+const CAPABILITY_CARDS = [
+  {
+    id: "cyber-resilience",
+    title: "Cyber Resilience",
+    target: "Recovery readiness & risk",
+    href: "/platform/cyber-resilience",
+  },
+  {
+    id: "observability-reporting",
+    title: "Observability & Reporting",
+    target: "Operational evidence",
+    href: "/platform/observability",
+  },
+  {
+    id: "case-studies",
+    title: "Case Studies",
+    target: "Real-world application",
+    href: "/resources/blogs",
+  },
+];
 
-  const pathways = [
-    {
-      id: "path-a",
-      tag: "PATH A // RECOVERY READINESS & RISK",
-      title: "Cyber Resilience",
-      sub: "Assess recovery readiness & risk.",
-      desc: "Deep-dive into continuous clean recovery point validation, ransomware encryption detection, and Minimum Viable Company (MVC) dependency mapping.",
-      href: "/platform/cyber-resilience",
-      cta: "Explore Cyber Resilience",
-    },
-    {
-      id: "path-b",
-      tag: "PATH B // OPERATIONAL EVIDENCE",
-      title: "Observability & Reporting",
-      sub: "Gather operational evidence & reporting.",
-      desc: "Auto-compile unified telemetry across heterogeneous backup silos into board-level compliance reports and executive posture indexes.",
-      href: "/platform/observability",
-      cta: "Explore Observability & Reporting",
-    },
-    {
-      id: "path-c",
-      tag: "PATH C // ARCHITECTURAL FIT",
-      title: "Deploy",
-      sub: "See how the platform implements.",
-      desc: "Inspect on-premises, hybrid cloud, and air-gapped zero-egress deployment models that adapt to client security perimeters without invasive agents.",
-      href: "/platform/deploy",
-      cta: "Inspect Deployment Models",
-    },
-  ];
+export function AssessmentPathwaysFold() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section
       id="assessment-pathways"
-      aria-label="Take the Assessment Further"
+      aria-label="Progressive Disclosure Capabilities"
       style={{
-        padding: "110px 0 120px",
+        padding: "100px 0 110px",
         backgroundColor: "var(--bg, #fefdfd)",
-        borderBottom: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border, rgba(34, 31, 34, 0.1))",
         position: "relative",
       }}
     >
@@ -52,185 +43,108 @@ export function AssessmentPathwaysFold() {
         className="container"
         style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}
       >
-        {/* Section Header */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-            marginBottom: 24,
-            borderBottom: "1px solid var(--border)",
-            paddingBottom: 14,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-              fontSize: 11,
-              fontWeight: 600,
-              color: "var(--orange, #f45532)",
-              letterSpacing: "0.05em",
-            }}
-          >
-            [ TAKE THE ASSESSMENT FURTHER ]
-          </span>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-              fontSize: 11,
-              color: "var(--muted)",
-              letterSpacing: "0.05em",
-            }}
-          >
-            FIG. 5 — 3 DEPTH PATHWAYS
-          </span>
-        </div>
-
-        {/* Verbatim H2 */}
-        <div style={{ maxWidth: 940, marginBottom: 54 }}>
+        {/* Hook */}
+        <div style={{ marginBottom: 48 }}>
           <h2
             style={{
-              fontFamily:
-                'var(--font-display), "Instrument Serif", Georgia, serif',
-              fontSize: "clamp(34px, 4vw, 50px)",
-              lineHeight: 1.05,
-              letterSpacing: "-0.025em",
-              color: "var(--ink)",
-              fontWeight: 400,
-              marginBottom: 16,
+              fontFamily: "var(--font-body, Inter, sans-serif)",
+              fontSize: "clamp(24px, 2.8vw, 36px)",
+              fontWeight: 600,
+              lineHeight: 1.25,
+              letterSpacing: "-0.02em",
+              color: "var(--ink, #221f22)",
+              margin: 0,
             }}
           >
             You found the gaps. Now explore what can close them.
           </h2>
-          <p
-            style={{
-              fontFamily: 'var(--font-body), Inter, sans-serif',
-              fontSize: 17,
-              lineHeight: 1.5,
-              color: "var(--muted)",
-              margin: 0,
-              maxWidth: 780,
-            }}
-          >
-            Continuity and progressive disclosure: explore the specific technical platform capabilities
-            most relevant to turning your audit findings into operational client solutions.
-          </p>
         </div>
 
-        {/* 3 Interactive Routing Cards Grid */}
+        {/* 3 Exposed Grid Cards Routing to Capabilities */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: 24,
           }}
         >
-          {pathways.map((p, idx) => {
-            const isHovered = hoveredCard === idx;
+          {CAPABILITY_CARDS.map((card, idx) => {
+            const isHovered = hoveredIndex === idx;
             return (
               <motion.div
-                key={p.id}
+                key={card.id}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.12 }}
-                onMouseEnter={() => setHoveredCard(idx)}
-                onMouseLeave={() => setHoveredCard(null)}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
                 style={{
                   border: isHovered
-                    ? "1px solid var(--ink)"
-                    : "1px solid var(--border)",
+                    ? "1px solid var(--orange, #f45532)"
+                    : "1px solid var(--border, rgba(34, 31, 34, 0.15))",
                   backgroundColor: isHovered
                     ? "var(--surface-raised, #faf9f8)"
-                    : "var(--bg)",
+                    : "var(--bg, #fefdfd)",
+                  borderRadius: 4,
                   padding: "36px 30px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  minHeight: 220,
                   transition: "all 0.2s ease",
+                  boxShadow: isHovered
+                    ? "0 12px 28px -12px rgba(244, 85, 50, 0.15)"
+                    : "none",
                 }}
               >
                 <div>
                   <div
                     style={{
-                      fontFamily:
-                        'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10,
-                      fontWeight: 600,
-                      color: isHovered
-                        ? "var(--orange, #f45532)"
-                        : "var(--muted)",
-                      letterSpacing: "0.05em",
-                      marginBottom: 14,
-                      transition: "color 0.2s ease",
-                    }}
-                  >
-                    {p.tag}
-                  </div>
-
-                  <h3
-                    style={{
-                      fontFamily:
-                        'var(--font-display), "Instrument Serif", Georgia, serif',
-                      fontSize: 30,
+                      fontFamily: "var(--font-serif, 'Instrument Serif', Georgia, serif)",
+                      fontSize: 32,
                       lineHeight: 1.15,
-                      color: "var(--ink)",
-                      fontWeight: 400,
-                      marginBottom: 8,
+                      color: "var(--ink, #221f22)",
+                      marginBottom: 12,
                     }}
                   >
-                    {p.title}
-                  </h3>
+                    {card.title}
+                  </div>
 
                   <div
                     style={{
-                      fontFamily: 'var(--font-body), Inter, sans-serif',
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: "var(--ink)",
-                      marginBottom: 14,
+                      fontFamily: "var(--font-body, Inter, sans-serif)",
+                      fontSize: 15,
+                      color: "var(--muted, #6b6568)",
+                      lineHeight: 1.45,
                     }}
                   >
-                    {p.sub}
+                    {card.target}
                   </div>
-
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-body), Inter, sans-serif',
-                      fontSize: 13.5,
-                      lineHeight: 1.5,
-                      color: "var(--muted)",
-                      marginBottom: 28,
-                    }}
-                  >
-                    {p.desc}
-                  </p>
                 </div>
 
-                <Link
-                  href={p.href}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "13px 18px",
-                    backgroundColor: isHovered
-                      ? "var(--ink)"
-                      : "var(--surface-raised, #f7f6f5)",
-                    color: isHovered ? "var(--bg)" : "var(--ink)",
-                    border: "1px solid var(--border)",
-                    fontFamily:
-                      'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 11.5,
-                    fontWeight: 600,
-                    letterSpacing: "0.03em",
-                    textDecoration: "none",
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  <span>{p.cta}</span>
-                  <span>→</span>
-                </Link>
+                <div style={{ marginTop: 32 }}>
+                  <Link
+                    href={card.href}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: isHovered ? "var(--orange, #f45532)" : "var(--ink, #221f22)",
+                      textDecoration: "none",
+                      letterSpacing: "0.04em",
+                      transition: "color 0.2s ease",
+                    }}
+                  >
+                    <span>EXPLORE CAPABILITY</span>
+                    <span style={{ transform: isHovered ? "translateX(4px)" : "none", transition: "transform 0.2s ease" }}>
+                      →
+                    </span>
+                  </Link>
+                </div>
               </motion.div>
             );
           })}

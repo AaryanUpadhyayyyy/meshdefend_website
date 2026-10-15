@@ -1,293 +1,905 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { DashboardPreview } from "./DashboardPreview";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
 import heroLandscapeBg from "../../../public/images/mainapagebg.png";
+import { HERO_COORDINATES, type HotspotPin } from "@/lib/heroCoordinates";
+import { mapImageToContainer } from "@/lib/imageAnchor";
+import { easeReveal } from "@/lib/bezier";
 import { HERO } from "@/lib/content";
-import { HeroStateProvider } from "@/lib/heroState";
 
-import { TechIndexTag } from "@/components/ui/TechIndexTag";
-import { TelemetryLogs } from "@/components/motion/TelemetryLogs";
-import { AnimatedLaserBeam } from "@/components/motion/AnimatedLaserBeam";
+type StoryPhase = "idle" | "repairing" | "restored";
 
-/* ─── Architectural Kinetic Split-Word Reveal ─── */
-function KineticHeadline({
+/* ─── Smooth Sequential Typewriter with LOCKED Line Heights ─── */
+function HeadlineTyping({
   headlines,
+  isMobile,
 }: {
   headlines: readonly { line1: string; line2: string }[];
+  isMobile: boolean;
+  prefersReducedMotion?: boolean;
 }) {
-  const [headlineIdx, setHeadlineIdx] = useState(0);
+  const [displayedLine1, setDisplayedLine1] = useState("");
+  const [displayedLine2, setDisplayedLine2] = useState("");
+  const [activeLine, setActiveLine] = useState<1 | 2>(1);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setHeadlineIdx((prev) => (prev + 1) % headlines.length);
-    }, 6400);
+    let isCancelled = false;
 
-    return () => clearInterval(timer);
-  }, [headlines.length]);
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), ms);
+      });
 
-  const current = headlines[headlineIdx];
+    async function runTypewriter() {
+      let idx = 0;
+
+      while (!isCancelled) {
+        const item = headlines[idx % headlines.length];
+
+        // 1. Type Line 1
+        setActiveLine(1);
+        setDisplayedLine2("");
+        for (let i = 1; i <= item.line1.length; i++) {
+          if (isCancelled) return;
+          setDisplayedLine1(item.line1.slice(0, i));
+          await wait(36);
+        }
+
+        if (isCancelled) return;
+        await wait(140);
+
+        // 2. Type Line 2
+        setActiveLine(2);
+        for (let i = 1; i <= item.line2.length; i++) {
+          if (isCancelled) return;
+          setDisplayedLine2(item.line2.slice(0, i));
+          await wait(36);
+        }
+
+        if (isCancelled) return;
+        // 3. Hold and let the user read both lines comfortably
+        await wait(3200);
+
+        if (isCancelled) return;
+
+        // 4. Backspace Line 2
+        setActiveLine(2);
+        for (let i = item.line2.length - 1; i >= 0; i--) {
+          if (isCancelled) return;
+          setDisplayedLine2(item.line2.slice(0, i));
+          await wait(18);
+        }
+
+        if (isCancelled) return;
+        await wait(100);
+
+        // 5. Backspace Line 1
+        setActiveLine(1);
+        for (let i = item.line1.length - 1; i >= 0; i--) {
+          if (isCancelled) return;
+          setDisplayedLine1(item.line1.slice(0, i));
+          await wait(18);
+        }
+
+        if (isCancelled) return;
+        await wait(240);
+
+        // Advance to next headline (Statement 1 -> Statement 2 -> Statement 1)
+        idx++;
+      }
+    }
+
+    runTypewriter();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [headlines]);
 
   return (
-    <div style={{ position: "relative", minHeight: "2.35em" }}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={headlineIdx}
-          initial={{ opacity: 0, y: 22, filter: "blur(3px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -20, filter: "blur(3px)" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span
-            style={{
-              display: "block",
-              color: "var(--ink)",
-              lineHeight: 1.02,
-              letterSpacing: "-0.03em",
-            }}
-          >
-            {current.line1}
-          </span>
-          <span
-            className="display-italic"
-            style={{
-              color: "var(--orange)",
-              display: "block",
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-              marginTop: 4,
-            }}
-          >
-            {current.line2}
-          </span>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-}
-
-/* ─── 3D Perspective Tilt-to-Flat Scroll Container ─── */
-function TiltDashboardContainer({ children }: { children: React.ReactNode }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 95%", "center 50%"],
-  });
-
-  const rotateX = useTransform(scrollYProgress, [0, 1], [6, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.97, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.88, 1]);
-
-  return (
-    <div ref={containerRef} style={{ perspective: 1400, WebkitPerspective: 1400 }}>
-      <motion.div
+    <>
+      <span
         style={{
-          rotateX,
-          scale,
-          opacity,
-          transformStyle: "preserve-3d",
-          transformOrigin: "center top",
+          display: "block",
+          minHeight: "1.02em",
+          color: "var(--ink)",
+          whiteSpace: isMobile ? "normal" : "nowrap",
         }}
       >
-        {children}
-      </motion.div>
-    </div>
+        {displayedLine1}
+        {activeLine === 1 && (
+          <span className="typing-cursor" style={{ color: "var(--ink)" }} />
+        )}
+      </span>
+      <span
+        className="display-italic"
+        style={{
+          color: "var(--orange)",
+          display: "block",
+          minHeight: "1.05em",
+          marginTop: 6,
+          fontStyle: "italic",
+          whiteSpace: isMobile ? "normal" : "nowrap",
+        }}
+      >
+        {displayedLine2}
+        {activeLine === 2 && (
+          <span className="typing-cursor" style={{ color: "var(--orange)" }} />
+        )}
+      </span>
+    </>
   );
 }
 
 export function HeroSection() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  // Scroll progress p: 0 to 1
+  const [progress, setProgress] = useState(0);
+
+  // 10s Animation loop phase: idle -> repairing -> restored -> idle
+  const [phase, setPhase] = useState<StoryPhase>("idle");
+  const [beadProgress, setBeadProgress] = useState(0);
+
+  // Hotspots interaction
+  const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
+  const [hasInteractedWithHotspot, setHasInteractedWithHotspot] = useState(false);
+
+  // Container dimensions for responsive pixel coordinate mapping
+  const [dimensions, setDimensions] = useState({ width: 1440, height: 900 });
+
+  // References
+  const heroRef = useRef<HTMLElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const isVisibleRef = useRef(true);
+  const loopTimeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const beadRafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+    const mediaQuery = window.matchMedia("(max-width: 1099px)");
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    setIsMobile(mediaQuery.matches);
+    setPrefersReducedMotion(motionQuery.matches);
+
+    const handleResize = () => {
+      setIsMobile(mediaQuery.matches);
+      if (stageRef.current) {
+        setDimensions({
+          width: stageRef.current.clientWidth,
+          height: stageRef.current.clientHeight,
+        });
+      }
+    };
+    const handleMotion = () => setPrefersReducedMotion(motionQuery.matches);
+
+    mediaQuery.addEventListener("change", handleResize);
+    motionQuery.addEventListener("change", handleMotion);
+
+    handleResize();
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleResize);
+      motionQuery.removeEventListener("change", handleMotion);
+    };
+  }, []);
+
+  // Update container dimensions on mount and window resize
+  const updateDimensions = useCallback(() => {
+    if (stageRef.current) {
+      setDimensions({
+        width: stageRef.current.clientWidth,
+        height: stageRef.current.clientHeight,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(updateDimensions);
+    }
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, [updateDimensions]);
+
+  // Handle Escape key to dismiss active hotspot chip
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveHotspot(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Clear all pending loop timeouts
+  const clearLoopTimeouts = useCallback(() => {
+    loopTimeoutsRef.current.forEach((t) => clearTimeout(t));
+    loopTimeoutsRef.current = [];
+    if (beadRafRef.current) {
+      cancelAnimationFrame(beadRafRef.current);
+      beadRafRef.current = null;
+    }
+  }, []);
+
+  // Animate traveling bead along catenary during repairing phase (1.4s)
+  const animateBead = useCallback(() => {
+    const startTime = performance.now();
+    const duration = 1400; // 1.4s
+
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      // Easing cubic-bezier(.65, 0, .15, 1)
+      const easedT = easeReveal(t);
+      setBeadProgress(easedT);
+
+      if (t < 1) {
+        beadRafRef.current = requestAnimationFrame(step);
+      } else {
+        beadRafRef.current = null;
+      }
+    };
+
+    beadRafRef.current = requestAnimationFrame(step);
+  }, []);
+
+  // 10-Second Painting Story Loop (idle -> repairing -> restored -> idle)
+  const runStoryLoop = useCallback(() => {
+    if (prefersReducedMotion || !isVisibleRef.current) return;
+    clearLoopTimeouts();
+
+    // 0.0s: Rest / idle
+    setPhase("idle");
+    setBeadProgress(0);
+
+    // 3.0s: Repairing starts (1.4s draw + bead travel)
+    const t1 = setTimeout(() => {
+      if (!isVisibleRef.current) return;
+      setPhase("repairing");
+      animateBead();
+    }, 3000);
+
+    // 4.6s: Restored starts (warm-light sprites fade in over dark windows, hold 4s)
+    const t2 = setTimeout(() => {
+      if (!isVisibleRef.current) return;
+      setPhase("restored");
+    }, 4600);
+
+    // 8.6s: Ease back to rest over 1.5s
+    const t3 = setTimeout(() => {
+      if (!isVisibleRef.current) return;
+      setPhase("idle");
+    }, 8600);
+
+    // 10.1s: Loop repeats
+    const t4 = setTimeout(() => {
+      if (!isVisibleRef.current) return;
+      runStoryLoop();
+    }, 10100);
+
+    loopTimeoutsRef.current = [t1, t2, t3, t4];
+  }, [prefersReducedMotion, clearLoopTimeouts, animateBead]);
+
+  // Start story loop when mounted and visibility changes
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setPhase("restored");
+      return;
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isVisibleRef.current = false;
+        clearLoopTimeouts();
+      } else {
+        isVisibleRef.current = true;
+        runStoryLoop();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    runStoryLoop();
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      clearLoopTimeouts();
+    };
+  }, [prefersReducedMotion, runStoryLoop, clearLoopTimeouts]);
+
+  // Pause loop if hero is offscreen
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const heroEl = heroRef.current;
+    if (!heroEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          isVisibleRef.current = true;
+          runStoryLoop();
+        } else {
+          isVisibleRef.current = false;
+          clearLoopTimeouts();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(heroEl);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion, runStoryLoop, clearLoopTimeouts]);
+
+  // Native Scroll Listener for Desktop Zoom (p: 0 to 1)
+  useEffect(() => {
+    if (isMobile) return;
+
+    let rafId: number | null = null;
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const heroEl = heroRef.current;
+        if (!heroEl) return;
+
+        const rect = heroEl.getBoundingClientRect();
+        const scrollDistance = heroEl.offsetHeight - window.innerHeight;
+        const currentP = scrollDistance > 0 ? Math.min(1, Math.max(0, -rect.top / scrollDistance)) : 0;
+
+        setProgress(currentP);
+
+        if (stageRef.current) {
+          stageRef.current.style.setProperty("--p", currentP.toFixed(4));
+        }
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [isMobile]);
+
+  // Smooth scroll to the console section
+  const handleScrollToConsole = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const consoleSection = document.getElementById("console");
+    if (consoleSection) {
+      consoleSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Compute transform values for Desktop zoom toward hub (p: 0.10 -> 0.45)
+  let worldScale = 1;
+  let worldY = 0;
+
+  if (!isMobile && !prefersReducedMotion) {
+    if (progress <= 0.1) {
+      worldScale = 1;
+      worldY = 0;
+    } else if (progress < 0.45) {
+      const t = (progress - 0.1) / (0.45 - 0.1);
+      const easedT = easeReveal(t);
+      // Zoom capped at 1.06 because source image is 1672px < 2560px
+      worldScale = 1 + easedT * 0.06;
+      worldY = -2 * easedT;
+    } else {
+      worldScale = 1.06;
+      worldY = -2;
+    }
+  }
+
+  const isDark = mounted ? resolvedTheme === "dark" : true;
+
+  // ─────────────────────────────────────────────────────────────
+  // PIXEL COORDINATE CALCULATIONS (Responsive object-fit: cover)
+  // ─────────────────────────────────────────────────────────────
+  const imgDim = HERO_COORDINATES.naturalDimensions;
+  const objPos = { x: 0.85, y: isMobile ? 0.25 : 0.08 };
+  const imageTopOffset = 0;
+  const imageContainerDim = {
+    width: dimensions.width,
+    height: Math.max(100, dimensions.height),
+  };
+
+  const mapPoint = useCallback(
+    (coord: { u: number; v: number }) => {
+      const pt = mapImageToContainer(coord, imageContainerDim, imgDim, objPos);
+      return { x: pt.x, y: pt.y };
+    },
+    [imageContainerDim, imgDim, objPos]
+  );
+
+  const hubPixel = mapPoint(HERO_COORDINATES.hub);
+  const clusterPixel = mapPoint(HERO_COORDINATES.blackoutCluster);
+
+  // Catenary curve from Hub to Blackout Cluster
+  const catenaryMidX = (hubPixel.x + clusterPixel.x) / 2;
+  const catenaryMidY = Math.max(hubPixel.y, clusterPixel.y) + 22;
+  const catenaryPathD = `M ${hubPixel.x.toFixed(1)} ${hubPixel.y.toFixed(1)} Q ${catenaryMidX.toFixed(1)} ${catenaryMidY.toFixed(1)}, ${clusterPixel.x.toFixed(1)} ${clusterPixel.y.toFixed(1)}`;
+  const catenaryLength = Math.hypot(clusterPixel.x - hubPixel.x, clusterPixel.y - hubPixel.y) * 1.08;
+
+  // Compute current position of traveling bead on quadratic bezier: B(t) = (1-t)^2 P0 + 2(1-t)t P1 + t^2 P2
+  const beadT = beadProgress;
+  const beadX =
+    (1 - beadT) * (1 - beadT) * hubPixel.x +
+    2 * (1 - beadT) * beadT * catenaryMidX +
+    beadT * beadT * clusterPixel.x;
+  const beadY =
+    (1 - beadT) * (1 - beadT) * hubPixel.y +
+    2 * (1 - beadT) * beadT * catenaryMidY +
+    beadT * beadT * clusterPixel.y;
+
+  // ─────────────────────────────────────────────────────────────
+  // RENDER
+  // ─────────────────────────────────────────────────────────────
   return (
-    <HeroStateProvider>
-      <section
-        id="hero"
+    <section
+      id="hero"
+      ref={heroRef}
+      className="hero-reveal-section"
+      style={{
+        position: "relative",
+        marginTop: "-76px",
+        height: isMobile ? "auto" : "180vh",
+        background: "var(--bg)",
+      }}
+    >
+      {/* Sticky Stage on Desktop */}
+      <div
+        ref={stageRef}
+        className="hero-reveal-stage"
         style={{
-          position: "relative",
-          paddingTop: "clamp(48px, 5.5vw, 68px)",
-          paddingBottom: 32,
+          position: isMobile ? "relative" : "sticky",
+          top: 0,
+          height: isMobile ? "auto" : "100svh",
+          minHeight: isMobile ? "auto" : 700,
+          width: "100%",
           overflow: "hidden",
         }}
       >
-        {/* Editorial Resilience Operations Landscape Background */}
+        {/* Layer (a): The .world Wrapper (Painting, SVG Net Threads, Sprites, Hotspot Pins) */}
+        <div
+          className="world"
+          style={{
+            position: isMobile ? "relative" : "absolute",
+            inset: 0,
+            width: "100%",
+            height: isMobile ? "50vh" : "100%",
+            minHeight: isMobile ? 360 : "auto",
+            background: "#fbf8f5",
+            transformOrigin: `${(HERO_COORDINATES.hub.u * 100).toFixed(1)}% ${(HERO_COORDINATES.hub.v * 100).toFixed(1)}%`,
+            transform: prefersReducedMotion ? "none" : `scale(${worldScale}) translateY(${worldY}%)`,
+            willChange: progress > 0.05 && progress < 0.5 ? "transform" : "auto",
+            transition: prefersReducedMotion ? "none" : "transform 0.1s linear",
+          }}
+        >
+          {/* Background Painting with extended painterly sky */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={heroLandscapeBg}
+              alt="MeshDefend Resilience Operations Center painting"
+              priority
+              fill
+              sizes="100vw"
+              quality={92}
+              style={{
+                objectFit: "cover",
+                objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
+              }}
+            />
+          </div>
+
+          {/* SVG Overlay: Fine Net Threads, Repairing Catenary, and Traveling Bead */}
+          <svg
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              pointerEvents: "none",
+              zIndex: 4,
+            }}
+          >
+            {/* 8 Fine Net Threads Radiating from Hub at 35% Opacity */}
+            {HERO_COORDINATES.netThreads.map((node, i) => {
+              const targetPixel = mapPoint(node);
+              const midX = (hubPixel.x + targetPixel.x) / 2;
+              const midY = (hubPixel.y + targetPixel.y) / 2 + 16;
+              return (
+                <path
+                  key={`net-thread-${i}`}
+                  d={`M ${hubPixel.x.toFixed(1)} ${hubPixel.y.toFixed(1)} Q ${midX.toFixed(1)} ${midY.toFixed(1)}, ${targetPixel.x.toFixed(1)} ${targetPixel.y.toFixed(1)}`}
+                  fill="none"
+                  stroke="#f45532"
+                  strokeWidth={1}
+                  opacity={0.35}
+                />
+              );
+            })}
+
+            {/* The Repairing Catenary Thread from Hub to Blackout Cluster */}
+            <path
+              id="repair-catenary"
+              d={catenaryPathD}
+              fill="none"
+              stroke="#f45532"
+              strokeWidth={phase === "repairing" || phase === "restored" ? 2 : 1}
+              strokeDasharray={catenaryLength}
+              strokeDashoffset={
+                phase === "idle"
+                  ? catenaryLength
+                  : phase === "repairing"
+                  ? (1 - beadProgress) * catenaryLength
+                  : 0
+              }
+              opacity={
+                phase === "idle"
+                  ? 0
+                  : phase === "repairing"
+                  ? 1
+                  : prefersReducedMotion
+                  ? 0.35
+                  : 0.95
+              }
+              style={{
+                transition: phase === "idle" ? "opacity 1.5s ease" : "none",
+              }}
+            />
+
+            {/* Traveling Orange Bead along Catenary (active during repairing phase) */}
+            {phase === "repairing" && beadProgress > 0 && beadProgress < 1 && (
+              <circle
+                cx={beadX}
+                cy={beadY}
+                r={3.5}
+                fill="#f45532"
+                style={{
+                  filter: "drop-shadow(0 0 4px #f45532)",
+                }}
+              />
+            )}
+          </svg>
+
+          {/* Three Radial Warm-Light Sprites (Fade in over dark windows when restored) */}
+          {HERO_COORDINATES.blackoutSprites.map((sprite) => {
+            const pixel = mapPoint(sprite);
+            const isLit = phase === "restored" || prefersReducedMotion;
+            return (
+              <div
+                key={sprite.id}
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  left: pixel.x,
+                  top: pixel.y,
+                  width: sprite.radius * 2,
+                  height: sprite.radius * 2,
+                  transform: "translate(-50%, -50%)",
+                  borderRadius: "50%",
+                  background:
+                    "radial-gradient(circle, rgba(255, 185, 80, 0.95) 0%, rgba(244, 85, 50, 0.6) 35%, rgba(244, 85, 50, 0) 70%)",
+                  filter: "blur(12px)",
+                  mixBlendMode: "screen",
+                  opacity: isLit ? sprite.intensity : 0,
+                  transition: "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                }}
+              />
+            );
+          })}
+
+          {/* Hotspot Pins (Data center, Hospital, Port, Blackout cluster) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 6, pointerEvents: "auto" }}>
+            {HERO_COORDINATES.hotspots.map((hotspot) => {
+              const pixel = mapPoint(hotspot);
+              const isOpen = activeHotspot === hotspot.id;
+
+              return (
+                <div
+                  key={hotspot.id}
+                  style={{
+                    position: "absolute",
+                    left: pixel.x,
+                    top: pixel.y,
+                    transform: "translate(-50%, -50%)",
+                    zIndex: isOpen ? 20 : 10,
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-label={hotspot.label}
+                    aria-describedby={`hotspot-chip-${hotspot.id}`}
+                    onMouseEnter={() => {
+                      setActiveHotspot(hotspot.id);
+                      setHasInteractedWithHotspot(true);
+                    }}
+                    onMouseLeave={() => setActiveHotspot(null)}
+                    onFocus={() => {
+                      setActiveHotspot(hotspot.id);
+                      setHasInteractedWithHotspot(true);
+                    }}
+                    onBlur={() => setActiveHotspot(null)}
+                    onClick={() => {
+                      setActiveHotspot((prev) => (prev === hotspot.id ? null : hotspot.id));
+                      setHasInteractedWithHotspot(true);
+                    }}
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: "50%",
+                      border: "1.5px solid var(--ink)",
+                      background: "transparent",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      padding: 0,
+                      outline: "none",
+                      animation: "hotspot-pulse 2.4s ease-in-out infinite",
+                      transition: "transform 0.2s ease",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 4,
+                        height: 4,
+                        borderRadius: "50%",
+                        background: "var(--orange)",
+                        display: "block",
+                      }}
+                    />
+                  </button>
+
+                  {/* Tooltip Paper Chip */}
+                  {isOpen && (
+                    <div
+                      id={`hotspot-chip-${hotspot.id}`}
+                      role="tooltip"
+                      style={{
+                        position: "absolute",
+                        bottom: "calc(100% + 8px)",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        background: isDark ? "#2b282b" : "#fefdfd",
+                        border: "1px solid var(--border)",
+                        borderRadius: 6,
+                        boxShadow: "0 8px 24px -6px rgba(34, 31, 34, 0.25)",
+                        padding: "6px 12px",
+                        whiteSpace: "nowrap",
+                        fontFamily: "Inter, sans-serif",
+                        fontSize: 13,
+                        color: "var(--ink)",
+                        pointerEvents: "none",
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {hotspot.text}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Layer (b): Legibility Gradient Overlay */}
+        <div
+          className="hero-legibility-overlay"
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            zIndex: 4,
+            background: isDark
+              ? "linear-gradient(to right, rgba(18, 16, 18, 0.70) 0%, rgba(18, 16, 18, 0.45) 32%, rgba(18, 16, 18, 0) 55%), rgba(18, 16, 18, 0.26)"
+              : "linear-gradient(to right, rgba(254, 253, 253, 0.40) 0%, rgba(254, 253, 253, 0.20) 25%, rgba(254, 253, 253, 0) 45%)",
+          }}
+        />
+
+        {/* Seamless Soft Fade into Section 2 (The Console) */}
         <div
           aria-hidden="true"
           style={{
             position: "absolute",
-            top: 0,
+            bottom: 0,
             left: 0,
             right: 0,
-            height: "clamp(560px, 64vw, 860px)",
+            height: 120,
+            background: "linear-gradient(to bottom, transparent 0%, var(--bg) 100%)",
             pointerEvents: "none",
-            zIndex: 1,
-            overflow: "hidden",
+            zIndex: 5,
+          }}
+        />
+
+        {/* Layer (c): Text Column (Headline, Eyebrow, Paragraph, CTAs, Endorsements) */}
+        <div
+          className="container"
+          style={{
+            position: isMobile ? "relative" : "absolute",
+            inset: 0,
+            zIndex: 8,
+            display: "flex",
+            alignItems: "flex-start",
+            paddingTop: isMobile ? "28px" : "calc(76px + 64px)", // 76px navbar clearance + 64px breathing room
+            paddingBottom: "32px",
+            pointerEvents: "none",
           }}
         >
-          <Image
-            src={heroLandscapeBg}
-            alt="MeshDefend Resilience Operations Landscape"
-            priority
-            fill
-            sizes="100vw"
-            quality={92}
-            style={{
-              objectFit: "cover",
-              objectPosition: "top center",
-            }}
-            className="hero-landscape-bg"
-          />
-
-          {/* Seamless gradient fade to page background */}
-          <div
-            className="hero-bg-fade"
-            style={{
-              position: "absolute",
-              inset: 0,
-            }}
-          />
-        </div>
-
-        {/* Unified Single Container: Nav, Headline, Right Column & Dashboard share same edges */}
-        <div className="container" style={{ position: "relative", zIndex: 2 }}>
-          {/* ─── TOP EDITORIAL HEADER ─── */}
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 360px",
-              gap: "36px 48px",
-              alignItems: "start",
-              minHeight: 280,
-              marginBottom: 56,
+              width: "max-content",
+              maxWidth: isMobile ? "100%" : "62%",
+              pointerEvents: "auto",
             }}
-            className="hero-header-grid"
           >
-            {/* Left Column: Eyebrow + Kinetic Headline */}
-            <div style={{ minHeight: 240, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
-              <TechIndexTag
-                tag="[00 // RESILIENCE OPERATIONS CENTER]"
-                status="KERNEL: ACTIVE"
-                style={{ marginBottom: 14 }}
-              />
-
-              <h1
-                className="display"
+            {/* Eyebrow */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 18,
+              }}
+            >
+              <span
                 style={{
-                  fontSize: "clamp(46px, 5.2vw, 84px)",
-                  lineHeight: 0.98,
-                  letterSpacing: "-0.03em",
-                  margin: 0,
+                  width: 8,
+                  height: 8,
+                  background: "var(--orange)",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  color: "var(--ink)",
+                  letterSpacing: "-0.005em",
+                }}
+              >
+                Introducing Resilience Operations Center (ResOC)
+              </span>
+            </div>
+
+            {/* H1: Sequential Typewriter Headline cycling through the 2 editorial statements */}
+            <h1
+              className="display"
+              style={{
+                fontSize: "clamp(40px, 4.6vw, 80px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.015em",
+                margin: "0 0 24px",
+              }}
+            >
+              <HeadlineTyping
+                headlines={HERO.headlines}
+                isMobile={isMobile}
+                prefersReducedMotion={prefersReducedMotion}
+              />
+            </h1>
+
+            {/* Paragraph */}
+            <p
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: 18,
+                lineHeight: 1.55,
+                color: "var(--ink)",
+                opacity: 0.85,
+                maxWidth: 520,
+                margin: "0 0 36px",
+              }}
+            >
+              An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.
+            </p>
+
+            {/* Inline CTAs (No arrows) */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 24,
+                flexWrap: "wrap",
+                marginBottom: 44,
+              }}
+            >
+              <a
+                href="/demo"
+                className="btn btn-primary"
+                style={{
+                  background: "var(--orange)",
+                  color: "#221f22",
+                  fontWeight: 600,
+                  fontSize: 15,
+                  padding: "13px 28px",
+                  borderRadius: 4,
+                  textDecoration: "none",
+                  display: "inline-block",
+                  boxShadow: "0 2px 8px rgba(244, 85, 50, 0.2)",
+                }}
+              >
+                Book a demo
+              </a>
+
+              <button
+                type="button"
+                onClick={handleScrollToConsole}
+                className="hero-secondary-link"
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "var(--ink)",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  padding: "8px 0",
                   position: "relative",
                 }}
               >
-                <KineticHeadline headlines={HERO.headlines} />
-              </h1>
+                See ResOC in action
+              </button>
             </div>
 
-            {/* Right Column: 360px with vertical hairline, paragraph 17-18px ink at ~75% */}
+            {/* Bottom-left VC Caption */}
             <div
               style={{
-                borderLeft: "1px solid var(--border)",
-                paddingLeft: 32,
-                paddingTop: 6,
-                display: "flex",
-                flexDirection: "column",
-                gap: 20,
+                fontFamily: "Inter, sans-serif",
+                fontSize: 13,
+                color: "var(--ink)",
+                opacity: 0.6,
               }}
-              className="hero-right-col"
             >
-              <p
-                style={{
-                  fontSize: 17.5,
-                  lineHeight: 1.55,
-                  color: "var(--ink)",
-                  opacity: 0.78,
-                  margin: 0,
-                }}
-              >
-                {HERO.paragraph}
-              </p>
-
-              {/* CTAs with Magnetic Hover & Micro Arrow Translation */}
-              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-                <motion.a
-                  href="/demo"
-                  className="btn btn-primary"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  style={{
-                    fontSize: 14,
-                    padding: "12px 24px",
-                    fontWeight: 600,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    textDecoration: "none",
-                  }}
-                >
-                  <span>{HERO.ctaPrimary}</span>
-                  <span style={{ transition: "transform 0.2s ease" }}>→</span>
-                </motion.a>
-
-                <motion.a
-                  href="#solution"
-                  className="btn btn-secondary"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  style={{
-                    fontSize: 14,
-                    padding: "12px 22px",
-                    border: "1px solid rgba(34, 31, 34, 0.25)",
-                    fontWeight: 500,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                    textDecoration: "none",
-                  }}
-                >
-                  <span>{HERO.ctaSecondary}</span>
-                  <span style={{ opacity: 0.6 }}>↓</span>
-                </motion.a>
-              </div>
+              Backed by Kalaari Capital · Kettleborough VC
             </div>
           </div>
-
-          {/* ─── HERO LIVE DASHBOARD CONSOLE WITH 3D PERSPECTIVE TILT-TO-FLAT ─── */}
-          <TiltDashboardContainer>
-            <div
-              style={{
-                position: "relative",
-                zIndex: 3,
-                marginTop: 20,
-              }}
-            >
-              <DashboardPreview />
-              <div style={{ marginTop: 16 }}>
-                <TelemetryLogs maxRows={3} />
-              </div>
-              <AnimatedLaserBeam variant="horizontal" style={{ marginTop: 24 }} />
-            </div>
-          </TiltDashboardContainer>
         </div>
 
-        <style jsx>{`
-          @media (max-width: 900px) {
-            .hero-header-grid {
-              grid-template-columns: 1fr !important;
-              gap: 28px !important;
-              min-height: auto !important;
-              margin-bottom: 44px !important;
-            }
-            .hero-right-col {
-              border-left: none !important;
-              padding-left: 0 !important;
-              border-top: 1px solid var(--border);
-              padding-top: 20px;
-            }
-          }
-        `}</style>
-      </section>
-    </HeroStateProvider>
+        {/* Desktop Hint at bottom-right (fades after first interaction) */}
+        {!isMobile && (
+          <div
+            style={{
+              position: "absolute",
+              right: 32,
+              bottom: 28,
+              fontFamily: "Inter, sans-serif",
+              fontSize: 13,
+              color: "var(--ink)",
+              opacity: hasInteractedWithHotspot ? 0 : 0.6,
+              transition: "opacity 0.4s ease",
+              pointerEvents: "none",
+              zIndex: 8,
+            }}
+          >
+            Hover the city.
+          </div>
+        )}
+      </div>
+    </section>
   );
 }

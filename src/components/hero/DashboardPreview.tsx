@@ -65,10 +65,10 @@ export function DashboardPreview() {
           background: "#221f22",
           color: "#fefdfd",
           borderBottom: "1px solid #3d393b",
-          fontFamily: "var(--font-mono), monospace",
-          fontSize: 12,
+          fontFamily: "Inter, sans-serif",
+          fontSize: 13,
           fontWeight: 500,
-          letterSpacing: "0.08em",
+          letterSpacing: "-0.01em",
           flexWrap: "wrap",
           gap: 8,
         }}

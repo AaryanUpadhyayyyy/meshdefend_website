@@ -104,6 +104,10 @@ body {
   outline-offset: 3px;
 }
 
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 button, a, input, select, textarea {
   -webkit-tap-highlight-color: transparent;
 }
@@ -1207,33 +1211,62 @@ html.js-reveal .line-inner.is-revealed {
   }
 }
 
-/* ─── Hero Section Landscape Background ─────────────────────────── */
-.hero-landscape-bg {
-  transition: opacity 0.35s ease, filter 0.35s ease;
+/* ─── Hero Section "The Reveal" Styles ─────────────────────────── */
+.hero-secondary-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.hero-bg-fade {
-  background: linear-gradient(
-    to bottom,
-    rgba(254, 253, 253, 0) 0%,
-    rgba(254, 253, 253, 0.04) 40%,
-    rgba(254, 253, 253, 0.65) 75%,
-    var(--bg) 98%
-  );
-  transition: background 0.35s ease;
+.hero-secondary-link::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: var(--ink);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-theme="dark"] .hero-landscape-bg {
-  opacity: 0.35 !important;
-  filter: brightness(0.8) contrast(1.2) !important;
+.hero-secondary-link:hover::after {
+  width: 100%;
 }
 
-[data-theme="dark"] .hero-bg-fade {
-  background: linear-gradient(
-    to bottom,
-    rgba(34, 31, 34, 0.3) 0%,
-    rgba(34, 31, 34, 0.6) 60%,
-    var(--bg) 98%
-  ) !important;
+.hero-reveal-stage {
+  will-change: transform;
+}
+
+@keyframes timeline-breathe {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes hotspot-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}@keyframes hud-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+.hud-pulse-dot {
+  animation: hud-pulse 2s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
 }
 

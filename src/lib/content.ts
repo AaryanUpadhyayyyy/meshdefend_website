@@ -16,7 +16,7 @@ export const HERO = {
   eyebrow: "Introducing Resilience Operations Center (ResOC)",
   headlines: [
     { line1: "Don't just plan resilience.", line2: "Operate it." },
-    { line1: "Your Backups Work.", line2: "Can Your Business Recover?" },
+    { line1: "Your backups work.", line2: "Can your business recover?" },
   ],
   headlineLine1: "Don't just plan resilience.",
   headlineLine2: "Operate it.",
@@ -106,8 +106,8 @@ interface SidebarItem {
 
 export const DASHBOARD = {
   statusBar: {
-    left: "RESOC · ONE CONSOLE · EVERY VENDOR",
-    chips: ["AUTO · 5S", "LIVE TELEMETRY STREAM", "POLICY-GOVERNED AUTONOMY: HUMAN IN THE LOOP AND HUMAN ON THE LOOP"],
+    left: "ResOC · One console · Every vendor",
+    chips: ["Auto 5s", "Telemetry stream", "Policy-governed autonomy"],
   },
   tabs: [
     {

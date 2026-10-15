@@ -23,8 +23,11 @@ export function ThemeToggle() {
 
   return (
     <button
-      className="theme-toggle"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="theme-toggle focus-visible:ring-2 focus-visible:ring-[#f45532]"
+      onClick={(e) => {
+        setTheme(isDark ? "light" : "dark");
+        e.currentTarget.blur();
+      }}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       title={isDark ? "Light mode" : "Dark mode"}
       style={{
@@ -37,6 +40,8 @@ export function ThemeToggle() {
         border: "1px solid var(--border)",
         background: "transparent",
         color: "var(--ink)",
+        outline: "none",
+        cursor: "pointer",
         transition: "background 0.2s, border-color 0.2s",
       }}
     >
