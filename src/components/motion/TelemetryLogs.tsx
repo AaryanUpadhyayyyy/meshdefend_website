@@ -177,7 +177,7 @@ export function TelemetryLogs({
                 }}
               >
                 {/* Timestamp */}
-                <span style={{ color: "#6b6568", flexShrink: 0, fontVariantNumeric: "tabular-nums" }}>
+                <span style={{ color: "#a09a9c", flexShrink: 0, fontVariantNumeric: "tabular-nums" }}>
                   [{log.timestamp}]
                 </span>
 

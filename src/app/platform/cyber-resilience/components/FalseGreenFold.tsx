@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export function FalseGreenFold() {
-  const [isRevealed, setIsRevealed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isManualRevealed, setIsManualRevealed] = useState<boolean | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: false, margin: "-100px" });
+
+  // Revealed if manually clicked, or if hovered, or if in view
+  const isRevealed = isManualRevealed !== null ? isManualRevealed : isHovered || isInView;
 
   return (
     <section
@@ -31,7 +38,7 @@ export function FalseGreenFold() {
         >
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               fontWeight: 500,
               color: "var(--muted)",
@@ -42,7 +49,7 @@ export function FalseGreenFold() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",
               letterSpacing: "0.05em",
@@ -52,11 +59,11 @@ export function FalseGreenFold() {
           </span>
         </div>
 
-        {/* Display H1 & Lead Narrative */}
-        <div style={{ maxWidth: 940, marginBottom: 56 }}>
+        {/* Display H1 & Verbatim Lead Narrative (NO FAKE PARAGRAPHS) */}
+        <div style={{ maxWidth: 940, marginBottom: 48 }}>
           <h1
             style={{
-              fontFamily: "var(--font-serif), serif",
+              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
               fontSize: "clamp(48px, 5.4vw, 80px)",
               lineHeight: 0.98,
               letterSpacing: "-0.035em",
@@ -69,31 +76,22 @@ export function FalseGreenFold() {
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-body), sans-serif",
+              fontFamily: 'var(--font-body), Inter, sans-serif',
               fontSize: 19,
               lineHeight: 1.55,
               color: "var(--ink)",
               fontWeight: 500,
-              marginBottom: 16,
+              margin: 0,
             }}
           >
-            A completed backup does not automatically mean a clean, safe recovery point. See what lies beneath a successful backup job.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: 16,
-              lineHeight: 1.65,
-              color: "var(--muted)",
-              maxWidth: 820,
-            }}
-          >
-            Traditional backup consoles answer a simple operational question: did the data transfer complete? In a cyber attack, that answer is dangerously incomplete. A snapshot that completed without errors may carry dormant ransomware binaries, encrypted blocks, missing configuration states, or severed identity dependencies. MeshDefend inspects beneath the surface of job completion to evaluate whether the backup is clean, safe, and actually recoverable.
+            A completed backup does not automatically mean a clean, safe recovery point. See what
+            lies beneath a successful backup job.
           </p>
         </div>
 
-        {/* The False Green Reveal Component */}
+        {/* The False Green Laser-Cut Sliding Reveal Component */}
         <div
+          ref={containerRef}
           style={{
             border: "1px solid var(--border)",
             backgroundColor: "var(--bg)",
@@ -116,7 +114,7 @@ export function FalseGreenFold() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--ink)",
                   fontWeight: 600,
@@ -127,7 +125,7 @@ export function FalseGreenFold() {
               </span>
               <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--muted)",
                 }}
@@ -137,18 +135,28 @@ export function FalseGreenFold() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "var(--muted)",
+                }}
+              >
                 INTERACTIVE SCANNER:
               </span>
               <button
                 type="button"
-                onClick={() => setIsRevealed(!isRevealed)}
+                onClick={() =>
+                  setIsManualRevealed(isManualRevealed === null ? !isRevealed : !isManualRevealed)
+                }
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   letterSpacing: "0.04em",
                   padding: "6px 14px",
-                  border: isRevealed ? "1px solid var(--orange, #f45532)" : "1px solid var(--ink)",
+                  border: isRevealed
+                    ? "1px solid var(--orange, #f45532)"
+                    : "1px solid var(--ink)",
                   color: isRevealed ? "var(--orange, #f45532)" : "var(--ink)",
                   backgroundColor: "var(--bg)",
                   cursor: "pointer",
@@ -162,26 +170,28 @@ export function FalseGreenFold() {
 
           {/* Interactive Split Canvas Stage */}
           <div
-            onMouseEnter={() => setIsRevealed(true)}
-            onMouseLeave={() => setIsRevealed(false)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             style={{
               position: "relative",
               overflow: "hidden",
-              minHeight: 380,
+              minHeight: 420,
               cursor: "pointer",
-              backgroundColor: "var(--ink, #221f22)",
+              backgroundColor: "var(--dark, #221f22)",
             }}
           >
-            {/* UNDERNEATH LAYER: The Dark Reality Layer (--ink #221f22) */}
+            {/* ─── UNDERNEATH LAYER: The Stark #221f22 Dark Reality Layer ─── */}
             <div
               style={{
-                padding: "40px 32px",
-                color: "var(--bg, #fefdfd)",
-                height: "100%",
+                padding: "44px 36px",
+                color: "#fefdfd",
+                minHeight: 420,
                 boxSizing: "border-box",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                position: "relative",
+                zIndex: 1,
               }}
             >
               <div>
@@ -190,7 +200,7 @@ export function FalseGreenFold() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: 20,
+                    marginBottom: 22,
                     borderBottom: "1px solid rgba(254, 253, 253, 0.12)",
                     paddingBottom: 12,
                   }}
@@ -198,7 +208,16 @@ export function FalseGreenFold() {
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span
                       style={{
-                        fontFamily: "var(--font-mono), monospace",
+                        width: 8,
+                        height: 8,
+                        borderRadius: "50%",
+                        backgroundColor: "#f45532",
+                        display: "inline-block",
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                         fontSize: 11,
                         color: "var(--orange, #f45532)",
                         fontWeight: 600,
@@ -210,9 +229,9 @@ export function FalseGreenFold() {
                   </div>
                   <span
                     style={{
-                      fontFamily: "var(--font-mono), monospace",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 11,
-                      color: "rgba(254, 253, 253, 0.4)",
+                      color: "rgba(254, 253, 253, 0.45)",
                     }}
                   >
                     STATUS: RESTORE WOULD FAIL
@@ -221,7 +240,7 @@ export function FalseGreenFold() {
 
                 <div
                   style={{
-                    fontFamily: "var(--font-serif), serif",
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                     fontSize: 26,
                     color: "#fefdfd",
                     marginBottom: 24,
@@ -235,103 +254,106 @@ export function FalseGreenFold() {
                   style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                    gap: 16,
-                    marginBottom: 28,
+                    gap: 18,
+                    marginBottom: 32,
                   }}
                 >
-                  {/* Reality 1: Ransomware Encryption */}
+                  {/* Reality 1: Ransomware Encryption Detected */}
                   <div
                     style={{
                       border: "1px solid rgba(244, 85, 50, 0.4)",
-                      backgroundColor: "rgba(244, 85, 50, 0.05)",
-                      padding: "20px 22px",
+                      backgroundColor: "rgba(244, 85, 50, 0.08)",
+                      padding: "22px 24px",
                     }}
                   >
                     <div
                       style={{
-                        fontFamily: "var(--font-mono), monospace",
-                        fontSize: 11,
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11.5,
                         color: "var(--orange, #f45532)",
-                        fontWeight: 600,
+                        fontWeight: 700,
                         letterSpacing: "0.05em",
-                        marginBottom: 8,
+                        marginBottom: 10,
                       }}
                     >
                       [ RANSOMWARE ENCRYPTION DETECTED ]
                     </div>
                     <div
                       style={{
-                        fontFamily: "var(--font-body), sans-serif",
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
                         fontSize: 13,
-                        lineHeight: 1.5,
-                        color: "rgba(254, 253, 253, 0.85)",
+                        lineHeight: 1.55,
+                        color: "rgba(254, 253, 253, 0.88)",
                       }}
                     >
-                      Snapshot carries dormant encrypted blocks. Byte-entropy anomaly was ignored by the backup catalog because transport succeeded.
+                      Snapshot carries dormant encrypted blocks. Byte-entropy anomaly was ignored by
+                      the backup catalog because transport succeeded.
                     </div>
                   </div>
 
                   {/* Reality 2: Unverified Dependencies */}
                   <div
                     style={{
-                      border: "1px solid rgba(254, 253, 253, 0.16)",
-                      backgroundColor: "rgba(254, 253, 253, 0.03)",
-                      padding: "20px 22px",
+                      border: "1px solid rgba(254, 253, 253, 0.18)",
+                      backgroundColor: "rgba(254, 253, 253, 0.04)",
+                      padding: "22px 24px",
                     }}
                   >
                     <div
                       style={{
-                        fontFamily: "var(--font-mono), monospace",
-                        fontSize: 11,
-                        color: "rgba(254, 253, 253, 0.8)",
-                        fontWeight: 600,
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11.5,
+                        color: "rgba(254, 253, 253, 0.85)",
+                        fontWeight: 700,
                         letterSpacing: "0.05em",
-                        marginBottom: 8,
+                        marginBottom: 10,
                       }}
                     >
                       [ UNVERIFIED DEPENDENCIES ]
                     </div>
                     <div
                       style={{
-                        fontFamily: "var(--font-body), sans-serif",
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
                         fontSize: 13,
-                        lineHeight: 1.5,
-                        color: "rgba(254, 253, 253, 0.75)",
+                        lineHeight: 1.55,
+                        color: "rgba(254, 253, 253, 0.78)",
                       }}
                     >
-                      Redis session cache and IAM authentication routes are excluded from the protection policy. Restored database will fail on boot.
+                      Redis session cache and IAM authentication routes are excluded from the
+                      protection policy. Restored database will fail on boot.
                     </div>
                   </div>
 
                   {/* Reality 3: RTO/RPO Assumptions */}
                   <div
                     style={{
-                      border: "1px solid rgba(254, 253, 253, 0.16)",
-                      backgroundColor: "rgba(254, 253, 253, 0.03)",
-                      padding: "20px 22px",
+                      border: "1px solid rgba(254, 253, 253, 0.18)",
+                      backgroundColor: "rgba(254, 253, 253, 0.04)",
+                      padding: "22px 24px",
                     }}
                   >
                     <div
                       style={{
-                        fontFamily: "var(--font-mono), monospace",
-                        fontSize: 11,
-                        color: "rgba(254, 253, 253, 0.8)",
-                        fontWeight: 600,
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11.5,
+                        color: "rgba(254, 253, 253, 0.85)",
+                        fontWeight: 700,
                         letterSpacing: "0.05em",
-                        marginBottom: 8,
+                        marginBottom: 10,
                       }}
                     >
                       [ RTO/RPO ASSUMPTIONS ]
                     </div>
                     <div
                       style={{
-                        fontFamily: "var(--font-body), sans-serif",
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
                         fontSize: 13,
-                        lineHeight: 1.5,
-                        color: "rgba(254, 253, 253, 0.75)",
+                        lineHeight: 1.55,
+                        color: "rgba(254, 253, 253, 0.78)",
                       }}
                     >
-                      Target recovery AZ lacks allocated compute instance quota. Actual restore time is 18 hours instead of the promised 4-hour SLA.
+                      Target recovery AZ lacks allocated compute instance quota. Actual restore time
+                      is 18 hours instead of the promised 4-hour SLA.
                     </div>
                   </div>
                 </div>
@@ -350,7 +372,7 @@ export function FalseGreenFold() {
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
                     color: "rgba(254, 253, 253, 0.5)",
                   }}
@@ -359,9 +381,10 @@ export function FalseGreenFold() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
                     color: "var(--orange, #f45532)",
+                    fontWeight: 600,
                   }}
                 >
                   Active Posture Drift: High Risk
@@ -369,175 +392,283 @@ export function FalseGreenFold() {
               </div>
             </div>
 
-            {/* TOP SPLIT OVERLAY: Standard, Boring "Backup 100% Successful" Card */}
+            {/* ─── SLIDING DOOR TOP LAYER: Pure White Paper Card ─── */}
+            {/* Top Half of the Card (slides up y: -100%) */}
             <motion.div
               initial={false}
               animate={{
-                y: isRevealed ? "-105%" : "0%",
-                opacity: isRevealed ? 0 : 1,
+                y: isRevealed ? "-100%" : "0%",
               }}
               transition={{
-                duration: 0.5,
+                duration: 0.55,
                 ease: [0.65, 0, 0.15, 1],
               }}
               style={{
                 position: "absolute",
-                inset: 0,
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "50%",
                 backgroundColor: "var(--bg, #fefdfd)",
-                border: "1px solid var(--border)",
-                padding: "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                zIndex: 2,
+                borderBottom: "none",
+                padding: "36px 36px 0",
+                zIndex: 3,
+                overflow: "hidden",
+                boxSizing: "border-box",
               }}
             >
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 24,
-                    borderBottom: "1px solid var(--border)",
-                    paddingBottom: 14,
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    {/* Muted green checkmark circle */}
-                    <div
-                      style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: "50%",
-                        border: "1px solid #4a825e",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "#4a825e",
-                        fontSize: 12,
-                        fontWeight: 700,
-                      }}
-                    >
-                      ✓
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-mono), monospace",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: "var(--ink)",
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      BACKUP 100% SUCCESSFUL
-                    </span>
-                  </div>
-
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono), monospace",
-                      fontSize: 11,
-                      color: "var(--muted)",
-                    }}
-                  >
-                    Job #8491 · Commvault Primary Run
-                  </span>
-                </div>
-
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                    gap: 24,
-                    marginBottom: 32,
-                  }}
-                >
-                  <div>
-                    <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 6 }}>
-                      STATUS
-                    </div>
-                    <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 18, fontWeight: 600, color: "var(--ink)" }}>
-                      Completed Without Error
-                    </div>
-                    <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", marginTop: 4 }}>
-                      Zero transport timeouts
-                    </div>
-                  </div>
-
-                  <div>
-                    <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 6 }}>
-                      PAYLOAD TRANSFERRED
-                    </div>
-                    <div style={{ fontFamily: "var(--font-serif), serif", fontSize: 26, color: "var(--ink)" }}>
-                      4.8 TB
-                    </div>
-                    <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", marginTop: 4 }}>
-                      Deduplication ratio: 4.1:1
-                    </div>
-                  </div>
-
-                  <div>
-                    <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 6 }}>
-                      STORAGE COMPLIANCE
-                    </div>
-                    <div style={{ fontFamily: "var(--font-serif), serif", fontSize: 26, color: "var(--ink)" }}>
-                      100% Verified
-                    </div>
-                    <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", marginTop: 4 }}>
-                      Target snapshot locked
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    padding: "16px 20px",
-                    border: "1px solid var(--border)",
-                    backgroundColor: "var(--surface-raised, #f7f6f5)",
-                  }}
-                >
-                  <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>
-                    Traditional Backup Report:
-                  </span>
-                  <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 14, color: "var(--muted)", marginLeft: 8 }}>
-                    Job finished cleanly on schedule. Storage consumption within threshold. Everything marked green.
-                  </span>
-                </div>
-              </div>
-
               <div
                 style={{
-                  borderTop: "1px solid var(--border)",
-                  paddingTop: 16,
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  flexWrap: "wrap",
-                  gap: 12,
+                  borderBottom: "1px solid var(--border)",
+                  paddingBottom: 16,
+                  marginBottom: 24,
                 }}
               >
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: "50%",
+                      border: "1.5px solid #4a825e",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#4a825e",
+                      fontSize: 13,
+                      fontWeight: 700,
+                    }}
+                  >
+                    ✓
+                  </div>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: "var(--ink)",
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    BACKUP 100% SUCCESSFUL
+                  </span>
+                </div>
+
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
                     color: "var(--muted)",
                   }}
                 >
-                  [ Hover over card or click to crack open what traditional backup conceals ]
+                  Job #8491 · Commvault Primary Run
+                </span>
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: 24,
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10.5,
+                      color: "var(--muted)",
+                      marginBottom: 6,
+                    }}
+                  >
+                    DATA TRANSFERRED
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 18,
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    14.2 TB / 14.2 TB
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10.5,
+                      color: "var(--muted)",
+                      marginBottom: 6,
+                    }}
+                  >
+                    DURATION
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 18,
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    01h 42m 18s
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 10.5,
+                      color: "var(--muted)",
+                      marginBottom: 6,
+                    }}
+                  >
+                    CATALOG STATE
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 18,
+                      fontWeight: 600,
+                      color: "#4a825e",
+                    }}
+                  >
+                    SYNCHRONIZED (GREEN)
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Bottom Half of the Card (slides down y: 100%) */}
+            <motion.div
+              initial={false}
+              animate={{
+                y: isRevealed ? "100%" : "0%",
+              }}
+              transition={{
+                duration: 0.55,
+                ease: [0.65, 0, 0.15, 1],
+              }}
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "50%",
+                backgroundColor: "var(--bg, #fefdfd)",
+                borderTop: "none",
+                padding: "28px 36px 36px",
+                zIndex: 3,
+                overflow: "hidden",
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                style={{
+                  padding: "16px 20px",
+                  border: "1px solid var(--border)",
+                  backgroundColor: "var(--surface-raised, #f7f6f5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11,
+                      color: "var(--muted)",
+                    }}
+                  >
+                    CONSOLE STATUS:
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      color: "#4a825e",
+                    }}
+                  >
+                    ALL JOBS HEALTHY · ZERO OPERATIONAL ERRORS REPORTED
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    color: "var(--muted)",
+                  }}
+                >
+                  Hover or scroll to inspect reality &darr;
+                </span>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  borderTop: "1px solid var(--border)",
+                  paddingTop: 14,
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    color: "var(--muted)",
+                  }}
+                >
+                  Operational assumption: Green = Safe to restore.
                 </span>
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
-                    color: "var(--ink)",
+                    color: "var(--orange, #f45532)",
                     fontWeight: 600,
                   }}
                 >
-                  Reveal Underlying Reality →
+                  Slice card to reveal reality &rarr;
                 </span>
               </div>
             </motion.div>
+
+            {/* ─── Glowing 1px #f45532 Laser Line Slicing Horizontally ─── */}
+            <motion.div
+              initial={false}
+              animate={{
+                scaleX: isRevealed ? 1 : 0,
+                opacity: isRevealed ? [0, 1, 0.8] : 0,
+              }}
+              transition={{
+                duration: 0.45,
+                ease: "easeInOut",
+              }}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: 0,
+                right: 0,
+                height: 1,
+                backgroundColor: "#f45532",
+                boxShadow:
+                  "0 0 12px rgba(244, 85, 50, 0.9), 0 0 24px rgba(244, 85, 50, 0.5)",
+                zIndex: 4,
+                transformOrigin: "left",
+                pointerEvents: "none",
+              }}
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface DAGNode {
   id: string;
@@ -23,8 +24,8 @@ const NODES: DAGNode[] = [
     status: "Verified",
     role: "Cross-account IAM authentication roles and identity tokens.",
     annotation: "Recovery VPC policy mapped and verified.",
-    x: 100,
-    y: 80,
+    x: 90,
+    y: 70,
   },
   {
     id: "vault-secrets",
@@ -33,8 +34,8 @@ const NODES: DAGNode[] = [
     status: "Verified",
     role: "Database encryption keys and master secrets engine.",
     annotation: "Cryptographic KMS envelope staged in secondary region.",
-    x: 100,
-    y: 280,
+    x: 90,
+    y: 250,
   },
   {
     id: "primary-sql-db",
@@ -43,8 +44,8 @@ const NODES: DAGNode[] = [
     status: "Protected",
     role: "Main transactional database hosting core customer balances.",
     annotation: "Storage snapshot snap-09fa40 intact on immutable tier.",
-    x: 420,
-    y: 80,
+    x: 410,
+    y: 70,
   },
   {
     id: "redis-cache",
@@ -53,8 +54,8 @@ const NODES: DAGNode[] = [
     status: "Unprotected Dependency",
     role: "Active distributed transaction locks and session hydration.",
     annotation: "Recovering the database without the cache breaks the application.",
-    x: 420,
-    y: 280,
+    x: 410,
+    y: 250,
     isRisk: true,
   },
   {
@@ -64,8 +65,8 @@ const NODES: DAGNode[] = [
     status: "Protected",
     role: "Tier-0 business core providing account settlement and payment processing.",
     annotation: "Target service dependent on all 4 underlying components.",
-    x: 740,
-    y: 180,
+    x: 730,
+    y: 160,
     isHero: true,
   },
 ];
@@ -100,7 +101,7 @@ export function DependencyDAGFold() {
         >
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               fontWeight: 500,
               color: "var(--muted)",
@@ -111,7 +112,7 @@ export function DependencyDAGFold() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",
               letterSpacing: "0.05em",
@@ -121,11 +122,11 @@ export function DependencyDAGFold() {
           </span>
         </div>
 
-        {/* Display H2 & Narrative */}
-        <div style={{ maxWidth: 960, marginBottom: 52 }}>
+        {/* Display H2 & Verbatim Narrative (NO FAKE PARAGRAPHS) */}
+        <div style={{ maxWidth: 960, marginBottom: 48 }}>
           <h2
             style={{
-              fontFamily: "var(--font-serif), serif",
+              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
               fontSize: "clamp(36px, 4vw, 56px)",
               lineHeight: 1.04,
               letterSpacing: "-0.03em",
@@ -138,26 +139,16 @@ export function DependencyDAGFold() {
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-body), sans-serif",
+              fontFamily: 'var(--font-body), Inter, sans-serif',
               fontSize: 19,
               lineHeight: 1.55,
               color: "var(--ink)",
               fontWeight: 500,
-              marginBottom: 16,
+              margin: 0,
             }}
           >
-            MeshDefend maps the application and its dependent assets/services before recovery, establishing exactly what needs to come back together.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: 16,
-              lineHeight: 1.65,
-              color: "var(--muted)",
-              maxWidth: 820,
-            }}
-          >
-            Traditional disaster recovery treats an application as an isolated database or virtual machine. But modern enterprise architectures are distributed webs. If you restore the primary database while authentication remains locked or the cache state fails to hydrate, the application crashes immediately upon spin-up.
+            MeshDefend maps the application and its dependent assets/services before recovery,
+            establishing exactly what needs to come back together.
           </p>
         </div>
 
@@ -179,24 +170,24 @@ export function DependencyDAGFold() {
               justifyContent: "space-between",
               alignItems: "center",
               flexWrap: "wrap",
-              gap: 12,
+              gap: 16,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--ink)",
                   fontWeight: 600,
                   letterSpacing: "0.04em",
                 }}
               >
-                TOPOLOGICAL DAG: Core Banking App (Minimum Viable Company)
+                MVC TOPOLOGY GRAPH // CORE BANKING STACK
               </span>
               <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--muted)",
                 }}
@@ -207,37 +198,64 @@ export function DependencyDAGFold() {
 
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ width: 8, height: 8, backgroundColor: "var(--ink)", display: "inline-block" }} />
-                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    backgroundColor: "var(--ink)",
+                    display: "inline-block",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    color: "var(--muted)",
+                  }}
+                >
                   Verified Asset
                 </span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ width: 8, height: 8, backgroundColor: "var(--orange, #f45532)", display: "inline-block" }} />
-                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange, #f45532)", fontWeight: 600 }}>
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    backgroundColor: "var(--orange, #f45532)",
+                    display: "inline-block",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    color: "var(--orange, #f45532)",
+                    fontWeight: 600,
+                  }}
+                >
                   Unprotected Dependency
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Interactive DAG SVG Stage */}
+          {/* ─── Interactive DAG SVG Stage with Framer Motion Path Drawing ─── */}
           <div
             style={{
-              padding: "36px 24px",
+              padding: "40px 24px",
               position: "relative",
               overflowX: "auto",
-              minHeight: 420,
+              minHeight: 440,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
             <svg
-              viewBox="0 0 940 380"
+              viewBox="0 0 960 400"
               style={{
                 width: "100%",
-                maxWidth: 940,
+                maxWidth: 960,
                 height: "auto",
                 display: "block",
               }}
@@ -253,7 +271,7 @@ export function DependencyDAGFold() {
                   markerHeight="6"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--muted)" opacity="0.6" />
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--muted)" opacity="0.7" />
                 </marker>
                 <marker
                   id="dag-arrow-orange"
@@ -266,48 +284,106 @@ export function DependencyDAGFold() {
                 >
                   <path d="M 0 1 L 9 5 L 0 9 z" fill="#f45532" />
                 </marker>
+
+                {/* Pulsing Orange Glow Filter for Redis Cache Node */}
+                <filter id="redis-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="6"
+                    floodColor="#f45532"
+                    floodOpacity="0.55"
+                  />
+                </filter>
               </defs>
 
-              {/* Connecting DAG 1px Lines */}
-              {/* IAM Service -> Primary SQL DB */}
-              <line
-                x1={230}
-                y1={115}
-                x2={380}
-                y2={115}
+              {/* ─── Animated 1px SVG Lines (Drawing on view) ─── */}
+              {/* Line 1: IAM Service -> Primary SQL DB */}
+              <motion.line
+                x1={260}
+                y1={108}
+                x2={410}
+                y2={108}
                 stroke="var(--border)"
                 strokeWidth="1.5"
                 markerEnd="url(#dag-arrow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: 0.1, ease: "easeInOut" }}
               />
-              {/* Vault Secrets -> Redis Cache */}
-              <line
-                x1={230}
-                y1={315}
-                x2={380}
-                y2={315}
+
+              {/* Line 2: Vault Secrets -> Redis Cache */}
+              <motion.line
+                x1={260}
+                y1={288}
+                x2={410}
+                y2={288}
                 stroke="var(--border)"
                 strokeWidth="1.5"
                 markerEnd="url(#dag-arrow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: 0.25, ease: "easeInOut" }}
               />
-              {/* Primary SQL DB -> Core Banking App */}
-              <path
-                d="M 580 115 L 670 115 L 700 205"
+
+              {/* Line 3: Primary SQL DB -> Core Banking App */}
+              <motion.path
+                d="M 580 108 C 650 108, 660 190, 730 190"
                 fill="none"
                 stroke="var(--border)"
                 strokeWidth="1.5"
                 markerEnd="url(#dag-arrow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.1, delay: 0.4, ease: "easeInOut" }}
               />
-              {/* Redis Cache -> Core Banking App (Risk Link) */}
-              <path
-                d="M 580 315 L 670 315 L 700 215"
+
+              {/* Line 4: Redis Cache -> Core Banking App (Risk Link, Pulsing #f45532) */}
+              <motion.path
+                d="M 580 288 C 650 288, 660 210, 730 210"
                 fill="none"
                 stroke="#f45532"
                 strokeWidth="2"
-                strokeDasharray="4 4"
+                strokeDasharray="5 5"
                 markerEnd="url(#dag-arrow-orange)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.1, delay: 0.55, ease: "easeInOut" }}
               />
 
-              {/* SVG Nodes */}
+              {/* Line 5: IAM Service -> Core Banking App (Direct Authentication Gateway) */}
+              <motion.path
+                d="M 260 88 C 450 40, 620 60, 730 175"
+                fill="none"
+                stroke="var(--border)"
+                strokeWidth="1.2"
+                strokeDasharray="3 3"
+                markerEnd="url(#dag-arrow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 0.6 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.2, ease: "easeInOut" }}
+              />
+
+              {/* Line 6: Vault Secrets -> Core Banking App (Direct KMS Encryption Envelope) */}
+              <motion.path
+                d="M 260 308 C 450 350, 620 330, 730 220"
+                fill="none"
+                stroke="var(--border)"
+                strokeWidth="1.2"
+                strokeDasharray="3 3"
+                markerEnd="url(#dag-arrow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 0.6 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.35, ease: "easeInOut" }}
+              />
+
+              {/* ─── SVG Nodes ─── */}
               {NODES.map((node) => {
                 const isSelected = selectedNode.id === node.id;
                 const isOrange = node.isRisk;
@@ -331,16 +407,24 @@ export function DependencyDAGFold() {
                       y={node.y}
                       width={170}
                       height={76}
-                      fill={isSelected ? (isOrange ? "rgba(244,85,50,0.06)" : "var(--surface-raised, #f7f6f5)") : "var(--bg)"}
+                      fill={
+                        isSelected
+                          ? isOrange
+                            ? "rgba(244, 85, 50, 0.08)"
+                            : "var(--surface-raised, #f7f6f5)"
+                          : "var(--bg)"
+                      }
                       stroke={isOrange ? "#f45532" : isSelected ? "var(--ink)" : "var(--border)"}
                       strokeWidth={isOrange || isSelected ? 1.5 : 1}
+                      filter={isOrange ? "url(#redis-glow)" : undefined}
+                      className={isOrange ? "pulsing-redis-node" : undefined}
                     />
 
                     {/* Category Tag */}
                     <text
                       x={node.x + 12}
                       y={node.y + 20}
-                      fontFamily="var(--font-mono), monospace"
+                      fontFamily='var(--font-mono), "JetBrains Mono", monospace'
                       fontSize="9"
                       letterSpacing="0.04em"
                       fill={isOrange ? "#f45532" : "var(--muted)"}
@@ -352,7 +436,7 @@ export function DependencyDAGFold() {
                     <text
                       x={node.x + 12}
                       y={node.y + 40}
-                      fontFamily="var(--font-body), sans-serif"
+                      fontFamily='var(--font-body), Inter, sans-serif'
                       fontSize="13"
                       fontWeight="600"
                       fill="var(--ink)"
@@ -364,20 +448,22 @@ export function DependencyDAGFold() {
                     <text
                       x={node.x + 12}
                       y={node.y + 60}
-                      fontFamily="var(--font-mono), monospace"
+                      fontFamily='var(--font-mono), "JetBrains Mono", monospace'
                       fontSize="9.5"
+                      fontWeight={isOrange ? 700 : 500}
                       fill={isOrange ? "#f45532" : "var(--muted)"}
                     >
                       [{node.status.toUpperCase()}]
                     </text>
 
-                    {/* Glow effect on Redis Cache */}
+                    {/* Blinking Risk Indicator Dot on Redis Cache */}
                     {isOrange && (
                       <circle
                         cx={node.x + 158}
                         cy={node.y + 14}
                         r="4.5"
                         fill="#f45532"
+                        className="blinking-dot"
                       />
                     )}
                   </g>
@@ -386,7 +472,55 @@ export function DependencyDAGFold() {
             </svg>
           </div>
 
-          {/* Node Inspector Panel */}
+          {/* ─── Sticky Redis Cache Risk Callout Annotation ─── */}
+          <div
+            style={{
+              padding: "16px 24px",
+              borderTop: "1px solid var(--border)",
+              backgroundColor: "rgba(244, 85, 50, 0.05)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 12,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "#f45532",
+                  fontWeight: 700,
+                  letterSpacing: "0.06em",
+                }}
+              >
+                CRITICAL DEPENDENCY RISK:
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
+                  fontSize: 13.5,
+                  fontWeight: 600,
+                  color: "var(--ink)",
+                }}
+              >
+                &ldquo;Recovering the database without the cache breaks the application.&rdquo;
+              </span>
+            </div>
+
+            <span
+              style={{
+                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                fontSize: 11,
+                color: "var(--muted)",
+              }}
+            >
+              Inspection: Redis Cache session state excluded from protection policy
+            </span>
+          </div>
+
+          {/* Selected Node Drawer */}
           <div
             style={{
               padding: "24px 28px",
@@ -398,94 +532,106 @@ export function DependencyDAGFold() {
             }}
           >
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono), monospace",
-                    fontSize: 11,
-                    color: selectedNode.isRisk ? "#f45532" : "var(--muted)",
-                    fontWeight: 600,
-                  }}
-                >
-                  {selectedNode.category}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono), monospace",
-                    fontSize: 10,
-                    padding: "2px 6px",
-                    border: selectedNode.isRisk ? "1px solid #f45532" : "1px solid var(--border)",
-                    color: selectedNode.isRisk ? "#f45532" : "var(--ink)",
-                    backgroundColor: "var(--bg)",
-                  }}
-                >
-                  {selectedNode.status}
-                </span>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 10.5,
+                  letterSpacing: "0.05em",
+                  color: "var(--muted)",
+                  marginBottom: 6,
+                }}
+              >
+                INSPECTED DEPENDENCY
               </div>
               <div
                 style={{
-                  fontFamily: "var(--font-serif), serif",
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                   fontSize: 22,
                   color: "var(--ink)",
-                  lineHeight: 1.2,
                 }}
               >
                 {selectedNode.name}
               </div>
-            </div>
-
-            <div style={{ borderLeft: "1px solid var(--border)", paddingLeft: 24 }}>
-              <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 14, color: "var(--ink)", marginBottom: 8 }}>
-                <strong>Role:</strong> {selectedNode.role}
-              </div>
               <div
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  fontSize: 12,
-                  lineHeight: 1.55,
-                  color: selectedNode.isRisk ? "var(--ink)" : "var(--muted)",
-                  backgroundColor: selectedNode.isRisk ? "rgba(244,85,50,0.06)" : "transparent",
-                  padding: selectedNode.isRisk ? "10px 14px" : "0",
-                  border: selectedNode.isRisk ? "1px solid rgba(244,85,50,0.2)" : "none",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: selectedNode.isRisk ? "#f45532" : "var(--muted)",
+                  marginTop: 4,
+                  fontWeight: selectedNode.isRisk ? 700 : 500,
                 }}
               >
-                {selectedNode.isRisk && (
-                  <strong style={{ color: "#f45532", display: "block", marginBottom: 4 }}>
-                    RECOVERY RISK ANNOTATION:
-                  </strong>
-                )}
-                {selectedNode.annotation}
+                Status: {selectedNode.status}
               </div>
             </div>
-          </div>
 
-          {/* Bottom Highlight Annotation Banner */}
-          <div
-            style={{
-              padding: "16px 24px",
-              borderTop: "1px solid var(--border)",
-              backgroundColor: "var(--bg)",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 16,
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange, #f45532)", fontWeight: 600 }}>
-                CRITICAL DEPENDENCY INSIGHT:
-              </span>
-              <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
-                Recovering the database without the cache breaks the application.
-              </span>
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 10.5,
+                  letterSpacing: "0.05em",
+                  color: "var(--muted)",
+                  marginBottom: 6,
+                }}
+              >
+                ARCHITECTURAL ROLE & RECOVERY REPERCUSSION
+              </div>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
+                  fontSize: 13.5,
+                  lineHeight: 1.55,
+                  color: "var(--ink)",
+                  margin: "0 0 6px 0",
+                }}
+              >
+                {selectedNode.role}
+              </p>
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 12,
+                  color: selectedNode.isRisk ? "#f45532" : "var(--muted)",
+                  fontWeight: selectedNode.isRisk ? 600 : 400,
+                  margin: 0,
+                }}
+              >
+                Annotation: {selectedNode.annotation}
+              </p>
             </div>
-            <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
-              MeshDefend Minimum Viable Company (MVC) Resolution
-            </span>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes pulseGlow {
+          0% {
+            filter: drop-shadow(0 0 4px rgba(244, 85, 50, 0.4));
+          }
+          50% {
+            filter: drop-shadow(0 0 14px rgba(244, 85, 50, 0.85));
+          }
+          100% {
+            filter: drop-shadow(0 0 4px rgba(244, 85, 50, 0.4));
+          }
+        }
+        :global(.pulsing-redis-node) {
+          animation: pulseGlow 2.4s ease-in-out infinite;
+        }
+        @keyframes blinkDot {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.3;
+          }
+        }
+        :global(.blinking-dot) {
+          animation: blinkDot 1.4s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }

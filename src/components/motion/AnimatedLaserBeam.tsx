@@ -36,7 +36,7 @@ export function AnimatedLaserBeam({
             y1="7"
             x2="100%"
             y2="7"
-            stroke="rgba(34, 31, 34, 0.12)"
+            stroke="var(--border)"
             strokeWidth="1"
             strokeDasharray="4 4"
           />
@@ -91,7 +91,7 @@ export function AnimatedLaserBeam({
             y1="0"
             x2="7"
             y2="100%"
-            stroke="rgba(34, 31, 34, 0.12)"
+            stroke="var(--border)"
             strokeWidth="1"
             strokeDasharray="4 4"
           />
@@ -141,7 +141,7 @@ export function AnimatedLaserBeam({
         {/* Node 1 to Central Hub */}
         <path
           d="M 40 40 L 200 40 L 260 20 L 400 20"
-          stroke="rgba(34, 31, 34, 0.12)"
+          stroke="var(--border)"
           strokeWidth="1"
         />
         <motion.path
@@ -156,7 +156,7 @@ export function AnimatedLaserBeam({
         {/* Node 2 to Central Hub */}
         <path
           d="M 760 40 L 600 40 L 540 60 L 400 60"
-          stroke="rgba(34, 31, 34, 0.12)"
+          stroke="var(--border)"
           strokeWidth="1"
         />
         <motion.path
@@ -169,7 +169,7 @@ export function AnimatedLaserBeam({
         />
 
         {/* Central Core Crosshair */}
-        <circle cx="400" cy="40" r="12" stroke="rgba(34, 31, 34, 0.2)" strokeWidth="1" fill="#fefdfd" />
+        <circle cx="400" cy="40" r="12" stroke="var(--border)" strokeWidth="1" fill="var(--bg)" />
         <circle cx="400" cy="40" r="4" fill="#f45532" />
         <line x1="390" y1="40" x2="410" y2="40" stroke="#f45532" strokeWidth="1" />
         <line x1="400" y1="30" x2="400" y2="50" stroke="#f45532" strokeWidth="1" />

@@ -519,7 +519,7 @@ export function GuidedTriageFold() {
                         style={{
                           padding: "8px 6px",
                           background: isActive ? "var(--ink)" : "var(--surface)",
-                          color: isActive ? "#ffffff" : "var(--ink)",
+                          color: isActive ? "var(--bg)" : "var(--ink)",
                           border: isActive ? "1px solid var(--ink)" : "1px solid var(--border)",
                           borderRadius: 3,
                           fontFamily: "var(--font-body), Inter, sans-serif",

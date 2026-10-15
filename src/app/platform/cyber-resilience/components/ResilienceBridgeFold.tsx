@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function ResilienceBridgeFold() {
   return (
@@ -28,7 +29,7 @@ export function ResilienceBridgeFold() {
         >
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               fontWeight: 500,
               color: "var(--muted)",
@@ -39,7 +40,7 @@ export function ResilienceBridgeFold() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",
               letterSpacing: "0.05em",
@@ -49,47 +50,24 @@ export function ResilienceBridgeFold() {
           </span>
         </div>
 
-        {/* Display H2 & Narrative */}
-        <div style={{ maxWidth: 960, marginBottom: 56 }}>
+        {/* Display H2 & Verbatim Sitemap Hook (NO FAKE PARAGRAPHS) */}
+        <div style={{ maxWidth: 960, marginBottom: 48 }}>
           <h2
             style={{
-              fontFamily: "var(--font-serif), serif",
+              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
               fontSize: "clamp(36px, 4vw, 56px)",
               lineHeight: 1.04,
               letterSpacing: "-0.03em",
               color: "var(--ink)",
               fontWeight: 400,
-              marginBottom: 20,
+              margin: 0,
             }}
           >
             See the risk. Know the response. Stay in control.
           </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: 19,
-              lineHeight: 1.55,
-              color: "var(--ink)",
-              fontWeight: 500,
-              marginBottom: 16,
-            }}
-          >
-            Once a recovery risk is exposed in ResOC, MeshDefend provides two connected operational pathways: acting on the threat immediately, and proving institutional governance.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: 16,
-              lineHeight: 1.65,
-              color: "var(--muted)",
-              maxWidth: 820,
-            }}
-          >
-            Visibility without remediation is just anxiety. MeshDefend bridges continuous resilience observability directly into autonomous incident resolution and enterprise governance. When an application drops below its recovery threshold, you can trace and isolate the issue immediately, while relying on cryptographic air-gaps, dual-custody controls, and the Rapid Value Assessment framework.
-          </p>
         </div>
 
-        {/* The Branching Structural Architecture (1px Visual Rail) */}
+        {/* The Branching Structural Architecture */}
         <div
           style={{
             border: "1px solid var(--border)",
@@ -107,27 +85,131 @@ export function ResilienceBridgeFold() {
               alignItems: "center",
               flexWrap: "wrap",
               gap: 16,
+              position: "relative",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  backgroundColor: "#f45532",
+                  display: "inline-block",
+                  boxShadow: "0 0 10px rgba(244, 85, 50, 0.7)",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--orange, #f45532)",
-                  fontWeight: 600,
-                  letterSpacing: "0.05em",
+                  fontWeight: 700,
+                  letterSpacing: "0.06em",
                 }}
               >
                 RESOC RISK DETECTED
               </span>
-              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--ink)" }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "var(--ink)",
+                }}
+              >
                 ledger-core (Tier-0) · Posture score degraded to 72% · Clean candidate identified
               </span>
             </div>
-            <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                fontSize: 11,
+                color: "var(--muted)",
+              }}
+            >
               04:12 UTC · Automated Policy Evaluation
             </span>
+          </div>
+
+          {/* ─── Glowing 1px SVG Line Physically Branching into Two Paths ─── */}
+          <div
+            style={{
+              height: 64,
+              backgroundColor: "var(--surface-raised, #f7f6f5)",
+              borderBottom: "1px solid var(--border)",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <svg
+              viewBox="0 0 1000 64"
+              preserveAspectRatio="none"
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "block",
+              }}
+            >
+              <defs>
+                <filter id="branch-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="3"
+                    floodColor="#f45532"
+                    floodOpacity="0.8"
+                  />
+                </filter>
+              </defs>
+
+              {/* Central Root Origin Dot */}
+              <circle cx="500" cy="4" r="3.5" fill="#f45532" />
+
+              {/* Vertical Trunk Line */}
+              <motion.line
+                x1="500"
+                y1="4"
+                x2="500"
+                y2="24"
+                stroke="#f45532"
+                strokeWidth="1.5"
+                filter="url(#branch-glow)"
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              />
+
+              {/* Left Branch -> Incident Resolution (x: 250, y: 64) */}
+              <motion.path
+                d="M 500 24 C 500 48, 250 36, 250 64"
+                fill="none"
+                stroke="#f45532"
+                strokeWidth="1.5"
+                filter="url(#branch-glow)"
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.85, delay: 0.3, ease: "easeInOut" }}
+              />
+
+              {/* Right Branch -> Enterprise Readiness (x: 750, y: 64) */}
+              <motion.path
+                d="M 500 24 C 500 48, 750 36, 750 64"
+                fill="none"
+                stroke="#f45532"
+                strokeWidth="1.5"
+                filter="url(#branch-glow)"
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.85, delay: 0.3, ease: "easeInOut" }}
+              />
+
+              {/* Endpoint Dots */}
+              <circle cx="250" cy="60" r="3" fill="#f45532" />
+              <circle cx="750" cy="60" r="3" fill="#f45532" />
+            </svg>
           </div>
 
           {/* Two Branching Structural Pathways */}
@@ -151,20 +233,28 @@ export function ResilienceBridgeFold() {
               }}
             >
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 12,
+                  }}
+                >
                   <span
                     style={{
-                      fontFamily: "var(--font-mono), monospace",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 11,
-                      color: "var(--muted)",
+                      color: "var(--orange, #f45532)",
                       letterSpacing: "0.05em",
+                      fontWeight: 600,
                     }}
                   >
                     PATH A · INVESTIGATE & ACT
                   </span>
                   <span
                     style={{
-                      fontFamily: "var(--font-mono), monospace",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 10,
                       color: "var(--ink)",
                       padding: "2px 6px",
@@ -177,7 +267,7 @@ export function ResilienceBridgeFold() {
 
                 <h3
                   style={{
-                    fontFamily: "var(--font-serif), serif",
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                     fontSize: 28,
                     color: "var(--ink)",
                     lineHeight: 1.15,
@@ -188,33 +278,84 @@ export function ResilienceBridgeFold() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "var(--font-body), sans-serif",
+                    fontFamily: 'var(--font-body), Inter, sans-serif',
                     fontSize: 14,
                     lineHeight: 1.6,
                     color: "var(--muted)",
                     marginBottom: 24,
                   }}
                 >
-                  Carry the ResOC finding directly into our forensic investigation canvas. Trace blast radius, isolate infected snapshots, and execute policy-governed remediation runbooks across Commvault, Veeam, and Dell with human-in-the-loop approvals.
+                  Carry the ResOC finding directly into our forensic investigation canvas. Trace
+                  blast radius, isolate infected snapshots, and execute policy-governed remediation
+                  runbooks across Commvault, Veeam, and Dell with human-in-the-loop approvals.
                 </p>
 
                 {/* Bullets */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    marginBottom: 32,
+                  }}
+                >
                   <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange, #f45532)" }}>—</span>
-                    <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--orange, #f45532)",
+                      }}
+                    >
+                      —
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
+                        fontSize: 13,
+                        color: "var(--ink)",
+                      }}
+                    >
                       Forensic blast-radius tracing & root-cause correlation
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange, #f45532)" }}>—</span>
-                    <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--orange, #f45532)",
+                      }}
+                    >
+                      —
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
+                        fontSize: 13,
+                        color: "var(--ink)",
+                      }}
+                    >
                       Single-click promotion of verified pre-infection clean recovery points
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange, #f45532)" }}>—</span>
-                    <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--orange, #f45532)",
+                      }}
+                    >
+                      —
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
+                        fontSize: 13,
+                        color: "var(--ink)",
+                      }}
+                    >
                       Policy-governed autonomy: human signoff before destructive changes
                     </span>
                   </div>
@@ -228,7 +369,7 @@ export function ResilienceBridgeFold() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 8,
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 12,
                     letterSpacing: "0.04em",
                     color: "var(--ink)",
@@ -239,7 +380,7 @@ export function ResilienceBridgeFold() {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  Incident Resolution: Investigate & Act →
+                  Incident Resolution: Investigate & Act &rarr;
                 </Link>
               </div>
             </div>
@@ -255,20 +396,28 @@ export function ResilienceBridgeFold() {
               }}
             >
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 12,
+                  }}
+                >
                   <span
                     style={{
-                      fontFamily: "var(--font-mono), monospace",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 11,
                       color: "var(--muted)",
                       letterSpacing: "0.05em",
+                      fontWeight: 600,
                     }}
                   >
-                    PATH B · CONTROLS & GOVERNANCE
+                    PATH B · PROVE & GOVERN
                   </span>
                   <span
                     style={{
-                      fontFamily: "var(--font-mono), monospace",
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 10,
                       color: "var(--ink)",
                       padding: "2px 6px",
@@ -281,7 +430,7 @@ export function ResilienceBridgeFold() {
 
                 <h3
                   style={{
-                    fontFamily: "var(--font-serif), serif",
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                     fontSize: 28,
                     color: "var(--ink)",
                     lineHeight: 1.15,
@@ -292,59 +441,110 @@ export function ResilienceBridgeFold() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "var(--font-body), sans-serif",
+                    fontFamily: 'var(--font-body), Inter, sans-serif',
                     fontSize: 14,
                     lineHeight: 1.6,
                     color: "var(--muted)",
                     marginBottom: 24,
                   }}
                 >
-                  Discover how enterprise security and compliance guardrails govern every ResOC decision. Maintain zero-trust air-gapped controls, role-based autonomy tiers, and regulatory compliance evidence for DORA, NIS2, and SEC guidelines.
+                  Ensure institutional confidence with cryptographic auditability, immutable backup
+                  validation, and strict dual-custody approval gates. Meet regulatory obligations
+                  (DORA, SEC, NIS2) without manual tabletop prep.
                 </p>
 
                 {/* Bullets */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    marginBottom: 32,
+                  }}
+                >
                   <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--ink)" }}>—</span>
-                    <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
-                      Non-custodial architecture: telemetry analyzed entirely within your VPC
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--orange, #f45532)",
+                      }}
+                    >
+                      —
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
+                        fontSize: 13,
+                        color: "var(--ink)",
+                      }}
+                    >
+                      Cryptographic audit logs with tamper-evident attestation
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--ink)" }}>—</span>
-                    <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
-                      Audit-ready proof for DORA, NIS2, and SEC cyber incident disclosure
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--orange, #f45532)",
+                      }}
+                    >
+                      —
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
+                        fontSize: 13,
+                        color: "var(--ink)",
+                      }}
+                    >
+                      Continuous DORA, NIS2, and SEC cyber resilience compliance mapping
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--ink)" }}>—</span>
-                    <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
-                      Rapid Value Assessment: 14-day proof of recovery gap identification
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 11,
+                        color: "var(--orange, #f45532)",
+                      }}
+                    >
+                      —
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), Inter, sans-serif',
+                        fontSize: 13,
+                        color: "var(--ink)",
+                      }}
+                    >
+                      Dual-custody sign-offs for all Tier-0 workload configuration changes
                     </span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <Link
-                  href="/platform/enterprise-readiness"
+                <a
+                  href="/contact"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 8,
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 12,
                     letterSpacing: "0.04em",
                     color: "var(--ink)",
                     padding: "10px 18px",
-                    border: "1px solid var(--border)",
-                    backgroundColor: "var(--surface-raised, #f7f6f5)",
+                    border: "1px solid var(--ink)",
+                    backgroundColor: "transparent",
                     textDecoration: "none",
                     transition: "all 0.15s ease",
                   }}
                 >
-                  Enterprise Readiness: Controls & Governance →
-                </Link>
+                  Enterprise Readiness: Controls & Governance &rarr;
+                </a>
               </div>
             </div>
           </div>

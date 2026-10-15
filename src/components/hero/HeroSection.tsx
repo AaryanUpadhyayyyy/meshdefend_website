@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { DashboardPreview } from "./DashboardPreview";
-import { MeshDefendBackground } from "./MeshDefendBackground";
+import Image from "next/image";
+import heroLandscapeBg from "../../../public/images/mainapagebg.png";
 import { HERO } from "@/lib/content";
 import { HeroStateProvider } from "@/lib/heroState";
 
@@ -108,8 +109,43 @@ export function HeroSection() {
           overflow: "hidden",
         }}
       >
-        {/* Living Resilience Mesh Background Animation */}
-        <MeshDefendBackground />
+        {/* Editorial Resilience Operations Landscape Background */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "clamp(560px, 64vw, 860px)",
+            pointerEvents: "none",
+            zIndex: 1,
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            src={heroLandscapeBg}
+            alt="MeshDefend Resilience Operations Landscape"
+            priority
+            fill
+            sizes="100vw"
+            quality={92}
+            style={{
+              objectFit: "cover",
+              objectPosition: "top center",
+            }}
+            className="hero-landscape-bg"
+          />
+
+          {/* Seamless gradient fade to page background */}
+          <div
+            className="hero-bg-fade"
+            style={{
+              position: "absolute",
+              inset: 0,
+            }}
+          />
+        </div>
 
         {/* Unified Single Container: Nav, Headline, Right Column & Dashboard share same edges */}
         <div className="container" style={{ position: "relative", zIndex: 2 }}>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import shieldImage from "../../../../../public/images/incident-agent-shield.png";
 
 interface DustParticle {
   x: number;
@@ -145,6 +146,7 @@ export function IncidentCanvasFold() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const frontParticleCanvasRef = useRef<HTMLCanvasElement>(null);
   const dustRef = useRef<DustParticle[]>([]);
 
   // Responsive check
@@ -232,11 +234,7 @@ export function IncidentCanvasFold() {
       time += 0.015;
       ctx.clearRect(0, 0, width, height);
 
-      // Deep dark pure black background (#000000)
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, width, height);
-
-      // Render 3D Ambient Cosmic Dust Field
+      // Render 3D Ambient Cosmic Dust Field (Transparent background)
       const dust = dustRef.current;
       for (let i = 0; i < dust.length; i++) {
         const d = dust[i];
@@ -278,6 +276,266 @@ export function IncidentCanvasFold() {
     };
   }, [isMobile, reducedMotion, mouseOffset]);
 
+  // Front Radial & Ambient Shield Particles Renderer (In Front of Image)
+  // Front Radial & Ambient Shield Particles Renderer (Directly in Front of Image)
+  useEffect(() => {
+    const canvas = frontParticleCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId = 0;
+    let width = 0;
+    let height = 0;
+    let isVisible = true;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    });
+    observer.observe(canvas);
+
+    interface FrontRadialParticle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      alpha: number;
+      life: number;
+      maxLife: number;
+      color: string;
+      size: number;
+    }
+
+    interface FrontEmberParticle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      alpha: number;
+      life: number;
+      maxLife: number;
+      color: string;
+      wobbleSpeed: number;
+      wobbleAmp: number;
+    }
+
+    interface FrontDustParticle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      alpha: number;
+      isOrange: boolean;
+    }
+
+    const radialCount = isMobile ? 60 : 130;
+    const emberCount = isMobile ? 35 : 75;
+    const dustCount = isMobile ? 30 : 65;
+
+    let radParticles: FrontRadialParticle[] = [];
+    let emberParticles: FrontEmberParticle[] = [];
+    let dustParticles: FrontDustParticle[] = [];
+
+    // Spawns radiant sparks emitting outward 360 degrees from shield center
+    const spawnRadial = (ox: number, oy: number): FrontRadialParticle => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 1.0 + Math.random() * 3.8;
+      const maxLife = 40 + Math.random() * 75;
+      const colorRand = Math.random();
+      const color =
+        colorRand < 0.55
+          ? "rgba(244, 85, 50,"
+          : colorRand < 0.82
+          ? "rgba(255, 140, 45,"
+          : colorRand < 0.94
+          ? "rgba(255, 210, 80,"
+          : "rgba(255, 255, 255,";
+      const initDist = Math.random() * 20;
+      return {
+        x: ox + Math.cos(angle) * initDist,
+        y: oy + Math.sin(angle) * initDist,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        alpha: 0,
+        life: 0,
+        maxLife,
+        color,
+        size: 1.5 + Math.random() * 2.8,
+      };
+    };
+
+    // Spawns embers that float UPWARD in front of the sentinel robot and shield
+    const spawnEmber = (ox: number, oy: number): FrontEmberParticle => {
+      const maxLife = 60 + Math.random() * 110;
+      const colorRand = Math.random();
+      const color =
+        colorRand < 0.60
+          ? "rgba(244, 85, 50,"
+          : colorRand < 0.88
+          ? "rgba(255, 150, 50,"
+          : "rgba(255, 220, 90,";
+      return {
+        x: ox + (Math.random() - 0.5) * (width * 0.38),
+        y: oy + (Math.random() - 0.4) * (height * 0.26),
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: -0.7 - Math.random() * 2.0,
+        size: 1.6 + Math.random() * 2.6,
+        alpha: 0,
+        life: 0,
+        maxLife,
+        color,
+        wobbleSpeed: 0.04 + Math.random() * 0.08,
+        wobbleAmp: 0.4 + Math.random() * 0.8,
+      };
+    };
+
+    const resize = () => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      width = parent.clientWidth;
+      height = parent.clientHeight;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+
+      // Optical center of the orange shield (X: 50%, Y: 61%)
+      const originX = width * 0.50;
+      const originY = height * 0.61;
+
+      radParticles = [];
+      for (let i = 0; i < radialCount; i++) {
+        const p = spawnRadial(originX, originY);
+        p.life = Math.random() * p.maxLife;
+        radParticles.push(p);
+      }
+
+      emberParticles = [];
+      for (let i = 0; i < emberCount; i++) {
+        const e = spawnEmber(originX, originY);
+        e.life = Math.random() * e.maxLife;
+        emberParticles.push(e);
+      }
+
+      dustParticles = [];
+      for (let i = 0; i < dustCount; i++) {
+        dustParticles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          size: 1.2 + Math.random() * 2.0,
+          alpha: 0.20 + Math.random() * 0.55,
+          isOrange: Math.random() < 0.40,
+        });
+      }
+    };
+
+    let tick = 0;
+
+    const render = () => {
+      if (!isVisible) {
+        animId = requestAnimationFrame(render);
+        return;
+      }
+
+      tick++;
+      ctx.clearRect(0, 0, width, height);
+
+      // Optical center of the orange shield
+      const originX = width * 0.50;
+      const originY = height * 0.61;
+
+      // ─── 1. DRAW RADIAL SPARKS (Emitting Outward from Shield Core) ───
+      ctx.save();
+      ctx.shadowColor = "#f45532";
+      ctx.shadowBlur = 12;
+
+      for (let i = 0; i < radParticles.length; i++) {
+        const p = radParticles[i];
+        p.life++;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        const progress = p.life / p.maxLife;
+        p.alpha = Math.sin(progress * Math.PI) * 0.95;
+
+        if (p.life >= p.maxLife) {
+          radParticles[i] = spawnRadial(originX, originY);
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `${p.color} ${p.alpha})`;
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // ─── 2. DRAW RISING EMBERS (Floating Upward Across Sentinel Chest & Head) ───
+      ctx.save();
+      ctx.shadowColor = "#ff7733";
+      ctx.shadowBlur = 10;
+
+      for (let i = 0; i < emberParticles.length; i++) {
+        const e = emberParticles[i];
+        e.life++;
+        e.x += e.vx + Math.sin(tick * e.wobbleSpeed + i) * e.wobbleAmp;
+        e.y += e.vy;
+
+        const progress = e.life / e.maxLife;
+        e.alpha = Math.sin(progress * Math.PI) * 0.88;
+
+        if (e.life >= e.maxLife || e.y < -20) {
+          emberParticles[i] = spawnEmber(originX, originY);
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+        ctx.fillStyle = `${e.color} ${e.alpha})`;
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // ─── 3. DRAW FOREGROUND COSMIC MOTES (Floating Across Stage) ───
+      for (let i = 0; i < dustParticles.length; i++) {
+        const d = dustParticles[i];
+        d.x += d.vx;
+        d.y += d.vy;
+
+        if (d.x < 0) d.x = width;
+        if (d.x > width) d.x = 0;
+        if (d.y < 0) d.y = height;
+        if (d.y > height) d.y = 0;
+
+        ctx.fillStyle = d.isOrange
+          ? `rgba(244, 85, 50, ${d.alpha})`
+          : `rgba(255, 255, 255, ${d.alpha * 0.75})`;
+        ctx.fillRect(d.x, d.y, d.size, d.size);
+      }
+
+      animId = requestAnimationFrame(render);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    animId = requestAnimationFrame(render);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      observer.disconnect();
+      cancelAnimationFrame(animId);
+    };
+  }, [isMobile, reducedMotion]);
+
   const activePhase = PHASES[selectedPhaseIdx];
 
   return (
@@ -296,7 +554,7 @@ export function IncidentCanvasFold() {
       }}
       aria-labelledby="incident-resolution-h1"
     >
-      {/* ─── FULL-BLEED 3D COSMIC DUST CANVAS ─── */}
+      {/* ─── FULL-BLEED 3D COSMIC DUST CANVAS (In Front of Image) ─── */}
       <canvas
         ref={canvasRef}
         style={{
@@ -305,7 +563,7 @@ export function IncidentCanvasFold() {
           width: "100%",
           height: "100%",
           pointerEvents: "none",
-          zIndex: 1,
+          zIndex: 5,
         }}
       />
 
@@ -546,7 +804,7 @@ export function IncidentCanvasFold() {
               style={{
                 position: "relative",
                 width: "100%",
-                aspectRatio: "830 / 840",
+                aspectRatio: "1337 / 1176",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -563,13 +821,13 @@ export function IncidentCanvasFold() {
                 style={{
                   position: "absolute",
                   top: "61%",
-                  left: "50.4%",
+                  left: "50%",
                   transform: "translate(-50%, -50%)",
-                  width: "52%",
-                  height: "52%",
+                  width: "55%",
+                  height: "55%",
                   background:
-                    "radial-gradient(circle, rgba(244, 85, 50, 0.42) 0%, rgba(244, 85, 50, 0.14) 48%, transparent 72%)",
-                  filter: "blur(32px)",
+                    "radial-gradient(circle, rgba(244, 85, 50, 0.50) 0%, rgba(244, 85, 50, 0.18) 48%, transparent 72%)",
+                  filter: "blur(36px)",
                   zIndex: 1,
                   pointerEvents: "none",
                   animation: "pulseAura 3.6s ease-in-out infinite alternate",
@@ -589,10 +847,8 @@ export function IncidentCanvasFold() {
                 }}
               >
                 <Image
-                  src="/images/incident-agent-shield.jpg"
+                  src={shieldImage}
                   alt="MeshDefend AI Sentinel holding the luminous Orange MeshDefend Shield"
-                  width={830}
-                  height={840}
                   priority
                   style={{
                     width: "100%",
@@ -605,6 +861,37 @@ export function IncidentCanvasFold() {
                 />
               </div>
 
+              {/* Radial Light Glow Flare in Front of the Shield */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "61%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "50%",
+                  height: "50%",
+                  background:
+                    "radial-gradient(circle, rgba(244, 85, 50, 0.40) 0%, rgba(244, 85, 50, 0.12) 45%, transparent 70%)",
+                  filter: "blur(24px)",
+                  mixBlendMode: "screen",
+                  zIndex: 3,
+                  pointerEvents: "none",
+                }}
+              />
+
+              {/* ─── RADIAL SHIELD PARTICLES CANVAS (Directly in Front of Image & Character) ─── */}
+              <canvas
+                ref={frontParticleCanvasRef}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  pointerEvents: "none",
+                  zIndex: 6,
+                }}
+              />
+
               {/* Vertical Laser Authority Gate Barrier (Active on Phase 05) */}
               <AnimatePresence>
                 {selectedPhaseIdx === 4 && (
@@ -616,7 +903,7 @@ export function IncidentCanvasFold() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      zIndex: 3,
+                      zIndex: 5,
                       pointerEvents: "none",
                       display: "flex",
                       alignItems: "center",
@@ -629,11 +916,11 @@ export function IncidentCanvasFold() {
                         position: "absolute",
                         top: "10%",
                         bottom: "10%",
-                        left: "50.4%",
+                        left: "50%",
                         transform: "translateX(-50%)",
                         width: 2,
                         background:
-                          "linear-gradient(to bottom, transparent, #f45532 20%, #f45532 80%, transparent)",
+                           "linear-gradient(to bottom, transparent, #f45532 20%, #f45532 80%, transparent)",
                         boxShadow: "0 0 18px rgba(244, 85, 50, 0.85)",
                       }}
                     />
@@ -643,7 +930,7 @@ export function IncidentCanvasFold() {
                       style={{
                         position: "absolute",
                         bottom: "14%",
-                        left: "50.4%",
+                        left: "50%",
                         transform: "translateX(-50%)",
                         background: "rgba(8, 8, 8, 0.92)",
                         border: "1px solid #f45532",

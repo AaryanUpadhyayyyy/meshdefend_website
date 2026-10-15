@@ -282,7 +282,7 @@ export function Footer() {
                 style={{
                   marginTop: 12,
                   fontSize: 11,
-                  color: "#7a7477",
+                  color: "#a09a9c",
                   fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                 }}
               >
@@ -434,7 +434,7 @@ export function Footer() {
               flexWrap: "wrap",
               gap: 16,
               fontSize: 12,
-              color: "#7a7477",
+              color: "#a09a9c",
             }}
           >
             {/* Copyright & Legal */}
@@ -462,7 +462,7 @@ export function Footer() {
                 style={{
                   fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
-                  color: "#6b6568",
+                  color: "#a09a9c",
                 }}
               >
                 HYBRID · MULTI-CLOUD · ON-PREM

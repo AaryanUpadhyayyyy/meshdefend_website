@@ -9,8 +9,8 @@ export function CyberResilienceCTA() {
       aria-label="Assess Your Recovery Readiness"
       style={{
         padding: "140px 0 120px",
-        backgroundColor: "var(--ink, #221f22)",
-        color: "var(--bg, #fefdfd)",
+        backgroundColor: "var(--dark, #221f22)",
+        color: "#fefdfd",
         position: "relative",
       }}
     >
@@ -28,7 +28,7 @@ export function CyberResilienceCTA() {
         >
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               letterSpacing: "0.06em",
               color: "rgba(254, 253, 253, 0.6)",
@@ -38,7 +38,7 @@ export function CyberResilienceCTA() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "rgba(254, 253, 253, 0.4)",
             }}
@@ -51,7 +51,7 @@ export function CyberResilienceCTA() {
         <div style={{ maxWidth: 920, marginBottom: 56 }}>
           <h2
             style={{
-              fontFamily: "var(--font-serif), serif",
+              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
               fontSize: "clamp(40px, 4.6vw, 68px)",
               lineHeight: 1.02,
               letterSpacing: "-0.035em",
@@ -64,25 +64,28 @@ export function CyberResilienceCTA() {
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-body), sans-serif",
+              fontFamily: 'var(--font-body), Inter, sans-serif',
               fontSize: "clamp(18px, 1.8vw, 21px)",
               lineHeight: 1.55,
               color: "rgba(254, 253, 253, 0.85)",
               marginBottom: 16,
             }}
           >
-            Don&apos;t wait for a ransomware detonation or an audit inquiry to test your recovery posture. Connect your existing backup engines in minutes and see what lies beneath your green checkmarks.
+            Don&apos;t wait for a ransomware detonation or an audit inquiry to test your recovery
+            posture. Connect your existing backup engines in minutes and see what lies beneath your
+            green checkmarks.
           </p>
           <p
             style={{
-              fontFamily: "var(--font-body), sans-serif",
+              fontFamily: 'var(--font-body), Inter, sans-serif',
               fontSize: 15,
               lineHeight: 1.6,
               color: "rgba(254, 253, 253, 0.55)",
               maxWidth: 780,
             }}
           >
-            MeshDefend deploys non-custodially into your private cloud or on-premises environment. No agents on production workloads. No data leaves your boundary.
+            MeshDefend deploys non-custodially into your private cloud or on-premises environment. No
+            agents on production workloads. No data leaves your boundary.
           </p>
         </div>
 
@@ -109,7 +112,7 @@ export function CyberResilienceCTA() {
             <div>
               <div
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--orange, #f45532)",
                   letterSpacing: "0.04em",
@@ -120,7 +123,7 @@ export function CyberResilienceCTA() {
               </div>
               <h3
                 style={{
-                  fontFamily: "var(--font-serif), serif",
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                   fontSize: 24,
                   color: "#fefdfd",
                   marginBottom: 10,
@@ -130,44 +133,48 @@ export function CyberResilienceCTA() {
               </h3>
               <p
                 style={{
-                  fontFamily: "var(--font-body), sans-serif",
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
                   fontSize: 13,
                   lineHeight: 1.55,
                   color: "rgba(254, 253, 253, 0.65)",
                   marginBottom: 24,
                 }}
               >
-                Run a non-destructive 14-day Rapid Value Assessment across your Tier-0 applications to identify hidden dependencies and clean recovery gaps.
+                Run a non-destructive 14-day Rapid Value Assessment across your Tier-0 applications
+                to identify hidden dependencies and clean recovery gaps.
               </p>
             </div>
+
             <div>
               <Link
-                href="/demo"
+                href="/contact?intent=rva"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "12px 24px",
+                  width: "100%",
+                  padding: "13px 20px",
                   backgroundColor: "var(--orange, #f45532)",
                   color: "#ffffff",
-                  fontFamily: "var(--font-body), sans-serif",
-                  fontSize: 14,
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 12,
+                  letterSpacing: "0.04em",
                   fontWeight: 600,
                   textDecoration: "none",
-                  transition: "opacity 0.15s ease",
+                  boxShadow: "0 0 20px rgba(244, 85, 50, 0.35)",
                 }}
               >
-                Assess your recovery readiness
+                REQUEST A RAPID VALUE ASSESSMENT &rarr;
               </Link>
             </div>
           </div>
 
-          {/* General Demo CTA */}
+          {/* Architecture Review */}
           <div
             style={{
               padding: "32px 28px",
-              border: "1px solid rgba(254, 253, 253, 0.12)",
-              backgroundColor: "rgba(254, 253, 253, 0.02)",
+              border: "1px solid rgba(254, 253, 253, 0.16)",
+              backgroundColor: "rgba(254, 253, 253, 0.03)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -176,106 +183,155 @@ export function CyberResilienceCTA() {
             <div>
               <div
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "rgba(254, 253, 253, 0.5)",
                   letterSpacing: "0.04em",
                   marginBottom: 12,
                 }}
               >
-                PLATFORM DEMONSTRATION
+                FOR ENTERPRISE ARCHITECTS & SRE
               </div>
               <h3
                 style={{
-                  fontFamily: "var(--font-serif), serif",
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                   fontSize: 24,
                   color: "#fefdfd",
                   marginBottom: 10,
                 }}
               >
-                Book a demo
+                Book a Technical Architecture Review
               </h3>
               <p
                 style={{
-                  fontFamily: "var(--font-body), sans-serif",
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
                   fontSize: 13,
                   lineHeight: 1.55,
                   color: "rgba(254, 253, 253, 0.65)",
                   marginBottom: 24,
                 }}
               >
-                See ResOC in action with your specific backup software stack: Commvault, Veeam, Dell PowerProtect, or NetWorker.
+                A 30-minute deep dive with a systems architect. Walk through your hybrid estate,
+                dependency mapping, and air-gapped isolation controls.
               </p>
             </div>
+
             <div>
               <Link
-                href="/demo"
+                href="/contact?intent=demo"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "12px 24px",
-                  border: "1px solid rgba(254, 253, 253, 0.3)",
-                  color: "#fefdfd",
+                  width: "100%",
+                  padding: "13px 20px",
+                  border: "1px solid rgba(254, 253, 253, 0.4)",
                   backgroundColor: "transparent",
-                  fontFamily: "var(--font-body), sans-serif",
-                  fontSize: 14,
-                  fontWeight: 500,
+                  color: "#fefdfd",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 12,
+                  letterSpacing: "0.04em",
                   textDecoration: "none",
                   transition: "all 0.15s ease",
                 }}
               >
-                Book a demo
+                SCHEDULE 30-MIN WALKTHROUGH &rarr;
+              </Link>
+            </div>
+          </div>
+
+          {/* Self-Service Architecture Document */}
+          <div
+            style={{
+              padding: "32px 28px",
+              border: "1px solid rgba(254, 253, 253, 0.16)",
+              backgroundColor: "rgba(254, 253, 253, 0.03)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "rgba(254, 253, 253, 0.5)",
+                  letterSpacing: "0.04em",
+                  marginBottom: 12,
+                }}
+              >
+                FOR RISK, AUDIT & COMPLIANCE
+              </div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                  fontSize: 24,
+                  color: "#fefdfd",
+                  marginBottom: 10,
+                }}
+              >
+                Read the Cyber Resilience Whitepaper
+              </h3>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
+                  fontSize: 13,
+                  lineHeight: 1.55,
+                  color: "rgba(254, 253, 253, 0.65)",
+                  marginBottom: 24,
+                }}
+              >
+                Learn how MeshDefend maps to NIST CSF 2.0, DORA, and SEC cyber disclosure
+                regulations. Download our architectural security whitepaper.
+              </p>
+            </div>
+
+            <div>
+              <Link
+                href="/whitepaper/cyber-resilience-architecture"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  padding: "13px 20px",
+                  border: "1px solid rgba(254, 253, 253, 0.4)",
+                  backgroundColor: "transparent",
+                  color: "#fefdfd",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 12,
+                  letterSpacing: "0.04em",
+                  textDecoration: "none",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                READ THE WHITEPAPER &rarr;
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Supported Infrastructure Engines Strip */}
+        {/* Bottom Vendor Immutability Stripe */}
         <div
           style={{
             borderTop: "1px solid rgba(254, 253, 253, 0.12)",
-            paddingTop: 32,
+            paddingTop: 24,
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            gap: 20,
+            gap: 16,
+            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+            fontSize: 11,
+            color: "rgba(254, 253, 253, 0.45)",
           }}
         >
-          <span
-            style={{
-              fontFamily: "var(--font-mono), monospace",
-              fontSize: 11,
-              letterSpacing: "0.04em",
-              color: "rgba(254, 253, 253, 0.5)",
-            }}
-          >
-            ENTERPRISE ECOSYSTEM COMPATIBILITY:
-          </span>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 20,
-              flexWrap: "wrap",
-              fontFamily: "var(--font-mono), monospace",
-              fontSize: 12,
-              color: "rgba(254, 253, 253, 0.8)",
-            }}
-          >
-            <span>Commvault</span>
-            <span>·</span>
-            <span>Veeam</span>
-            <span>·</span>
-            <span>Dell PowerProtect Data Manager</span>
-            <span>·</span>
-            <span>Dell NetWorker</span>
-            <span>·</span>
-            <span>ServiceNow</span>
-            <span>·</span>
-            <span>AWS / Azure</span>
+          <div>
+            INTEGRATES WITH: Commvault · Veeam · Dell DataDomain · AWS Backup · Azure Backup ·
+            Cohesity
           </div>
+          <div>DEPLOYMENT: NON-CUSTODIAL · READ-ONLY AUDIT · SOC2 TYPE II COMPLIANT</div>
         </div>
       </div>
     </section>

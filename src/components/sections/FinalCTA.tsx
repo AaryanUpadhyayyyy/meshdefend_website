@@ -133,7 +133,7 @@ export function FinalCTA() {
                 fontSize: 14,
                 padding: "14px 28px",
                 background: "#f45532",
-                color: "#221f22",
+                color: "#fefdfd",
                 fontWeight: 600,
                 borderRadius: 4,
                 display: "inline-flex",

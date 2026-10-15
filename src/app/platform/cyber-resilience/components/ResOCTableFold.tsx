@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ApplicationRow {
   id: string;
@@ -98,7 +99,7 @@ export function ResOCTableFold() {
         >
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               fontWeight: 500,
               color: "var(--muted)",
@@ -109,7 +110,7 @@ export function ResOCTableFold() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",
               letterSpacing: "0.05em",
@@ -119,11 +120,11 @@ export function ResOCTableFold() {
           </span>
         </div>
 
-        {/* Display H2 & Narrative */}
-        <div style={{ maxWidth: 960, marginBottom: 56 }}>
+        {/* Display H2 & Verbatim Narrative (NO FAKE PARAGRAPHS) */}
+        <div style={{ maxWidth: 960, marginBottom: 48 }}>
           <h2
             style={{
-              fontFamily: "var(--font-serif), serif",
+              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
               fontSize: "clamp(36px, 4vw, 56px)",
               lineHeight: 1.04,
               letterSpacing: "-0.03em",
@@ -136,30 +137,20 @@ export function ResOCTableFold() {
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-body), sans-serif",
+              fontFamily: 'var(--font-body), Inter, sans-serif',
               fontSize: 19,
               lineHeight: 1.55,
               color: "var(--ink)",
               fontWeight: 500,
-              marginBottom: 16,
+              margin: 0,
             }}
           >
-            Resilience isn&apos;t something you should discover during an incident. ResOC operates continuously to expose recovery risks and improve readiness before the attack happens.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: 16,
-              lineHeight: 1.65,
-              color: "var(--muted)",
-              maxWidth: 820,
-            }}
-          >
-            Traditional disaster recovery relies on an annual tabletop exercise or an expensive weekend failover drill that leaves teams exhausted. The Resilience Operations Center (ResOC) transforms resilience into a live, continuous discipline. It constantly evaluates application recovery posture, flags silent configuration drift, validates clean recovery candidates, and prescribes concrete actions before an adversary strikes.
+            Resilience isn&apos;t something you should discover during an incident. ResOC operates
+            continuously to expose recovery risks and improve readiness before the attack happens.
           </p>
         </div>
 
-        {/* The ResOC Readiness Table */}
+        {/* The ResOC Readiness Table with Expandable Drawer */}
         <div
           id="resoc-console"
           style={{
@@ -180,53 +171,78 @@ export function ResOCTableFold() {
               gap: 12,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
                   color: "var(--ink)",
                   fontWeight: 600,
                   letterSpacing: "0.04em",
                 }}
               >
-                RESOC APPLICATION RECOVERY READINESS TABLE
+                RESOC LIVE CONSOLE // TIER-0 & TIER-1 APPLICATION HEALTH
               </span>
-              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
-                (continuous evaluation cycle)
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "var(--muted)",
+                }}
+              >
+                (continuous posture verification)
               </span>
             </div>
-            <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
-              MeshDefend Continuous Monitor
-            </span>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  backgroundColor: "#4a825e",
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "var(--muted)",
+                }}
+              >
+                Evaluation Cycle: 60s
+              </span>
+            </div>
           </div>
 
-          {/* Clean, border-top tabular list of applications */}
+          {/* Table Container */}
           <div style={{ overflowX: "auto" }}>
             <table
               style={{
                 width: "100%",
                 borderCollapse: "collapse",
                 textAlign: "left",
-                minWidth: 760,
               }}
             >
               <thead>
                 <tr
                   style={{
                     borderBottom: "1px solid var(--border)",
-                    backgroundColor: "var(--surface-raised, #f7f6f5)",
-                    fontFamily: "var(--font-mono), monospace",
-                    fontSize: 11,
-                    letterSpacing: "0.04em",
+                    backgroundColor: "var(--bg)",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 10.5,
+                    letterSpacing: "0.05em",
                     color: "var(--muted)",
                   }}
                 >
-                  <th style={{ padding: "14px 20px" }}>Application</th>
-                  <th style={{ padding: "14px 16px" }}>MVC Tier</th>
-                  <th style={{ padding: "14px 16px" }}>Backup Health</th>
-                  <th style={{ padding: "14px 16px" }}>Recovery Posture Score</th>
-                  <th style={{ padding: "14px 20px", textAlign: "right" }}>Action</th>
+                  <th style={{ padding: "14px 20px", fontWeight: 500 }}>APPLICATION</th>
+                  <th style={{ padding: "14px 16px", fontWeight: 500 }}>MVC TIER</th>
+                  <th style={{ padding: "14px 16px", fontWeight: 500 }}>BACKUP HEALTH</th>
+                  <th style={{ padding: "14px 16px", fontWeight: 500 }}>RECOVERY POSTURE</th>
+                  <th style={{ padding: "14px 20px", fontWeight: 500, textAlign: "right" }}>
+                    ACTION
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -238,42 +254,75 @@ export function ResOCTableFold() {
                       key={row.id}
                       style={{
                         borderBottom: "1px solid var(--border)",
-                        backgroundColor: isExpanded ? "var(--surface-raised, #f7f6f5)" : "var(--bg)",
+                        backgroundColor: isExpanded
+                          ? "var(--surface-raised, #f7f6f5)"
+                          : "var(--bg)",
                         transition: "background-color 0.15s ease",
                       }}
                     >
-                      <td style={{ padding: "16px 20px", fontFamily: "var(--font-body), sans-serif", fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>
+                      <td
+                        style={{
+                          padding: "16px 20px",
+                          fontFamily: 'var(--font-body), Inter, sans-serif',
+                          fontSize: 14,
+                          fontWeight: 600,
+                          color: "var(--ink)",
+                        }}
+                      >
                         {row.application}
                       </td>
 
-                      <td style={{ padding: "16px 16px", fontFamily: "var(--font-mono), monospace", fontSize: 12, color: "var(--ink)" }}>
+                      <td
+                        style={{
+                          padding: "16px 16px",
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 12,
+                          color: "var(--ink)",
+                        }}
+                      >
                         {row.mvcTier}
                       </td>
 
-                      <td style={{ padding: "16px 16px", fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)" }}>
+                      <td
+                        style={{
+                          padding: "16px 16px",
+                          fontFamily: 'var(--font-body), Inter, sans-serif',
+                          fontSize: 13,
+                          color: "var(--ink)",
+                        }}
+                      >
                         {row.backupHealth}
                       </td>
 
-                      <td style={{ padding: "16px 16px", fontFamily: "var(--font-mono), monospace", fontSize: 12 }}>
+                      <td
+                        style={{
+                          padding: "16px 16px",
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                          fontSize: 12,
+                        }}
+                      >
                         {row.postureScoreFormatted}
                       </td>
 
                       <td style={{ padding: "16px 20px", textAlign: "right" }}>
+                        {/* Raw Monospace Technical Trigger (No background fill) */}
                         <button
                           type="button"
                           onClick={() => setExpandedApp(isExpanded ? null : row.id)}
                           style={{
-                            fontFamily: "var(--font-mono), monospace",
-                            fontSize: 11,
-                            letterSpacing: "0.03em",
-                            padding: "6px 14px",
-                            border: isExpanded ? "1px solid var(--orange, #f45532)" : "1px solid var(--ink)",
+                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            fontSize: 11.5,
+                            letterSpacing: "0.04em",
+                            padding: "4px 8px",
+                            border: "none",
+                            background: "transparent",
                             color: isExpanded ? "var(--orange, #f45532)" : "var(--ink)",
-                            backgroundColor: "var(--bg)",
+                            fontWeight: 600,
                             cursor: "pointer",
+                            transition: "color 0.15s ease",
                           }}
                         >
-                          [ {isExpanded ? "Close Drawer" : "Investigate"} ]
+                          [ {isExpanded ? "Close Drawer ×" : "Investigate &rarr;"} ]
                         </button>
                       </td>
                     </tr>
@@ -283,96 +332,181 @@ export function ResOCTableFold() {
             </table>
           </div>
 
-          {/* Drawer showing the recommended action to improve readiness */}
-          {expandedApp && (
-            <div
-              style={{
-                borderTop: "1px solid var(--border)",
-                backgroundColor: "var(--surface-raised, #f7f6f5)",
-                padding: "28px 24px",
-              }}
-            >
-              {(() => {
-                const current = rows.find((r) => r.id === expandedApp);
-                if (!current) return null;
+          {/* Sleek Inline Drawer using Framer Motion AnimatePresence */}
+          <AnimatePresence>
+            {expandedApp && (
+              <motion.div
+                key={expandedApp}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  overflow: "hidden",
+                  borderTop: "1px solid var(--border)",
+                  backgroundColor: "var(--surface-raised, #f7f6f5)",
+                }}
+              >
+                {(() => {
+                  const current = rows.find((r) => r.id === expandedApp);
+                  if (!current) return null;
 
-                return (
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: 16,
-                        borderBottom: "1px solid var(--border)",
-                        paddingBottom: 10,
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                        <span style={{ fontFamily: "var(--font-serif), serif", fontSize: 22, color: "var(--ink)" }}>
-                          ResOC Investigation: {current.application}
-                        </span>
-                        <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
-                          ({current.mvcTier})
-                        </span>
-                      </div>
-                      <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
-                        Live Evaluation Record
-                      </span>
-                    </div>
-
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                        gap: 20,
-                        marginBottom: 20,
-                      }}
-                    >
-                      <div style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg)", padding: 18 }}>
-                        <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 8 }}>
-                          OBSERVED POSTURE RISK EVIDENCE
-                        </div>
-                        <p style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, lineHeight: 1.55, color: "var(--ink)", margin: 0 }}>
-                          {current.evidence}
-                        </p>
-                      </div>
-
-                      <div style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg)", padding: 18 }}>
-                        <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--orange, #f45532)", fontWeight: 600, marginBottom: 8 }}>
-                          RECOMMENDED ACTION TO IMPROVE READINESS
-                        </div>
-                        <p style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, lineHeight: 1.55, color: "var(--ink)", margin: "0 0 8px 0" }}>
-                          {current.recommendedAction}
-                        </p>
-                        <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)" }}>
-                          {current.actionDetails}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <a
-                        href="#bridge-action"
+                  return (
+                    <div style={{ padding: "28px 24px" }}>
+                      <div
                         style={{
-                          fontFamily: "var(--font-mono), monospace",
-                          fontSize: 11,
-                          letterSpacing: "0.04em",
-                          color: "var(--ink)",
-                          textDecoration: "none",
-                          padding: "8px 16px",
-                          border: "1px solid var(--ink)",
-                          backgroundColor: "var(--bg)",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: 18,
+                          borderBottom: "1px solid var(--border)",
+                          paddingBottom: 10,
                         }}
                       >
-                        Act on this in Incident Resolution →
-                      </a>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                          <span
+                            style={{
+                              fontFamily:
+                                'var(--font-display), "Instrument Serif", Georgia, serif',
+                              fontSize: 24,
+                              color: "var(--ink)",
+                            }}
+                          >
+                            ResOC Investigation: {current.application}
+                          </span>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                              fontSize: 11,
+                              color: "var(--muted)",
+                            }}
+                          >
+                            ({current.mvcTier})
+                          </span>
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            fontSize: 11,
+                            color: "var(--muted)",
+                          }}
+                        >
+                          Live Evaluation Record #REC-0982
+                        </span>
+                      </div>
+
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                          gap: 20,
+                          marginBottom: 20,
+                        }}
+                      >
+                        <div
+                          style={{
+                            border: "1px solid var(--border)",
+                            backgroundColor: "var(--bg)",
+                            padding: 20,
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                              fontSize: 10.5,
+                              color: "var(--muted)",
+                              letterSpacing: "0.04em",
+                              marginBottom: 8,
+                            }}
+                          >
+                            OBSERVED POSTURE RISK EVIDENCE
+                          </div>
+                          <p
+                            style={{
+                              fontFamily: 'var(--font-body), Inter, sans-serif',
+                              fontSize: 13.5,
+                              lineHeight: 1.55,
+                              color: "var(--ink)",
+                              margin: 0,
+                            }}
+                          >
+                            {current.evidence}
+                          </p>
+                        </div>
+
+                        <div
+                          style={{
+                            border: "1px solid rgba(244, 85, 50, 0.3)",
+                            backgroundColor: "rgba(244, 85, 50, 0.04)",
+                            padding: 20,
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                              fontSize: 10.5,
+                              color: "var(--orange, #f45532)",
+                              letterSpacing: "0.04em",
+                              fontWeight: 600,
+                              marginBottom: 8,
+                            }}
+                          >
+                            RECOMMENDED REMEDIATION ACTION
+                          </div>
+                          <p
+                            style={{
+                              fontFamily: 'var(--font-body), Inter, sans-serif',
+                              fontSize: 13.5,
+                              lineHeight: 1.55,
+                              color: "var(--ink)",
+                              fontWeight: 500,
+                              margin: 0,
+                            }}
+                          >
+                            {current.recommendedAction}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          paddingTop: 12,
+                          borderTop: "1px solid var(--border)",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          flexWrap: "wrap",
+                          gap: 12,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            fontSize: 11,
+                            color: "var(--muted)",
+                          }}
+                        >
+                          Simulation Result: {current.actionDetails}
+                        </span>
+                        <a
+                          href="/platform/incident-resolution"
+                          style={{
+                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            fontSize: 11.5,
+                            color: "var(--orange, #f45532)",
+                            fontWeight: 600,
+                            textDecoration: "none",
+                          }}
+                        >
+                          Stage in Incident Resolution &rarr;
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                );
-              })()}
-            </div>
-          )}
+                  );
+                })()}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>

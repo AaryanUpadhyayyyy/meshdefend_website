@@ -57,7 +57,7 @@ export function PostureSplitFold() {
         >
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               fontWeight: 500,
               color: "var(--muted)",
@@ -68,7 +68,7 @@ export function PostureSplitFold() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono), monospace",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",
               letterSpacing: "0.05em",
@@ -78,11 +78,11 @@ export function PostureSplitFold() {
           </span>
         </div>
 
-        {/* Display H2 & Narrative */}
-        <div style={{ maxWidth: 960, marginBottom: 56 }}>
+        {/* Display H2 & Verbatim Narrative (NO FAKE PARAGRAPHS) */}
+        <div style={{ maxWidth: 960, marginBottom: 48 }}>
           <h2
             style={{
-              fontFamily: "var(--font-serif), serif",
+              fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
               fontSize: "clamp(36px, 4vw, 56px)",
               lineHeight: 1.04,
               letterSpacing: "-0.03em",
@@ -95,26 +95,17 @@ export function PostureSplitFold() {
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-body), sans-serif",
+              fontFamily: 'var(--font-body), Inter, sans-serif',
               fontSize: 19,
               lineHeight: 1.55,
               color: "var(--ink)",
               fontWeight: 500,
-              marginBottom: 16,
+              margin: 0,
             }}
           >
-            Shift from asking &apos;Are my backups healthy?&apos; to &apos;Can this application actually recover?&apos; Good backup posture does not automatically mean good recovery posture.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: 16,
-              lineHeight: 1.65,
-              color: "var(--muted)",
-              maxWidth: 820,
-            }}
-          >
-            Backup posture measures job execution: did snapshots trigger, did storage deduplicate, did logs truncate? Recovery posture measures business survivability: are recovery points clean of malware, are dependencies mapped, are compute resources reserved, and is the recovery sequence proven? MeshDefend evaluates all five pillars continuously.
+            Shift from asking &apos;Are my backups healthy?&apos; to &apos;Can this application
+            actually recover?&apos; Good backup posture does not automatically mean good recovery
+            posture.
           </p>
         </div>
 
@@ -150,7 +141,7 @@ export function PostureSplitFold() {
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
                     color: "var(--muted)",
                     letterSpacing: "0.05em",
@@ -160,7 +151,7 @@ export function PostureSplitFold() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
                     color: "var(--ink)",
                     padding: "2px 8px",
@@ -174,7 +165,7 @@ export function PostureSplitFold() {
 
               <div
                 style={{
-                  fontFamily: "var(--font-serif), serif",
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                   fontSize: 28,
                   color: "var(--ink)",
                   marginBottom: 8,
@@ -184,7 +175,7 @@ export function PostureSplitFold() {
               </div>
               <p
                 style={{
-                  fontFamily: "var(--font-body), sans-serif",
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
                   fontSize: 14,
                   lineHeight: 1.5,
                   color: "var(--muted)",
@@ -197,38 +188,80 @@ export function PostureSplitFold() {
               {/* Boring 100% Success Metrics */}
               <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 32 }}>
                 <div style={{ paddingBottom: 14, borderBottom: "1px solid var(--border)" }}>
-                  <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 4 }}>
-                    PRIMARY BACKUP JOB
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11,
+                      color: "var(--muted)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    COMMVAULT & VEEAM JOB EXECUTION
                   </div>
-                  <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 16, fontWeight: 600, color: "var(--ink)" }}>
-                    Commvault Job: OK
-                  </div>
-                  <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", marginTop: 2 }}>
-                    Finished on schedule · 0 transport timeouts
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: "#4a825e", fontWeight: 700 }}>✓</span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                      }}
+                    >
+                      100% Completed on Schedule
+                    </span>
                   </div>
                 </div>
 
                 <div style={{ paddingBottom: 14, borderBottom: "1px solid var(--border)" }}>
-                  <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 4 }}>
-                    STORAGE LAYER
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11,
+                      color: "var(--muted)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    STORAGE REPOSITORY DEDUPLICATION
                   </div>
-                  <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 16, fontWeight: 600, color: "var(--ink)" }}>
-                    Storage: OK
-                  </div>
-                  <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", marginTop: 2 }}>
-                    Dell DataDomain repository verified within capacity
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: "#4a825e", fontWeight: 700 }}>✓</span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                      }}
+                    >
+                      99.4% Compression & Immutability Lock
+                    </span>
                   </div>
                 </div>
 
                 <div style={{ paddingBottom: 14, borderBottom: "1px solid var(--border)" }}>
-                  <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 11, color: "var(--muted)", marginBottom: 4 }}>
-                    DAILY SLA EVALUATION
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11,
+                      color: "var(--muted)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    RETENTION COMPLIANCE WINDOW
                   </div>
-                  <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 16, fontWeight: 600, color: "var(--ink)" }}>
-                    SLA Compliance: 100%
-                  </div>
-                  <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", marginTop: 2 }}>
-                    Signoff granted by storage automation
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: "#4a825e", fontWeight: 700 }}>✓</span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                      }}
+                    >
+                      30/30 Daily Points Stored
+                    </span>
                   </div>
                 </div>
               </div>
@@ -236,22 +269,27 @@ export function PostureSplitFold() {
 
             <div
               style={{
-                padding: "16px 18px",
-                border: "1px solid var(--border)",
-                backgroundColor: "var(--bg)",
+                paddingTop: 16,
+                borderTop: "1px solid var(--border)",
+                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                fontSize: 11,
+                color: "var(--muted)",
               }}
             >
-              <div style={{ fontFamily: "var(--font-mono), monospace", fontSize: 10, color: "var(--muted)", marginBottom: 4 }}>
-                OPERATIONAL ILLUSION
-              </div>
-              <div style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>
-                Every dashboard is green. No alarms are triggered. The enterprise believes it is resilient.
-              </div>
+              Operations dashboard verdict: All green. Nothing to fix.
             </div>
           </div>
 
-          {/* Right Column (7 cols): RECOVERY POSTURE: AT RISK (Exposed 1px Bento Box) */}
-          <div style={{ padding: "36px 32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          {/* Right Column (7 cols): RECOVERY POSTURE */}
+          <div
+            style={{
+              padding: "36px 36px",
+              backgroundColor: "var(--bg)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
               <div
                 style={{
@@ -263,72 +301,61 @@ export function PostureSplitFold() {
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
-                    color: "var(--muted)",
+                    color: "var(--orange, #f45532)",
                     letterSpacing: "0.05em",
+                    fontWeight: 600,
                   }}
                 >
-                  APPLICATION REALITY
+                  MESHDEFEND REALITY
                 </span>
                 <span
                   style={{
-                    fontFamily: "var(--font-mono), monospace",
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 11,
                     color: "var(--orange, #f45532)",
-                    fontWeight: 600,
                     padding: "2px 8px",
-                    border: "1px solid rgba(244,85,50,0.3)",
-                    backgroundColor: "rgba(244,85,50,0.06)",
+                    border: "1px solid rgba(244, 85, 50, 0.4)",
+                    backgroundColor: "rgba(244, 85, 50, 0.06)",
+                    fontWeight: 600,
                   }}
                 >
-                  RECOVERY POSTURE: AT RISK
+                  HIGH RESILIENCE RISK
                 </span>
               </div>
 
               <div
                 style={{
-                  fontFamily: "var(--font-serif), serif",
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                   fontSize: 28,
                   color: "var(--ink)",
                   marginBottom: 8,
                 }}
               >
-                RECOVERY POSTURE: AT RISK
+                RECOVERY POSTURE
               </div>
               <p
                 style={{
-                  fontFamily: "var(--font-body), sans-serif",
+                  fontFamily: 'var(--font-body), Inter, sans-serif',
                   fontSize: 14,
                   lineHeight: 1.5,
                   color: "var(--muted)",
-                  marginBottom: 28,
-                }}
-              >
-                Exposed 1px bento box highlighting exactly what is preventing recovery:
-              </p>
-
-              {/* Exposed 1px Bento Box */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr",
-                  gap: 12,
                   marginBottom: 24,
                 }}
               >
+                The 3 hidden posture drift failures uncovered when simulating full workload restoration:
+              </p>
+
+              {/* Bento Grid: 3 Concrete Posture Failures */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
                 {bentoItems.map((item, idx) => {
                   const isSelected = activeBento === idx;
 
                   return (
                     <div
-                      key={item.title}
+                      key={idx}
                       onClick={() => setActiveBento(idx)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") setActiveBento(idx);
-                      }}
                       style={{
                         padding: "16px 20px",
                         border: isSelected
@@ -336,7 +363,7 @@ export function PostureSplitFold() {
                           : "1px solid var(--border)",
                         backgroundColor: isSelected
                           ? "rgba(244, 85, 50, 0.04)"
-                          : "var(--bg)",
+                          : "var(--surface-raised, #f7f6f5)",
                         cursor: "pointer",
                         transition: "all 0.15s ease",
                       }}
@@ -351,29 +378,31 @@ export function PostureSplitFold() {
                       >
                         <span
                           style={{
-                            fontFamily: "var(--font-body), sans-serif",
-                            fontSize: 15,
+                            fontFamily: 'var(--font-body), Inter, sans-serif',
+                            fontSize: 14,
                             fontWeight: 600,
                             color: "var(--ink)",
                           }}
                         >
                           {item.title}
                         </span>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-mono), monospace",
-                            fontSize: 11,
-                            color: "var(--orange, #f45532)",
-                            fontWeight: 600,
-                          }}
-                        >
-                          [{item.status}]
-                        </span>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                              fontSize: 11,
+                              color: "var(--orange, #f45532)",
+                              fontWeight: 700,
+                            }}
+                          >
+                            {item.status} ({item.score})
+                          </span>
+                        </div>
                       </div>
 
                       <p
                         style={{
-                          fontFamily: "var(--font-body), sans-serif",
+                          fontFamily: 'var(--font-body), Inter, sans-serif',
                           fontSize: 13,
                           lineHeight: 1.5,
                           color: "var(--muted)",
@@ -385,13 +414,12 @@ export function PostureSplitFold() {
 
                       <div
                         style={{
-                          fontFamily: "var(--font-mono), monospace",
+                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                           fontSize: 11,
-                          color: "var(--ink)",
-                          opacity: 0.7,
+                          color: "var(--orange, #f45532)",
                         }}
                       >
-                        Observation: {item.auditNote}
+                        Blind spot: {item.auditNote}
                       </div>
                     </div>
                   );
@@ -401,31 +429,34 @@ export function PostureSplitFold() {
 
             <div
               style={{
-                padding: "14px 18px",
-                border: "1px solid var(--border)",
-                backgroundColor: "var(--surface-raised, #f7f6f5)",
+                paddingTop: 16,
+                borderTop: "1px solid var(--border)",
                 display: "flex",
-                alignItems: "center",
                 justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
                 gap: 12,
               }}
             >
-              <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: 13, color: "var(--ink)", fontWeight: 500 }}>
-                Finding: Backups are healthy, yet the application cannot recover.
-              </span>
-              <a
-                href="#resoc-operationalize"
+              <span
                 style={{
-                  fontFamily: "var(--font-mono), monospace",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                   fontSize: 11,
-                  color: "var(--ink)",
-                  textDecoration: "none",
-                  borderBottom: "1px solid var(--ink)",
-                  flexShrink: 0,
+                  color: "var(--muted)",
                 }}
               >
-                Meet ResOC ↓
-              </a>
+                Calculated Tier-0 Recovery Readiness: 44% (Critical Gaps)
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  color: "var(--orange, #f45532)",
+                  fontWeight: 600,
+                }}
+              >
+                Immediate Runbook Prescribed &rarr;
+              </span>
             </div>
           </div>
         </div>
