@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -313,7 +313,7 @@ export function SupportForm({
         },
         "+=0.1"
       );
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       triggerErrorShake();
       setErrorMessage(

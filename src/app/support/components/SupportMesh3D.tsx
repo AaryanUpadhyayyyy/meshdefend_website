@@ -147,16 +147,7 @@ function MeshScene({
   );
 
   const ringGeo = useMemo(() => new THREE.RingGeometry(0.08, 0.12, 32), []);
-  const ringMaterial = useMemo(
-    () =>
-      new THREE.MeshBasicMaterial({
-        color: 0x3dbe7a,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0,
-      }),
-    []
-  );
+  const ringMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -166,9 +157,8 @@ function MeshScene({
       linesGeometry.dispose();
       linesMaterial.dispose();
       ringGeo.dispose();
-      ringMaterial.dispose();
     };
-  }, [sphereGeo, nodeMaterial, linesGeometry, linesMaterial, ringGeo, ringMaterial]);
+  }, [sphereGeo, nodeMaterial, linesGeometry, linesMaterial, ringGeo]);
 
   // Set up instance matrices and initial colors
   useEffect(() => {
@@ -270,7 +260,9 @@ function MeshScene({
         const scale = 1 + ((Date.now() % 1600) / 1600) * 2.8;
         const opacity = Math.max(0, 1 - (scale - 1) / 2.8);
         ring.scale.set(scale, scale, 1);
-        ringMaterial.opacity = opacity * 0.85;
+        if (ringMaterialRef.current) {
+          ringMaterialRef.current.opacity = opacity * 0.85;
+        }
 
         // Position ring at target cluster
         const c = CLUSTER_CENTERS[targetCluster];
@@ -278,7 +270,9 @@ function MeshScene({
         ring.lookAt(0, 0, 0);
       } else {
         ring.visible = false;
-        ringMaterial.opacity = 0;
+        if (ringMaterialRef.current) {
+          ringMaterialRef.current.opacity = 0;
+        }
       }
     }
   });
@@ -295,7 +289,15 @@ function MeshScene({
       <lineSegments geometry={linesGeometry} material={linesMaterial} />
 
       {/* 3. Verification Pulse Ring (Draw Call #3, emissive) */}
-      <mesh ref={pulseRingRef} geometry={ringGeo} material={ringMaterial} visible={false} />
+      <mesh ref={pulseRingRef} geometry={ringGeo} visible={false}>
+        <meshBasicMaterial
+          ref={ringMaterialRef}
+          color={0x3dbe7a}
+          side={THREE.DoubleSide}
+          transparent
+          opacity={0}
+        />
+      </mesh>
     </group>
   );
 }

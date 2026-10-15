@@ -5,6 +5,7 @@ import { Stage } from "./components/Stage";
 import { ReportIndex } from "./components/ReportIndex";
 import { Handoff } from "./components/Handoff";
 import { Ask } from "./components/Ask";
+import "./observability.css";
 
 export const metadata: Metadata = {
   title: "Unified Resilience Observability | MeshDefend",
