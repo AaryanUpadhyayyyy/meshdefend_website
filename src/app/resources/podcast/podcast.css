@@ -224,20 +224,20 @@ html.dark .experience,
 }
 
 .mode-detail .masthead {
-  opacity: 0.3;
-  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-12px);
+  transition: opacity 300ms ease, transform 300ms ease;
 }
 
-/* ─── Detail Panel ─────────────────────────────────────────────── */
+/* ─── Detail Panel (Full-Width Coordinated Card) ─────────────────── */
 
 .detail-panel {
-  position: absolute;
-  top: 15%;
-  right: clamp(36px, 5vw, 90px);
-  z-index: 10;
-  width: min(38vw, 490px);
-  max-height: 74vh;
-  padding: clamp(24px, 3vw, 40px);
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-height: calc(100vh - 148px);
+  padding: clamp(28px, 3vw, 44px);
   overflow-y: auto;
   border: 1px solid rgba(34, 31, 34, 0.12);
   background: rgba(254, 252, 250, 0.96);
@@ -248,7 +248,7 @@ html.dark .experience,
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   color: #1a1817;
-  animation: panelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
 }
 
 @keyframes panelSlideIn {
@@ -354,8 +354,8 @@ html.dark .experience,
 
 .meta-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px 22px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px 24px;
   margin: 26px 0 0;
   padding: 20px 0 0;
   border-top: 1px solid rgba(34, 31, 34, 0.12);
@@ -391,18 +391,19 @@ html.dark .experience,
   font-size: 0.65rem;
 }
 
-/* ─── Left Open Book Video Player Overlay ───────────────────────── */
+/* ─── Detail Mode Full-Width Coordinated Layout ─────────────────── */
 
-.open-book-player-overlay {
+.detail-layout {
   position: absolute;
-  top: 22%;
-  left: clamp(36px, 8vw, 110px);
-  width: min(44vw, 580px);
+  top: 96px;
+  bottom: 32px;
+  left: clamp(24px, 4vw, 56px);
+  right: clamp(24px, 4vw, 56px);
   z-index: 10;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  animation: overlayFadeIn 0.5s ease-out forwards;
+  align-items: center;
+  gap: clamp(24px, 3.5vw, 48px);
+  animation: overlayFadeIn 0.4s ease-out forwards;
 }
 
 @keyframes overlayFadeIn {
@@ -414,6 +415,14 @@ html.dark .experience,
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.open-book-player-overlay {
+  flex: 0 0 clamp(440px, 46vw, 700px);
+  width: clamp(440px, 46vw, 700px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .video-player-frame {
@@ -692,22 +701,28 @@ html.dark .yt-ext-link:hover,
     display: none;
   }
 
-  .open-book-player-overlay {
+  .detail-layout {
     position: relative;
     top: auto;
+    bottom: auto;
     left: auto;
+    right: auto;
+    flex-direction: column;
+    padding: 80px 20px 40px;
+    gap: 20px;
+  }
+
+  .open-book-player-overlay {
     width: 100%;
-    margin-top: 80px;
-    padding: 0 20px;
+    flex: none;
+    padding: 0;
   }
 
   .detail-panel {
-    position: relative;
-    top: auto;
-    right: auto;
     width: 100%;
     max-height: none;
-    margin-top: 20px;
+    flex: none;
+    padding: 24px;
   }
 
   .experience.mode-detail {

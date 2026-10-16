@@ -70,7 +70,7 @@ export function PodcastShelfClient() {
         <div className="masthead__main">
           <div className="masthead__pill">
             <span className="masthead__pill-dot" />
-            <span>Video Podcast Series · Recorded Volumes</span>
+            <span>Video Podcast Series · Recorded Episodes</span>
           </div>
           <h1 className="masthead__title">The Resilience Ledger</h1>
           <p className="masthead__deck">
@@ -78,7 +78,7 @@ export function PodcastShelfClient() {
           </p>
           <div className="masthead__prompt">
             <span className="masthead__prompt-icon">✦</span>
-            <span>Select any volume below to launch archival broadcast</span>
+            <span>Select any episode below to launch archival broadcast</span>
           </div>
         </div>
 
@@ -90,7 +90,7 @@ export function PodcastShelfClient() {
 
       {/* ── 3D WebGL Canvas (Fixed Sunset Landscape Background) ── */}
       <Podcast3DScene
-        key="podcast-shelf-scene-v12"
+        key="podcast-shelf-scene-v14"
         selectedIndex={selectedIndex}
         onSelectIndex={setSelectedIndex}
         mode={mode}
@@ -112,7 +112,7 @@ export function PodcastShelfClient() {
           }}
         >
           <span className="pointer-label-index">
-            Volume {PODCAST_EPISODES[hoveredIndex].episodeNumber} · {hoveredIndex === selectedIndex ? "Click to Open" : "Click to View"}
+            {PODCAST_EPISODES[hoveredIndex].episodeNumber} · {hoveredIndex === selectedIndex ? "Click to Play" : "Click to View"}
           </span>
           <span className="pointer-label-title">
             {PODCAST_EPISODES[hoveredIndex].title}
@@ -122,9 +122,9 @@ export function PodcastShelfClient() {
 
       {/* ── Detail Mode: Open Book YouTube Player & Archival Panel ── */}
       {mode === "detail" && (
-        <>
+        <div className="detail-layout animate-fade-in">
           {/* Active 16:9 YouTube Player over the open left page */}
-          <div className="open-book-player-overlay animate-fade-in">
+          <div className="open-book-player-overlay">
             <div className="video-player-frame">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${activeEpisode.ytId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`}
@@ -157,8 +157,8 @@ export function PodcastShelfClient() {
               className="close-button"
               id="close-detail"
               onClick={handleCloseDetail}
-              aria-label="Close book and return to shelf"
-              title="Return to Shelf (Esc)"
+              aria-label="Close video and return to episodes"
+              title="Return to Episodes (Esc)"
             >
               <svg viewBox="0 0 15 15">
                 <path d="M4 4L11 11M11 4L4 11" />
@@ -166,7 +166,7 @@ export function PodcastShelfClient() {
             </button>
 
             <p className="eyebrow" id="detail-eyebrow">
-              VOLUME {activeEpisode.episodeNumber} · {activeEpisode.discipline.toUpperCase()}
+              EPISODE {activeEpisode.episodeNumber} · {activeEpisode.discipline.toUpperCase()}
             </p>
 
             <h2 className="detail-title" id="detail-title">
@@ -191,19 +191,19 @@ export function PodcastShelfClient() {
                 <dd>{activeEpisode.duration}</dd>
               </div>
               <div>
-                <dt>EDITION BINDING</dt>
+                <dt>BROADCAST FORMAT</dt>
                 <dd>{activeEpisode.binding}</dd>
               </div>
             </dl>
 
             <div className="detail-controls">
               <button className="text-button" onClick={handleCloseDetail}>
-                RETURN TO SHELF
+                RETURN TO EPISODES
               </button>
               <p className="microcopy">Press ESC to return</p>
             </div>
           </aside>
-        </>
+        </div>
       )}
     </div>
   );
