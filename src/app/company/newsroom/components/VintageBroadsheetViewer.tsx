@@ -18,6 +18,7 @@ export function VintageBroadsheetViewer() {
       url: article.spreadImage || article.image,
       externalUrl: article.url,
       excerpt: article.excerpt,
+      aspectRatio: "1672 / 941",
     }));
 
     const M = PAGES.length;
@@ -52,8 +53,7 @@ export function VintageBroadsheetViewer() {
       !capBox ||
       !hint ||
       !zoomWrap ||
-      !zoomInner ||
-      !loupe
+      !zoomInner
     ) {
       return;
     }
@@ -62,7 +62,7 @@ export function VintageBroadsheetViewer() {
 
     /* ─── Exact Turning Leaf Physics & Geometry (news.html) ───────── */
     const N = 18;       /* 18 strips — enough for a smooth curve */
-    const SPAN = 0.449; /* gutter → outer page edge, as a fraction */
+    const SPAN = 0.50;  /* gutter → outer page edge, full 50% width without gaps */
     const BETA = 0.60;  /* peak curl of the arc, radians */
     let idx = 0;
     let turn: { dir: "next" | "prev"; from: number; to: number; t: number } | null = null;
@@ -130,78 +130,10 @@ export function VintageBroadsheetViewer() {
       return c;
     }
 
-    function applyTurn(t: number) {
-      const th = Math.PI * t;                  /* how far the leaf has swung */
-      const beta = BETA * Math.sin(Math.PI * t); /* it is flat at both ends */
-      const D = 180 / Math.PI;
-      const tt = th + beta;
-      const td = (2 * beta) / N;
-      sb3d!.style.setProperty("--tt", (tt * D).toFixed(2) + "deg");
-      sb3d!.style.setProperty("--td", (td * D).toFixed(3) + "deg");
-      sb3d!.style.setProperty("--shade", Math.sin(Math.PI * t).toFixed(3));
-      fadeCaption(t);
-      for (let i = 0; i < strips.length; i++) {
-        const l1 = Math.abs(Math.cos(tt - i * td));        /* facing at this strip's near edge */
-        const l2 = Math.abs(Math.cos(tt - (i + 1) * td));    /* ...and at its far edge */
-        const st = strips[i].style;
-        st.setProperty("--lit", l1.toFixed(3));
-        st.setProperty("--a1", ((1 - l1) * 0.62).toFixed(3));
-        st.setProperty("--a2", ((1 - l2) * 0.62).toFixed(3));
-      }
-    }
-
-    function paint() {
-      book!.textContent = "";
-      if (!turn) {
-        const f = el("div", "sb-full");
-        const im = new Image();
-        im.src = PAGES[idx].url;
-        im.alt = PAGES[idx].title;
-        im.draggable = false;
-        f.appendChild(im);
-        book!.appendChild(f);
-        sb3d!.style.setProperty("--shade", "0");
-      } else {
-        const next = turn.dir === "next";
-        book!.appendChild(halfEl("left", next ? turn.from : turn.to));
-        book!.appendChild(halfEl("right", next ? turn.to : turn.from));
-        book!.appendChild(buildCurl(turn.dir, turn.from, turn.to));
-        applyTurn(turn.t);
-      }
-      const a = el("button", "sb-zone sb-prev");
-      const b = el("button", "sb-zone sb-next");
-      a.setAttribute("aria-label", "previous page");
-      b.setAttribute("aria-label", "next page");
-      book!.appendChild(a);
-      book!.appendChild(b);
-      layout();
-      caption();
-      marks();
-      syncZoomLayer();
-      placeLoupe();
-    }
-
-    let capOut: HTMLElement | null = null;
-    let capIn: HTMLElement | null = null;
-
-    function caption() {
-      capBox!.textContent = "";
-      capOut = capIn = null;
-      const curIdx = turn ? turn.to : idx;
-
-      if (turn) {
-        capOut = el("p", "sb-caption live");
-        capOut.textContent = PAGES[turn.from].title;
-        capBox!.appendChild(capOut);
-        capIn = el("p", "sb-caption live");
-        capIn.textContent = PAGES[turn.to].title;
-        capBox!.appendChild(capIn);
-        fadeCaption(turn.t);
-      } else {
-        const p = el("p", "sb-caption");
-        p.textContent = PAGES[idx].title;
-        capBox!.appendChild(p);
-      }
+    let lastReportedIdx = -1;
+    function updateDockAndCounter(curIdx: number) {
+      if (curIdx === lastReportedIdx) return;
+      lastReportedIdx = curIdx;
 
       /* ─── Render Direct News Link Below the Spread ───────────────── */
       if (articleLinkBox) {
@@ -239,6 +171,87 @@ export function VintageBroadsheetViewer() {
           <span>${PAGES[curIdx].place}</span>
         `;
       }
+    }
+
+    function applyTurn(t: number) {
+      const th = Math.PI * t;                  /* how far the leaf has swung */
+      const beta = BETA * Math.sin(Math.PI * t); /* it is flat at both ends */
+      const D = 180 / Math.PI;
+      const tt = th + beta;
+      const td = (2 * beta) / N;
+      sb3d!.style.setProperty("--tt", (tt * D).toFixed(2) + "deg");
+      sb3d!.style.setProperty("--td", (td * D).toFixed(3) + "deg");
+      sb3d!.style.setProperty("--shade", Math.sin(Math.PI * t).toFixed(3));
+      fadeCaption(t);
+      const activeIdx = turn ? (t >= 0.5 ? turn.to : turn.from) : idx;
+      updateDockAndCounter(activeIdx);
+      for (let i = 0; i < strips.length; i++) {
+        const l1 = Math.abs(Math.cos(tt - i * td));        /* facing at this strip's near edge */
+        const l2 = Math.abs(Math.cos(tt - (i + 1) * td));    /* ...and at its far edge */
+        const st = strips[i].style;
+        st.setProperty("--lit", l1.toFixed(3));
+        st.setProperty("--a1", ((1 - l1) * 0.62).toFixed(3));
+        st.setProperty("--a2", ((1 - l2) * 0.62).toFixed(3));
+      }
+    }
+
+    function paint() {
+      layout();
+      book!.textContent = "";
+      book!.style.aspectRatio = "1672 / 941";
+
+      if (!turn) {
+        const f = el("div", "sb-full");
+        const im = new Image();
+        im.src = PAGES[idx].url;
+        im.alt = PAGES[idx].title;
+        im.draggable = false;
+        f.appendChild(im);
+        book!.appendChild(f);
+        sb3d!.style.setProperty("--shade", "0");
+      } else {
+        const next = turn.dir === "next";
+        book!.appendChild(halfEl("left", next ? turn.from : turn.to));
+        book!.appendChild(halfEl("right", next ? turn.to : turn.from));
+        book!.appendChild(buildCurl(turn.dir, turn.from, turn.to));
+        applyTurn(turn.t);
+      }
+      const a = el("button", "sb-zone sb-prev");
+      const b = el("button", "sb-zone sb-next");
+      a.setAttribute("aria-label", "previous page");
+      b.setAttribute("aria-label", "next page");
+      book!.appendChild(a);
+      book!.appendChild(b);
+      layout();
+      caption();
+      marks();
+      syncZoomLayer();
+      placeLoupe();
+    }
+
+    let capOut: HTMLElement | null = null;
+    let capIn: HTMLElement | null = null;
+
+    function caption() {
+      capBox!.textContent = "";
+      capOut = capIn = null;
+      const curIdx = turn ? (turn.t >= 0.5 ? turn.to : turn.from) : idx;
+
+      if (turn) {
+        capOut = el("p", "sb-caption live");
+        capOut.textContent = PAGES[turn.from].title;
+        capBox!.appendChild(capOut);
+        capIn = el("p", "sb-caption live");
+        capIn.textContent = PAGES[turn.to].title;
+        capBox!.appendChild(capIn);
+        fadeCaption(turn.t);
+      } else {
+        const p = el("p", "sb-caption");
+        p.textContent = PAGES[idx].title;
+        capBox!.appendChild(p);
+      }
+
+      updateDockAndCounter(curIdx);
     }
 
     function fadeCaption(t: number) {
@@ -304,9 +317,13 @@ export function VintageBroadsheetViewer() {
         if (s.kind === "tween") {
           s.e += dt;
           const k = Math.min(1, s.e / s.dur);
-          turn.t = s.from + (s.target - s.from) * k;
+          // Fluid sinusoidal easing that matches physical paper swing by hand
+          const progress = 0.5 - 0.5 * Math.cos(Math.PI * k);
+          turn.t = s.from + (s.target - s.from) * progress;
           applyTurn(turn.t);
           if (k >= 1) {
+            turn.t = s.target;
+            applyTurn(turn.t);
             spring = null;
             const d = s.done;
             if (d) d();
@@ -315,7 +332,9 @@ export function VintageBroadsheetViewer() {
           const x = turn.t - s.target;
           s.v += (-s.k * x - s.c * s.v) * dt;
           turn.t += s.v * dt;
-          if (Math.abs(turn.t - s.target) < 0.002 && Math.abs(s.v) < 0.02) {
+          const isNear = Math.abs(turn.t - s.target) < 0.005 && Math.abs(s.v) < 0.05;
+          const isPast = (s.target === 1 && turn.t >= 1) || (s.target === 0 && turn.t <= 0);
+          if (isNear || isPast) {
             turn.t = s.target;
             spring = null;
             applyTurn(turn.t);
@@ -423,12 +442,15 @@ export function VintageBroadsheetViewer() {
 
     const onStagePointerDown = (e: PointerEvent) => {
       if (e.button !== 0) return;
-      e.preventDefault(); /* no text selection, no image drag */
       const target = e.target as HTMLElement | null;
+      // Only capture pointer on the page reading zones, never on buttons, pills, dock, or outer stage
       const onBook = target?.closest(".sb-zone");
+      if (!onBook || introOn) return;
+
+      e.preventDefault();
       stage.setPointerCapture(e.pointerId);
       hideHint();
-      if (!onBook || introOn) return;
+
       const r = bookRect();
       const dir = (e.clientX - r.left) / r.width > 0.5 ? "next" : "prev";
       startTurn(dir, 0);
@@ -491,27 +513,24 @@ export function VintageBroadsheetViewer() {
 
     function commit() {
       if (!turn) return;
-      if (REDUCED) {
-        idx = turn.to;
-        turn = null;
-        paint();
-        return;
-      }
-      animateTo(1, () => {
+      const remainingDist = Math.max(0.01, 1 - turn.t);
+      // Natural 0.78s broadsheet page turn duration, matching physical mouse-drag speed
+      const dur = Math.max(0.25, remainingDist * 0.78);
+      tweenTo(1, dur, () => {
         if (turn) idx = turn.to;
         turn = null;
         paint();
-      }, 170, 26);
-      kick();
+      });
     }
 
     function cancel() {
       if (!turn) return;
-      animateTo(0, () => {
+      const remainingDist = Math.max(0.01, turn.t);
+      const dur = Math.max(0.20, remainingDist * 0.65);
+      tweenTo(0, dur, () => {
         turn = null;
         paint();
-      }, 150, 24);
-      kick();
+      });
     }
 
     function step(dir: "next" | "prev") {
@@ -543,7 +562,7 @@ export function VintageBroadsheetViewer() {
 
     /* ─── Loupe & Magnifier Controls (news.html) ─────────────────── */
     const MAG = 2.3;
-    let loupeOn = true;
+    let loupeOn = false;
     let lx: number | null = null;
     let ly: number | null = null;
     let lgrab: { cx: number; cy: number; lx0: number; ly0: number } | null = null;
@@ -559,6 +578,7 @@ export function VintageBroadsheetViewer() {
 
     /* Park it on the desk at the lower right, half off the book */
     function restLoupe() {
+      if (!loupe) return;
       const b = bookBox();
       lx = b.x + b.w * 0.88;
       ly = b.y + b.h * 0.855;
@@ -577,18 +597,18 @@ export function VintageBroadsheetViewer() {
 
     /* Exact coordinate math matching news.html and 1760/1240 bounds */
     function placeLoupe() {
-      if (lx === null || ly === null) return;
+      if (!loupe || lx === null || ly === null) return;
       const B = bookBox();
       const bw = B.w;
       const bh = B.h;
       if (!bw || !bh) return;
 
       const R = loupeSize() / 2;
-      const bez = R * 2 * 0.058;
-      loupe!.style.setProperty("--lr", R * 2 + "px");
-      loupe!.style.transform =
+      const bez = R * 2 * 0.028;
+      loupe.style.setProperty("--lr", R * 2 + "px");
+      loupe.style.transform =
         "translate3d(" + (lx - R).toFixed(1) + "px," + (ly - R).toFixed(1) + "px,0)";
-      if (loupeOn) loupe!.classList.add("on");
+      if (loupeOn) loupe.classList.add("on");
 
       /* where the paper's edges actually land once the book is scaled */
       const z = view.z;
@@ -717,7 +737,7 @@ export function VintageBroadsheetViewer() {
     /* ─── The Index Plates (Exact news.html) ───────────────────────── */
     function marks() {
       if (!plateList) return;
-      const cur = turn ? turn.to : idx;
+      const cur = turn ? (turn.t >= 0.5 ? turn.to : turn.from) : idx;
       const items = plateList.querySelectorAll<HTMLButtonElement>(".plate");
       items.forEach((b, i) =>
         b.setAttribute("aria-current", i === cur ? "true" : "false")
@@ -844,18 +864,20 @@ export function VintageBroadsheetViewer() {
     stage.addEventListener("selectstart", (e) => e.preventDefault());
     stage.addEventListener("dblclick", () => setView(view.trx, view.try_, 1));
 
-    loupe.addEventListener("pointerdown", onLoupePointerDown);
-    loupe.addEventListener("pointermove", onLoupePointerMove);
-    loupe.addEventListener("pointerup", dropLoupe);
-    loupe.addEventListener("pointercancel", dropLoupe);
+    if (loupe) {
+      loupe.addEventListener("pointerdown", onLoupePointerDown);
+      loupe.addEventListener("pointermove", onLoupePointerMove);
+      loupe.addEventListener("pointerup", dropLoupe);
+      loupe.addEventListener("pointercancel", dropLoupe);
 
-    if (loupeBtn) {
-      loupeBtn.onclick = () => {
-        loupeOn = !loupeOn;
-        loupeBtn.setAttribute("aria-pressed", String(loupeOn));
-        loupe.classList.toggle("on", loupeOn);
-        if (loupeOn && lx === null) restLoupe();
-      };
+      if (loupeBtn) {
+        loupeBtn.onclick = () => {
+          loupeOn = !loupeOn;
+          loupeBtn.setAttribute("aria-pressed", String(loupeOn));
+          loupe.classList.toggle("on", loupeOn);
+          if (loupeOn && lx === null) restLoupe();
+        };
+      }
     }
 
     const ZOOM_STEPS = [0.85, 1.0, 1.15, 1.30, 1.50, 1.75, 2.0];
@@ -916,14 +938,32 @@ export function VintageBroadsheetViewer() {
     stage.addEventListener("dblclick", onStageDblClick);
     stage.addEventListener("wheel", onStageWheel, { passive: false });
 
-    if (sbLeft) sbLeft.onclick = () => step("prev");
-    if (sbRight) sbRight.onclick = () => step("next");
-
-    if (pageTurnPill) {
-      pageTurnPill.onclick = (e) => {
+    const triggerPrev = (e?: Event) => {
+      if (e) {
+        e.preventDefault();
         e.stopPropagation();
-        step("next");
-      };
+      }
+      hideHint();
+      step("prev");
+    };
+
+    const triggerNext = (e?: Event) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      hideHint();
+      step("next");
+    };
+
+    if (sbLeft) {
+      sbLeft.onclick = triggerPrev;
+    }
+    if (sbRight) {
+      sbRight.onclick = triggerNext;
+    }
+    if (pageTurnPill) {
+      pageTurnPill.onclick = triggerNext;
     }
 
     if (heroDown) {
@@ -960,20 +1000,22 @@ export function VintageBroadsheetViewer() {
 
       syncZoom();
       restLoupe();
-      setTimeout(startIntro, 220);
     })();
 
     return () => {
+      if (raf !== null) cancelAnimationFrame(raf);
       stage.removeEventListener("pointerdown", onStagePointerDown);
       stage.removeEventListener("pointermove", onStagePointerMove);
       stage.removeEventListener("pointerup", endDrag);
       stage.removeEventListener("pointercancel", endDrag);
       stage.removeEventListener("dblclick", onStageDblClick);
       stage.removeEventListener("wheel", onStageWheel);
-      loupe.removeEventListener("pointerdown", onLoupePointerDown);
-      loupe.removeEventListener("pointermove", onLoupePointerMove);
-      loupe.removeEventListener("pointerup", dropLoupe);
-      loupe.removeEventListener("pointercancel", dropLoupe);
+      if (loupe) {
+        loupe.removeEventListener("pointerdown", onLoupePointerDown);
+        loupe.removeEventListener("pointermove", onLoupePointerMove);
+        loupe.removeEventListener("pointerup", dropLoupe);
+        loupe.removeEventListener("pointercancel", dropLoupe);
+      }
       window.removeEventListener("pointermove", onPointerMoveWindow);
       window.removeEventListener("pointerout", onPointerOutWindow);
       window.removeEventListener("blur", onBlurWindow);
@@ -986,19 +1028,6 @@ export function VintageBroadsheetViewer() {
     <div ref={rootRef}>
       {/* ─── Sketchbook / Broadsheet Hero (news.html) ────────────────── */}
       <section id="sketchbook" className="hero">
-        <img
-          className="botany l"
-          src="/images/vintage/botany-left-sunset.png"
-          alt=""
-          aria-hidden="true"
-        />
-        <img
-          className="botany r"
-          src="/images/vintage/botany-right-sunset.png"
-          alt=""
-          aria-hidden="true"
-        />
-
         <p className="hero-kicker">
           <span className="masthead-sunset-dot" />
           The Resilience Gazette · Dispatches · Press Coverage &amp; Milestones
@@ -1025,24 +1054,11 @@ export function VintageBroadsheetViewer() {
             {/* 3D Box & Exact 1760/1240 Broadsheet Book (Little Larger: 1040px) */}
             <div className="sb-3d" id="sb3d">
               <div className="sb-tilt" id="sbTilt">
-                <div className="sb-cast ambient" aria-hidden="true" />
-                <div className="sb-cast contact" aria-hidden="true" />
-                <div className="sb-cast hair" aria-hidden="true" />
                 <div className="sb-book" id="sbBook" />
               </div>
 
               <div className="zoomwrap" id="zoomWrap" aria-hidden="true">
                 <div className="zoominner" id="zoomInner" />
-              </div>
-
-              {/* Real Annular Brass & Sunset Gold Loupe Magnifier */}
-              <div className="loupe" id="loupe">
-                <span className="grip" />
-                <span className="ring">
-                  <span className="lens" id="loupeLens">
-                    <span className="mag" id="loupeMag" />
-                  </span>
-                </span>
               </div>
             </div>
 
@@ -1104,25 +1120,6 @@ export function VintageBroadsheetViewer() {
                   <line x1="10" y1="5" x2="10" y2="15" />
                 </svg>
               </button>
-
-              <span className="dock-tool-sep" aria-hidden="true" />
-
-              {/* Magnifier Loupe Toggle Button */}
-              <button
-                type="button"
-                className="newsbook-loupe-btn"
-                id="loupeBtn"
-                aria-label="Toggle Magnifier Lens"
-                aria-pressed="true"
-                title="Toggle Magnifier Lens"
-              >
-                <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-                  <circle cx="8.8" cy="8.8" r="5.8" />
-                  <path d="M13 13l4.4 4.4" />
-                  <path d="M6.4 7.2a3.2 3.2 0 0 1 2.4-1.4" opacity=".55" />
-                </svg>
-                <span className="loupe-btn-text">Magnifier</span>
-              </button>
             </div>
           </div>
 
@@ -1133,7 +1130,7 @@ export function VintageBroadsheetViewer() {
           </div>
 
           <p className="sb-hint" id="sbHint">
-            Click arrows or drag edge to turn page · Drag glass to inspect · Use zoom controls or double-click to scale
+            Click arrows or drag edge to turn page · Use zoom controls (+/-) or double-click to scale
           </p>
         </div>
 
@@ -1168,12 +1165,6 @@ export function VintageBroadsheetViewer() {
             MeshDefend is the autonomous enterprise operations layer for backup, recovery, and resilience. Founded by former Dell infrastructure leaders <a className="bio-link" href="#plates">Tejas Pandit and Ravi Chitloor</a>, the platform delivers ResOC (Resilience Operations Center) powered by patent-pending <a className="bio-link" href="/platform">Agent Mesh™</a> technology. Enterprise backup environments are vast, fragmented, and vulnerable to silent failures across Commvault, Veeam, Dell PowerProtect, and multi-cloud vaults. MeshDefend unifies operations, proactively validates recovery readiness, and eliminates catastrophic downtime before it strikes. The company has secured $2.3 million in seed funding led by <a className="bio-link" href="https://economictimes.indiatimes.com/tech/funding/ai-enterprise-ops-startup-meshdefend-raises-2-3-million-in-round-led-by-kalaari-capital/articleshow/125111852.cms" target="_blank" rel="noopener noreferrer">Kalaari Capital</a> with participation from Kettleborough VC.
           </p>
         </div>
-        <img
-          className="bloom"
-          src="/images/vintage/bloom.png"
-          alt="MeshDefend Botanical Flourish"
-          aria-hidden="true"
-        />
       </section>
 
       {/* Short Painted Divider Rule */}

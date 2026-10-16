@@ -61,8 +61,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
 export const EDITORIAL_META = {
   kicker: "THE RESILIENCE GAZETTE · DISPATCHES & MEDIA COVERAGE",
   volume: "VOL. I · ISSUE 01",
-  date: "OCTOBER 2026",
-  location: "BENGALURU & SAN FRANCISCO",
+  location: "BANGALORE & ATLANTA",
   mastheadTitle: "MeshDefend Newsroom",
   mastheadSubtitle:
     "Official coverage, funding announcements, and architectural dispatches documenting the autonomous enterprise resilience layer.",

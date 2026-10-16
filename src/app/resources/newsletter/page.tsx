@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { NewsroomClient } from "../../company/newsroom/components/NewsroomClient";
-import "../../company/newsroom/newsroom.css";
+import { NewsletterClient } from "./NewsletterClient";
 
 export const metadata: Metadata = {
   title: "The Resilience Memo · Quarterly Newsletter | MeshDefend",
@@ -21,7 +20,7 @@ export default function NewsletterPage() {
     <>
       <Navbar />
       <main id="main">
-        <NewsroomClient />
+        <NewsletterClient />
       </main>
       <Footer />
     </>

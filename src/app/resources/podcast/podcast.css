@@ -9,7 +9,7 @@
 /* Ensure no white or black gap appears in light/dark mode */
 html:has(.experience),
 body:has(.experience) {
-  background-color: #fbf8f4 !important;
+  background-color: #f8f6f4 !important;
 }
 
 .experience {
@@ -19,7 +19,7 @@ body:has(.experience) {
   min-height: 720px;
   margin-top: -76px; /* Seamlessly pulls background image behind floating header, fixing white/dark gap */
   overflow: hidden;
-  background: url('/images/podcastpage.pgn.png') center 72% / cover no-repeat #fbf8f4;
+  background: url('/images/podcast-hero-widescreen.jpg') center 48% / cover no-repeat #f8f6f4;
   color: #221f22;
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;
@@ -37,38 +37,114 @@ body:has(.experience) {
   display: none !important;
 }
 
-/* ─── Top Masthead ─────────────────────────────────────────────── */
+/* ─── Top Masthead & Hero Editorial Header ───────────────────────── */
 
 .masthead {
   position: absolute;
-  top: 92px;
-  right: 40px;
-  left: 40px;
+  top: 96px;
+  right: clamp(24px, 4vw, 56px);
+  left: clamp(24px, 4vw, 56px);
   z-index: 7;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
+  gap: 32px;
   pointer-events: none;
   transition: opacity 500ms var(--ease-out), transform 700ms var(--ease-out);
 }
 
-.identity {
+.masthead__main {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: min(440px, 38vw);
 }
 
-.identity__name {
-  margin: 0;
+.masthead__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(254, 252, 250, 0.90);
+  border: 1px solid rgba(244, 85, 50, 0.28);
+  font-family: var(--mono);
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c5401f;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.masthead__pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f45532;
+  box-shadow: 0 0 6px rgba(244, 85, 50, 0.6);
+}
+
+.masthead__title {
+  margin: 2px 0 0;
   font-family: var(--serif);
-  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  color: #1a1817;
+  font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: #141211;
+  text-shadow: 0 1px 4px rgba(248, 246, 244, 0.95), 0 0 16px rgba(248, 246, 244, 0.9);
 }
 
-.identity__edition,
+.masthead__deck {
+  margin: 2px 0 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(0.86rem, 1.05vw, 0.96rem);
+  line-height: 1.55;
+  color: #2b2622;
+  max-width: 420px;
+  text-shadow: 0 1px 3px rgba(248, 246, 244, 0.95), 0 0 12px rgba(248, 246, 244, 0.9);
+}
+
+.masthead__prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 4px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2e2926;
+  text-shadow: 0 1px 3px rgba(248, 246, 244, 0.95);
+}
+
+.masthead__prompt-icon {
+  color: #f45532;
+  font-size: 0.75rem;
+}
+
+.masthead__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  text-align: right;
+}
+
+.masthead__badge {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #726861;
+}
+
 .issue,
 .eyebrow,
 .microcopy,
@@ -80,10 +156,6 @@ body:has(.experience) {
   letter-spacing: 0.15em;
   line-height: 1.45;
   text-transform: uppercase;
-}
-
-.identity__edition {
-  color: #726861;
 }
 
 .issue {
@@ -414,11 +486,36 @@ body:has(.experience) {
 
 @media (max-width: 1100px) {
   .masthead {
-    top: 92px;
+    top: 90px;
+    gap: 20px;
+  }
+  .masthead__main {
+    max-width: min(420px, 50vw);
   }
 }
 
 @media (max-width: 980px) {
+  .experience {
+    background-position: center 58%;
+    background-size: cover;
+  }
+
+  .masthead {
+    top: 86px;
+    right: 20px;
+    left: 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .masthead__main {
+    max-width: 100%;
+  }
+
+  .masthead__meta {
+    display: none;
+  }
+
   .open-book-player-overlay {
     position: relative;
     top: auto;

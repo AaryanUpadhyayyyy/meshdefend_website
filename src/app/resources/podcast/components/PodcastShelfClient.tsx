@@ -65,18 +65,32 @@ export function PodcastShelfClient() {
       }`}
       id="experience"
     >
-      {/* ── Top Masthead ── */}
+      {/* ── Top Masthead / Hero Editorial Header ── */}
       <header className="masthead">
-        <div className="identity">
-          <h1 className="identity__name">The Resilience Ledger</h1>
-          <span className="identity__edition">Recorded Volumes</span>
+        <div className="masthead__main">
+          <div className="masthead__pill">
+            <span className="masthead__pill-dot" />
+            <span>Video Podcast Series · Recorded Volumes</span>
+          </div>
+          <h1 className="masthead__title">The Resilience Ledger</h1>
+          <p className="masthead__deck">
+            Unfiltered conversations with enterprise infrastructure leaders and resilience architects on AI operations, autonomous recovery, and cyber defense truth.
+          </p>
+          <div className="masthead__prompt">
+            <span className="masthead__prompt-icon">✦</span>
+            <span>Select any volume below to launch archival broadcast</span>
+          </div>
         </div>
-        <p className="issue">AI Infrastructure & Cyber Resilience</p>
+
+        <div className="masthead__meta">
+          <span className="masthead__badge">ARCHIVAL DISPATCHES</span>
+          <p className="issue">AI Infrastructure &amp; Cyber Resilience</p>
+        </div>
       </header>
 
       {/* ── 3D WebGL Canvas (Fixed Sunset Landscape Background) ── */}
       <Podcast3DScene
-        key="podcast-shelf-scene-v10"
+        key="podcast-shelf-scene-v12"
         selectedIndex={selectedIndex}
         onSelectIndex={setSelectedIndex}
         mode={mode}

@@ -28,31 +28,37 @@
   src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/dcec2e68141a33903e3b6cc1/newsreader.woff2) format('woff2');
 }
 
+/* Ensure the page canvas is pure white in both light and dark modes */
+html:has(.newsroom-editorial),
+body:has(.newsroom-editorial) {
+  background-color: #ffffff !important;
+}
+
 .newsroom-editorial {
-  --paper: #ece7dc;
-  --ink: #2b2721;
-  --ink-soft: rgba(43, 39, 33, 0.58);
-  --ink-faint: rgba(43, 39, 33, 0.36);
-  --hairline: rgba(43, 39, 33, 0.14);
+  --paper: #ffffff;
+  --ink: #111827;
+  --ink-soft: #4b5563;
+  --ink-faint: #9ca3af;
+  --hairline: rgba(17, 24, 39, 0.08);
   --earth: #9a6a3e;
 
   /* ─── Little Sunset Orange Theme ─── */
   --sunset-orange: #f45532;
   --sunset-amber: #e86b3b;
-  --sunset-glow: rgba(244, 85, 50, 0.22);
-  --sunset-soft: rgba(244, 85, 50, 0.08);
+  --sunset-glow: rgba(244, 85, 50, 0.15);
+  --sunset-soft: rgba(244, 85, 50, 0.06);
 
   --display: 'Instrument Serif', "New York", Georgia, 'Times New Roman', serif;
   --font: 'Newsreader', "New York", Georgia, 'Times New Roman', serif;
   --track-caps: 0.24em;
   --track-nav: 0.06em;
-  --pg: 21.8%;
+  --pg: 0%;
 }
 
 .newsroom-editorial {
   font-family: var(--font);
   font-weight: 400;
-  background: var(--paper);
+  background: #ffffff;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -74,37 +80,16 @@
   color: var(--ink);
 }
 
-/* ─── Sunset Golden Wash Ground (Touch of Orange) ────────────────── */
+/* ─── Clean Crisp White Theme Ground (No background image or orange wash) ─── */
 .wash {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 95% 65% at 50% -5%, rgba(244, 85, 50, 0.32) 0%, rgba(235, 115, 50, 0.20) 35%, rgba(245, 160, 90, 0.12) 65%, transparent 100%),
-    radial-gradient(circle at 12% 25%, rgba(244, 85, 50, 0.18) 0%, transparent 45%),
-    radial-gradient(circle at 88% 25%, rgba(232, 110, 48, 0.18) 0%, transparent 45%),
-    url(/images/vintage/bg-wash-sunset.jpg) center top / cover no-repeat;
-  opacity: 0.94;
-}
-
-.wash:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(244, 85, 50, 0.08) 0%,
-    rgba(244, 120, 60, 0.04) 22%,
-    rgba(242, 233, 218, 0.40) 62%,
-    var(--paper) 92%
-  );
+  display: none !important;
 }
 
 .newsroom-content-layer {
   position: relative;
   z-index: 1;
   padding-top: 72px; /* Clearance for fixed top navbar */
+  background: #ffffff;
 }
 
 /* ─── Masthead / Editorial Top Bar ───────────────────────────────── */
@@ -193,32 +178,11 @@
   padding: 8px 0 clamp(20px, 3vh, 36px);
 }
 
-.botany {
-  position: absolute;
-  bottom: 0;
-  width: clamp(120px, 15vw, 250px);
-  opacity: 0.65;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-  filter: saturate(1.2) hue-rotate(-8deg);
-}
-
-.botany.l {
-  left: clamp(-40px, -1vw, 0px);
-  bottom: 2%;
-}
-
-.botany.r {
-  right: clamp(-30px, 0vw, 10px);
-  bottom: -2%;
-  width: clamp(100px, 12vw, 200px);
-}
-
-@media (max-width: 900px) {
-  .botany {
-    display: none;
-  }
+.botany,
+.bloom,
+img[src*="bloom"],
+img[src*="botany"] {
+  display: none !important;
 }
 
 .hero-kicker {
@@ -281,7 +245,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
   width: 100%;
   position: relative;
   z-index: 2;
@@ -295,7 +259,7 @@
   position: relative;
   touch-action: pan-y;
   gap: clamp(8px, 1.6vw, 24px);
-  margin-bottom: 4px;
+  margin-bottom: 0px;
 }
 
 /* ─── Enhanced Visible Arrow Buttons for New Users ───────────────── */
@@ -308,16 +272,21 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(43, 39, 33, 0.16);
-  background: rgba(253, 250, 243, 0.9);
-  box-shadow: 0 4px 16px rgba(43, 39, 33, 0.08), 0 1px 3px rgba(43, 39, 33, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
   color: var(--ink);
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   -webkit-tap-highlight-color: transparent;
-  z-index: 15;
+  z-index: 80;
+  pointer-events: auto;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+.sb-arrow svg {
+  pointer-events: none;
 }
 
 .sb-arrow:hover {
@@ -351,7 +320,8 @@
   letter-spacing: 0.06em;
   color: var(--sunset-orange);
   cursor: pointer;
-  z-index: 20;
+  z-index: 85;
+  pointer-events: auto;
   animation: turn-cue-float 2.4s ease-in-out infinite;
   transition: opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   white-space: nowrap;
@@ -401,64 +371,18 @@
   will-change: transform;
 }
 
-/* ─── EXACT 1760/1240 ASPECT RATIO (VERBATIM FROM news.html) ─────── */
+/* ─── DYNAMIC BROADSHEET ASPECT RATIO (NO EMPTY SPACE) ────────────── */
 .sb-book {
   position: relative;
   width: 100%;
-  aspect-ratio: 1760 / 1240;
+  aspect-ratio: 1672 / 941;
   transform-style: preserve-3d;
   z-index: 1;
 }
 
-/* The book sits on a surface, so its shadow is a soft pool underneath */
+/* Shadows removed completely to keep pure clean white canvas */
 .sb-cast {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.sb-cast.ambient {
-  left: 5%;
-  right: 5%;
-  top: 27%;
-  bottom: 2%;
-  background: radial-gradient(
-    50% 50% at 50% 58%,
-    rgba(58, 44, 26, 0.34) 0%,
-    rgba(58, 44, 26, 0.19) 40%,
-    rgba(58, 44, 26, 0) 74%
-  );
-  filter: blur(26px);
-  opacity: calc(1 - var(--shade, 0) * 0.42);
-}
-
-.sb-cast.contact {
-  left: 9%;
-  right: 9%;
-  top: 62%;
-  bottom: 10%;
-  background: radial-gradient(
-    50% 44% at 50% 42%,
-    rgba(44, 32, 14, 0.4) 0%,
-    rgba(44, 32, 14, 0.17) 48%,
-    rgba(44, 32, 14, 0) 78%
-  );
-  filter: blur(11px);
-  opacity: calc(1 - var(--shade, 0) * 0.5);
-}
-
-.sb-cast.hair {
-  left: 12%;
-  right: 12%;
-  top: 70%;
-  bottom: 17%;
-  background: radial-gradient(
-    50% 52% at 50% 40%,
-    rgba(40, 28, 10, 0.34) 0%,
-    rgba(40, 28, 10, 0) 76%
-  );
-  filter: blur(4px);
-  opacity: calc(1 - var(--shade, 0) * 0.62);
+  display: none !important;
 }
 
 .sb-full {
@@ -468,7 +392,8 @@
 
 .sb-full img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: fill;
   display: block;
 }
 
@@ -492,7 +417,8 @@
 .sb-half-img {
   width: 200%;
   max-width: none;
-  height: auto;
+  height: 100%;
+  object-fit: fill;
   display: block;
 }
 
@@ -503,23 +429,21 @@
 /* The shadow the lifting leaf throws onto the page beneath it */
 .gutter-shade {
   position: absolute;
-  top: var(--pg, 21.8%);
-  bottom: var(--pg, 21.8%);
+  top: 0;
+  bottom: 0;
   width: 46%;
   pointer-events: none;
-  opacity: calc(var(--shade, 0) * 0.62);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 5.2%, #000 94.8%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0, #000 5.2%, #000 94.8%, transparent 100%);
+  opacity: calc(var(--shade, 0) * 0.42);
 }
 
 .gutter-shade.left {
   right: 0;
-  background: linear-gradient(270deg, rgba(52, 38, 20, 0.3), rgba(52, 38, 20, 0) 82%);
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0) 82%);
 }
 
 .gutter-shade.right {
   left: 0;
-  background: linear-gradient(90deg, rgba(52, 38, 20, 0.24), rgba(52, 38, 20, 0) 82%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0) 82%);
 }
 
 /* ─── The Turning Leaf: Nested Strips Forming a Curved Surface ────── */
@@ -588,7 +512,7 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   background-repeat: no-repeat;
-  background-size: var(--bw, 0px) auto;
+  background-size: var(--bw, 0px) 100%;
 }
 
 .face.back {
@@ -597,198 +521,51 @@
 
 .face .sh,
 .face .gl {
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 5.2%, #000 94.8%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0, #000 5.2%, #000 94.8%, transparent 100%);
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .strip.edge .face .sh,
 .strip.edge .face .gl {
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%), var(--hf);
-  mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%), var(--hf);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-}
-
-.curl.next .strip.edge .face.front,
-.curl.prev .strip.edge .face.back {
-  --hf: linear-gradient(90deg, #000 0 22%, transparent 96%);
-}
-
-.curl.next .strip.edge .face.back,
-.curl.prev .strip.edge .face.front {
-  --hf: linear-gradient(270deg, #000 0 22%, transparent 96%);
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .face .sh {
   position: absolute;
   left: 0;
   right: 0;
-  top: var(--pg, 21.8%);
-  bottom: var(--pg, 21.8%);
+  top: 0;
+  bottom: 0;
   pointer-events: none;
 }
 
 .curl.next .face.front .sh,
 .curl.prev .face.back .sh {
-  background: linear-gradient(90deg, rgba(58, 43, 20, var(--a1, 0)), rgba(58, 43, 20, var(--a2, 0)));
+  background: linear-gradient(90deg, rgba(0, 0, 0, calc(var(--a1, 0) * 0.45)), rgba(0, 0, 0, calc(var(--a2, 0) * 0.45)));
 }
 
 .curl.next .face.back .sh,
 .curl.prev .face.front .sh {
-  background: linear-gradient(90deg, rgba(58, 43, 20, var(--a2, 0)), rgba(58, 43, 20, var(--a1, 0)));
+  background: linear-gradient(90deg, rgba(0, 0, 0, calc(var(--a2, 0) * 0.45)), rgba(0, 0, 0, calc(var(--a1, 0) * 0.45)));
 }
 
 .face .gl {
   position: absolute;
   left: 0;
   right: 0;
-  top: var(--pg, 21.8%);
-  bottom: var(--pg, 21.8%);
-  pointer-events: none;
-  background: #fffaf0;
-  opacity: calc(var(--shade, 0) * var(--lit, 1) * var(--lit, 1) * 0.2);
-}
-
-/* ─── The Loupe: A Real Magnifier Lying on the Page ───────────────── */
-.loupe {
-  position: absolute;
-  left: 0;
   top: 0;
-  width: var(--lr, 270px);
-  height: var(--lr, 270px);
+  bottom: 0;
   pointer-events: none;
-  z-index: 80;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  will-change: transform;
+  background: #ffffff;
+  opacity: calc(var(--shade, 0) * var(--lit, 1) * var(--lit, 1) * 0.15);
 }
 
-.loupe.on {
-  opacity: 1;
-}
-
-.loupe.held .ring {
-  cursor: grabbing;
-}
-
-.loupe .ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  pointer-events: auto;
-  cursor: grab;
-  padding: calc(var(--lr, 270px) * 0.058);
-  box-shadow:
-    0 1px 2px rgba(58, 44, 26, 0.3),
-    0 10px 18px rgba(58, 44, 26, 0.24),
-    0 26px 40px rgba(58, 44, 26, 0.2),
-    0 48px 66px rgba(58, 44, 26, 0.13);
-}
-
-/* The bezel is an annulus with brass and sunset-gold finish */
-.loupe .ring:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  pointer-events: none;
-  background: linear-gradient(
-    146deg,
-    #fdf7e9 0%,
-    #f2dfbe 14%,
-    #d1a96e 32%,
-    #946e38 50%,
-    #e0c48e 66%,
-    #f9f0da 80%,
-    #b08d4f 100%
-  );
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.8),
-    inset 0 -2px 3px rgba(70, 52, 26, 0.5);
-  -webkit-mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 0 88.2%, #000 89.8% 100%);
-  mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 0 88.2%, #000 89.8% 100%);
-}
-
-/* The handle with amber-wood finish */
-.loupe .grip {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--lr, 270px) * 0.74);
-  height: calc(var(--lr, 270px) * 0.125);
-  transform-origin: 0 50%;
-  transform: rotate(40deg) translate(calc(var(--lr, 270px) * 0.33), -50%);
-  border-radius: calc(var(--lr, 270px) * 0.06);
-  pointer-events: auto;
-  cursor: grab;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.46) 0 13%, rgba(255, 255, 255, 0) 44%, rgba(0, 0, 0, 0.26) 100%),
-    linear-gradient(90deg, #d9bd82 0 14%, #a9884e 14% 20%, #6d4c2b 20% 62%, #5a3d22 62% 92%, #7a563180 92% 100%);
-  box-shadow: 0 8px 15px rgba(58, 44, 26, 0.26), 0 18px 26px rgba(58, 44, 26, 0.14);
-}
-
-.lens {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  box-shadow:
-    inset 0 0 0 1px rgba(52, 40, 22, 0.55),
-    inset 0 4px 12px rgba(40, 30, 14, 0.28),
-    inset 0 -7px 16px rgba(255, 250, 240, 0.14);
-}
-
-.lens .mag {
-  display: none;
-}
-
-/* Second copy of the book scaled about whichever page point the glass is over */
+/* ─── Loupe & Magnifier Glass (Completely Removed) ───────────────── */
+.loupe,
+.newsbook-loupe-btn,
 .zoomwrap {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-}
-
-.zoominner {
-  position: absolute;
-  inset: 0;
-  transform-origin: 0 0;
-}
-
-.lens:before,
-.lens:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.lens:before {
-  z-index: 1;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 0, 0, 0) 54%,
-    rgba(58, 44, 26, 0.1) 76%,
-    rgba(46, 34, 16, 0.34) 100%
-  );
-  box-shadow:
-    inset 0 0 0 2px rgba(232, 110, 48, 0.22),
-    inset 0 0 0 4px rgba(206, 158, 112, 0.15);
-}
-
-.lens:after {
-  z-index: 2;
-  background:
-    radial-gradient(36% 26% at 29% 19%, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0) 76%),
-    radial-gradient(24% 16% at 74% 86%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 80%),
-    linear-gradient(150deg, rgba(255, 255, 255, 0.08) 0 18%, rgba(255, 255, 255, 0) 42%);
+  display: none !important;
 }
 
 /* ─── Newsbook Action Dock: Website Link & Zoom Controls (Just Below News Page) ─── */
@@ -799,17 +576,17 @@
   flex-wrap: wrap;
   gap: 14px;
   padding: 8px 18px;
-  background: rgba(254, 252, 247, 0.96);
-  border: 1px solid rgba(43, 39, 33, 0.16);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.10);
   border-radius: 999px;
   box-shadow: 
-    0 6px 24px rgba(43, 39, 33, 0.10),
-    0 2px 6px rgba(43, 39, 33, 0.05);
+    0 6px 24px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 25;
-  margin-top: 24px;
-  margin-bottom: 6px;
+  margin-top: 8px;
+  margin-bottom: 4px;
   max-width: min(1080px, 94vw);
 }
 
@@ -821,7 +598,7 @@
 .newsbook-dock-divider {
   width: 1px;
   height: 22px;
-  background: rgba(43, 39, 33, 0.16);
+  background: rgba(0, 0, 0, 0.10);
 }
 
 /* ─── Below the Page: Direct News Link ───────────────────────────── */
@@ -968,39 +745,7 @@
   margin: 0 2px;
 }
 
-.newsbook-loupe-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(43, 39, 33, 0.14);
-  background: #ffffff;
-  color: var(--ink-soft);
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: all 0.18s ease;
-}
 
-.newsbook-loupe-btn:hover {
-  background: rgba(255, 252, 244, 0.95);
-  color: var(--sunset-orange);
-  border-color: rgba(244, 85, 50, 0.3);
-}
-
-.newsbook-loupe-btn[aria-pressed="true"] {
-  background: rgba(244, 85, 50, 0.12);
-  color: var(--sunset-orange);
-  border-color: rgba(244, 85, 50, 0.35);
-}
-
-@media (pointer: coarse) {
-  .loupe {
-    display: none;
-  }
-}
 
 .sb-zone {
   position: absolute;
@@ -1164,19 +909,19 @@
   }
 }
 
-/* ─── Painted Rules + Sections (Exact news.html) ─────────────────── */
+/* ─── Clean Editorial Rules + Sections ───────────────────────────── */
 .rule {
   display: block;
   width: min(1080px, 86vw);
   margin: clamp(30px, 6vh, 64px) auto;
-  height: clamp(26px, 4vw, 46px);
-  background: url(/images/vintage/divider.png) center / 100% auto no-repeat;
-  opacity: 0.55;
+  height: 1px;
+  background: var(--hairline);
+  opacity: 1;
 }
 
 .rule.short {
   width: min(420px, 52vw);
-  opacity: 0.45;
+  opacity: 1;
 }
 
 .section-label {
@@ -1189,13 +934,10 @@
 
 .about {
   position: relative;
-  max-width: 1080px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 0 clamp(20px, 5vw, 48px);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(24px, 5vw, 60px);
-  align-items: start;
+  display: block;
 }
 
 .bio {
@@ -1204,7 +946,7 @@
   letter-spacing: 0.005em;
   margin: 0;
   font-weight: 300;
-  max-width: 56ch;
+  max-width: 100%;
 }
 
 .bio-link {
@@ -1218,23 +960,6 @@
 .bio-link:hover {
   text-decoration-color: var(--sunset-orange);
   color: var(--sunset-orange);
-}
-
-.bloom {
-  width: clamp(150px, 17vw, 260px);
-  opacity: 0.9;
-  user-select: none;
-  align-self: center;
-}
-
-@media (max-width: 760px) {
-  .about {
-    grid-template-columns: 1fr;
-  }
-  .bloom {
-    width: 170px;
-    justify-self: center;
-  }
 }
 
 .plates {

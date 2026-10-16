@@ -63,7 +63,8 @@ export function Podcast3DScene({
   const inspectPosition = useRef(new THREE.Vector3(-1.75, INSPECT_BOOK_LOCAL_Y, 0));
 
   const currentCamTarget = useRef(new THREE.Vector3(0, BASE_SHELF_TARGET_Y, 0));
-  const pointerRef = useRef(new THREE.Vector2(-100, -100));
+  const pointerRef = useRef(new THREE.Vector2(0, 0));
+  const isPointerActive = useRef(false);
   const raycasterRef = useRef(new THREE.Raycaster());
 
   useEffect(() => {
@@ -132,92 +133,13 @@ export function Podcast3DScene({
     rimLight.position.set(1.5, 4.2, -2.2);
     scene.add(rimLight);
 
-    // 5. Architectural Realistic Hardwood Bookshelf (Anchored right at bottom baseline)
+    // 5. Stage group for books (clean floating volumes with shelf removed)
     const shelfStage = new THREE.Group();
-    shelfStage.position.y = SHELF_STAGE_Y; // Anchored at the bottom edge of the screen
+    shelfStage.position.y = SHELF_STAGE_Y;
     shelfStageRef.current = shelfStage;
+    scene.add(shelfStage);
 
     const textureLoader = new THREE.TextureLoader();
-
-    // High-resolution realistic natural wood grain textures
-    const woodDiffuse = textureLoader.load("/images/shelf-wood-diffuse.jpg");
-    woodDiffuse.colorSpace = THREE.SRGBColorSpace;
-    woodDiffuse.wrapS = THREE.RepeatWrapping;
-    woodDiffuse.wrapT = THREE.RepeatWrapping;
-    woodDiffuse.repeat.set(2.5, 1);
-
-    const woodBump = textureLoader.load("/images/shelf-wood-bump.jpg");
-    woodBump.wrapS = THREE.RepeatWrapping;
-    woodBump.wrapT = THREE.RepeatWrapping;
-    woodBump.repeat.set(2.5, 1);
-
-    const woodRoughness = textureLoader.load("/images/shelf-wood-roughness.jpg");
-    woodRoughness.wrapS = THREE.RepeatWrapping;
-    woodRoughness.wrapT = THREE.RepeatWrapping;
-    woodRoughness.repeat.set(2.5, 1);
-
-    const shelfMat = new THREE.MeshStandardMaterial({
-      map: woodDiffuse,
-      bumpMap: woodBump,
-      bumpScale: 0.008,
-      roughnessMap: woodRoughness,
-      roughness: 0.48,
-      metalness: 0.02,
-    });
-
-    const shelfLipMat = new THREE.MeshStandardMaterial({
-      map: woodDiffuse,
-      bumpMap: woodBump,
-      bumpScale: 0.005,
-      roughness: 0.54,
-      metalness: 0.02,
-    });
-
-    // Main Shelf Board positioned comfortably in lower mist
-    const shelfBoard = new THREE.Mesh(
-      new RoundedBoxGeometry(16, 0.12, 1.25, 3, 0.012),
-      shelfMat
-    );
-    shelfBoard.position.set(0, 0.02, -0.04);
-    shelfBoard.castShadow = true;
-    shelfBoard.receiveShadow = true;
-    shelfStage.add(shelfBoard);
-
-    // Subtle front bevel lip
-    const shelfLip = new THREE.Mesh(
-      new RoundedBoxGeometry(16.02, 0.04, 1.28, 2, 0.006),
-      shelfLipMat
-    );
-    shelfLip.position.set(0, -0.03, 0.01);
-    shelfStage.add(shelfLip);
-
-    // Warm Contact Shadow below wooden shelf floating into background mist
-    const shadowCanvas = document.createElement("canvas");
-    shadowCanvas.width = 512;
-    shadowCanvas.height = 128;
-    const sCtx = shadowCanvas.getContext("2d")!;
-    const grad = sCtx.createRadialGradient(256, 64, 10, 256, 64, 250);
-    grad.addColorStop(0, "rgba(70, 42, 24, 0.35)");
-    grad.addColorStop(0.45, "rgba(100, 65, 38, 0.12)");
-    grad.addColorStop(1, "rgba(230, 210, 190, 0)");
-    sCtx.fillStyle = grad;
-    sCtx.fillRect(0, 0, 512, 128);
-    const softShadowTex = new THREE.CanvasTexture(shadowCanvas);
-
-    const shadowStrip = new THREE.Mesh(
-      new THREE.PlaneGeometry(16, 1.4),
-      new THREE.MeshBasicMaterial({
-        map: softShadowTex,
-        transparent: true,
-        opacity: 0.45,
-        depthWrite: false,
-      })
-    );
-    shadowStrip.rotation.x = -Math.PI / 2;
-    shadowStrip.position.set(0, -0.05, 0.15);
-    shelfStage.add(shadowStrip);
-
-    scene.add(shelfStage);
 
     // Floating Golden Dust Particles
     const dustCount = 130;
@@ -251,7 +173,6 @@ export function Podcast3DScene({
     const rigs: any[] = [];
     const hitTargets: THREE.Mesh[] = [];
     const sharedBox = new THREE.BoxGeometry(1, 1, 1);
-    const sharedPlane = new THREE.PlaneGeometry(1, 1);
 
     PODCAST_EPISODES.forEach((book, index) => {
       const root = new THREE.Group();
@@ -396,22 +317,6 @@ export function Podcast3DScene({
 
       motion.add(frontPivot);
 
-      // Soft contact shadow below book on shelf
-      const bookShadow = new THREE.Mesh(
-        sharedPlane,
-        new THREE.MeshBasicMaterial({
-          map: softShadowTex,
-          transparent: true,
-          opacity: 0.38,
-          depthWrite: false,
-          color: new THREE.Color(0x22110a),
-        })
-      );
-      bookShadow.scale.set(bookWidth * 1.35, bookDepth * 2.2, 1);
-      bookShadow.rotation.x = -Math.PI / 2;
-      bookShadow.position.set(0, -bookHeight * 0.5 - 0.02, 0.02);
-      root.add(bookShadow);
-
       // Raycast Hit Target
       const hit = new THREE.Mesh(
         sharedBox,
@@ -430,7 +335,6 @@ export function Podcast3DScene({
         motion,
         frontPivot,
         frontCover,
-        contactShadow: bookShadow,
         hit,
         base: { width: bookWidth, height: bookHeight, depth: bookDepth },
       });
@@ -442,13 +346,29 @@ export function Podcast3DScene({
     // 7. Input Listeners
     const onPointerMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      pointerRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      pointerRef.current.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      setPointerPos({ x: e.clientX, y: e.clientY });
+      const inBounds =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
 
-      if (modeRef.current === "hero") {
-        shelfCameraPos.current.x = pointerRef.current.x * 0.22;
-        shelfCameraPos.current.y = BASE_SHELF_CAM_Y + pointerRef.current.y * 0.06;
+      if (inBounds) {
+        isPointerActive.current = true;
+        pointerRef.current.x = THREE.MathUtils.clamp(
+          ((e.clientX - rect.left) / rect.width) * 2 - 1,
+          -1,
+          1
+        );
+        pointerRef.current.y = THREE.MathUtils.clamp(
+          -((e.clientY - rect.top) / rect.height) * 2 + 1,
+          -1,
+          1
+        );
+        setPointerPos({ x: e.clientX, y: e.clientY });
+      } else {
+        isPointerActive.current = false;
+        pointerRef.current.set(0, 0);
+        setHoveredIndex(-1);
       }
     };
 
@@ -467,7 +387,12 @@ export function Podcast3DScene({
     const onClick = (e: MouseEvent) => {
       if (e.button !== 0) return;
       if (modeRef.current === "hero") {
-        raycasterRef.current.setFromCamera(pointerRef.current, camera);
+        const rect = canvas.getBoundingClientRect();
+        const clickCoord = new THREE.Vector2(
+          ((e.clientX - rect.left) / rect.width) * 2 - 1,
+          -((e.clientY - rect.top) / rect.height) * 2 + 1
+        );
+        raycasterRef.current.setFromCamera(clickCoord, camera);
         const hits = raycasterRef.current.intersectObjects(hitTargetsRef.current, false);
         if (hits.length > 0) {
           const hitIdx = hits[0].object.userData.index;
@@ -483,11 +408,20 @@ export function Podcast3DScene({
     };
 
     const onPointerLeave = () => {
-      pointerRef.current.set(-100, -100);
+      isPointerActive.current = false;
+      pointerRef.current.set(0, 0);
+      setHoveredIndex(-1);
+    };
+
+    const onWindowLeave = () => {
+      isPointerActive.current = false;
+      pointerRef.current.set(0, 0);
       setHoveredIndex(-1);
     };
 
     window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("blur", onWindowLeave);
+    document.addEventListener("mouseleave", onWindowLeave);
     canvas.addEventListener("wheel", onWheel, { passive: false });
     canvas.addEventListener("click", onClick);
     canvas.addEventListener("pointerleave", onPointerLeave);
@@ -521,11 +455,16 @@ export function Podcast3DScene({
       dustPoints.position.y = Math.sin(elapsed * 0.18) * 0.024;
 
       if (modeRef.current === "hero") {
-        raycasterRef.current.setFromCamera(pointerRef.current, camera);
-        const hits = raycasterRef.current.intersectObjects(hitTargetsRef.current, false);
-        const newHover = hits.length > 0 ? hits[0].object.userData.index : -1;
-        setHoveredIndex(newHover);
-        canvas.style.cursor = newHover >= 0 ? "pointer" : "default";
+        if (isPointerActive.current) {
+          raycasterRef.current.setFromCamera(pointerRef.current, camera);
+          const hits = raycasterRef.current.intersectObjects(hitTargetsRef.current, false);
+          const newHover = hits.length > 0 ? hits[0].object.userData.index : -1;
+          setHoveredIndex(newHover);
+          canvas.style.cursor = newHover >= 0 ? "pointer" : "default";
+        } else {
+          setHoveredIndex(-1);
+          canvas.style.cursor = "default";
+        }
 
         positionRef.current = THREE.MathUtils.damp(
           positionRef.current,
@@ -591,52 +530,18 @@ export function Podcast3DScene({
             delta
           );
         } else if (modeRef.current === "detail" || modeRef.current === "opening") {
-          const isSelected = idx === selectedIndexRef.current;
-          if (isSelected) {
-            rig.root.position.x = THREE.MathUtils.damp(rig.root.position.x, inspectPosition.current.x, 8, delta);
-            rig.root.position.y = THREE.MathUtils.damp(rig.root.position.y, INSPECT_BOOK_LOCAL_Y, 8, delta);
-            rig.root.position.z = THREE.MathUtils.damp(rig.root.position.z, 0.45, 8, delta);
-            rig.root.rotation.y = THREE.MathUtils.damp(rig.root.rotation.y, -0.06, 8, delta);
-            rig.root.scale.setScalar(THREE.MathUtils.damp(rig.root.scale.x, 1.12, 8, delta));
-
-            rig.frontPivot.rotation.y = THREE.MathUtils.damp(
-              rig.frontPivot.rotation.y,
-              -Math.PI + 0.02,
-              7.5,
-              delta
-            );
-          } else {
-            rig.root.position.y = THREE.MathUtils.damp(rig.root.position.y, -4.0, 8, delta);
-            rig.frontPivot.rotation.y = THREE.MathUtils.damp(rig.frontPivot.rotation.y, 0, 10, delta);
-          }
+          // Slide 3D books gracefully out of view in detail mode so video and notes display cleanly over the background
+          rig.root.position.y = THREE.MathUtils.damp(rig.root.position.y, -5.0, 8, delta);
+          rig.root.scale.setScalar(THREE.MathUtils.damp(rig.root.scale.x, 0.85, 8, delta));
+          rig.frontPivot.rotation.y = THREE.MathUtils.damp(rig.frontPivot.rotation.y, 0, 10, delta);
         } else if (modeRef.current === "closing") {
-          const isSelected = idx === selectedIndexRef.current;
-          if (isSelected) {
-            rig.frontPivot.rotation.y = THREE.MathUtils.damp(rig.frontPivot.rotation.y, 0, 9, delta);
-          }
+          rig.frontPivot.rotation.y = THREE.MathUtils.damp(rig.frontPivot.rotation.y, 0, 10, delta);
         }
       });
 
-      if (modeRef.current === "hero") {
-        const targetCamX = pointerRef.current.x * 0.22;
-        const targetCamY = BASE_SHELF_CAM_Y + pointerRef.current.y * 0.06;
-
-        camera.position.x = THREE.MathUtils.damp(camera.position.x, targetCamX, 8, delta);
-        camera.position.y = THREE.MathUtils.damp(camera.position.y, targetCamY, 8, delta);
-        camera.position.z = THREE.MathUtils.damp(camera.position.z, 6.8, 8, delta);
-        currentCamTarget.current.x = THREE.MathUtils.damp(currentCamTarget.current.x, 0, 8, delta);
-        currentCamTarget.current.y = THREE.MathUtils.damp(currentCamTarget.current.y, BASE_SHELF_TARGET_Y, 8, delta);
-        currentCamTarget.current.z = THREE.MathUtils.damp(currentCamTarget.current.z, 0, 8, delta);
-        camera.lookAt(currentCamTarget.current);
-      } else if (modeRef.current === "detail" || modeRef.current === "opening") {
-        camera.position.x = THREE.MathUtils.damp(camera.position.x, -0.55, 7.5, delta);
-        camera.position.y = THREE.MathUtils.damp(camera.position.y, BASE_INSPECT_CAM_Y, 7.5, delta);
-        camera.position.z = THREE.MathUtils.damp(camera.position.z, 4.6, 7.5, delta);
-        currentCamTarget.current.x = THREE.MathUtils.damp(currentCamTarget.current.x, -1.75, 7.5, delta);
-        currentCamTarget.current.y = THREE.MathUtils.damp(currentCamTarget.current.y, BASE_INSPECT_TARGET_Y, 7.5, delta);
-        currentCamTarget.current.z = THREE.MathUtils.damp(currentCamTarget.current.z, 0, 7.5, delta);
-        camera.lookAt(currentCamTarget.current);
-      }
+      // Camera is rock-solid locked at baseline: never moves, tilts, shrinks, or offsets with mouse position
+      camera.position.set(0, BASE_SHELF_CAM_Y, 6.8);
+      camera.lookAt(0, BASE_SHELF_TARGET_Y, 0);
 
       renderer.render(scene, camera);
     };
@@ -646,6 +551,8 @@ export function Podcast3DScene({
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("blur", onWindowLeave);
+      document.removeEventListener("mouseleave", onWindowLeave);
       canvas.removeEventListener("wheel", onWheel);
       canvas.removeEventListener("click", onClick);
       canvas.removeEventListener("pointerleave", onPointerLeave);
