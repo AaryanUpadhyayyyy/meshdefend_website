@@ -1270,3 +1270,40 @@ html.js-reveal .line-inner.is-revealed {
   animation: hud-pulse 2s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
 }
 
+/* ─── Hero Painting Light / Dark Mode Crossfade ───────────────────── */
+.hero-stage-bg {
+  background-color: #fbf8f5;
+  transition: background-color 0.4s ease;
+}
+
+[data-theme="dark"] .hero-stage-bg,
+html.dark .hero-stage-bg,
+.dark .hero-stage-bg {
+  background-color: #221f22 !important;
+}
+
+.hero-bg-light {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.hero-bg-dark {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+[data-theme="dark"] .hero-bg-light,
+html.dark .hero-bg-light,
+.dark .hero-bg-light {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .hero-bg-dark,
+html.dark .hero-bg-dark,
+.dark .hero-bg-dark {
+  opacity: 1;
+  pointer-events: auto;
+}
+

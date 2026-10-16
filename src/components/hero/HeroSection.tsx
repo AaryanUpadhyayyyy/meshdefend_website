@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import heroLandscapeBg from "../../../public/images/mainapagebg.png";
+import heroLandscapeBgDark from "../../../public/images/mainapagebg-dark.png";
 import { HERO_COORDINATES, type HotspotPin } from "@/lib/heroCoordinates";
 import { mapImageToContainer } from "@/lib/imageAnchor";
 import { easeReveal } from "@/lib/bezier";
@@ -474,14 +475,14 @@ export function HeroSection() {
       >
         {/* Layer (a): The .world Wrapper (Painting, SVG Net Threads, Sprites, Hotspot Pins) */}
         <div
-          className="world"
+          className="world hero-stage-bg"
           style={{
             position: isMobile ? "relative" : "absolute",
             inset: 0,
             width: "100%",
             height: isMobile ? "50vh" : "100%",
             minHeight: isMobile ? 360 : "auto",
-            background: "#fbf8f5",
+            background: isDark ? "#221f22" : "#fbf8f5",
             transformOrigin: `${(HERO_COORDINATES.hub.u * 100).toFixed(1)}% ${(HERO_COORDINATES.hub.v * 100).toFixed(1)}%`,
             transform: prefersReducedMotion ? "none" : `scale(${worldScale}) translateY(${worldY}%)`,
             willChange: progress > 0.05 && progress < 0.5 ? "transform" : "auto",
@@ -496,6 +497,7 @@ export function HeroSection() {
               overflow: "hidden",
             }}
           >
+            {/* Light Mode Artwork */}
             <Image
               src={heroLandscapeBg}
               alt="MeshDefend Resilience Operations Center painting"
@@ -503,6 +505,21 @@ export function HeroSection() {
               fill
               sizes="100vw"
               quality={92}
+              className="hero-bg-light"
+              style={{
+                objectFit: "cover",
+                objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
+              }}
+            />
+            {/* Dark Mode Companion Artwork */}
+            <Image
+              src={heroLandscapeBgDark}
+              alt="MeshDefend Resilience Operations Center painting (Dark Mode)"
+              priority
+              fill
+              sizes="100vw"
+              quality={92}
+              className="hero-bg-dark"
               style={{
                 objectFit: "cover",
                 objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
