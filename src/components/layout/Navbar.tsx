@@ -98,7 +98,7 @@ export function Navbar() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, padding: 24, minWidth: 640 }}>
               {NAV.platform.groups.map((group) => (
                 <div key={group.title}>
-                  <div className="mono-sm" style={{ marginBottom: 12, fontSize: 11, textTransform: "uppercase" }}>{group.title}</div>
+                  <div className="mono-sm" style={{ marginBottom: 12, fontSize: 11, textTransform: "uppercase", color: "var(--muted)" }}>{group.title}</div>
                   {group.items.map((item) => (
                     <MegaLink key={item.label} label={item.label} desc={"desc" in item ? (item as any).desc : undefined} href={item.href} />
                   ))}
@@ -256,6 +256,9 @@ const navLinkStyle: React.CSSProperties = {
   transition: "background 0.15s, color 0.15s",
   cursor: "pointer",
   whiteSpace: "nowrap",
+  color: "var(--ink)",
+  background: "transparent",
+  border: "none",
 };
 
 function NavDropdown({
@@ -280,9 +283,10 @@ function NavDropdown({
           alignItems: "center",
           gap: 4,
           background: isOpen ? "var(--surface-raised)" : "transparent",
+          color: "var(--ink)",
         }}
       >
-        {label}
+        <span>{label}</span>
         <svg
           width="12"
           height="12"
@@ -295,6 +299,7 @@ function NavDropdown({
           style={{
             transition: "transform 0.2s",
             transform: isOpen ? "rotate(180deg)" : "none",
+            color: "var(--ink)",
           }}
         >
           <path d="m7 10 5 5 5-5" />
@@ -308,10 +313,11 @@ function NavDropdown({
             left: "50%",
             transform: "translateX(-50%)",
             background: "var(--bg)",
+            color: "var(--ink)",
             border: "1px solid var(--border)",
             borderTop: "2px solid var(--orange)",
             borderRadius: "var(--radius)",
-            boxShadow: "0 16px 48px rgba(34,31,34,0.12)",
+            boxShadow: "0 16px 48px rgba(0,0,0,0.35)",
             zIndex: 90,
             animation: "menuIn 0.15s ease",
           }}
@@ -331,12 +337,14 @@ function MegaLink({ label, desc, href }: { label: string; desc?: string; href: s
         display: "block",
         padding: "10px 8px",
         borderRadius: "var(--radius)",
-        transition: "background 0.15s",
+        transition: "background 0.15s, color 0.15s",
+        color: "var(--ink)",
+        textDecoration: "none",
       }}
       onMouseEnter={(e) => (e.currentTarget.style.background = "var(--surface-raised)")}
       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
     >
-      <span style={{ fontSize: 13, fontWeight: 600, display: "block", lineHeight: 1.35 }}>
+      <span style={{ fontSize: 13, fontWeight: 600, display: "block", lineHeight: 1.35, color: "var(--ink)" }}>
         {label}
       </span>
       {desc && (
