@@ -77,7 +77,6 @@ export function Footer() {
         { label: "Careers", href: "/company/careers" },
         { label: "Newsroom", href: "/company/newsroom" },
         { label: "Contact us", href: "/company/contact" },
-        { label: "MD Support Portal", href: "/support" },
       ],
     },
   ];

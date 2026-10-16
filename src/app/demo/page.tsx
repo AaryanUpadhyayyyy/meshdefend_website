@@ -25,7 +25,7 @@ export default function DemoPage() {
           </p>
           <div style={{ display: "flex", gap: 16 }}>
             <Link
-              href="/support"
+              href="/company/contact"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -40,7 +40,7 @@ export default function DemoPage() {
                 borderRadius: 2,
               }}
             >
-              <span>Submit request via Support</span>
+              <span>Submit request via Contact Us</span>
               <span>→</span>
             </Link>
           </div>

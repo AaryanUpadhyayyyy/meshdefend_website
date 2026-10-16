@@ -120,19 +120,6 @@ export function Navbar() {
             </div>
           </NavDropdown>
 
-          {/* Support */}
-          <NavDropdown
-            label={NAV.support.label}
-            isOpen={openMenu === "support"}
-            onToggle={() => setOpenMenu(openMenu === "support" ? null : "support")}
-          >
-            <div style={{ padding: 18, minWidth: 220 }}>
-              {NAV.support.items.map((item) => (
-                <MegaLink key={item.label} label={item.label} href={item.href} />
-              ))}
-            </div>
-          </NavDropdown>
-
           {/* Resources */}
           <NavDropdown
             label={NAV.resources.label}
@@ -210,7 +197,7 @@ export function Navbar() {
           }}
         >
           <nav aria-label="Mobile navigation" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {[NAV.platform, NAV.solutions, NAV.support, NAV.resources, NAV.company].map((section) => {
+            {[NAV.platform, NAV.solutions, NAV.resources, NAV.company].map((section) => {
               const items: {label: string; href: string}[] = "groups" in section
                 ? section.groups.flatMap((g): {label: string; desc?: string; href: string}[] => [...g.items])
                 : [...section.items];

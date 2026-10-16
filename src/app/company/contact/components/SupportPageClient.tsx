@@ -163,7 +163,7 @@ export function SupportPageClient() {
                       fontWeight: 600,
                     }}
                   >
-                    SUPPORT
+                    CONTACT US
                   </span>
                 </div>
 
@@ -266,7 +266,7 @@ export function SupportPageClient() {
                       fontWeight: 600,
                     }}
                   >
-                    SUPPORT
+                    CONTACT US
                   </span>
                 </div>
                 <SupportHeadline />

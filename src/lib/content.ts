@@ -64,12 +64,6 @@ export const NAV = {
       { label: "Enterprises", href: "/solutions/enterprises" },
     ],
   },
-  support: {
-    label: "Support",
-    items: [
-      { label: "MD Support Portal", href: "/support" },
-    ],
-  },
   resources: {
     label: "Resources",
     items: [
