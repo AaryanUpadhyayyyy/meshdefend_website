@@ -1175,17 +1175,6 @@ export function VintageBroadsheetViewer() {
         <p className="section-label">Plates · Media Coverage</p>
         <ol className="plate-list" id="plateList" />
       </section>
-
-      {/* Short Painted Divider Rule */}
-      <div className="rule short" aria-hidden="true" />
-
-      {/* Editorial Footer Line */}
-      <p className="foot" id="contact">
-        Bengaluru &amp; San Francisco · The Resilience Gazette ·{" "}
-        <a href="mailto:press@meshdefend.ai" className="bio-link">
-          press@meshdefend.ai
-        </a>
-      </p>
     </div>
   );
 }

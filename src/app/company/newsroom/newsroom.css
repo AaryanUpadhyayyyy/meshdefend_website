@@ -133,7 +133,7 @@ html.dark .newsroom-content-layer,
 
 .masthead-meta-strip {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: min(1080px, 92vw);
   padding: 6px 0;
@@ -162,7 +162,7 @@ html.dark .newsroom-content-layer,
   white-space: nowrap;
   line-height: 0.98;
   color: var(--ink);
-  margin: 6px 0 2px;
+  margin: 10px 0 14px;
 }
 
 .editorial-top-masthead .masthead-tagline {
@@ -994,7 +994,7 @@ img[src*="botany"] {
 .plates {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 5vw, 48px);
+  padding: 0 clamp(20px, 5vw, 48px) clamp(64px, 8vw, 112px);
 }
 
 .plate-list {

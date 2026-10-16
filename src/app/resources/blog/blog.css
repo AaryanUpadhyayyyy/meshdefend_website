@@ -1,0 +1,515 @@
+/* ─── MeshDefend Resources · Blog & Asymmetrical Editorial Canvas ─── */
+
+.blog-page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--ink);
+  padding-top: clamp(100px, 14vh, 140px);
+  padding-bottom: 120px;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.blog-container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── 1. Editorial Hero Masthead ─── */
+
+.blog-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.blog-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.blog-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(44px, 5.6vw, 76px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 20px;
+  max-width: 960px;
+}
+
+.blog-deck {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(16px, 1.25vw, 18px);
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 720px;
+  margin: 0;
+}
+
+/* ─── 2. Blueprint Toolbar & Editorial Ticker ─── */
+
+.blog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  margin-bottom: 44px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.blog-categories {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.blog-category-btn {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.blog-category-btn:hover {
+  color: var(--ink);
+  border-color: var(--border);
+}
+
+.blog-category-btn.is-active {
+  color: var(--orange);
+  background: var(--orange-soft);
+  border-color: rgba(244, 85, 50, 0.3);
+  font-weight: 600;
+}
+
+.blog-ticker {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.blog-ticker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--orange);
+  box-shadow: 0 0 6px rgba(244, 85, 50, 0.6);
+}
+
+/* ─── 3. Featured Dispatch: Asymmetrical Split Blueprint Card ─── */
+
+.featured-card {
+  display: grid;
+  grid-template-columns: 1.22fr 1fr;
+  border: 1px solid var(--border);
+  background: var(--bg-pure);
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 44px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.featured-card:hover {
+  border-color: rgba(244, 85, 50, 0.45);
+}
+
+.featured-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #f3f1f1;
+  border-right: 1px solid var(--border);
+}
+
+[data-theme="dark"] .featured-media,
+html.dark .featured-media,
+.dark .featured-media {
+  background: #221f22;
+}
+
+.featured-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 3.5vw, 44px);
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-category {
+  color: var(--orange);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.meta-dot {
+  color: var(--border);
+}
+
+.meta-date {
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.meta-time {
+  color: var(--muted);
+  margin-left: auto;
+  letter-spacing: 0.08em;
+}
+
+.featured-headline {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 18px;
+  transition: color 0.2s ease;
+}
+
+.featured-card:hover .featured-headline {
+  color: var(--orange);
+}
+
+.featured-excerpt {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  line-height: 1.68;
+  color: var(--muted);
+  margin: 0 0 32px;
+}
+
+/* ─── 4. Secondary Posts: Snapped 3-Column Blueprint Grid ─── */
+
+.blueprint-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  margin-bottom: 56px;
+}
+
+.grid-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-pure);
+  border-radius: 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.grid-card:hover {
+  background: var(--bg-surface);
+}
+
+.grid-card-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #f3f1f1;
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="dark"] .grid-card-media,
+html.dark .grid-card-media,
+.dark .grid-card-media {
+  background: #221f22;
+}
+
+.grid-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: clamp(20px, 2.2vw, 28px);
+}
+
+.grid-card-headline {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(21px, 2vw, 26px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 14px;
+  transition: color 0.2s ease;
+}
+
+.grid-card:hover .grid-card-headline {
+  color: var(--orange);
+}
+
+.grid-card-excerpt {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--muted);
+  margin: 0 0 28px;
+  flex: 1;
+}
+
+/* ─── Author & Action Footer ─── */
+
+.author-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  gap: 12px;
+}
+
+.author-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e8e5e5;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .author-avatar-circle,
+html.dark .author-avatar-circle,
+.dark .author-avatar-circle {
+  background: #2e2a30;
+  color: #fefdfd;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.author-role {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.read-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.featured-card:hover .read-action,
+.grid-card:hover .read-action {
+  color: var(--orange);
+}
+
+.read-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.featured-card:hover .read-arrow,
+.grid-card:hover .read-arrow {
+  transform: translateX(4px);
+}
+
+/* ─── Neutral Fallback Media Box ─── */
+
+.neutral-media-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f3f1f1;
+  position: relative;
+}
+
+[data-theme="dark"] .neutral-media-fallback,
+html.dark .neutral-media-fallback,
+.dark .neutral-media-fallback {
+  background: #232125;
+}
+
+/* ─── Bottom Newsletter CTA Banner (Brutalist Blueprint) ─── */
+
+.blog-newsletter-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  background: var(--bg-pure);
+  border-radius: 0;
+  padding: clamp(24px, 3.5vw, 40px);
+  margin-top: 16px;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.newsletter-banner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+}
+
+.newsletter-banner-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.newsletter-banner-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.newsletter-banner-deck {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.newsletter-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--orange);
+  color: #ffffff;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.newsletter-banner-btn:hover {
+  background: #d84524;
+  transform: translateY(-1px);
+}
+
+/* ─── Responsive Adjustments ─── */
+
+@media (max-width: 1024px) {
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+  .featured-media {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .blueprint-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .blueprint-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .meta-time {
+    margin-left: 0;
+  }
+  .author-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}

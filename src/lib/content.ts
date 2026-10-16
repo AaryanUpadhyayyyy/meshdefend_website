@@ -69,7 +69,7 @@ export const NAV = {
     items: [
       { label: "Newsletter", href: "/resources/newsletter" },
       { label: "Podcast", href: "/resources/podcast" },
-      { label: "Blogs", href: "/resources/blogs" },
+      { label: "Blog", href: "/resources/blog" },
       { label: "FAQ", href: "/resources/faq" },
     ],
   },
