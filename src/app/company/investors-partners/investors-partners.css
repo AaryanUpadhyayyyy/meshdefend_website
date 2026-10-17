@@ -1,0 +1,868 @@
+/* ─── MeshDefend Company · Investors & Partners (Elite Financial Broadsheet UI) ─── */
+
+.investors-partners-page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--ink);
+  padding-top: clamp(130px, 16vh, 160px);
+  padding-bottom: 140px;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: 
+    linear-gradient(to right, rgba(34, 31, 34, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 31, 34, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+[data-theme="dark"] .investors-partners-page,
+html.dark .investors-partners-page,
+.dark .investors-partners-page {
+  background-image: 
+    linear-gradient(to right, rgba(254, 253, 253, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(254, 253, 253, 0.03) 1px, transparent 1px);
+}
+
+.ip-container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── FOLD 1: The Immersive Hero Background Canvas ─── */
+
+.ip-hero-canvas {
+  position: relative;
+  min-height: clamp(520px, 62vh, 660px);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fbf9f6;
+  margin-bottom: 0;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.03);
+}
+
+.ip-hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ip-hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right 30%;
+  display: block;
+  opacity: 0.95;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ip-hero-canvas:hover .ip-hero-bg-img {
+  transform: scale(1.02);
+}
+
+.ip-hero-scrim {
+  position: absolute;
+  inset: 0;
+  /* Left gradient wash so broadsheet headline text is ultra-legible, while right artwork shines brightly */
+  background: 
+    linear-gradient(90deg, 
+      rgba(254, 253, 253, 0.97) 0%, 
+      rgba(254, 253, 253, 0.92) 42%, 
+      rgba(254, 253, 253, 0.5) 72%, 
+      rgba(254, 253, 253, 0.15) 100%
+    ),
+    linear-gradient(180deg, 
+      rgba(254, 253, 253, 0.5) 0%, 
+      transparent 20%, 
+      transparent 80%, 
+      rgba(254, 253, 253, 0.5) 100%
+    );
+}
+
+[data-theme="dark"] .ip-hero-scrim,
+html.dark .ip-hero-scrim,
+.dark .ip-hero-scrim {
+  background: 
+    linear-gradient(90deg, 
+      rgba(26, 24, 27, 0.97) 0%, 
+      rgba(26, 24, 27, 0.92) 42%, 
+      rgba(26, 24, 27, 0.6) 72%, 
+      rgba(26, 24, 27, 0.3) 100%
+    ),
+    linear-gradient(180deg, 
+      rgba(26, 24, 27, 0.6) 0%, 
+      transparent 20%, 
+      transparent 80%, 
+      rgba(26, 24, 27, 0.6) 100%
+    );
+}
+
+/* Blueprint HUD Top Bar */
+.ip-hero-hud-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(254, 253, 253, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+[data-theme="dark"] .ip-hero-hud-top,
+html.dark .ip-hero-hud-top,
+.dark .ip-hero-hud-top {
+  background: rgba(26, 24, 27, 0.85);
+}
+
+.ip-hero-hud-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.ip-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--orange);
+  box-shadow: 0 0 6px var(--orange);
+}
+
+.ip-hero-hud-status {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* Hero Content Floating Over the Artwork */
+.ip-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 44px);
+  max-width: 660px;
+}
+
+.ip-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ip-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.ip-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+}
+
+.ip-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(48px, 6vw, 76px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.ip-deck {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Blueprint HUD Bottom Bar */
+.ip-hero-hud-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(254, 253, 253, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+[data-theme="dark"] .ip-hero-hud-bottom,
+html.dark .ip-hero-hud-bottom,
+.dark .ip-hero-hud-bottom {
+  background: rgba(26, 24, 27, 0.85);
+}
+
+.ip-hero-hud-coord {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* ─── High-End KPI Ticker Strip (Docked to Hero) ─── */
+
+.ip-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+  margin-top: -1px;
+  background: var(--bg-pure);
+  margin-bottom: clamp(48px, 6vw, 72px);
+  position: relative;
+  z-index: 3;
+}
+
+.ip-kpi-cell {
+  padding: 16px 20px;
+  border-left: 1px solid var(--border);
+  margin-left: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ip-kpi-cell:first-child {
+  border-left: none;
+  margin-left: 0;
+}
+
+.ip-kpi-label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ip-kpi-val {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* ─── FOLD 2: Institutional Backing (The Financial Ledger) ─── */
+
+.ip-ledger-section {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+.ip-section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ip-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--bg-pure);
+}
+
+/* Left Column: Solid Dark Command Block */
+.ip-capital-col {
+  grid-column: span 5;
+  background-color: #1a181b;
+  color: #ffffff;
+  padding: clamp(36px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.ip-capital-watermark {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  font-family: var(--font-instrument-serif), serif;
+  font-size: 160px;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.ip-capital-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.ip-capital-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.ip-status-chip {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  background: rgba(244, 85, 50, 0.15);
+  border: 1px solid rgba(244, 85, 50, 0.4);
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.ip-capital-num {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(52px, 5.5vw, 76px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.ip-capital-subtitle {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a8487;
+  margin: 0 0 16px;
+}
+
+.ip-capital-body {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #a09a9c;
+  margin: 0 0 32px;
+}
+
+/* Institutional Investor Cards */
+.ip-investor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.ip-investor-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 18px;
+  border-left: 3px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+
+.ip-investor-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ip-investor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ip-investor-role {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8487;
+}
+
+.ip-investor-thesis {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 12px;
+  color: #b0abae;
+}
+
+.ip-investor-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.ip-kalaari-logo {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.ip-kettleborough-logo {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Right Column: Strategic Technology Alliances */
+.ip-alliances-col {
+  grid-column: span 7;
+  padding: clamp(36px, 4vw, 48px);
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ip-alliances-header {
+  margin-bottom: 20px;
+}
+
+.ip-alliances-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ip-alliances-h3 {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.ip-alliances-tag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: var(--orange-soft);
+  padding: 4px 10px;
+  font-weight: 600;
+}
+
+.ip-alliances-sub {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Broadsheet 1px Grid with Negative Margins */
+.ip-broadsheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 18px;
+}
+
+.ip-partner-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 16px;
+  border: 1px solid var(--border);
+  margin-left: -1px;
+  margin-top: -1px;
+  background-color: var(--bg-pure);
+  transition: all 0.25s ease;
+  position: relative;
+  min-height: 128px;
+}
+
+.ip-partner-box:hover {
+  background-color: var(--surface);
+  border-color: rgba(244, 85, 50, 0.4);
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.ip-partner-type {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ip-partner-latency {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.ip-partner-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.ip-partner-img {
+  max-height: 32px;
+  max-width: 86%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(0.08) contrast(1.05);
+  transition: all 0.25s ease;
+}
+
+.ip-partner-box:hover .ip-partner-img {
+  filter: grayscale(0) contrast(1.1);
+  transform: scale(1.06);
+}
+
+[data-theme="dark"] .ip-logo-openai,
+[data-theme="dark"] .ip-logo-anthropic,
+html.dark .ip-logo-openai,
+html.dark .ip-logo-anthropic,
+.dark .ip-logo-openai,
+.dark .ip-logo-anthropic {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .ip-partner-box:hover .ip-logo-openai,
+[data-theme="dark"] .ip-partner-box:hover .ip-logo-anthropic,
+html.dark .ip-partner-box:hover .ip-logo-openai,
+html.dark .ip-partner-box:hover .ip-logo-anthropic,
+.dark .ip-partner-box:hover .ip-logo-openai,
+.dark .ip-partner-box:hover .ip-logo-anthropic {
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(244, 85, 50, 0.5));
+}
+
+.ip-partner-mono {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-transform: uppercase;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.ip-partner-box:hover .ip-partner-mono {
+  color: var(--orange);
+}
+
+/* ─── FOLD 3: Architectural Integration Matrix ─── */
+
+.ip-matrix-section {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+.ip-matrix-header {
+  margin-bottom: 24px;
+}
+
+.ip-matrix-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.ip-matrix-h2 {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(30px, 3.2vw, 42px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ip-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  background-color: var(--bg-pure);
+}
+
+.ip-matrix-card {
+  padding: clamp(24px, 3vw, 36px);
+  border-left: 1px solid var(--border);
+  margin-left: -1px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.ip-matrix-card:first-child {
+  border-left: none;
+  margin-left: 0;
+}
+
+.ip-matrix-card:hover {
+  background-color: var(--surface);
+}
+
+.ip-matrix-index-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ip-matrix-index {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+}
+
+.ip-matrix-tag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+}
+
+.ip-matrix-title {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+
+.ip-matrix-body {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ─── FOLD 4: Strategic Alliance CTA ─── */
+
+.ip-cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  background: var(--bg-pure);
+  border-radius: 0;
+  padding: clamp(32px, 4vw, 44px);
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.ip-cta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 680px;
+}
+
+.ip-cta-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.ip-cta-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(28px, 2.8vw, 38px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ip-cta-deck {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ip-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--orange);
+  color: #ffffff;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ip-cta-btn:hover {
+  background: #d84524;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(244, 85, 50, 0.3);
+}
+
+/* ─── Responsive Queries ─── */
+
+@media (max-width: 1024px) {
+  .ip-hero-scrim {
+    background: linear-gradient(180deg, 
+      rgba(254, 253, 253, 0.94) 0%, 
+      rgba(254, 253, 253, 0.88) 50%, 
+      rgba(254, 253, 253, 0.6) 100%
+    );
+  }
+  [data-theme="dark"] .ip-hero-scrim,
+  html.dark .ip-hero-scrim,
+  .dark .ip-hero-scrim {
+    background: linear-gradient(180deg, 
+      rgba(26, 24, 27, 0.94) 0%, 
+      rgba(26, 24, 27, 0.88) 50%, 
+      rgba(26, 24, 27, 0.6) 100%
+    );
+  }
+  .ip-kpi-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ip-kpi-cell:nth-child(3) {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .ip-kpi-cell:nth-child(4) {
+    border-top: 1px solid var(--border);
+  }
+  .ip-trust-grid {
+    grid-template-columns: 1fr;
+  }
+  .ip-capital-col {
+    grid-column: span 12;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .ip-alliances-col {
+    grid-column: span 12;
+  }
+  .ip-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+  .ip-matrix-card {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    margin-left: 0;
+    margin-top: -1px;
+  }
+  .ip-matrix-card:first-child {
+    border-top: none;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .ip-hero-hud-top,
+  .ip-hero-hud-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ip-broadsheet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ip-kpi-strip {
+    grid-template-columns: 1fr;
+  }
+  .ip-kpi-cell {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    margin-left: 0;
+    margin-top: -1px;
+  }
+  .ip-kpi-cell:first-child {
+    border-top: none;
+    margin-top: 0;
+  }
+}

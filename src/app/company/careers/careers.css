@@ -1,0 +1,758 @@
+/* ─── MeshDefend Company · Careers & Talent Pipeline (Elite Architectural UI) ─── */
+
+.careers-page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--ink);
+  padding-top: clamp(130px, 16vh, 160px);
+  padding-bottom: 140px;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: 
+    linear-gradient(to right, rgba(34, 31, 34, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 31, 34, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+[data-theme="dark"] .careers-page,
+html.dark .careers-page,
+.dark .careers-page {
+  background-image: 
+    linear-gradient(to right, rgba(254, 253, 253, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(254, 253, 253, 0.03) 1px, transparent 1px);
+}
+
+.careers-container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── FOLD 1: The Immersive Hero Background Canvas ─── */
+
+.careers-hero-canvas {
+  position: relative;
+  min-height: clamp(520px, 62vh, 660px);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fbf9f6;
+  margin-bottom: 0;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.03);
+}
+
+.careers-hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.careers-hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right 40%;
+  display: block;
+  opacity: 0.95;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.careers-hero-canvas:hover .careers-hero-bg-img {
+  transform: scale(1.02);
+}
+
+.careers-hero-scrim {
+  position: absolute;
+  inset: 0;
+  /* Left gradient wash so headline text is ultra-legible, while right artwork shines brightly */
+  background: 
+    linear-gradient(90deg, 
+      rgba(254, 253, 253, 0.97) 0%, 
+      rgba(254, 253, 253, 0.92) 42%, 
+      rgba(254, 253, 253, 0.5) 72%, 
+      rgba(254, 253, 253, 0.15) 100%
+    ),
+    linear-gradient(180deg, 
+      rgba(254, 253, 253, 0.5) 0%, 
+      transparent 20%, 
+      transparent 80%, 
+      rgba(254, 253, 253, 0.5) 100%
+    );
+}
+
+[data-theme="dark"] .careers-hero-scrim,
+html.dark .careers-hero-scrim,
+.dark .careers-hero-scrim {
+  background: 
+    linear-gradient(90deg, 
+      rgba(26, 24, 27, 0.97) 0%, 
+      rgba(26, 24, 27, 0.92) 42%, 
+      rgba(26, 24, 27, 0.6) 72%, 
+      rgba(26, 24, 27, 0.3) 100%
+    ),
+    linear-gradient(180deg, 
+      rgba(26, 24, 27, 0.6) 0%, 
+      transparent 20%, 
+      transparent 80%, 
+      rgba(26, 24, 27, 0.6) 100%
+    );
+}
+
+/* Blueprint HUD Top Bar */
+.careers-hero-hud-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(254, 253, 253, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+[data-theme="dark"] .careers-hero-hud-top,
+html.dark .careers-hero-hud-top,
+.dark .careers-hero-hud-top {
+  background: rgba(26, 24, 27, 0.85);
+}
+
+.careers-hero-hud-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.careers-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--orange);
+  box-shadow: 0 0 6px var(--orange);
+}
+
+.careers-hero-hud-status {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* Hero Content Floating Over the Artwork */
+.careers-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 44px);
+  max-width: 660px;
+}
+
+.careers-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.careers-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(48px, 6vw, 76px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.careers-deck {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Blueprint HUD Bottom Bar */
+.careers-hero-hud-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(254, 253, 253, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+[data-theme="dark"] .careers-hero-hud-bottom,
+html.dark .careers-hero-hud-bottom,
+.dark .careers-hero-hud-bottom {
+  background: rgba(26, 24, 27, 0.85);
+}
+
+.careers-hero-hud-coord {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* ─── High-End KPI Ticker Strip (Docked to Hero) ─── */
+
+.careers-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+  margin-top: -1px;
+  background: var(--bg-pure);
+  margin-bottom: clamp(48px, 6vw, 72px);
+  position: relative;
+  z-index: 3;
+}
+
+.careers-kpi-cell {
+  padding: 16px 20px;
+  border-left: 1px solid var(--border);
+  margin-left: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.careers-kpi-cell:first-child {
+  border-left: none;
+  margin-left: 0;
+}
+
+.careers-kpi-label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.careers-kpi-val {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* ─── FOLD 2: Open Positions (The Talent Pipeline) ─── */
+
+.careers-positions-section {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+.careers-positions-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.careers-positions-h2 {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(32px, 3.5vw, 44px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Filter Buttons */
+.careers-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.careers-filter-btn {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.careers-filter-btn:hover {
+  color: var(--ink);
+  border-color: var(--border);
+}
+
+.careers-filter-btn.is-active {
+  color: var(--orange);
+  background: var(--orange-soft);
+  border-color: rgba(244, 85, 50, 0.3);
+  font-weight: 600;
+}
+
+/* Role Cards Grid */
+.careers-roles-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  background-color: var(--bg-pure);
+}
+
+.careers-role-card {
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.careers-role-card:last-child {
+  border-bottom: none;
+}
+
+.careers-role-card:hover {
+  background-color: #f7f5f4;
+  border-color: rgba(244, 85, 50, 0.4);
+  z-index: 2;
+}
+
+[data-theme="dark"] .careers-role-card:hover,
+html.dark .careers-role-card:hover,
+.dark .careers-role-card:hover {
+  background-color: #262327;
+}
+
+.careers-role-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.careers-role-meta-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.careers-chip-dept {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.careers-chip-tag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+}
+
+.careers-role-mid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.careers-role-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 840px;
+}
+
+.careers-role-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.careers-role-card:hover .careers-role-title {
+  color: var(--orange);
+}
+
+.careers-role-desc {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+
+.careers-role-action-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.careers-role-action {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-pure);
+  transition: all 0.2s ease;
+}
+
+.careers-role-card:hover .careers-role-action {
+  background: var(--orange);
+  color: #ffffff;
+  border-color: var(--orange);
+}
+
+.careers-role-arrow {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.careers-role-card:hover .careers-role-arrow {
+  transform: translate(3px, -3px);
+}
+
+.careers-role-bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+.careers-stack-label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.careers-stack-chip {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  color: var(--ink);
+  background: rgba(34, 31, 34, 0.04);
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .careers-stack-chip,
+html.dark .careers-stack-chip,
+.dark .careers-stack-chip {
+  background: rgba(254, 253, 253, 0.06);
+}
+
+/* ─── FOLD 3: Engineering Principles (No Fluff) ─── */
+
+.careers-principles-section {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+.careers-section-header {
+  margin-bottom: 24px;
+}
+
+.careers-section-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.careers-section-h2 {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(30px, 3.2vw, 42px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.careers-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  background-color: var(--bg-pure);
+}
+
+.careers-principle-card {
+  padding: clamp(24px, 3vw, 36px);
+  border-left: 1px solid var(--border);
+  margin-left: -1px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.careers-principle-card:first-child {
+  border-left: none;
+  margin-left: 0;
+}
+
+.careers-principle-card:hover {
+  background-color: var(--surface);
+}
+
+.careers-principle-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.careers-principle-index {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+}
+
+.careers-principle-tag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+}
+
+.careers-principle-title {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+
+.careers-principle-body {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ─── FOLD 4: Engineering Contract & Benefits ─── */
+
+.careers-benefits-section {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+/* ─── FOLD 5: General Inquiries Banner ─── */
+
+.careers-cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  background: var(--bg-pure);
+  border-radius: 0;
+  padding: clamp(32px, 4vw, 44px);
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.careers-cta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 680px;
+}
+
+.careers-cta-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.careers-cta-title {
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(28px, 2.8vw, 38px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.careers-cta-deck {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.careers-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--orange);
+  color: #ffffff;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.careers-cta-btn:hover {
+  background: #d84524;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(244, 85, 50, 0.3);
+}
+
+/* ─── Responsive Queries ─── */
+
+@media (max-width: 1024px) {
+  .careers-hero-scrim {
+    background: linear-gradient(180deg, 
+      rgba(254, 253, 253, 0.94) 0%, 
+      rgba(254, 253, 253, 0.88) 50%, 
+      rgba(254, 253, 253, 0.6) 100%
+    );
+  }
+  [data-theme="dark"] .careers-hero-scrim,
+  html.dark .careers-hero-scrim,
+  .dark .careers-hero-scrim {
+    background: linear-gradient(180deg, 
+      rgba(26, 24, 27, 0.94) 0%, 
+      rgba(26, 24, 27, 0.88) 50%, 
+      rgba(26, 24, 27, 0.6) 100%
+    );
+  }
+  .careers-kpi-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .careers-kpi-cell:nth-child(3) {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .careers-kpi-cell:nth-child(4) {
+    border-top: 1px solid var(--border);
+  }
+  .careers-principles-grid {
+    grid-template-columns: 1fr;
+  }
+  .careers-principle-card {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    margin-left: 0;
+    margin-top: -1px;
+  }
+  .careers-principle-card:first-child {
+    border-top: none;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .careers-hero-hud-top,
+  .careers-hero-hud-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .careers-kpi-strip {
+    grid-template-columns: 1fr;
+  }
+  .careers-kpi-cell {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    margin-left: 0;
+    margin-top: -1px;
+  }
+  .careers-kpi-cell:first-child {
+    border-top: none;
+    margin-top: 0;
+  }
+  .careers-role-mid {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .careers-role-action-wrap {
+    align-self: flex-start;
+  }
+}
