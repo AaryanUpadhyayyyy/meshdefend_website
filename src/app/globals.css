@@ -685,11 +685,94 @@ html.js-reveal .reveal-delay-6 { transition-delay: 0.48s; }
   html.js-reveal .reveal-fade,
   html.js-reveal .word-inner,
   html.js-reveal .text-blur-in,
-  html.js-reveal .line-inner {
+  html.js-reveal .line-inner,
+  [data-reveal],
+  [data-reveal-group],
+  .reveal-group-item {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
     transition: none !important;
+  }
+}
+
+/* ─── Scroll-Triggered Content Reveal Architecture ─────────────────── */
+[data-reveal] {
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* Hidden initial states: only active when data-revealed="false" */
+[data-reveal][data-revealed="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-reveal="fade-up"][data-revealed="false"] {
+  transform: translateY(var(--reveal-y, 28px));
+}
+
+[data-reveal="fade"][data-revealed="false"] {
+  transform: none;
+}
+
+[data-reveal="scale-in"][data-revealed="false"] {
+  transform: scale(0.96);
+}
+
+[data-reveal="slide-left"][data-revealed="false"] {
+  transform: translateX(-32px);
+}
+
+[data-reveal="slide-right"][data-revealed="false"] {
+  transform: translateX(32px);
+}
+
+/* Revealed state: opacity 1, transform none */
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.reveal-group-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Responsive grid border parity when children are wrapped in reveal-group-item */
+@media (max-width: 960px) {
+  .audience-grid .reveal-group-item:nth-child(2) .audience-cell {
+    border-right: none !important;
+  }
+  .audience-grid .reveal-group-item:nth-child(1) .audience-cell,
+  .audience-grid .reveal-group-item:nth-child(2) .audience-cell {
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 600px) {
+  .audience-grid .reveal-group-item .audience-cell {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .audience-grid .reveal-group-item:last-child .audience-cell {
+    border-bottom: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .impact-stats-grid .reveal-group-item .impact-cell {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .impact-stats-grid .reveal-group-item:last-child .impact-cell {
+    border-bottom: none !important;
   }
 }
 

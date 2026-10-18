@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
+import { Reveal } from "@/components/motion";
 import { PAIN } from "@/lib/sections";
 import { MeshDefendBackground } from "@/components/hero/MeshDefendBackground";
 
@@ -63,83 +64,90 @@ export function PainSection() {
       {/* Sticky Stage Container */}
       <div className="pain-sticky-stage">
         <div className="container" style={{ position: "relative", zIndex: 2 }}>
-          {/* ─── TOP EDITORIAL HEADER ─── */}
+          {/* ─── TOP EDITORIAL HEADER with 0.08s stepped reveals ─── */}
           <div style={{ maxWidth: 960, marginBottom: 36 }}>
             {/* Eyebrow */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 16,
-              }}
-            >
-              <span
+            <Reveal delay={0}>
+              <div
                 style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "var(--orange)",
-                  display: "inline-block",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  letterSpacing: "0.08em",
-                  color: "var(--muted)",
-                  textTransform: "uppercase",
-                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 16,
                 }}
               >
-                {PAIN.eyebrow}
-              </span>
-            </div>
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "var(--orange)",
+                    display: "inline-block",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    letterSpacing: "0.08em",
+                    color: "var(--muted)",
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                  }}
+                >
+                  {PAIN.eyebrow}
+                </span>
+              </div>
+            </Reveal>
 
             {/* H2 Headline */}
-            <h2
-              className="display"
-              style={{
-                fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                fontSize: "clamp(38px, 4.6vw, 64px)",
-                lineHeight: 1.04,
-                letterSpacing: "-0.03em",
-                margin: "0 0 16px 0",
-                color: "var(--ink)",
-                fontWeight: 400,
-              }}
-            >
-              {PAIN.headline}
-            </h2>
+            <Reveal delay={0.08}>
+              <h2
+                className="display"
+                style={{
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                  fontSize: "clamp(38px, 4.6vw, 64px)",
+                  lineHeight: 1.04,
+                  letterSpacing: "-0.03em",
+                  margin: "0 0 16px 0",
+                  color: "var(--ink)",
+                  fontWeight: 400,
+                }}
+              >
+                {PAIN.headline}
+              </h2>
+            </Reveal>
 
             {/* Opening Lead */}
-            <p
-              className="display-italic"
-              style={{
-                fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                fontSize: "clamp(22px, 2.3vw, 30px)",
-                fontStyle: "italic",
-                color: "var(--orange)",
-                letterSpacing: "-0.015em",
-                lineHeight: 1.25,
-                maxWidth: "46ch",
-                margin: 0,
-              }}
-            >
-              {PAIN.openingLine}
-            </p>
+            <Reveal delay={0.16}>
+              <p
+                className="display-italic"
+                style={{
+                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                  fontSize: "clamp(22px, 2.3vw, 30px)",
+                  fontStyle: "italic",
+                  color: "var(--orange)",
+                  letterSpacing: "-0.015em",
+                  lineHeight: 1.25,
+                  maxWidth: "46ch",
+                  margin: 0,
+                }}
+              >
+                {PAIN.openingLine}
+              </p>
+            </Reveal>
           </div>
 
           {/* ═══════════════════════════════════════════════════════════════
               12-COLUMN ARCHITECTURAL SPLIT-SCREEN STAGE
              ═══════════════════════════════════════════════════════════════ */}
-          <div
-            style={{
-              border: "1px solid var(--border)",
-              background: "var(--bg)",
-            }}
-          >
+          <Reveal variant="scale-in" delay={0.24}>
+            <div
+              style={{
+                border: "1px solid var(--border)",
+                background: "var(--bg)",
+              }}
+            >
             <div
               className="pain-split-grid"
               style={{
@@ -411,7 +419,8 @@ export function PainSection() {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

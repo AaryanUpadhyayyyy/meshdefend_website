@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { motion, type Variants } from "framer-motion";
+import { Reveal, RevealGroup } from "@/components/motion";
 import "./about.css";
 
 // Executive Leadership Team
@@ -193,26 +194,33 @@ export default function AboutUsPage() {
             </div>
 
             <div className="about-thesis-header">
-              <div className="about-thesis-eyebrow">[ THE CORE PROBLEM ]</div>
-              <h2 id="about-thesis-title" className="about-thesis-h2">
-                Storage integrity is not operational recoverability.
-              </h2>
-              <p className="about-thesis-deck">
-                Every enterprise has immutable backups. Yet when ransomware
-                strikes, recovery takes weeks of manual runbooks, missing
-                dependencies, and unverified configurations. MeshDefend replaces
-                passive data storage with active, policy-governed operational
-                readiness.
-              </p>
+              <Reveal delay={0}>
+                <div className="about-thesis-eyebrow">[ THE CORE PROBLEM ]</div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="about-thesis-title" className="about-thesis-h2">
+                  Storage integrity is not operational recoverability.
+                </h2>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <p className="about-thesis-deck">
+                  Every enterprise has immutable backups. Yet when ransomware
+                  strikes, recovery takes weeks of manual runbooks, missing
+                  dependencies, and unverified configurations. MeshDefend replaces
+                  passive data storage with active, policy-governed operational
+                  readiness.
+                </p>
+              </Reveal>
             </div>
 
             {/* Architectural Blueprint Schematic Showcase */}
-            <div className="about-diagram-frame">
-              <div className="about-diagram-top">
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span className="about-diagram-tag">[ SCHEMATIC // 02 ]</span>
-                  <span className="about-diagram-title">THE RESILIENCE PARADIGM SHIFT</span>
-                </div>
+            <Reveal variant="scale-in" delay={0.24}>
+              <div className="about-diagram-frame">
+                <div className="about-diagram-top">
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="about-diagram-tag">[ SCHEMATIC // 02 ]</span>
+                    <span className="about-diagram-title">THE RESILIENCE PARADIGM SHIFT</span>
+                  </div>
                 <button
                   type="button"
                   className="about-diagram-expand-btn"
@@ -269,6 +277,7 @@ export default function AboutUsPage() {
                 </span>
               </div>
             </div>
+            </Reveal>
 
             {/* Fullscreen Lightbox Modal */}
             {diagramLightbox && (
@@ -301,7 +310,7 @@ export default function AboutUsPage() {
             )}
 
             {/* Contrast Ledger (2 Columns) */}
-            <div className="about-contrast-grid">
+            <RevealGroup staggerDelay={0.1} className="about-contrast-grid">
               <div className="about-contrast-card">
                 <span className="about-contrast-tag is-legacy">
                   [ 01 // THE LEGACY ILLUSION ]
@@ -339,7 +348,7 @@ export default function AboutUsPage() {
                   VERIFIED RTO: SUB-HOUR RECONSTITUTION
                 </div>
               </div>
-            </div>
+            </RevealGroup>
           </section>
 
           {/* ===================================================================
@@ -354,7 +363,7 @@ export default function AboutUsPage() {
               <span>PEDIGREE: DELL INFRASTRUCTURE</span>
             </div>
 
-            <div className="about-leaders-grid">
+            <RevealGroup staggerDelay={0.1} className="about-leaders-grid">
               {LEADERSHIP.map((leader) => (
                 <div key={leader.name} className="about-leader-card">
                   <div>
@@ -396,7 +405,7 @@ export default function AboutUsPage() {
                   </div>
                 </div>
               ))}
-            </div>
+            </RevealGroup>
           </section>
 
           {/* ===================================================================
@@ -411,7 +420,7 @@ export default function AboutUsPage() {
               <span>ENGINEERING RIGOR</span>
             </div>
 
-            <div className="about-principles-grid">
+            <RevealGroup staggerDelay={0.1} className="about-principles-grid">
               {PRINCIPLES.map((principle) => (
                 <div key={principle.index} className="about-principle-card">
                   <div className="about-principle-top-row">
@@ -426,7 +435,7 @@ export default function AboutUsPage() {
                   <p className="about-principle-body">{principle.body}</p>
                 </div>
               ))}
-            </div>
+            </RevealGroup>
           </section>
 
           {/* ===================================================================
@@ -437,28 +446,36 @@ export default function AboutUsPage() {
             aria-labelledby="about-cta-title"
           >
             <div className="about-cta-left">
-              <div className="about-cta-eyebrow">
-                [ OPERATE RESILIENCE ]
-              </div>
-              <h2 id="about-cta-title" className="about-cta-title">
-                Recovery you can prove. Operations without error.
-              </h2>
-              <p className="about-cta-deck">
-                Experience how MeshDefend unifies fragmented backup consoles into
-                a single autonomous operations center.
-              </p>
+              <Reveal delay={0}>
+                <div className="about-cta-eyebrow">
+                  [ OPERATE RESILIENCE ]
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="about-cta-title" className="about-cta-title">
+                  Recovery you can prove. Operations without error.
+                </h2>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <p className="about-cta-deck">
+                  Experience how MeshDefend unifies fragmented backup consoles into
+                  a single autonomous operations center.
+                </p>
+              </Reveal>
             </div>
 
-            <div className="about-cta-actions">
-              <Link href="/demo" className="about-cta-btn">
-                <span>Book a Technical Demo</span>
-                <span aria-hidden="true">→</span>
-              </Link>
-              <Link href="/company/careers" className="about-cta-secondary">
-                <span>View Open Roles</span>
-                <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
+            <Reveal delay={0.24}>
+              <div className="about-cta-actions">
+                <Link href="/demo" className="about-cta-btn">
+                  <span>Book a Technical Demo</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <Link href="/company/careers" className="about-cta-secondary">
+                  <span>View Open Roles</span>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
+            </Reveal>
           </section>
         </div>
       </main>

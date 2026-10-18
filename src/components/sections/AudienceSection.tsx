@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AUDIENCE } from "@/lib/sections";
-import { SpringReveal } from "@/components/motion/SpringReveal";
+import { Reveal, RevealGroup } from "@/components/motion";
 
 export function AudienceSection() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -19,10 +19,10 @@ export function AudienceSection() {
       }}
     >
       <div className="container">
-        <SpringReveal>
-          {/* ─── SECTION HEADER ─── */}
-          <div style={{ maxWidth: 880, marginBottom: 48 }}>
-            {/* Eyebrow */}
+        {/* ─── SECTION HEADER with stepped reveals ─── */}
+        <div style={{ maxWidth: 880, marginBottom: 48 }}>
+          {/* Eyebrow */}
+          <Reveal delay={0}>
             <div
               style={{
                 display: "flex",
@@ -53,8 +53,10 @@ export function AudienceSection() {
                 {AUDIENCE.eyebrow}
               </span>
             </div>
+          </Reveal>
 
-            {/* H2 Headline */}
+          {/* H2 Headline */}
+          <Reveal delay={0.08}>
             <h2
               className="display"
               style={{
@@ -69,22 +71,24 @@ export function AudienceSection() {
             >
               {AUDIENCE.headline}
             </h2>
-          </div>
+          </Reveal>
+        </div>
 
-          {/* ─── 4-COLUMN EXPOSED 1PX GRID ON VAR(--BG) ─── */}
-          <div
+        {/* ─── 4-COLUMN EXPOSED 1PX GRID ON VAR(--BG) ─── */}
+        <div
+          style={{
+            border: "1px solid var(--border)",
+            background: "var(--bg)",
+          }}
+        >
+          <RevealGroup
+            staggerDelay={0.1}
             style={{
-              border: "1px solid var(--border)",
-              background: "var(--bg)",
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
             }}
+            className="audience-grid"
           >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-              }}
-              className="audience-grid"
-            >
               {AUDIENCE.segments.map((seg, idx) => {
                 const isHovered = hoveredIdx === idx;
                 const isLast = idx === AUDIENCE.segments.length - 1;
@@ -99,6 +103,7 @@ export function AudienceSection() {
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
+                      height: "100%",
                       padding: "36px 28px",
                       background: isHovered ? "var(--surface)" : "var(--bg)",
                       borderRight: isLast ? "none" : "1px solid var(--border)",
@@ -188,10 +193,9 @@ export function AudienceSection() {
                   </Link>
                 );
               })}
-            </div>
+            </RevealGroup>
           </div>
-        </SpringReveal>
-      </div>
-    </section>
-  );
-}
+        </div>
+      </section>
+    );
+  }

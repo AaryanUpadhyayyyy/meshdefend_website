@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { SITE } from "@/lib/content";
+import { Reveal, RevealGroup } from "@/components/motion";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -100,15 +101,16 @@ export function Footer() {
         }}
       >
         <div className="container">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.2fr 1fr",
-              gap: "48px 64px",
-              alignItems: "start",
-            }}
-            className="footer-top-grid reveal-on-scroll"
-          >
+          <Reveal delay={0}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.2fr 1fr",
+                gap: "48px 64px",
+                alignItems: "start",
+              }}
+              className="footer-top-grid"
+            >
             {/* Left: Brand Identity & Status */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
@@ -289,19 +291,21 @@ export function Footer() {
               </div>
             </div>
           </div>
+        </Reveal>
         </div>
       </div>
 
       {/* ─── NAVIGATION COLUMNS (5 BALANCED PILLARS) ─── */}
       <div style={{ padding: "64px 0 48px" }}>
         <div className="container">
-          <div
+          <RevealGroup
+            staggerDelay={0.1}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(5, 1fr)",
               gap: "36px 28px",
             }}
-            className="footer-nav-grid reveal-on-scroll reveal-stagger"
+            className="footer-nav-grid"
           >
             {navGroups.map((group) => (
               <div key={group.num}>
@@ -384,7 +388,7 @@ export function Footer() {
                 </ul>
               </div>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </div>
 

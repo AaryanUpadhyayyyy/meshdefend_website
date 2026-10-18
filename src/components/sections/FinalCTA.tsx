@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FINAL_CTA } from "@/lib/sections";
-import { SpringReveal } from "@/components/motion/SpringReveal";
+import { Reveal } from "@/components/motion";
 
 export function FinalCTA() {
   return (
@@ -48,8 +48,8 @@ export function FinalCTA() {
           zIndex: 1,
         }}
       >
-        <SpringReveal>
-          {/* Eyebrow */}
+        {/* Eyebrow */}
+        <Reveal delay={0}>
           <div
             style={{
               display: "inline-flex",
@@ -84,8 +84,10 @@ export function FinalCTA() {
               {FINAL_CTA.eyebrow}
             </span>
           </div>
+        </Reveal>
 
-          {/* H2 Headline */}
+        {/* H2 Headline */}
+        <Reveal delay={0.08}>
           <h2
             className="display"
             style={{
@@ -100,8 +102,10 @@ export function FinalCTA() {
           >
             {FINAL_CTA.headline}
           </h2>
+        </Reveal>
 
-          {/* Exact Sitemap Lede */}
+        {/* Exact Sitemap Lede */}
+        <Reveal delay={0.16}>
           <p
             style={{
               fontFamily: "var(--font-body), Inter, sans-serif",
@@ -114,8 +118,10 @@ export function FinalCTA() {
           >
             {FINAL_CTA.lede}
           </p>
+        </Reveal>
 
-          {/* Action CTAs */}
+        {/* Action CTAs */}
+        <Reveal delay={0.24}>
           <div
             style={{
               display: "flex",
@@ -163,7 +169,7 @@ export function FinalCTA() {
               {FINAL_CTA.ctaSecondary}
             </motion.a>
           </div>
-        </SpringReveal>
+        </Reveal>
       </div>
     </section>
   );

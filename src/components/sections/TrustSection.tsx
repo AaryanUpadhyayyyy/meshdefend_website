@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SpringReveal } from "@/components/motion/SpringReveal";
+import { Reveal } from "@/components/motion";
 
 /* ─── Official Verified Strategic Partners (Verbatim from Slide / Deck) ───
    EXACTLY 8 Partners — Scaled up ~25-30% for high visual impact:
@@ -263,7 +263,7 @@ export function TrustSection() {
       }}
     >
       <div className="container">
-        <SpringReveal>
+        <Reveal delay={0}>
           {/* ═══════════════════════════════════════════════════════════════
               TIER 1: INSTITUTIONAL & ANGEL BACKING
              ═══════════════════════════════════════════════════════════════ */}
@@ -407,10 +407,12 @@ export function TrustSection() {
               </div>
             </div>
           </div>
+        </Reveal>
 
-          {/* ═══════════════════════════════════════════════════════════════
-              TIER 2: STRATEGIC & ENTERPRISE PARTNERS MARQUEE
-             ═══════════════════════════════════════════════════════════════ */}
+        {/* ═══════════════════════════════════════════════════════════════
+            TIER 2: STRATEGIC & ENTERPRISE PARTNERS MARQUEE
+           ═══════════════════════════════════════════════════════════════ */}
+        <Reveal variant="fade" delay={0.1}>
           <div style={{ position: "relative", padding: "6px 0 0" }}>
             <div
               style={{
@@ -447,7 +449,7 @@ export function TrustSection() {
               </div>
             </div>
           </div>
-        </SpringReveal>
+        </Reveal>
       </div>
 
       <style>{`

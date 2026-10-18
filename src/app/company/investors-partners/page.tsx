@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { motion, type Variants } from "framer-motion";
+import { Reveal, RevealGroup } from "@/components/motion";
 import "./investors-partners.css";
 
 // Strategic Infrastructure Partner Ecosystem
@@ -181,110 +182,114 @@ export default function InvestorsPartnersPage() {
 
             <div className="ip-trust-grid">
               {/* Left Column (The Capital): Solid dark command block */}
-              <div className="ip-capital-col">
-                <div className="ip-capital-watermark" aria-hidden="true">
-                  $2.3M
-                </div>
-
-                <div>
-                  <div className="ip-capital-top-bar">
-                    <div className="ip-capital-eyebrow">
-                      [ MAIDEN ROUND ]
-                    </div>
-                    <div className="ip-status-chip">CONFIRMED SEED</div>
+              <Reveal variant="slide-left" delay={0}>
+                <div className="ip-capital-col">
+                  <div className="ip-capital-watermark" aria-hidden="true">
+                    $2.3M
                   </div>
 
-                  <h2 id="ip-ledger-title" className="ip-capital-num">
-                    $2.3 Million
-                  </h2>
-                  <div className="ip-capital-subtitle">
-                    Institutional Equity Tranche
-                  </div>
-
-                  <p className="ip-capital-body">
-                    Accelerating development of the Resilience Operations Center
-                    (ResOC) and expanding global enterprise deployment.
-                  </p>
-                </div>
-
-                <div className="ip-investor-list">
-                  <div className="ip-investor-card">
-                    <div className="ip-investor-info">
-                      <span className="ip-investor-role">Lead Investor</span>
-                      <span className="ip-investor-thesis">
-                        Kalaari Capital · Tier-1 DeepTech VC
-                      </span>
-                    </div>
-                    <div className="ip-investor-logo-wrap">
-                      <img
-                        src="/images/logos/kalaari-dark-lead.png"
-                        alt="Kalaari Capital"
-                        className="ip-kalaari-logo"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="ip-investor-card">
-                    <div className="ip-investor-info">
-                      <span className="ip-investor-role">Co-Investor</span>
-                      <span className="ip-investor-thesis">
-                        Kettleborough VC · Resilience &amp; Infrastructure
-                      </span>
-                    </div>
-                    <div className="ip-investor-logo-wrap">
-                      <img
-                        src="/images/logos/kettleborough-dark.png"
-                        alt="Kettleborough VC"
-                        className="ip-kettleborough-logo"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column (The Technology Ecosystem): Light paper surface */}
-              <div className="ip-alliances-col">
-                <div className="ip-alliances-header">
-                  <div className="ip-alliances-top">
-                    <h3 className="ip-alliances-h3">
-                      Strategic Infrastructure Alliances
-                    </h3>
-                    <span className="ip-alliances-tag">RUNTIME VERIFIED</span>
-                  </div>
-                  <p className="ip-alliances-sub">
-                    Direct architectural telemetry hooks and air-gapped recovery
-                    bridges across cloud, model, and hardware fabrics.
-                  </p>
-                </div>
-
-                {/* 6-cell Broadsheet partner grid */}
-                <div className="ip-broadsheet-grid">
-                  {TECH_ECOSYSTEM.map((partner) => (
-                    <div
-                      key={partner.name}
-                      className="ip-partner-box"
-                      title={partner.name}
-                    >
-                      <div className="ip-partner-type">
-                        <span>{partner.type}</span>
-                        <span className="ip-partner-latency">{partner.latency}</span>
+                  <div>
+                    <div className="ip-capital-top-bar">
+                      <div className="ip-capital-eyebrow">
+                        [ MAIDEN ROUND ]
                       </div>
+                      <div className="ip-status-chip">CONFIRMED SEED</div>
+                    </div>
 
-                      <div className="ip-partner-logo-frame">
+                    <h2 id="ip-ledger-title" className="ip-capital-num">
+                      $2.3 Million
+                    </h2>
+                    <div className="ip-capital-subtitle">
+                      Institutional Equity Tranche
+                    </div>
+
+                    <p className="ip-capital-body">
+                      Accelerating development of the Resilience Operations Center
+                      (ResOC) and expanding global enterprise deployment.
+                    </p>
+                  </div>
+
+                  <div className="ip-investor-list">
+                    <div className="ip-investor-card">
+                      <div className="ip-investor-info">
+                        <span className="ip-investor-role">Lead Investor</span>
+                        <span className="ip-investor-thesis">
+                          Kalaari Capital · Tier-1 DeepTech VC
+                        </span>
+                      </div>
+                      <div className="ip-investor-logo-wrap">
                         <img
-                          src={partner.logo}
-                          alt={partner.name}
-                          className={`ip-partner-img ip-logo-${partner.name.toLowerCase()}`}
+                          src="/images/logos/kalaari-dark-lead.png"
+                          alt="Kalaari Capital"
+                          className="ip-kalaari-logo"
                         />
                       </div>
-
-                      <span className="ip-partner-mono">
-                        [ {partner.name} ]
-                      </span>
                     </div>
-                  ))}
+
+                    <div className="ip-investor-card">
+                      <div className="ip-investor-info">
+                        <span className="ip-investor-role">Co-Investor</span>
+                        <span className="ip-investor-thesis">
+                          Kettleborough VC · Resilience &amp; Infrastructure
+                        </span>
+                      </div>
+                      <div className="ip-investor-logo-wrap">
+                        <img
+                          src="/images/logos/kettleborough-dark.png"
+                          alt="Kettleborough VC"
+                          className="ip-kettleborough-logo"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
+
+              {/* Right Column (The Technology Ecosystem): Light paper surface */}
+              <Reveal variant="slide-right" delay={0.08}>
+                <div className="ip-alliances-col">
+                  <div className="ip-alliances-header">
+                    <div className="ip-alliances-top">
+                      <h3 className="ip-alliances-h3">
+                        Strategic Infrastructure Alliances
+                      </h3>
+                      <span className="ip-alliances-tag">RUNTIME VERIFIED</span>
+                    </div>
+                    <p className="ip-alliances-sub">
+                      Direct architectural telemetry hooks and air-gapped recovery
+                      bridges across cloud, model, and hardware fabrics.
+                    </p>
+                  </div>
+
+                  {/* 6-cell Broadsheet partner grid */}
+                  <RevealGroup staggerDelay={0.08} className="ip-broadsheet-grid">
+                    {TECH_ECOSYSTEM.map((partner) => (
+                      <div
+                        key={partner.name}
+                        className="ip-partner-box"
+                        title={partner.name}
+                      >
+                        <div className="ip-partner-type">
+                          <span>{partner.type}</span>
+                          <span className="ip-partner-latency">{partner.latency}</span>
+                        </div>
+
+                        <div className="ip-partner-logo-frame">
+                          <img
+                            src={partner.logo}
+                            alt={partner.name}
+                            className={`ip-partner-img ip-logo-${partner.name.toLowerCase()}`}
+                          />
+                        </div>
+
+                        <span className="ip-partner-mono">
+                          [ {partner.name} ]
+                        </span>
+                      </div>
+                    ))}
+                  </RevealGroup>
+                </div>
+              </Reveal>
             </div>
           </section>
 
@@ -296,13 +301,17 @@ export default function InvestorsPartnersPage() {
             aria-labelledby="ip-matrix-title"
           >
             <div className="ip-matrix-header">
-              <div className="ip-matrix-eyebrow">[ RESILIENCE FABRIC ]</div>
-              <h2 id="ip-matrix-title" className="ip-matrix-h2">
-                Integration Architecture
-              </h2>
+              <Reveal delay={0}>
+                <div className="ip-matrix-eyebrow">[ RESILIENCE FABRIC ]</div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="ip-matrix-title" className="ip-matrix-h2">
+                  Integration Architecture
+                </h2>
+              </Reveal>
             </div>
 
-            <div className="ip-matrix-grid">
+            <RevealGroup staggerDelay={0.1} className="ip-matrix-grid">
               {INTEGRATION_CAPABILITIES.map((cap) => (
                 <div key={cap.index} className="ip-matrix-card">
                   <div className="ip-matrix-index-row">
@@ -313,7 +322,7 @@ export default function InvestorsPartnersPage() {
                   <p className="ip-matrix-body">{cap.body}</p>
                 </div>
               ))}
-            </div>
+            </RevealGroup>
           </section>
 
           {/* ===================================================================
@@ -324,22 +333,30 @@ export default function InvestorsPartnersPage() {
             aria-labelledby="ip-cta-title"
           >
             <div className="ip-cta-left">
-              <div className="ip-cta-eyebrow">
-                [ STRATEGIC CO-DEVELOPMENT ]
-              </div>
-              <h2 id="ip-cta-title" className="ip-cta-title">
-                Build with MeshDefend ResOC
-              </h2>
-              <p className="ip-cta-deck">
-                We partner with leading cloud providers, OEMs, and system
-                integrators to deliver verified cyber recovery.
-              </p>
+              <Reveal delay={0}>
+                <div className="ip-cta-eyebrow">
+                  [ STRATEGIC CO-DEVELOPMENT ]
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="ip-cta-title" className="ip-cta-title">
+                  Build with MeshDefend ResOC
+                </h2>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <p className="ip-cta-deck">
+                  We partner with leading cloud providers, OEMs, and system
+                  integrators to deliver verified cyber recovery.
+                </p>
+              </Reveal>
             </div>
 
-            <Link href="/company/contact" className="ip-cta-btn">
-              <span>Inquire About Partner Integrations</span>
-              <span aria-hidden="true">→</span>
-            </Link>
+            <Reveal delay={0.24}>
+              <Link href="/company/contact" className="ip-cta-btn">
+                <span>Inquire About Partner Integrations</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </Reveal>
           </section>
         </div>
       </main>

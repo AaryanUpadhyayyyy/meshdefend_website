@@ -524,7 +524,8 @@ html.dark .careers-stack-chip,
   transition: background-color 0.2s ease;
 }
 
-.careers-principle-card:first-child {
+.careers-principle-card:first-child,
+.careers-principles-grid .reveal-group-item:first-child .careers-principle-card {
   border-left: none;
   margin-left: 0;
 }

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { Reveal, RevealGroup } from "@/components/motion";
 import "./careers.css";
 
 // Active Engineering & Operations Roles (Clean, punchy 1-sentence missions)
@@ -230,85 +231,91 @@ export default function CareersPage() {
             aria-labelledby="careers-positions-title"
           >
             <div className="careers-positions-header">
-              <h2 id="careers-positions-title" className="careers-positions-h2">
-                Open Positions
-              </h2>
+              <Reveal delay={0}>
+                <h2 id="careers-positions-title" className="careers-positions-h2">
+                  Open Positions
+                </h2>
+              </Reveal>
 
-              <div className="careers-filters" role="tablist" aria-label="Role department filter">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.value}
-                    onClick={() => setActiveCategory(cat.value)}
-                    className={`careers-filter-btn ${
-                      activeCategory === cat.value ? "is-active" : ""
-                    }`}
-                    aria-pressed={activeCategory === cat.value}
-                  >
-                    {cat.label} ({cat.count})
-                  </button>
-                ))}
-              </div>
+              <Reveal delay={0.08}>
+                <div className="careers-filters" role="tablist" aria-label="Role department filter">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.value}
+                      onClick={() => setActiveCategory(cat.value)}
+                      className={`careers-filter-btn ${
+                        activeCategory === cat.value ? "is-active" : ""
+                      }`}
+                      aria-pressed={activeCategory === cat.value}
+                    >
+                      {cat.label} ({cat.count})
+                    </button>
+                  ))}
+                </div>
+              </Reveal>
             </div>
 
-            <div className="careers-roles-list">
-              <AnimatePresence mode="popLayout">
-                {filteredRoles.map((role) => (
-                  <motion.a
-                    key={role.id}
-                    href={`mailto:careers@meshdefend.ai?subject=${encodeURIComponent(
-                      role.emailSubject
-                    )}`}
-                    className="careers-role-card"
-                    variants={cardMotionVariants}
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    layout
-                  >
-                    <div className="careers-role-top">
-                      <div className="careers-role-meta-chips">
-                        <span className="careers-chip-dept">
-                          [ {role.dept.toUpperCase()} ]
-                        </span>
-                        <span className="careers-chip-tag">{role.location}</span>
-                        <span className="careers-chip-tag">{role.level}</span>
-                      </div>
-                      <span
-                        className="careers-chip-tag"
-                        style={{ color: "var(--orange)", fontWeight: 600 }}
-                      >
-                        FULL-TIME
-                      </span>
-                    </div>
-
-                    <div className="careers-role-mid">
-                      <div className="careers-role-main">
-                        <h3 className="careers-role-title">{role.title}</h3>
-                        <p className="careers-role-desc">{role.desc}</p>
-                      </div>
-
-                      <div className="careers-role-action-wrap">
-                        <span className="careers-role-action">
-                          <span>Apply</span>
-                          <span className="careers-role-arrow" aria-hidden="true">
-                            ↗
+            <Reveal delay={0.16}>
+              <div className="careers-roles-list">
+                <AnimatePresence mode="popLayout">
+                  {filteredRoles.map((role) => (
+                    <motion.a
+                      key={role.id}
+                      href={`mailto:careers@meshdefend.ai?subject=${encodeURIComponent(
+                        role.emailSubject
+                      )}`}
+                      className="careers-role-card"
+                      variants={cardMotionVariants}
+                      initial="hidden"
+                      animate="show"
+                      exit="exit"
+                      layout
+                    >
+                      <div className="careers-role-top">
+                        <div className="careers-role-meta-chips">
+                          <span className="careers-chip-dept">
+                            [ {role.dept.toUpperCase()} ]
                           </span>
+                          <span className="careers-chip-tag">{role.location}</span>
+                          <span className="careers-chip-tag">{role.level}</span>
+                        </div>
+                        <span
+                          className="careers-chip-tag"
+                          style={{ color: "var(--orange)", fontWeight: 600 }}
+                        >
+                          FULL-TIME
                         </span>
                       </div>
-                    </div>
 
-                    <div className="careers-role-bottom">
-                      <span className="careers-stack-label">Stack:</span>
-                      {role.stack.map((item) => (
-                        <span key={item} className="careers-stack-chip">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.a>
-                ))}
-              </AnimatePresence>
-            </div>
+                      <div className="careers-role-mid">
+                        <div className="careers-role-main">
+                          <h3 className="careers-role-title">{role.title}</h3>
+                          <p className="careers-role-desc">{role.desc}</p>
+                        </div>
+
+                        <div className="careers-role-action-wrap">
+                          <span className="careers-role-action">
+                            <span>Apply</span>
+                            <span className="careers-role-arrow" aria-hidden="true">
+                              ↗
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="careers-role-bottom">
+                        <span className="careers-stack-label">Stack:</span>
+                        {role.stack.map((item) => (
+                          <span key={item} className="careers-stack-chip">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.a>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </Reveal>
           </section>
 
           {/* ===================================================================
@@ -319,13 +326,17 @@ export default function CareersPage() {
             aria-labelledby="careers-principles-title"
           >
             <div className="careers-section-header">
-              <div className="careers-section-eyebrow">[ OPERATING CODE ]</div>
-              <h2 id="careers-principles-title" className="careers-section-h2">
-                Engineering Principles
-              </h2>
+              <Reveal delay={0}>
+                <div className="careers-section-eyebrow">[ OPERATING CODE ]</div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="careers-principles-title" className="careers-section-h2">
+                  Engineering Principles
+                </h2>
+              </Reveal>
             </div>
 
-            <div className="careers-principles-grid">
+            <RevealGroup staggerDelay={0.1} className="careers-principles-grid">
               {ENGINEERING_PRINCIPLES.map((principle) => (
                 <div key={principle.index} className="careers-principle-card">
                   <div className="careers-principle-top-row">
@@ -336,7 +347,7 @@ export default function CareersPage() {
                   <p className="careers-principle-body">{principle.body}</p>
                 </div>
               ))}
-            </div>
+            </RevealGroup>
           </section>
 
           {/* ===================================================================
@@ -347,13 +358,17 @@ export default function CareersPage() {
             aria-labelledby="careers-benefits-title"
           >
             <div className="careers-section-header">
-              <div className="careers-section-eyebrow">[ THE ENVIRONMENT ]</div>
-              <h2 id="careers-benefits-title" className="careers-section-h2">
-                The Engineering Contract
-              </h2>
+              <Reveal delay={0}>
+                <div className="careers-section-eyebrow">[ THE ENVIRONMENT ]</div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="careers-benefits-title" className="careers-section-h2">
+                  The Engineering Contract
+                </h2>
+              </Reveal>
             </div>
 
-            <div className="careers-principles-grid">
+            <RevealGroup staggerDelay={0.1} className="careers-principles-grid">
               {ENGINEERING_BENEFITS.map((benefit) => (
                 <div key={benefit.index} className="careers-principle-card">
                   <div className="careers-principle-top-row">
@@ -364,7 +379,7 @@ export default function CareersPage() {
                   <p className="careers-principle-body">{benefit.body}</p>
                 </div>
               ))}
-            </div>
+            </RevealGroup>
           </section>
 
           {/* ===================================================================
@@ -375,23 +390,31 @@ export default function CareersPage() {
             aria-labelledby="careers-inquiries-title"
           >
             <div className="careers-cta-left">
-              <div className="careers-cta-eyebrow">[ OPEN INQUIRIES ]</div>
-              <h2 id="careers-inquiries-title" className="careers-cta-title">
-                Don&apos;t see your exact role?
-              </h2>
-              <p className="careers-cta-deck">
-                We are always seeking exceptional systems engineers, distributed
-                telemetry architects, and resilience specialists.
-              </p>
+              <Reveal delay={0}>
+                <div className="careers-cta-eyebrow">[ OPEN INQUIRIES ]</div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 id="careers-inquiries-title" className="careers-cta-title">
+                  Don&apos;t see your exact role?
+                </h2>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <p className="careers-cta-deck">
+                  We are always seeking exceptional systems engineers, distributed
+                  telemetry architects, and resilience specialists.
+                </p>
+              </Reveal>
             </div>
 
-            <a
-              href="mailto:careers@meshdefend.ai?subject=General%20Application%20-%20Resilience%20Engineering"
-              className="careers-cta-btn"
-            >
-              <span>Submit General Application</span>
-              <span aria-hidden="true">↗</span>
-            </a>
+            <Reveal delay={0.24}>
+              <a
+                href="mailto:careers@meshdefend.ai?subject=General%20Application%20-%20Resilience%20Engineering"
+                className="careers-cta-btn"
+              >
+                <span>Submit General Application</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </Reveal>
           </section>
         </div>
       </main>

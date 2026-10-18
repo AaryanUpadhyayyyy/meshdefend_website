@@ -88,6 +88,16 @@ export default function RootLayout({
             `,
           }}
         />
+        <noscript>
+          <style>{`
+            [data-reveal],
+            [data-reveal-group],
+            .reveal-group-item {
+              opacity: 1 !important;
+              transform: none !important;
+            }
+          `}</style>
+        </noscript>
       </head>
       <body>
         <Providers>

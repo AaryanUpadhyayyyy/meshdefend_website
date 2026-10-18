@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { SOLUTION } from "@/lib/sections";
-import { SpringReveal } from "@/components/motion/SpringReveal";
+import { Reveal, RevealGroup } from "@/components/motion";
 
 export function SolutionSection() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -19,10 +19,10 @@ export function SolutionSection() {
       }}
     >
       <div className="container">
-        <SpringReveal>
-          {/* ─── SECTION HEADER ─── */}
-          <div style={{ maxWidth: 880, marginBottom: 48 }}>
-            {/* Eyebrow */}
+        {/* ─── SECTION HEADER with 0.08s stepped reveals ─── */}
+        <div style={{ maxWidth: 880, marginBottom: 48 }}>
+          {/* Eyebrow */}
+          <Reveal delay={0}>
             <div
               style={{
                 display: "flex",
@@ -53,8 +53,10 @@ export function SolutionSection() {
                 {SOLUTION.eyebrow}
               </span>
             </div>
+          </Reveal>
 
-            {/* H2 Headline */}
+          {/* H2 Headline */}
+          <Reveal delay={0.08}>
             <h2
               className="display"
               style={{
@@ -69,8 +71,10 @@ export function SolutionSection() {
             >
               {SOLUTION.headline}
             </h2>
+          </Reveal>
 
-            {/* Exact Sitemap Lede */}
+          {/* Exact Sitemap Lede */}
+          <Reveal delay={0.16}>
             <p
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
@@ -83,15 +87,17 @@ export function SolutionSection() {
             >
               {SOLUTION.lede}
             </p>
-          </div>
+          </Reveal>
+        </div>
 
-          {/* ─── 5-ROW FULL-WIDTH INTERACTIVE CAPABILITY INDEX ─── */}
-          <div
-            style={{
-              border: "1px solid var(--border)",
-              background: "var(--bg)",
-            }}
-          >
+        {/* ─── 5-ROW FULL-WIDTH INTERACTIVE CAPABILITY INDEX (staggered 0.1s) ─── */}
+        <RevealGroup
+          staggerDelay={0.1}
+          style={{
+            border: "1px solid var(--border)",
+            background: "var(--bg)",
+          }}
+        >
             {SOLUTION.items.map((item, idx) => {
               const isHovered = hoveredIdx === idx;
               const isLast = idx === SOLUTION.items.length - 1;
@@ -189,8 +195,7 @@ export function SolutionSection() {
                 </Link>
               );
             })}
-          </div>
-        </SpringReveal>
+        </RevealGroup>
       </div>
     </section>
   );

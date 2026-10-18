@@ -644,7 +644,8 @@ html.dark .ip-partner-box:hover .ip-logo-anthropic,
   transition: background-color 0.2s ease;
 }
 
-.ip-matrix-card:first-child {
+.ip-matrix-card:first-child,
+.ip-matrix-grid .reveal-group-item:first-child .ip-matrix-card {
   border-left: none;
   margin-left: 0;
 }

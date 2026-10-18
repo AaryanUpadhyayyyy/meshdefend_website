@@ -598,12 +598,14 @@ html.dark .about-diagram-img-wrap,
   gap: 12px;
 }
 
-.about-contrast-card:first-child {
+.about-contrast-card:first-child,
+.about-contrast-grid .reveal-group-item:first-child .about-contrast-card {
   border-right: 1px solid var(--border);
   background-color: rgba(34, 31, 34, 0.02);
 }
 
-[data-theme="dark"] .about-contrast-card:first-child {
+[data-theme="dark"] .about-contrast-card:first-child,
+[data-theme="dark"] .about-contrast-grid .reveal-group-item:first-child .about-contrast-card {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
@@ -674,7 +676,8 @@ html.dark .about-diagram-img-wrap,
   transition: background-color 0.25s ease;
 }
 
-.about-leader-card:first-child {
+.about-leader-card:first-child,
+.about-leaders-grid .reveal-group-item:first-child .about-leader-card {
   border-left: none;
   margin-left: 0;
 }
@@ -808,7 +811,8 @@ html.dark .about-diagram-img-wrap,
   transition: background-color 0.2s ease;
 }
 
-.about-principle-card:first-child {
+.about-principle-card:first-child,
+.about-principles-grid .reveal-group-item:first-child .about-principle-card {
   border-left: none;
   margin-left: 0;
 }

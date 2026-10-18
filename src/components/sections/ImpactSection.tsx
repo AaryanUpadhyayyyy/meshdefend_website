@@ -1,7 +1,7 @@
 "use client";
 
 import { IMPACT } from "@/lib/sections";
-import { SpringReveal } from "@/components/motion/SpringReveal";
+import { Reveal, RevealGroup } from "@/components/motion";
 import { NumberCounter } from "@/components/motion/NumberCounter";
 
 export function ImpactSection() {
@@ -18,10 +18,10 @@ export function ImpactSection() {
       }}
     >
       <div className="container">
-        <SpringReveal>
-          {/* ─── SECTION HEADER ─── */}
-          <div style={{ maxWidth: 880, marginBottom: 48 }}>
-            {/* Eyebrow */}
+        {/* ─── SECTION HEADER with 0.08s stepped reveals ─── */}
+        <div style={{ maxWidth: 880, marginBottom: 48 }}>
+          {/* Eyebrow */}
+          <Reveal delay={0}>
             <div
               style={{
                 display: "flex",
@@ -52,8 +52,10 @@ export function ImpactSection() {
                 {eyebrow}
               </span>
             </div>
+          </Reveal>
 
-            {/* H2 Headline */}
+          {/* H2 Headline */}
+          <Reveal delay={0.08}>
             <h2
               className="display"
               style={{
@@ -68,8 +70,10 @@ export function ImpactSection() {
             >
               {headline}
             </h2>
+          </Reveal>
 
-            {/* Opening Line */}
+          {/* Opening Line */}
+          <Reveal delay={0.16}>
             <p
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
@@ -82,25 +86,27 @@ export function ImpactSection() {
             >
               {openingLine}
             </p>
-          </div>
+          </Reveal>
+        </div>
 
-          {/* ═══════════════════════════════════════════════════════════════
-              TIER 1: 3 VERIFIED HEADLINE METRICS (EXPOSED 1PX GRID)
-             ═══════════════════════════════════════════════════════════════ */}
-          <div
+        {/* ═══════════════════════════════════════════════════════════════
+            TIER 1: 3 VERIFIED HEADLINE METRICS (staggered 0.1s)
+           ═══════════════════════════════════════════════════════════════ */}
+        <div
+          style={{
+            border: "1px solid var(--border)",
+            background: "var(--bg)",
+            marginBottom: 32,
+          }}
+        >
+          <RevealGroup
+            staggerDelay={0.1}
             style={{
-              border: "1px solid var(--border)",
-              background: "var(--bg)",
-              marginBottom: 32,
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
             }}
+            className="impact-stats-grid"
           >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-              }}
-              className="impact-stats-grid"
-            >
               {stats.map((stat, idx) => {
                 const metricTags = ["SCALE", "RESOLUTION", "CONTINUITY"];
                 const isLast = idx === stats.length - 1;
@@ -179,18 +185,19 @@ export function ImpactSection() {
                   </div>
                 );
               })}
-            </div>
+            </RevealGroup>
           </div>
 
           {/* ═══════════════════════════════════════════════════════════════
               TIER 2: TWO-COLUMN QUALITATIVE SPLIT (SPEND VS. POSTURE)
              ═══════════════════════════════════════════════════════════════ */}
-          <div
-            style={{
-              border: "1px solid var(--border)",
-              background: "var(--surface)",
-            }}
-          >
+          <Reveal variant="fade-up" delay={0.1}>
+            <div
+              style={{
+                border: "1px solid var(--border)",
+                background: "var(--surface)",
+              }}
+            >
             <div
               style={{
                 display: "grid",
@@ -377,9 +384,9 @@ export function ImpactSection() {
                 </div>
               </div>
             </div>
-          </div>
-        </SpringReveal>
-      </div>
-    </section>
-  );
-}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    );
+  }

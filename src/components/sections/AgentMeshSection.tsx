@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { AGENT_MESH } from "@/lib/content";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
+import { Reveal } from "@/components/motion";
 
 /* ─── Procedural 3D Point Generation for the Human Bust + Dust Field ─── */
 interface Point3D {
@@ -386,73 +387,78 @@ export function AgentMeshSection() {
         >
           {/* ─── LEFT COLUMN: Headline, 1 sentence, and 3 Beats List ─── */}
           <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 560 }}>
-            {/* Display Headline: Locked to 2 Clean Lines */}
-            <div className="reveal-on-scroll">
-              <TechIndexTag
-                tag="[04 // AGENT MESH™ AUTONOMOUS REASONING FABRIC]"
-                status="POLICY_GOVERNED"
-                dark={true}
-                style={{ marginBottom: 16 }}
-              />
-              <h2
-                style={{
-                  fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                  fontSize: "clamp(38px, 4.2vw, 60px)",
-                  lineHeight: 1.08,
-                  letterSpacing: "-0.03em",
-                  fontWeight: 400,
-                  color: "#fefdfd",
-                  margin: "0 0 14px",
-                }}
-              >
-                <TextReveal
-                  as="span"
-                  text="The intelligence to act."
-                  style={{ display: "block" }}
-                  delay={0}
-                  stagger={0.045}
+            {/* Display Headline: Locked to 2 Clean Lines with 0.08s stepped reveals */}
+            <div>
+              <Reveal delay={0}>
+                <TechIndexTag
+                  tag="[04 // AGENT MESH™ AUTONOMOUS REASONING FABRIC]"
+                  status="POLICY_GOVERNED"
+                  dark={true}
+                  style={{ marginBottom: 16 }}
                 />
-                <TextReveal
-                  as="span"
-                  text="The discipline to stop."
-                  style={{
-                    color: "#f45532",
-                    fontStyle: "italic",
-                    display: "block",
-                  }}
-                  delay={0.2}
-                  stagger={0.045}
-                />
-              </h2>
+              </Reveal>
 
-              <p
-                className="text-blur-in"
-                style={{
-                  fontFamily: "var(--font-body), Inter, sans-serif",
-                  fontSize: 15.5,
-                  lineHeight: 1.55,
-                  color: "#a09a9c",
-                  margin: 0,
-                  maxWidth: 500,
-                  transitionDelay: "0.38s",
-                }}
-              >
-                Agent Mesh™ connects the evidence, recommends the next step, and waits for a person to approve it before anything changes.
-              </p>
+              <Reveal delay={0.08}>
+                <h2
+                  style={{
+                    fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                    fontSize: "clamp(38px, 4.2vw, 60px)",
+                    lineHeight: 1.08,
+                    letterSpacing: "-0.03em",
+                    fontWeight: 400,
+                    color: "#fefdfd",
+                    margin: "0 0 14px",
+                  }}
+                >
+                  <TextReveal
+                    as="span"
+                    text="The intelligence to act."
+                    style={{ display: "block" }}
+                    delay={0}
+                    stagger={0.045}
+                  />
+                  <TextReveal
+                    as="span"
+                    text="The discipline to stop."
+                    style={{
+                      color: "#f45532",
+                      fontStyle: "italic",
+                      display: "block",
+                    }}
+                    delay={0.2}
+                    stagger={0.045}
+                  />
+                </h2>
+              </Reveal>
+
+              <Reveal delay={0.16}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body), Inter, sans-serif",
+                    fontSize: 15.5,
+                    lineHeight: 1.55,
+                    color: "#a09a9c",
+                    margin: 0,
+                    maxWidth: 500,
+                  }}
+                >
+                  Agent Mesh™ connects the evidence, recommends the next step, and waits for a person to approve it before anything changes.
+                </p>
+              </Reveal>
             </div>
 
             {/* Vertical Beats List with 1px Progress Rail (Compact Spacing) */}
-            <div
-              className="reveal-on-scroll reveal-delay-1"
-              style={{
-                position: "relative",
-                paddingLeft: 20,
-                display: "flex",
-                flexDirection: "column",
-                gap: 22,
-                marginTop: 4,
-              }}
-            >
+            <Reveal delay={0.24}>
+              <div
+                style={{
+                  position: "relative",
+                  paddingLeft: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 22,
+                  marginTop: 4,
+                }}
+              >
               {/* 1px Vertical Progress Rail */}
               <div
                 style={{
@@ -632,7 +638,8 @@ export function AgentMeshSection() {
                 )}
               </div>
             </div>
-          </div>
+          </Reveal>
+        </div>
 
           {/* ─── RIGHT COLUMN: Stage Area for the Human Bust ─── */}
           <div
