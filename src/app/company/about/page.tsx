@@ -66,6 +66,17 @@ const fadeUpVariants: Variants = {
 };
 
 export default function AboutUsPage() {
+  const [diagramLightbox, setDiagramLightbox] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!diagramLightbox) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDiagramLightbox(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [diagramLightbox]);
+
   return (
     <>
       <Navbar />
@@ -186,29 +197,96 @@ export default function AboutUsPage() {
             {/* Architectural Blueprint Schematic Showcase */}
             <div className="about-diagram-frame">
               <div className="about-diagram-top">
-                <span>SCHEMATIC // THE PARADIGM SHIFT</span>
-                <span style={{ color: "var(--orange)", fontWeight: 600 }}>
-                  LEGACY SILOS vs. ACTIVE ResOC MESH
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span className="about-diagram-tag">[ SCHEMATIC // 02 ]</span>
+                  <span className="about-diagram-title">THE RESILIENCE PARADIGM SHIFT</span>
+                </div>
+                <button
+                  type="button"
+                  className="about-diagram-expand-btn"
+                  onClick={() => setDiagramLightbox(true)}
+                  aria-label="Inspect schematic at full resolution"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="15 3 21 3 21 9" />
+                    <polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </svg>
+                  <span>INSPECT FULL RESOLUTION</span>
+                </button>
               </div>
 
-              <div className="about-diagram-canvas">
-                <img
-                  src="/images/about-thesis-diagram.jpg"
-                  alt="Architectural schematic comparing legacy backup silos with manual runbooks against MeshDefend's unified Resilience Operations Center with automated cleanrooms and verified telemetry"
-                  className="about-diagram-img"
-                />
+              <div
+                className="about-diagram-canvas"
+                onClick={() => setDiagramLightbox(true)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setDiagramLightbox(true);
+                  }
+                }}
+                title="Click to view full-resolution schematic"
+              >
+                <div className="about-diagram-img-wrap">
+                  <img
+                    src="/images/about-thesis-diagram.jpg"
+                    alt="Architectural schematic comparing legacy backup silos with manual runbooks against MeshDefend's unified Resilience Operations Center with automated cleanrooms and verified telemetry"
+                    className="about-diagram-img"
+                  />
+                  <div className="about-diagram-zoom-hint">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                    <span>Click to Expand</span>
+                  </div>
+                </div>
               </div>
 
               <div className="about-diagram-caption">
                 <span>
-                  FIG 2.1 — FRAGMENTED STORAGE SILOS (LEFT) vs. AUTOMATED AIR-GAPPED CLEANROOM MESH (RIGHT)
+                  FIG 2.1 — PASSIVE STORAGE MONOLITHS (LEFT) vs. ACTIVE RESILIENCE CLEANROOM MESH (RIGHT)
                 </span>
                 <span style={{ color: "var(--orange)", fontWeight: 600 }}>
-                  RTO REDUCTION: UP TO 80%
+                  VERIFIED IMPACT: SUB-HOUR RECONSTITUTION · UP TO 80% LOWER MTTR
                 </span>
               </div>
             </div>
+
+            {/* Fullscreen Lightbox Modal */}
+            {diagramLightbox && (
+              <div
+                className="about-lightbox-overlay"
+                onClick={() => setDiagramLightbox(false)}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Schematic Full Resolution View"
+              >
+                <div className="about-lightbox-bar" onClick={(e) => e.stopPropagation()}>
+                  <span>FIG 2.1 // THE RESILIENCE PARADIGM SHIFT (FULL RESOLUTION ARCHITECTURAL BLUEPRINT)</span>
+                  <button
+                    type="button"
+                    className="about-lightbox-close"
+                    onClick={() => setDiagramLightbox(false)}
+                  >
+                    [ ESC / CLOSE ✕ ]
+                  </button>
+                </div>
+                <div className="about-lightbox-content">
+                  <img
+                    src="/images/about-thesis-diagram.jpg"
+                    alt="Full resolution architectural schematic"
+                    className="about-lightbox-img"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Contrast Ledger (2 Columns) */}
             <div className="about-contrast-grid">
