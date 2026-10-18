@@ -24,7 +24,7 @@ export default function IntegrationsPage() {
         {/* FOLDS 1, 2, & 3: DIRECT ANSWER ENTRY, SIDEBAR & GRID MATRIX, NO-MATCH FALLBACK */}
         <IntegrationsDirectory />
 
-        {/* FOLD 4: COMMITMENT MATCHING CTA */}
+        {/* FOLD 4: ECOSYSTEM CONNECTIVITY CTA */}
         <IntegrationsCTA />
       </main>
       <Footer />

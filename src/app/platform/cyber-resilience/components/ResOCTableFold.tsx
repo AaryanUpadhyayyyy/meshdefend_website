@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ApplicationRow {
@@ -322,7 +323,7 @@ export function ResOCTableFold() {
                             transition: "color 0.15s ease",
                           }}
                         >
-                          [ {isExpanded ? "Close Drawer ×" : "Investigate &rarr;"} ]
+                          [ {isExpanded ? "Close Drawer ×" : "Investigate →"} ]
                         </button>
                       </td>
                     </tr>
@@ -488,7 +489,7 @@ export function ResOCTableFold() {
                         >
                           Simulation Result: {current.actionDetails}
                         </span>
-                        <a
+                        <Link
                           href="/platform/incident-resolution"
                           style={{
                             fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
@@ -498,8 +499,8 @@ export function ResOCTableFold() {
                             textDecoration: "none",
                           }}
                         >
-                          Stage in Incident Resolution &rarr;
-                        </a>
+                          Stage in Incident Resolution →
+                        </Link>
                       </div>
                     </div>
                   );

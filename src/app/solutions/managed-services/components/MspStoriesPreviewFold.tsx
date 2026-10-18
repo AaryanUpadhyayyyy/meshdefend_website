@@ -292,7 +292,7 @@ export function MspStoriesPreviewFold() {
         {/* Explicit Action Link */}
         <div style={{ textAlign: "center" }}>
           <Link
-            href="/company/contact?type=msp-stories"
+            href="/company/contact?intent=msp"
             style={{
               display: "inline-flex",
               alignItems: "center",

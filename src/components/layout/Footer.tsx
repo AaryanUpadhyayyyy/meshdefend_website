@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/brand/Logo";
 import { SITE } from "@/lib/content";
 import { Reveal, RevealGroup } from "@/components/motion";
 
 export function Footer() {
+  const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -65,7 +67,7 @@ export function Footer() {
       links: [
         { label: "Newsletter", href: "/resources/newsletter" },
         { label: "Podcast", href: "/resources/podcast" },
-        { label: "Blogs", href: "/resources/blogs" },
+        { label: "Blogs", href: "/resources/blog" },
         { label: "FAQ", href: "/resources/faq" },
       ],
     },
@@ -82,6 +84,12 @@ export function Footer() {
     },
   ];
 
+  const isSuppressed =
+    pathname === "/demo" ||
+    pathname === "/company/contact" ||
+    pathname?.startsWith("/demo") ||
+    pathname?.startsWith("/company/contact");
+
   return (
     <footer
       style={{
@@ -93,13 +101,14 @@ export function Footer() {
       }}
     >
       {/* ─── TOP BRIEFING & NEWSLETTER ROW ─── */}
-      <div
-        id="newsletter"
-        style={{
-          borderBottom: "1px solid rgba(254, 253, 253, 0.1)",
-          padding: "72px 0 56px",
-        }}
-      >
+      {!isSuppressed && (
+        <div
+          id="newsletter"
+          style={{
+            borderBottom: "1px solid rgba(254, 253, 253, 0.1)",
+            padding: "72px 0 56px",
+          }}
+        >
         <div className="container">
           <Reveal delay={0}>
             <div
@@ -294,6 +303,7 @@ export function Footer() {
         </Reveal>
         </div>
       </div>
+      )}
 
       {/* ─── NAVIGATION COLUMNS (5 BALANCED PILLARS) ─── */}
       <div style={{ padding: "64px 0 48px" }}>
@@ -313,23 +323,12 @@ export function Footer() {
                 <div
                   style={{
                     display: "flex",
-                    alignItems: "baseline",
-                    gap: 8,
+                    alignItems: "center",
                     marginBottom: 20,
                     paddingBottom: 10,
                     borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                      fontSize: 10.5,
-                      color: "var(--orange)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {group.num}
-                  </span>
                   <h4
                     style={{
                       fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',

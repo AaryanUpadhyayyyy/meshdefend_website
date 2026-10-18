@@ -17,16 +17,23 @@ type StoryPhase = "idle" | "repairing" | "restored";
 function HeadlineTyping({
   headlines,
   isMobile,
+  prefersReducedMotion,
 }: {
   headlines: readonly { line1: string; line2: string }[];
   isMobile: boolean;
   prefersReducedMotion?: boolean;
 }) {
-  const [displayedLine1, setDisplayedLine1] = useState("");
-  const [displayedLine2, setDisplayedLine2] = useState("");
-  const [activeLine, setActiveLine] = useState<1 | 2>(1);
+  const [displayedLine1, setDisplayedLine1] = useState(headlines[0]?.line1 ?? "");
+  const [displayedLine2, setDisplayedLine2] = useState(headlines[0]?.line2 ?? "");
+  const [activeLine, setActiveLine] = useState<1 | 2>(2);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayedLine1(headlines[0].line1);
+      setDisplayedLine2(headlines[0].line2);
+      return;
+    }
+
     let isCancelled = false;
 
     const wait = (ms: number) =>
@@ -519,29 +526,14 @@ export function HeroSection() {
               overflow: "hidden",
             }}
           >
-            {/* Light Mode Artwork */}
+            {/* Active Theme Artwork Only (prevents dual-image download overhead) */}
             <Image
-              src={heroLandscapeBg}
-              alt="MeshDefend Resilience Operations Center painting"
+              src={isDark ? heroLandscapeBgDark : heroLandscapeBg}
+              alt="MeshDefend Resilience Operations Center architectural landscape"
               priority
               fill
-              sizes="100vw"
-              quality={92}
-              className="hero-bg-light"
-              style={{
-                objectFit: "cover",
-                objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
-              }}
-            />
-            {/* Dark Mode Companion Artwork */}
-            <Image
-              src={heroLandscapeBgDark}
-              alt="MeshDefend Resilience Operations Center painting (Dark Mode)"
-              priority
-              fill
-              sizes="100vw"
-              quality={92}
-              className="hero-bg-dark"
+              sizes="(max-width: 1200px) 100vw, 1920px"
+              quality={85}
               style={{
                 objectFit: "cover",
                 objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
@@ -803,31 +795,36 @@ export function HeroSection() {
               pointerEvents: "auto",
             }}
           >
-            {/* Eyebrow */}
+            {/* Eyebrow Pill */}
             <div
               style={{
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                marginBottom: 18,
+                marginBottom: 20,
+                padding: "5px 14px",
+                borderRadius: 4,
+                background: isDark ? "rgba(254, 253, 253, 0.08)" : "rgba(34, 31, 34, 0.05)",
+                border: "1px solid var(--border)",
               }}
             >
               <span
                 style={{
-                  width: 8,
-                  height: 8,
+                  width: 6,
+                  height: 6,
                   background: "var(--orange)",
-                  borderRadius: 1,
+                  borderRadius: "50%",
                   display: "inline-block",
                 }}
               />
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: 14,
-                  fontWeight: 500,
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  fontWeight: 600,
                   color: "var(--ink)",
-                  letterSpacing: "-0.005em",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
                 }}
               >
                 Introducing Resilience Operations Center (ResOC)
@@ -927,25 +924,28 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Desktop Hint at bottom-right (fades after first interaction) */}
-        {!isMobile && (
-          <div
-            style={{
-              position: "absolute",
-              right: 32,
-              bottom: 28,
-              fontFamily: "Inter, sans-serif",
-              fontSize: 13,
-              color: "var(--ink)",
-              opacity: hasInteractedWithHotspot ? 0 : 0.6,
-              transition: "opacity 0.4s ease",
-              pointerEvents: "none",
-              zIndex: 8,
-            }}
-          >
-            Hover the city.
-          </div>
-        )}
+        {/* Interaction Hint at bottom-right (fades after first interaction) */}
+        <div
+          style={{
+            position: "absolute",
+            right: isMobile ? 20 : 32,
+            bottom: isMobile ? 18 : 28,
+            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+            fontSize: 12,
+            color: "var(--ink)",
+            opacity: hasInteractedWithHotspot ? 0 : 0.75,
+            transition: "opacity 0.4s ease",
+            pointerEvents: "none",
+            zIndex: 8,
+            background: isDark ? "rgba(34, 31, 34, 0.72)" : "rgba(254, 253, 253, 0.75)",
+            padding: "4px 10px",
+            borderRadius: 4,
+            backdropFilter: "blur(6px)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          {isMobile ? "Tap landscape to inspect telemetry" : "Hover or tap landscape to inspect telemetry"}
+        </div>
       </div>
     </section>
   );

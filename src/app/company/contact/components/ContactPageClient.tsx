@@ -1,29 +1,68 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import "../contact.css";
 
-export function ContactPageClient() {
+function ContactFormInner() {
+  const searchParams = useSearchParams();
+  const intentParam = searchParams.get("intent") || searchParams.get("topic") || "";
+
+  const getInitialTopic = (intent: string) => {
+    switch (intent.toLowerCase()) {
+      case "demo":
+        return "Demo or Technical Walkthrough";
+      case "rva":
+      case "assessment":
+        return "Cyber Resilience & RVA Assessment";
+      case "arch-review":
+      case "security-review":
+        return "Architecture & Security Review";
+      case "msp":
+        return "MSP & Partner Program";
+      case "si":
+        return "Systems Integrator Inquiry";
+      case "legal":
+      case "privacy":
+        return "Legal & Compliance Inquiry";
+      default:
+        return "Demo or Technical Walkthrough";
+    }
+  };
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     companyName: "",
     jobTitle: "",
+    topic: getInitialTopic(intentParam),
     message: "",
+    marketingOptIn: false,
     website: "", // Honeypot
   });
+
+  useEffect(() => {
+    if (intentParam) {
+      setFormData((prev) => ({
+        ...prev,
+        topic: getInitialTopic(intentParam),
+      }));
+    }
+  }, [intentParam]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -50,7 +89,9 @@ export function ContactPageClient() {
           email: "",
           companyName: "",
           jobTitle: "",
+          topic: getInitialTopic(intentParam),
           message: "",
+          marketingOptIn: false,
           website: "",
         });
       } else {
@@ -157,8 +198,20 @@ export function ContactPageClient() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate>
-                {/* Honeypot field (hidden from genuine users) */}
-                <div style={{ display: "none" }} aria-hidden="true">
+                {/* Honeypot field (strictly off-screen, inaccessible to genuine users) */}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    top: "-9999px",
+                    width: "1px",
+                    height: "1px",
+                    overflow: "hidden",
+                    opacity: 0,
+                    pointerEvents: "none",
+                  }}
+                  aria-hidden="true"
+                >
                   <label htmlFor="website">Website</label>
                   <input
                     type="text"
@@ -208,7 +261,7 @@ export function ContactPageClient() {
                 {/* EMAIL */}
                 <div className="contact-field-group">
                   <label htmlFor="email" className="contact-label">
-                    EMAIL <span className="contact-asterisk">*</span>
+                    WORK EMAIL <span className="contact-asterisk">*</span>
                   </label>
                   <input
                     type="email"
@@ -256,15 +309,39 @@ export function ContactPageClient() {
                   />
                 </div>
 
+                {/* TOPIC / AREA OF INTEREST */}
+                <div className="contact-field-group">
+                  <label htmlFor="topic" className="contact-label">
+                    AREA OF INTEREST <span className="contact-asterisk">*</span>
+                  </label>
+                  <select
+                    id="topic"
+                    name="topic"
+                    value={formData.topic}
+                    onChange={handleChange}
+                    className="contact-input"
+                    style={{ cursor: "pointer", background: "var(--surface)" }}
+                  >
+                    <option value="Demo or Technical Walkthrough">Request a Technical Demonstration</option>
+                    <option value="Cyber Resilience & RVA Assessment">Cyber Resilience &amp; RVA Assessment</option>
+                    <option value="Architecture & Security Review">Architecture &amp; Security Review</option>
+                    <option value="MSP & Partner Program">MSP &amp; Cloud Partner Program</option>
+                    <option value="Systems Integrator Inquiry">Systems Integrator Inquiry</option>
+                    <option value="Legal & Compliance Inquiry">Legal &amp; Compliance Inquiry</option>
+                    <option value="General Inquiry">General Inquiry</option>
+                  </select>
+                </div>
+
                 {/* MESSAGE */}
                 <div className="contact-field-group">
                   <label htmlFor="message" className="contact-label">
-                    MESSAGE
+                    MESSAGE / REQUIREMENTS
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    rows={5}
+                    rows={4}
+                    placeholder="Tell us about your backup estate, multi-cloud environment, or resilience goals..."
                     value={formData.message}
                     onChange={handleChange}
                     className="contact-input contact-textarea"
@@ -289,13 +366,59 @@ export function ContactPageClient() {
                   </div>
                 )}
 
-                {/* Consent line */}
-                <p className="contact-disclaimer">
-                  By submitting, you opt in to marketing emails and ad-partner data sharing per our{" "}
-                  <a href="/legal/privacy" className="contact-disclaimer-link">
-                    privacy policy
-                  </a>
-                  . Unsubscribe anytime.
+                {/* Separate Unchecked Marketing Opt-in Checkbox (GDPR & DPDP compliant) */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 12,
+                    margin: "20px 0 16px",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    id="marketingOptIn"
+                    name="marketingOptIn"
+                    checked={formData.marketingOptIn}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        marketingOptIn: e.target.checked,
+                      }))
+                    }
+                    style={{
+                      marginTop: 3,
+                      accentColor: "var(--orange)",
+                      cursor: "pointer",
+                      width: 16,
+                      height: 16,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <label
+                    htmlFor="marketingOptIn"
+                    style={{
+                      fontSize: 13,
+                      color: "var(--muted)",
+                      lineHeight: 1.5,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Keep me updated on product releases, threat research, and resilience engineering briefs. (Optional, unsubscribe anytime).
+                  </label>
+                </div>
+
+                {/* Clean Legal Consent Disclaimer (No ad-partner data sharing) */}
+                <p className="contact-disclaimer" style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.5, marginBottom: 20 }}>
+                  By submitting, you agree to our{" "}
+                  <Link href="/terms" className="contact-disclaimer-link">
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/privacy" className="contact-disclaimer-link">
+                    Privacy Policy
+                  </Link>
+                  . We respect your confidentiality and never share your data with third-party advertising networks.
                 </p>
 
                 {/* Submit button */}
@@ -323,7 +446,7 @@ export function ContactPageClient() {
                       Sending...
                     </>
                   ) : (
-                    "Submit"
+                    "Submit Inquiry"
                   )}
                 </button>
               </form>
@@ -332,5 +455,13 @@ export function ContactPageClient() {
         </div>
       </div>
     </div>
+  );
+}
+
+export function ContactPageClient() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: "80vh", padding: 120, textAlign: "center" }}>Loading contact form...</div>}>
+      <ContactFormInner />
+    </Suspense>
   );
 }

@@ -198,9 +198,9 @@ const ENTERPRISE_PARTNERS = [
     ),
   },
   {
-    name: "Powered by Dell Technologies",
+    name: "Works with Dell Technologies",
     svg: (
-      <svg height="36" viewBox="0 0 200 36" fill="none" aria-label="Powered by Dell Technologies">
+      <svg height="36" viewBox="0 0 200 36" fill="none" aria-label="Works with Dell Technologies">
         <text
           x="100"
           y="11"
@@ -211,7 +211,7 @@ const ENTERPRISE_PARTNERS = [
           fill="#0076CE"
           letterSpacing="0.16em"
         >
-          — POWERED BY —
+          — WORKS WITH —
         </text>
         <text
           x="4"
@@ -238,16 +238,6 @@ const ENTERPRISE_PARTNERS = [
       </svg>
     ),
   },
-];
-
-// Repeat 6 times so the 8 verified partners form a seamless, infinite circular loop with zero gaps
-const MARQUEE_ITEMS = [
-  ...ENTERPRISE_PARTNERS,
-  ...ENTERPRISE_PARTNERS,
-  ...ENTERPRISE_PARTNERS,
-  ...ENTERPRISE_PARTNERS,
-  ...ENTERPRISE_PARTNERS,
-  ...ENTERPRISE_PARTNERS,
 ];
 
 export function TrustSection() {
@@ -430,20 +420,47 @@ export function TrustSection() {
                   fontWeight: 600,
                 }}
               >
-                PARTNERS
+                WORKS WITH // RUNTIME ECOSYSTEM
               </span>
             </div>
 
             {/* Seamless Infinite Circular Marquee Track */}
-            <div className="seamless-marquee-wrapper">
+            <div
+              className="seamless-marquee-wrapper"
+              role="region"
+              aria-label="Supported Runtime Ecosystem & Platforms"
+            >
               <div className="seamless-marquee-track">
-                {MARQUEE_ITEMS.map((logo, idx) => (
+                {/* Primary Track (Accessible to screen readers) */}
+                <div className="marquee-group">
+                  {ENTERPRISE_PARTNERS.map((logo, idx) => (
+                    <div
+                      key={`primary-${logo.name}-${idx}`}
+                      className="brand-logo-item"
+                      title={logo.name}
+                    >
+                      {logo.svg}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Duplicated Tracks (aria-hidden="true" for screen reader hygiene) */}
+                {[1, 2, 3, 4, 5].map((copyIdx) => (
                   <div
-                    key={`${logo.name}-${idx}`}
-                    className="brand-logo-item"
-                    title={logo.name}
+                    key={`copy-${copyIdx}`}
+                    className="marquee-group"
+                    aria-hidden="true"
                   >
-                    {logo.svg}
+                    {ENTERPRISE_PARTNERS.map((logo, idx) => (
+                      <div
+                        key={`copy-${copyIdx}-${logo.name}-${idx}`}
+                        className="brand-logo-item"
+                        title={logo.name}
+                        tabIndex={-1}
+                      >
+                        {logo.svg}
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
@@ -487,7 +504,6 @@ export function TrustSection() {
         .seamless-marquee-track {
           display: flex !important;
           align-items: center !important;
-          gap: 64px !important;
           flex-shrink: 0 !important;
           white-space: nowrap !important;
           width: max-content !important;
@@ -495,8 +511,24 @@ export function TrustSection() {
           animation: circular-marquee-ltr 72s linear infinite !important;
         }
 
-        .seamless-marquee-wrapper:hover .seamless-marquee-track {
+        .marquee-group {
+          display: flex !important;
+          align-items: center !important;
+          gap: 64px !important;
+          margin-right: 64px !important;
+          flex-shrink: 0 !important;
+        }
+
+        .seamless-marquee-wrapper:hover .seamless-marquee-track,
+        .seamless-marquee-wrapper:focus-within .seamless-marquee-track {
           animation-play-state: paused !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .seamless-marquee-track {
+            animation: none !important;
+            transform: none !important;
+          }
         }
 
         .brand-logo-item {

@@ -56,7 +56,7 @@ export function EnterpriseReadinessCTA() {
               color: "rgba(254, 253, 253, 0.6)",
             }}
           >
-            COMMITMENT MATCHING · TECHNICAL SCRUTINY
+            TECHNICAL SCRUTINY &amp; EVALUATION
           </span>
           <span
             style={{
@@ -111,9 +111,9 @@ export function EnterpriseReadinessCTA() {
             marginBottom: 72,
           }}
         >
-          {/* Primary (#f45532): Review enterprise readiness */}
+          {/* Primary (#f45532): Schedule Architecture Review */}
           <Link
-            href="/demo"
+            href="/company/contact?intent=arch-review"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -130,13 +130,13 @@ export function EnterpriseReadinessCTA() {
               transition: "opacity 0.2s ease",
             }}
           >
-            <span>Review enterprise readiness</span>
+            <span>Schedule Architecture Review</span>
             <span>→</span>
           </Link>
 
-          {/* Secondary (Outline): Discuss your architecture */}
+          {/* Secondary (Outline): Read Security Posture */}
           <Link
-            href="/demo"
+            href="/security"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -153,7 +153,7 @@ export function EnterpriseReadinessCTA() {
               transition: "all 0.2s ease",
             }}
           >
-            <span>Discuss your architecture</span>
+            <span>Explore Security Architecture</span>
             <span>→</span>
           </Link>
         </div>

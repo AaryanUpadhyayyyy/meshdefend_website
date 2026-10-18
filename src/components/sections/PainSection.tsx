@@ -312,7 +312,7 @@ export function PainSection() {
                     >
                       {current.items.map((item, iIdx) => {
                         const isHovered = hoveredCell === iIdx;
-                        const itemNum = `${current.num}.${iIdx + 1}`;
+                        const itemTag = `${(current as any).tag || "FAILURE FACTOR"} · 0${iIdx + 1}`;
 
                         // Calculate shared 1px borders
                         const is4 = current.items.length === 4;
@@ -365,7 +365,7 @@ export function PainSection() {
                               }}
                             />
 
-                            {/* Subtle Index Number (e.g. 01.1, 01.2) */}
+                            {/* Semantic Domain Indicator (e.g. RECOVERY GAP · 01) */}
                             <div
                               style={{
                                 fontFamily:
@@ -376,10 +376,11 @@ export function PainSection() {
                                   : "var(--muted)",
                                 marginBottom: 14,
                                 fontWeight: 600,
+                                letterSpacing: "0.06em",
                                 transition: "color 0.2s ease",
                               }}
                             >
-                              {itemNum}
+                              {itemTag}
                             </div>
 
                             {/* Exact Sitemap Title (Inter 18px semibold --ink) */}

@@ -8,6 +8,7 @@ import { useHeroState } from "@/lib/heroState";
 export function DashboardPreview() {
   const { state, approve, activeTab, setActiveTab, isPaused, setIsPaused } = useHeroState();
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [mobileModule, setMobileModule] = useState<"roles" | "feed" | "memory">("feed");
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
   const hasMountedRef = useRef(false);
 
@@ -203,6 +204,46 @@ export function DashboardPreview() {
         })}
       </div>
 
+      {/* ─── 2.5 MOBILE STEPPED MODULE SWITCHER (< 768px) ─── */}
+      <div
+        className="dash-mobile-switcher"
+        style={{
+          display: "none",
+          background: "#221f22",
+          borderBottom: "1px solid #3d393b",
+          padding: "8px 10px",
+          gap: 6,
+        }}
+      >
+        {[
+          { id: "roles", label: "Roles & Estate" },
+          { id: "feed", label: "Exceptions Feed" },
+          { id: "memory", label: "Memory Store" },
+        ].map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            onClick={() => setMobileModule(m.id as any)}
+            style={{
+              flex: 1,
+              padding: "6px 4px",
+              background: mobileModule === m.id ? "var(--orange)" : "#2b282b",
+              color: mobileModule === m.id ? "#221f22" : "#a09a9c",
+              border: "1px solid",
+              borderColor: mobileModule === m.id ? "var(--orange)" : "#3d393b",
+              borderRadius: 4,
+              fontSize: 11,
+              fontWeight: 600,
+              fontFamily: "var(--font-mono), monospace",
+              cursor: "pointer",
+              transition: "all 0.18s ease",
+            }}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+
       {/* ─── 3. MAIN DASHBOARD BODY (Fixed Height, 3-column layout) ─── */}
       <div
         style={{
@@ -216,6 +257,7 @@ export function DashboardPreview() {
       >
         {/* ─── COL A: SIDEBAR (Always #221f22) ─── */}
         <aside
+          className={`dash-col-sidebar ${mobileModule !== "roles" ? "dash-mobile-hide" : ""}`}
           style={{
             background: "#221f22",
             color: "#fefdfd",
@@ -426,6 +468,7 @@ export function DashboardPreview() {
           role="tabpanel"
           id={`panel-${DASHBOARD.tabs[activeTab].id}`}
           aria-labelledby={`tab-${DASHBOARD.tabs[activeTab].id}`}
+          className={`dash-col-middle ${mobileModule !== "feed" ? "dash-mobile-hide" : ""}`}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -943,7 +986,7 @@ export function DashboardPreview() {
             overflow: "hidden",
             userSelect: "none",
           }}
-          className="dash-memory-panel"
+          className={`dash-memory-panel dash-col-memory ${mobileModule !== "memory" ? "dash-mobile-hide" : ""}`}
         >
           {/* Panel Header */}
           <div
@@ -1144,18 +1187,28 @@ export function DashboardPreview() {
       </div>
 
       <style jsx>{`
-        @media (max-width: 900px) {
-          .dash-body-grid {
-            grid-template-columns: 180px 1fr !important;
+        @media (max-width: 768px) {
+          .dash-mobile-switcher {
+            display: flex !important;
           }
-          .dash-memory-panel {
+          .dash-body-grid {
+            display: block !important;
+            height: auto !important;
+            max-height: 480px !important;
+            overflow-y: auto !important;
+          }
+          .dash-mobile-hide {
             display: none !important;
           }
+          .dash-col-sidebar,
+          .dash-col-middle,
+          .dash-col-memory {
+            height: 440px !important;
+          }
         }
-        @media (max-width: 640px) {
+        @media (min-width: 769px) and (max-width: 1024px) {
           .dash-body-grid {
-            grid-template-columns: 1fr !important;
-            height: auto !important;
+            grid-template-columns: 190px 1fr 280px !important;
           }
         }
       `}</style>

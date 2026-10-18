@@ -300,7 +300,7 @@ export function SecurityMatrixFold() {
                               marginBottom: 4,
                             }}
                           >
-                            DEFENSE SPECIFICATION // VERBATIM
+                            ENTERPRISE DEFENSE SPECIFICATION
                           </div>
                           <div
                             style={{
@@ -404,6 +404,22 @@ export function SecurityMatrixFold() {
               </div>
             );
           })}
+        </div>
+
+        {/* Full crawlable & accessible specifications for screen readers and search crawlers */}
+        <div className="sr-only" aria-hidden="false">
+          {rows.map((row) => (
+            <article key={row.id}>
+              <h3>{row.id}: {row.title}</h3>
+              <p>{row.description}</p>
+              <ul>
+                {row.specs.map((s, idx) => (
+                  <li key={idx}>{s}</li>
+                ))}
+              </ul>
+              <p>Compliance Framework: {row.complianceTag}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

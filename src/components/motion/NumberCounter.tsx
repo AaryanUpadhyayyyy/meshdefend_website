@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useInView } from "framer-motion";
 
 interface NumberCounterProps {
-  value: string; // e.g. "4,820", "100%", "99.98%", "< 60s", "30–50%"
+  value: string; // e.g. "4,820", "100%", "99.98%", "< 60s", "30–50%", "Up to 80%"
   duration?: number;
   className?: string;
   style?: React.CSSProperties;
@@ -18,22 +18,33 @@ export function NumberCounter({
 }: NumberCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const [displayValue, setDisplayValue] = useState<string>(() => {
-    // If it's a range like "30–50%", start at "0–0%"
-    // If it has a prefix like "< 60s", start at "< 0s"
-    return value.replace(/\d+(\.\d+)?/g, "0");
-  });
+
+  // Initialize with the real value so SSR HTML, crawlers, and no-JS visitors see the true metric
+  const [displayValue, setDisplayValue] = useState<string>(value);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || hasAnimatedRef.current) return;
+
+    // Check prefers-reduced-motion
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setDisplayValue(value);
+      hasAnimatedRef.current = true;
+      return;
+    }
 
     // Extract all numbers in the string
     const numbers = value.match(/\d+(\.\d+)?/g);
     if (!numbers) {
       setDisplayValue(value);
+      hasAnimatedRef.current = true;
       return;
     }
 
+    hasAnimatedRef.current = true;
     const targets = numbers.map(Number);
     const startTimestamp = performance.now();
 
@@ -57,7 +68,7 @@ export function NumberCounter({
           return current.toFixed(decimalPlaces);
         }
 
-        // Add thousands separator if match has comma
+        // Add thousands separator if original match has comma
         const intVal = Math.round(current);
         if (value.includes(",")) {
           return intVal.toLocaleString();
@@ -76,11 +87,17 @@ export function NumberCounter({
 
     animationFrameId = requestAnimationFrame(step);
 
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, [isInView, value, duration]);
 
   return (
-    <span ref={ref} className={className} style={{ fontVariantNumeric: "tabular-nums", ...style }}>
+    <span
+      ref={ref}
+      className={className}
+      style={{ fontVariantNumeric: "tabular-nums", ...style }}
+    >
       {displayValue}
     </span>
   );

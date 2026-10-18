@@ -46,9 +46,9 @@ export function AdvisoryPartnershipCTAFold() {
               alignItems: "center",
             }}
           >
-            {/* Primary (#f45532): Talk to our partnership team (/contact) */}
+            {/* Primary (#f45532): Talk to our partnership team (/company/contact?intent=advisory) */}
             <Link
-              href="/contact"
+              href="/company/contact?intent=advisory"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

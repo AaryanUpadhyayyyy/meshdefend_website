@@ -37,10 +37,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/brand/wordmark.png",
+        url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MeshDefend — Agentic AI for Enterprise Resilience",
+        alt: "MeshDefend — Recovery you can prove. Operations without human error.",
       },
     ],
   },
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MeshDefend — Agentic AI for Enterprise Resilience",
     description: "Recovery you can prove. Operations without human error.",
-    images: ["/brand/wordmark.png"],
+    images: ["/images/og-image.png"],
   },
 };
 

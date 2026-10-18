@@ -53,7 +53,7 @@ export function FlexibilityCTAFold() {
               color: "rgba(254, 253, 253, 0.6)",
             }}
           >
-            COMMITMENT MATCHING · INTEROPERABILITY VALIDATION
+            INTEROPERABILITY VALIDATION
           </span>
           <span
             style={{
@@ -130,9 +130,9 @@ export function FlexibilityCTAFold() {
             <span>→</span>
           </Link>
 
-          {/* Scoped CTA: Review your stack (/contact?topic=stack-review) */}
+          {/* Scoped CTA: Review your stack (/company/contact?intent=arch-review) */}
           <Link
-            href="/demo"
+            href="/company/contact?intent=arch-review"
             style={{
               display: "inline-flex",
               alignItems: "center",

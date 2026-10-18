@@ -40,7 +40,7 @@ export default function BuiltForFlexibilityPage() {
         {/* FOLD 5: PROGRESSIVE DISCLOSURE (Deploy & Enterprise Readiness) */}
         <FlexibilityBridgeFold />
 
-        {/* FOLD 6: COMMITMENT MATCHING CTA */}
+        {/* FOLD 6: INTEROPERABILITY VALIDATION CTA */}
         <FlexibilityCTAFold />
       </main>
       <Footer />

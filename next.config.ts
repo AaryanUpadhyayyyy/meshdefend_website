@@ -22,6 +22,26 @@ const nextConfig: NextConfig = {
         destination: "/company/contact",
         permanent: true,
       },
+      {
+        source: "/contact",
+        destination: "/company/contact",
+        permanent: true,
+      },
+      {
+        source: "/legal/privacy",
+        destination: "/privacy",
+        permanent: true,
+      },
+      {
+        source: "/whitepaper/cyber-resilience-architecture",
+        destination: "/downloads/meshdefend-enterprise-onepager.pdf",
+        permanent: false,
+      },
+      {
+        source: "/resources/blogs",
+        destination: "/resources/blog",
+        permanent: true,
+      },
     ];
   },
 };

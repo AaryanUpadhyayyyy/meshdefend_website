@@ -391,7 +391,7 @@ export function AgentMeshSection() {
             <div>
               <Reveal delay={0}>
                 <TechIndexTag
-                  tag="[04 // AGENT MESH™ AUTONOMOUS REASONING FABRIC]"
+                  tag="[ 04 // AGENT MESH INTELLIGENCE ENGINE ]"
                   status="POLICY_GOVERNED"
                   dark={true}
                   style={{ marginBottom: 16 }}
@@ -439,17 +439,19 @@ export function AgentMeshSection() {
                     lineHeight: 1.55,
                     color: "#a09a9c",
                     margin: 0,
-                    maxWidth: 500,
+                    maxWidth: 520,
                   }}
                 >
-                  Agent Mesh™ connects the evidence, recommends the next step, and waits for a person to approve it before anything changes.
+                  ResOC is the unified console teams operate in; Agent Mesh™ is the multi-agent engine beneath it. It correlates signals across vendors, maps Multi-Vendor Cleanroom (MVC) dependencies, and automates operations with Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) approval gates.
                 </p>
               </Reveal>
             </div>
 
-            {/* Vertical Beats List with 1px Progress Rail (Compact Spacing) */}
+            {/* Vertical Beats List with 1px Progress Rail (Keyboard & Tap Accessible, Persistent DOM) */}
             <Reveal delay={0.24}>
               <div
+                role="tablist"
+                aria-label="Agent Mesh Reasoning Cycle"
                 style={{
                   position: "relative",
                   paddingLeft: 20,
@@ -486,8 +488,19 @@ export function AgentMeshSection() {
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <button
                   type="button"
+                  role="tab"
+                  id="beat-tab-0"
+                  aria-selected={activeBeat === 0}
+                  aria-controls="beat-panel-0"
+                  tabIndex={0}
                   className="beat-btn"
                   onClick={() => setActiveBeat(0)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveBeat(0);
+                    }
+                  }}
                   style={{
                     background: "transparent",
                     border: "none",
@@ -506,40 +519,63 @@ export function AgentMeshSection() {
                 >
                   Learn
                 </button>
-                {activeBeat === 0 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body), Inter, sans-serif",
-                        fontSize: 15,
-                        lineHeight: 1.5,
-                        color: "#e5e2e3",
-                        margin: 0,
-                        maxWidth: 480,
-                      }}
-                    >
-                      Agents map your backup, storage, application, security, ITSM and cloud tools. They read; they change nothing.
-                    </p>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 11.5,
-                        color: "#d5d2d3",
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      OBSERVES · NO CHANGES
-                    </span>
-                  </div>
-                )}
+                <div
+                  id="beat-panel-0"
+                  role="tabpanel"
+                  aria-labelledby="beat-tab-0"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 5,
+                    maxHeight: activeBeat === 0 ? 160 : 0,
+                    opacity: activeBeat === 0 ? 1 : 0,
+                    overflow: "hidden",
+                    transition: "max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease",
+                    pointerEvents: activeBeat === 0 ? "auto" : "none",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 15,
+                      lineHeight: 1.5,
+                      color: "#e5e2e3",
+                      margin: 0,
+                      maxWidth: 480,
+                    }}
+                  >
+                    Agents map your backup, storage, application, security, ITSM and cloud tools. They read; they change nothing.
+                  </p>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11.5,
+                      color: "#d5d2d3",
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    OBSERVES · NO CHANGES
+                  </span>
+                </div>
               </div>
 
               {/* BEAT 2: REASON */}
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <button
                   type="button"
+                  role="tab"
+                  id="beat-tab-1"
+                  aria-selected={activeBeat === 1}
+                  aria-controls="beat-panel-1"
+                  tabIndex={0}
                   className="beat-btn"
                   onClick={() => setActiveBeat(1)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveBeat(1);
+                    }
+                  }}
                   style={{
                     background: "transparent",
                     border: "none",
@@ -558,40 +594,63 @@ export function AgentMeshSection() {
                 >
                   Reason
                 </button>
-                {activeBeat === 1 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body), Inter, sans-serif",
-                        fontSize: 15,
-                        lineHeight: 1.5,
-                        color: "#e5e2e3",
-                        margin: 0,
-                        maxWidth: 480,
-                      }}
-                    >
-                      They join the signals, trace the cause and propose a fix, with the evidence attached.
-                    </p>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 11.5,
-                        color: "#d5d2d3",
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      RECOMMENDS · NO CHANGES
-                    </span>
-                  </div>
-                )}
+                <div
+                  id="beat-panel-1"
+                  role="tabpanel"
+                  aria-labelledby="beat-tab-1"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 5,
+                    maxHeight: activeBeat === 1 ? 160 : 0,
+                    opacity: activeBeat === 1 ? 1 : 0,
+                    overflow: "hidden",
+                    transition: "max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease",
+                    pointerEvents: activeBeat === 1 ? "auto" : "none",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 15,
+                      lineHeight: 1.5,
+                      color: "#e5e2e3",
+                      margin: 0,
+                      maxWidth: 480,
+                    }}
+                  >
+                    They join the signals, trace the cause and propose a fix, with the evidence attached.
+                  </p>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11.5,
+                      color: "#d5d2d3",
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    RECOMMENDS · NO CHANGES
+                  </span>
+                </div>
               </div>
 
               {/* BEAT 3: ACT */}
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <button
                   type="button"
+                  role="tab"
+                  id="beat-tab-2"
+                  aria-selected={activeBeat === 2}
+                  aria-controls="beat-panel-2"
+                  tabIndex={0}
                   className="beat-btn"
                   onClick={() => setActiveBeat(2)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveBeat(2);
+                    }
+                  }}
                   style={{
                     background: "transparent",
                     border: "none",
@@ -610,32 +669,44 @@ export function AgentMeshSection() {
                 >
                   Act
                 </button>
-                {activeBeat === 2 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body), Inter, sans-serif",
-                        fontSize: 15,
-                        lineHeight: 1.5,
-                        color: "#e5e2e3",
-                        margin: 0,
-                        maxWidth: 480,
-                      }}
-                    >
-                      The approved step runs inside policy limits, and the result is saved as audit-ready evidence.
-                    </p>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                        fontSize: 11.5,
-                        color: "#f45532",
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      REQUIRES HUMAN APPROVAL
-                    </span>
-                  </div>
-                )}
+                <div
+                  id="beat-panel-2"
+                  role="tabpanel"
+                  aria-labelledby="beat-tab-2"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 5,
+                    maxHeight: activeBeat === 2 ? 160 : 0,
+                    opacity: activeBeat === 2 ? 1 : 0,
+                    overflow: "hidden",
+                    transition: "max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease",
+                    pointerEvents: activeBeat === 2 ? "auto" : "none",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body), Inter, sans-serif",
+                      fontSize: 15,
+                      lineHeight: 1.5,
+                      color: "#e5e2e3",
+                      margin: 0,
+                      maxWidth: 480,
+                    }}
+                  >
+                    The approved step runs inside policy limits, and the result is saved as audit-ready evidence.
+                  </p>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                      fontSize: 11.5,
+                      color: "#f45532",
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    REQUIRES HUMAN APPROVAL
+                  </span>
+                </div>
               </div>
             </div>
           </Reveal>

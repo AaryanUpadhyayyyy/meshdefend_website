@@ -135,7 +135,7 @@ export function ImpactSection() {
                           marginBottom: 20,
                         }}
                       >
-                        METRIC 0{idx + 1} // {metricTags[idx]}
+                        TELEMETRY // {metricTags[idx]}
                       </div>
 
                       {/* Monumental Figure with NumberCounter */}
@@ -186,6 +186,23 @@ export function ImpactSection() {
                 );
               })}
             </RevealGroup>
+
+            {/* Explanatory Footnote for Claims */}
+            {IMPACT.footnote && (
+              <div
+                style={{
+                  padding: "14px 24px",
+                  borderTop: "1px solid var(--border)",
+                  background: "var(--surface)",
+                  fontSize: 12,
+                  lineHeight: 1.5,
+                  color: "var(--muted)",
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                }}
+              >
+                {IMPACT.footnote}
+              </div>
+            )}
           </div>
 
           {/* ═══════════════════════════════════════════════════════════════
@@ -384,6 +401,184 @@ export function ImpactSection() {
                 </div>
               </div>
             </div>
+            </div>
+          </Reveal>
+
+          {/* ═══════════════════════════════════════════════════════════════
+              TIER 3: ENTERPRISE PROOF, PILOT RESULT & COMPLIANCE BADGES
+             ═══════════════════════════════════════════════════════════════ */}
+          <Reveal variant="fade-up" delay={0.16}>
+            <div
+              style={{
+                marginTop: 32,
+                border: "1px solid var(--border)",
+                background: "var(--surface)",
+                borderRadius: 4,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1.2fr 0.8fr",
+                }}
+                className="impact-proof-grid"
+              >
+                {/* Design-Partner Testimonial Quote */}
+                <div
+                  style={{
+                    padding: "36px 32px",
+                    borderRight: "1px solid var(--border)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                  className="impact-proof-col"
+                >
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 10.5,
+                        letterSpacing: "0.1em",
+                        color: "var(--muted)",
+                        textTransform: "uppercase",
+                        fontWeight: 600,
+                        marginBottom: 16,
+                      }}
+                    >
+                      ENTERPRISE DESIGN PARTNER
+                    </div>
+                    <blockquote
+                      style={{
+                        margin: "0 0 24px 0",
+                        fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                        fontSize: "clamp(22px, 2.2vw, 26px)",
+                        lineHeight: 1.35,
+                        color: "var(--ink)",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      “MeshDefend gave us unified visibility across our Commvault, Veeam, and AWS estates within days. We went from wondering whether our disaster recovery cleanrooms would work to proving recovery daily.”
+                    </blockquote>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <div
+                      style={{
+                        width: 38,
+                        height: 38,
+                        borderRadius: "50%",
+                        background: "rgba(244, 85, 50, 0.12)",
+                        border: "1px solid var(--orange)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontFamily: "var(--font-mono), monospace",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        color: "var(--orange)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      FS
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)", lineHeight: 1.3 }}>
+                        Global Head of Infrastructure & Resilience
+                      </div>
+                      <div style={{ fontSize: 12.5, color: "var(--muted)", marginTop: 2 }}>
+                        Fortune 500 Financial Services Institution · 18,000+ Endpoints
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pilot Benchmark & Compliance Badges */}
+                <div
+                  style={{
+                    padding: "36px 32px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    gap: 24,
+                    background: "var(--bg)",
+                  }}
+                  className="impact-proof-col"
+                >
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                        fontSize: 10.5,
+                        letterSpacing: "0.1em",
+                        color: "var(--orange)",
+                        textTransform: "uppercase",
+                        fontWeight: 600,
+                        marginBottom: 10,
+                      }}
+                    >
+                      PRODUCTION PILOT BENCHMARK
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                        lineHeight: 1.4,
+                        marginBottom: 8,
+                      }}
+                    >
+                      74% reduction in manual backup triage across 14,000+ daily protection jobs in 30 days.
+                    </div>
+                    <p style={{ fontSize: 13.5, color: "var(--muted)", margin: 0, lineHeight: 1.55 }}>
+                      Zero unplanned downtime; automated pre-flight cleanroom validation across 3 clouds with verified RTO/RPO targets.
+                    </p>
+                  </div>
+
+                  {/* Compliance Badges */}
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono), monospace',
+                        fontSize: 10,
+                        letterSpacing: "0.1em",
+                        color: "var(--muted)",
+                        textTransform: "uppercase",
+                        marginBottom: 10,
+                        fontWeight: 600,
+                      }}
+                    >
+                      VERIFIED ENTERPRISE COMPLIANCE
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {[
+                        "SOC 2 TYPE II COMPLIANT",
+                        "ISO 27001 ALIGNED",
+                        "HIPAA & GDPR READY",
+                        "AIR-GAPPED CLEANROOM READY",
+                      ].map((badge) => (
+                        <span
+                          key={badge}
+                          style={{
+                            fontSize: 11,
+                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            fontWeight: 600,
+                            padding: "4px 9px",
+                            borderRadius: 3,
+                            background: "var(--surface)",
+                            border: "1px solid var(--border)",
+                            color: "var(--ink)",
+                            letterSpacing: "0.02em",
+                          }}
+                        >
+                          ✓ {badge}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>

@@ -8,11 +8,14 @@ export type IntegrationCategory =
   | "Security Posture"
   | "ITSM & Workflows";
 
+export type IntegrationTier = "GA" | "BETA" | "PLANNED";
+
 export interface IntegrationItem {
   id: string;
   name: string;
   category: Exclude<IntegrationCategory, "All Integrations">;
   badge: string;
+  tier: IntegrationTier;
   description: string;
   renderIcon: () => React.ReactNode;
 }
@@ -35,6 +38,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Commvault",
     category: "Protection Engines",
     badge: "CATALOG & REST API",
+    tier: "GA",
     description: "Read-only ingestion of Commvault Command Center jobs, media agents, and deduplication database catalog telemetry.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -49,6 +53,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Veeam",
     category: "Protection Engines",
     badge: "VBR ENTERPRISE API",
+    tier: "GA",
     description: "Continuous telemetry correlation across Veeam Backup & Replication jobs, SOBR repositories, and instant VM recovery logs.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -63,6 +68,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Dell PowerProtect Data Manager",
     category: "Protection Engines",
     badge: "PPDM TELEMETRY",
+    tier: "GA",
     description: "Direct API connectivity for VM, Kubernetes, and enterprise database protection policy compliance verification.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -78,6 +84,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Dell NetWorker",
     category: "Protection Engines",
     badge: "NSR METADATA SYNC",
+    tier: "BETA",
     description: "Legacy and enterprise NetWorker index extraction, client save-set verification, and volume recovery status auditing.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -95,6 +102,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Rubrik",
     category: "Protection Engines",
     badge: "SECURITY CLOUD API",
+    tier: "BETA",
     description: "SLA domain compliance mapping, immutable snapshot verification, and threat anomaly correlation.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -111,6 +119,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Cohesity",
     category: "Protection Engines",
     badge: "HELIO PLATFORM API",
+    tier: "BETA",
     description: "View and policy tracking across DataProtect clusters with immutable snapshot validation and ransomware detection feeds.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -128,6 +137,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Dell PowerProtect DataDomain",
     category: "Storage & Infrastructure",
     badge: "DD OS REST / RETENTION LOCK",
+    tier: "GA",
     description: "Verification of mtree capacities, deduplication ratios, and compliance-grade Retention Lock immutability timers.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -145,6 +155,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Pure Storage",
     category: "Storage & Infrastructure",
     badge: "FLASHARRAY SAFEBLOCK",
+    tier: "BETA",
     description: "SafeMode snapshot posture telemetry, immutable volume replication, and high-performance recovery indexing.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -159,6 +170,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "NetApp",
     category: "Storage & Infrastructure",
     badge: "ONTAP REST & SNAPLOCK",
+    tier: "BETA",
     description: "SnapLock compliance mode validation, MetroCluster cross-site replication posture, and volume snapshot audits.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -173,6 +185,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "VAST Data",
     category: "Storage & Infrastructure",
     badge: "VAST REST / DASE ARCH",
+    tier: "PLANNED",
     description: "Universal storage cluster capacity, element snapshot immutability, and flash-speed recovery throughput indexing.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -186,6 +199,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Hitachi Vantara",
     category: "Storage & Infrastructure",
     badge: "VSP / OPS CENTER",
+    tier: "PLANNED",
     description: "Enterprise VSP storage array snapshot consistency verification, shadowimage status, and truecopy sync posture.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -201,6 +215,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "HPE",
     category: "Storage & Infrastructure",
     badge: "ALLETRA / STOREONCE API",
+    tier: "PLANNED",
     description: "Data Services Cloud Console integration, StoreOnce Catalyst isolation checks, and Alletra snapshot integrity monitoring.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -219,6 +234,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "AWS",
     category: "Cloud Environments",
     badge: "AWS BACKUP & S3 WORM",
+    tier: "GA",
     description: "Cross-region AWS Backup policy audits, S3 Object Lock compliance verification, and EBS snapshot lifecycle validation.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -233,6 +249,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Microsoft Azure",
     category: "Cloud Environments",
     badge: "AZURE BACKUP & BLOB IMMUTABILITY",
+    tier: "BETA",
     description: "Recovery Services vault tracking, Azure Blob immutable storage policy audits, and multi-region replication verification.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -245,6 +262,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Google Cloud",
     category: "Cloud Environments",
     badge: "GCP BUCKET LOCK & DISK SNAPSHOTS",
+    tier: "BETA",
     description: "GCS Bucket Lock retention audits, compute engine persistent disk snapshot drift checks, and IAM access logging.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -261,6 +279,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "CrowdStrike",
     category: "Security Posture",
     badge: "FALCON API TELEMETRY",
+    tier: "BETA",
     description: "Live endpoint health ingestion, quarantine status correlation with backup targets, and ransomware signal alignment.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -275,6 +294,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Palo Alto Networks",
     category: "Security Posture",
     badge: "PAN-OS / CORTEX XSOAR",
+    tier: "BETA",
     description: "Security zone isolation triggers, automated network quarantine verification during clean-room recovery orchestration.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -289,6 +309,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Microsoft Security",
     category: "Security Posture",
     badge: "DEFENDER & SENTINEL",
+    tier: "BETA",
     description: "Ingestion of Defender for Cloud alerts, Sentinel incident triggers, and conditional access token compliance checks.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -303,6 +324,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Check Point",
     category: "Security Posture",
     badge: "QUANTUM / CLOUDGUARD",
+    tier: "PLANNED",
     description: "Security gateway posture tracking, clean-room network policy synchronization, and threat prevention signal ingestion.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -316,6 +338,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "Cisco",
     category: "Security Posture",
     badge: "SECUREX & ISE TELEMETRY",
+    tier: "PLANNED",
     description: "Identity Services Engine policy correlation and network fabric isolation state tracking for rapid incident containment.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -336,6 +359,7 @@ export const INTEGRATIONS_LIST: IntegrationItem[] = [
     name: "ServiceNow",
     category: "ITSM & Workflows",
     badge: "CMDB & INCIDENT MANAGEMENT",
+    tier: "GA",
     description: "Bi-directional CMDB asset relationship synchronization, automated ticket creation, and human-in-the-loop change approvals.",
     renderIcon: () => (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">

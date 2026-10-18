@@ -38,7 +38,7 @@ export function IncidentResolutionCTA() {
                 fontWeight: 600,
               }}
             >
-              [ CAPABILITY DEMONSTRATION · COMMITMENT MATCHING ]
+              [ LIVE INCIDENT SIMULATION // RESOLUTION EVALUATION ]
             </div>
 
             <h2
@@ -79,7 +79,7 @@ export function IncidentResolutionCTA() {
               }}
             >
               <Link
-                href="/demo"
+                href="/company/contact?intent=demo"
                 className="btn btn-primary"
                 style={{
                   fontSize: 14,
@@ -88,10 +88,10 @@ export function IncidentResolutionCTA() {
                   textDecoration: "none",
                 }}
               >
-                Bring us a recovery incident
+                Schedule Incident Simulation →
               </Link>
               <Link
-                href="/demo"
+                href="/platform/cyber-resilience"
                 className="btn btn-secondary"
                 style={{
                   fontSize: 14,
@@ -102,7 +102,7 @@ export function IncidentResolutionCTA() {
                   color: "#fefdfd",
                 }}
               >
-                See Incident Resolution in action
+                Explore Cyber Resilience Posture
               </Link>
             </div>
 

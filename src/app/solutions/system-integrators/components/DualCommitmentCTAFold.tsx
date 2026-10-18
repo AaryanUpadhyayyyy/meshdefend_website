@@ -51,7 +51,7 @@ export function DualCommitmentCTAFold() {
               fontWeight: 600,
             }}
           >
-            [ COMMITMENT MATCHING · DUAL ENGAGEMENT ]
+            [ SYSTEMS INTEGRATOR ALLIANCES // ENGAGEMENT ]
           </span>
           <span
             style={{
@@ -206,7 +206,7 @@ export function DualCommitmentCTAFold() {
             {/* Actions */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <Link
-                href="/contact?type=technical-partner"
+                href="/company/contact?intent=si-technical"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -350,7 +350,7 @@ export function DualCommitmentCTAFold() {
             {/* Actions */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <Link
-                href="/contact?type=alliance-partnership"
+                href="/company/contact?intent=si-alliance"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

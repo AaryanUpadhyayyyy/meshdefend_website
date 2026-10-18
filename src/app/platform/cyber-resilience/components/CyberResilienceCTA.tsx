@@ -43,7 +43,7 @@ export function CyberResilienceCTA() {
               color: "rgba(254, 253, 253, 0.4)",
             }}
           >
-            COMMITMENT MATCHING
+            EVALUATION PATHWAYS
           </span>
         </div>
 
@@ -147,7 +147,7 @@ export function CyberResilienceCTA() {
 
             <div>
               <Link
-                href="/contact?intent=rva"
+                href="/company/contact?intent=rva"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -164,7 +164,7 @@ export function CyberResilienceCTA() {
                   boxShadow: "0 0 20px rgba(244, 85, 50, 0.35)",
                 }}
               >
-                REQUEST A RAPID VALUE ASSESSMENT &rarr;
+                REQUEST A RAPID VALUE ASSESSMENT →
               </Link>
             </div>
           </div>
@@ -218,7 +218,7 @@ export function CyberResilienceCTA() {
 
             <div>
               <Link
-                href="/contact?intent=demo"
+                href="/company/contact?intent=demo"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -235,7 +235,7 @@ export function CyberResilienceCTA() {
                   transition: "all 0.15s ease",
                 }}
               >
-                SCHEDULE 30-MIN WALKTHROUGH &rarr;
+                SCHEDULE 30-MIN WALKTHROUGH →
               </Link>
             </div>
           </div>
@@ -289,7 +289,9 @@ export function CyberResilienceCTA() {
 
             <div>
               <Link
-                href="/whitepaper/cyber-resilience-architecture"
+                href="/downloads/meshdefend-enterprise-onepager.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -306,7 +308,7 @@ export function CyberResilienceCTA() {
                   transition: "all 0.15s ease",
                 }}
               >
-                READ THE WHITEPAPER &rarr;
+                READ THE WHITEPAPER →
               </Link>
             </div>
           </div>
@@ -331,7 +333,7 @@ export function CyberResilienceCTA() {
             INTEGRATES WITH: Commvault · Veeam · Dell DataDomain · AWS Backup · Azure Backup ·
             Cohesity
           </div>
-          <div>DEPLOYMENT: NON-CUSTODIAL · READ-ONLY AUDIT · SOC2 TYPE II COMPLIANT</div>
+          <div>DEPLOYMENT: NON-CUSTODIAL · READ-ONLY AUDIT BY DEFAULT · SOC 2 TYPE II AUDITED ARCHITECTURE</div>
         </div>
       </div>
     </section>

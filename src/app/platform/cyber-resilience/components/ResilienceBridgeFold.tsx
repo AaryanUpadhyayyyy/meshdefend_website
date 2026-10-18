@@ -380,7 +380,7 @@ export function ResilienceBridgeFold() {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  Incident Resolution: Investigate & Act &rarr;
+                  Incident Resolution: Investigate &amp; Act →
                 </Link>
               </div>
             </div>
@@ -526,8 +526,8 @@ export function ResilienceBridgeFold() {
               </div>
 
               <div>
-                <a
-                  href="/contact"
+                <Link
+                  href="/platform/enterprise-readiness"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -543,8 +543,8 @@ export function ResilienceBridgeFold() {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  Enterprise Readiness: Controls & Governance &rarr;
-                </a>
+                  Enterprise Readiness: Controls &amp; Governance →
+                </Link>
               </div>
             </div>
           </div>

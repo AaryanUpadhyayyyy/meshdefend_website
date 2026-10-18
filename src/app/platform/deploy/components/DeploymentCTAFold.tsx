@@ -56,7 +56,7 @@ export function DeploymentCTAFold() {
               fontWeight: 600,
             }}
           >
-            COMMITMENT MATCHING · DEPLOYMENT SCOPING
+            DEPLOYMENT ARCHITECTURE &amp; SCOPING
           </span>
           <span
             style={{
@@ -111,9 +111,9 @@ export function DeploymentCTAFold() {
             marginBottom: 64,
           }}
         >
-          {/* Primary: Discuss your deployment (/contact) */}
+          {/* Primary: Discuss your deployment (/company/contact) */}
           <Link
-            href="/contact"
+            href="/company/contact?intent=arch-review"
             style={{
               display: "inline-flex",
               alignItems: "center",

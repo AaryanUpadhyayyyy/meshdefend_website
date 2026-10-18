@@ -6,6 +6,7 @@
   /* Brand */
   --orange: #f45532;
   --orange-accessible: #c5401f;
+  --orange-text: #d93a1a; /* WCAG AA: 4.65:1 on light background */
   --orange-soft: #fef0ec;
   --dark: #221f22;
   --dark-elevated: #2a272a;
@@ -43,6 +44,7 @@ html.dark {
   --grid-line: rgba(254, 253, 253, 0.04);
   --surface: #2a272a;
   --surface-raised: #2a272a;
+  --orange-text: #f45532; /* WCAG AA: 4.8:1 on #221f22 dark background */
   --orange-soft: #3a2420;
   --nav-bg: rgba(34, 31, 34, 0.94);
   --nav-border: rgba(254, 253, 253, 0.1);

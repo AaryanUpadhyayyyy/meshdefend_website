@@ -15,11 +15,11 @@ export const SITE = {
 export const HERO = {
   eyebrow: "Introducing Resilience Operations Center (ResOC)",
   headlines: [
-    { line1: "Don't just plan resilience.", line2: "Operate it." },
+    { line1: "Recovery you can prove.", line2: "Operations without human error." },
     { line1: "Your backups work.", line2: "Can your business recover?" },
   ],
-  headlineLine1: "Don't just plan resilience.",
-  headlineLine2: "Operate it.",
+  headlineLine1: "Recovery you can prove.",
+  headlineLine2: "Operations without human error.",
   paragraph:
     "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.",
   ctaPrimary: "Book a demo",
@@ -272,13 +272,13 @@ export const TRUST = {
 export const AGENT_MESH = {
   eyebrow: "POWERED BY AGENT MESH™",
   headline: "The intelligence to act. The discipline to stop.",
-  lede: "Agent Mesh™ is the agentic AI core of MeshDefend — it connects to your entire infrastructure, learns from every signal, with policy-governed autonomy: human in the loop and human on the loop.",
+  lede: "ResOC is the unified operations center teams use daily; Agent Mesh™ is the autonomous intelligence engine beneath it. It continuously ingests telemetry across vendors, maps Multi-Vendor Cleanroom (MVC) dependencies, and automates remediation with strict Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) governance.",
   beats: [
     {
       num: "01",
       title: "Learn",
       badge: "OBSERVES · NO CHANGES",
-      desc: "Ingests configurations, backup streams, and storage telemetry across vendors into Agent Mesh™ memory.",
+      desc: "Ingests configurations, backup streams, and storage telemetry across vendors into Agent Mesh memory.",
       meta: "Continuous ingestion · Read-only access · Zero writes",
     },
     {

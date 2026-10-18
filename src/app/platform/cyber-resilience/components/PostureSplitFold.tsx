@@ -9,15 +9,15 @@ export function PostureSplitFold() {
     {
       title: "Clean recovery-point unavailable",
       status: "AT RISK",
-      score: "42%",
+      score: "75%",
       detail:
         "Anomalous file encryption entropy spike detected 32 minutes prior to backup window. Restoring the latest snapshot restores the dormant ransomware payload.",
       auditNote: "Traditional backup treats encrypted bytes as successful writes.",
     },
     {
       title: "Dependency readiness gap",
-      status: "FAILED",
-      score: "0%",
+      status: "AT RISK",
+      score: "65%",
       detail:
         "Redis session cache cluster and IAM token mounts excluded from the disaster recovery protection plan. The database restore boots into cascading 503 gateway timeouts.",
       auditNote: "Standard backup evaluates host VMs, not application topology.",
@@ -25,7 +25,7 @@ export function PostureSplitFold() {
     {
       title: "Infrastructure mismatch",
       status: "AT RISK",
-      score: "50%",
+      score: "76%",
       detail:
         "Target recovery availability zone lacks reserved compute instance quota for parallel database rehydration. Projected restoration duration expands by +14 hours.",
       auditNote: "Storage admins do not monitor cloud VPC compute quotas.",
@@ -64,7 +64,7 @@ export function PostureSplitFold() {
               letterSpacing: "0.04em",
             }}
           >
-            The Contrast Effect
+            [ RECOVERY VERIFICATION // POSTURE DRIFT ]
           </span>
           <span
             style={{
@@ -182,7 +182,7 @@ export function PostureSplitFold() {
                   marginBottom: 28,
                 }}
               >
-                Boring 100% success metrics reported every morning to operations:
+                Traditional vendor consoles report 100% backup success every morning:
               </p>
 
               {/* Boring 100% Success Metrics */}
@@ -445,7 +445,7 @@ export function PostureSplitFold() {
                   color: "var(--muted)",
                 }}
               >
-                Calculated Tier-0 Recovery Readiness: 44% (Critical Gaps)
+                Calculated Tier-0 Recovery Readiness: 72% (Weighted Composite: Snapshot Cleanliness 75% · Dependency Topology 65% · Infrastructure Quota 76%)
               </span>
               <span
                 style={{
@@ -455,7 +455,7 @@ export function PostureSplitFold() {
                   fontWeight: 600,
                 }}
               >
-                Immediate Runbook Prescribed &rarr;
+                Immediate Runbook Prescribed →
               </span>
             </div>
           </div>

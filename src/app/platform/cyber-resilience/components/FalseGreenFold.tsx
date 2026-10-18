@@ -609,7 +609,7 @@ export function FalseGreenFold() {
                     color: "var(--muted)",
                   }}
                 >
-                  Hover or scroll to inspect reality &darr;
+                  Hover, tap or scroll to inspect reality ↓
                 </span>
               </div>
 
@@ -639,7 +639,7 @@ export function FalseGreenFold() {
                     fontWeight: 600,
                   }}
                 >
-                  Slice card to reveal reality &rarr;
+                  Tap or hover to reveal reality →
                 </span>
               </div>
             </motion.div>

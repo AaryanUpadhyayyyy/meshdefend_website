@@ -14,10 +14,12 @@ function NumberCounter({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || hasAnimated) return;
+    setHasAnimated(true);
 
     let startTime: number | null = null;
     const duration = 1600; // ms
@@ -25,7 +27,6 @@ function NumberCounter({
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
-      // Ease out cubic
       const easeProgress = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(easeProgress * target);
       setCount(current);
@@ -37,8 +38,9 @@ function NumberCounter({
       }
     };
 
+    setCount(0);
     requestAnimationFrame(step);
-  }, [isInView, target]);
+  }, [isInView, target, hasAnimated]);
 
   const formatted = formatComma ? count.toLocaleString() : count.toString();
 
@@ -60,8 +62,8 @@ export function EvidenceVaultFold() {
       suffix: "+",
       formatComma: true,
       tag: "COL 01 // SCALE",
-      label: "Enterprise assets protected",
-      detail: "Operating across hybrid, multi-cloud, and air-gapped estates.",
+      label: "Workloads protected across careers",
+      detail: "Enterprise infrastructure protected by founders across prior leadership roles at Dell EMC, AWS, and Commvault.",
       specs: [
         "7,400+ VMware & Nutanix virtual instances",
         "3,800+ AWS & Azure cloud workloads",
@@ -73,8 +75,8 @@ export function EvidenceVaultFold() {
       suffix: "+",
       formatComma: false,
       tag: "COL 02 // TENURE",
-      label: "Years of domain expertise",
-      detail: "4 enterprise storage/backup products built prior to MeshDefend. $1Bn+ ARR scaled.",
+      label: "Years of systems engineering tenure",
+      detail: "35+ combined years scaling enterprise storage and disaster recovery engines. Scaled $1B+ ARR across prior products.",
       specs: [
         "Pioneered CBT replication & immutable storage engines",
         "Operated live DR across Fortune 500 ransomware crises",
@@ -82,12 +84,12 @@ export function EvidenceVaultFold() {
       ],
     },
     {
-      targetNum: 12,
-      suffix: "",
+      targetNum: 9,
+      suffix: " pending",
       formatComma: false,
       tag: "COL 03 // IP & ARCHITECTURE",
-      label: "Patents & Trademarks",
-      detail: "9 Patents + 3 Trademarks filed on agentic orchestration and consensus algorithms.",
+      label: "Patents pending filed",
+      detail: "9 core patents filed covering multi-agent Byzantine consensus and deterministic recovery DAG synthesis.",
       specs: [
         "Cryptographic multi-agent Byzantine consensus",
         "Deterministic dependency graph synthesis (DAG)",
@@ -172,8 +174,7 @@ export function EvidenceVaultFold() {
               maxWidth: 780,
             }}
           >
-            A rigorous 3-column data ledger built with exposed 1px borders.
-            Inspect the verifiable operating record.
+            Our foundational architecture is built on verifiable systems engineering, proven recovery tenure, and formal patent-pending innovations.
           </p>
         </div>
 
@@ -216,7 +217,7 @@ export function EvidenceVaultFold() {
                   letterSpacing: "0.05em",
                 }}
               >
-                VERIFIED OPERATING LEDGER // 3 COLUMNS
+                VERIFIED OPERATING RECORD // 3 METRICS
               </span>
             </div>
             <span
@@ -226,7 +227,7 @@ export function EvidenceVaultFold() {
                 color: "var(--muted)",
               }}
             >
-              FALSIFIABLE AUDIT PROOFS
+              VERIFIABLE ARCHITECTURAL METRICS
             </span>
           </div>
 

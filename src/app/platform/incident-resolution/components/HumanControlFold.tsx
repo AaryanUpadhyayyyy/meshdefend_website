@@ -93,7 +93,7 @@ export function HumanControlFold() {
                 fontWeight: 600,
               }}
             >
-              [ BOUNDARY DEFINITION · STRUCTURAL AUTHORITY MATRIX ]
+              [ OPERATIONAL SAFETY // GOVERNANCE BOUNDARIES ]
             </div>
 
             <h2
@@ -120,7 +120,7 @@ export function HumanControlFold() {
                 margin: 0,
               }}
             >
-              What stops the agent from taking the wrong action without me? Autonomy isn&apos;t a black box. Define structural boundaries indicating what AI can do alone, what requires approval, and what is completely forbidden.
+              Autonomous operations require non-negotiable architectural boundaries. ResOC establishes clear structural separation between read-only diagnosis, human-authorized execution, and permanently blocked operations.
             </p>
           </div>
 

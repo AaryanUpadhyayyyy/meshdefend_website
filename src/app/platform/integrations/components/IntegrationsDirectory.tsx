@@ -608,7 +608,7 @@ export function IntegrationsDirectory() {
                           </p>
                         </div>
 
-                        {/* Card bottom border subtle indicator */}
+                        {/* Card bottom border tier and status indicator */}
                         <div
                           style={{
                             marginTop: 18,
@@ -627,18 +627,18 @@ export function IntegrationsDirectory() {
                               color: "var(--muted)",
                             }}
                           >
-                            STATUS: CERTIFIED
+                            TIER: {item.tier}
                           </span>
                           <span
                             style={{
                               fontFamily:
                                 'var(--font-mono), "JetBrains Mono", monospace',
                               fontSize: 9.5,
-                              color: "var(--ink)",
+                              color: item.tier === "GA" ? "var(--orange, #f45532)" : "var(--ink)",
                               fontWeight: 600,
                             }}
                           >
-                            ACTIVE API
+                            {item.tier === "GA" ? "CERTIFIED · ACTIVE API" : item.tier === "BETA" ? "BETA CONNECTOR" : "PLANNED ROADMAP"}
                           </span>
                         </div>
                       </motion.div>

@@ -11,17 +11,8 @@ const contactSchema = z.object({
   company: z.string().trim().optional(),
   companyName: z.string().trim().optional(),
   jobTitle: z.string().trim().optional(),
-  topic: z
-    .enum([
-      "Technical support",
-      "Demo or sales",
-      "Partnerships",
-      "Security question",
-      "General inquiry",
-      "Other",
-    ])
-    .optional()
-    .default("General inquiry"),
+  topic: z.string().trim().optional().default("General inquiry"),
+  marketingOptIn: z.boolean().optional().default(false),
   message: z
     .string()
     .trim()
@@ -135,7 +126,7 @@ export async function POST(request: NextRequest) {
 
     // 5. Pluggable email dispatch via environment variables
     const recipientEmail =
-      process.env.CONTACT_EMAIL_RECIPIENT || "hello@meshdefend.ai"; /* [VERIFY: Production recipient email] */
+      process.env.CONTACT_EMAIL_RECIPIENT || "hello@meshdefend.ai";
     const resendApiKey = process.env.RESEND_API_KEY;
     const postmarkToken = process.env.POSTMARK_SERVER_TOKEN;
 

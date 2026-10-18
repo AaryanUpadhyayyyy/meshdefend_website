@@ -56,7 +56,7 @@ export function IntegrationsCTA() {
               color: "rgba(254, 253, 253, 0.6)",
             }}
           >
-            COMMITMENT MATCHING · ECOSYSTEM CONNECTIVITY
+            ECOSYSTEM CONNECTIVITY &amp; EVALUATION
           </span>
           <span
             style={{

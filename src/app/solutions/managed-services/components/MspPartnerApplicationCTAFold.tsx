@@ -78,7 +78,7 @@ export function MspPartnerApplicationCTAFold() {
               fontWeight: 600,
             }}
           >
-            [ COMMITMENT MATCHING + RECIPROCITY · MSP PARTNERSHIP ]
+            [ MSP PARTNER ECOSYSTEM // APPLICATION ]
           </span>
           <span
             style={{
@@ -132,7 +132,7 @@ export function MspPartnerApplicationCTAFold() {
           }}
         >
           <Link
-            href="/contact?type=msp-partner"
+            href="/company/contact?intent=msp"
             style={{
               display: "inline-flex",
               alignItems: "center",

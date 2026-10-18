@@ -532,7 +532,7 @@ export function IncidentCanvasFold() {
               <div style={{ color: "#f45532", fontWeight: 600 }}>
                 STATUS: {activePhase.shieldStatus.toUpperCase()}
               </div>
-              <div>PARALLAX: 3D DUST FIELD · ACTIVE TELEMETRY</div>
+              <div>ACTIVE TELEMETRY STREAM // ENCLAVE SECURE</div>
             </div>
 
             {/* Interactive 3D Parallax Stage */}
@@ -816,7 +816,7 @@ export function IncidentCanvasFold() {
                       }}
                     >
                       <span>SIGN-OFF & EXECUTE REMEDIATION</span>
-                      <span>&rarr;</span>
+                      <span>→</span>
                     </button>
                     <span
                       style={{
