@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "Connect what you already run. Compatible with Commvault, Veeam, NetApp, Pure Storage, Azure AI, Anthropic, and ServiceNow without vendor lock-in.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Built for Flexibility",
+      },
+    ],
   },
 };
 

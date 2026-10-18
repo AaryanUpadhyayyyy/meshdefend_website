@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "Stop jumping between consoles and second-guessing your recovery readiness. One governed operational layer across heterogeneous backup engines.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Backup Operations",
+      },
+    ],
   },
 };
 

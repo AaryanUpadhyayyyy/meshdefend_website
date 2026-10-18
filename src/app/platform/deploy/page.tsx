@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "Deploy MeshDefend without redesigning the environment around it. Strict data residency, zero inbound ports, read-only metadata ingestion, and self-contained air-gapped appliances.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Deployment Architecture",
+      },
+    ],
   },
 };
 

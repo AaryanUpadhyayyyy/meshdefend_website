@@ -9,6 +9,14 @@ export const metadata: Metadata = {
     description:
       "Operational thinking, direct to your inbox. Weekly executive briefings for enterprise technical leaders.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Weekly Resilience Brief",
+      },
+    ],
   },
 };
 

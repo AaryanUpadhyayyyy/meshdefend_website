@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     description:
       "Maturity isn't what you promise. It's what you can prove. 14,000+ assets protected, 35+ years domain engineering tenure, 9 patents pending, and strict cryptographic human-in-the-loop governance.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Enterprise Readiness",
+      },
+    ],
   },
 };
 

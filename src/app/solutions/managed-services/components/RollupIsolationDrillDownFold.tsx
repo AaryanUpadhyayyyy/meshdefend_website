@@ -41,7 +41,7 @@ export function RollupIsolationDrillDownFold() {
               fontWeight: 600,
             }}
           >
-            [ MULTI-TENANCY DEMONSTRATION · SHOW DON’T TELL ]
+            [ MULTI-TENANCY ARCHITECTURE · OPERATIONAL ISOLATION ]
           </span>
           <span
             style={{

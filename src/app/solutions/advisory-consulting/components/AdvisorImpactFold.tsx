@@ -101,7 +101,7 @@ export function AdvisorImpactFold() {
                     }}
                   >
                     <span>Traditional Assessment</span>
-                    <span style={{ fontWeight: 600, color: "var(--ink, #221f22)" }}>X weeks</span>
+                    <span style={{ fontWeight: 600, color: "var(--ink, #221f22)" }}>6–8 weeks</span>
                   </div>
                   <div
                     style={{
@@ -125,7 +125,7 @@ export function AdvisorImpactFold() {
                   </div>
                 </div>
 
-                {/* With MeshDefend: Y weeks */}
+                {/* With MeshDefend: 1–2 weeks */}
                 <div>
                   <div
                     style={{
@@ -138,7 +138,7 @@ export function AdvisorImpactFold() {
                     }}
                   >
                     <span>With MeshDefend Evidence</span>
-                    <span style={{ fontWeight: 600, color: "var(--orange, #f45532)" }}>Y weeks</span>
+                    <span style={{ fontWeight: 600, color: "var(--orange, #f45532)" }}>1–2 weeks</span>
                   </div>
                   <div
                     style={{
@@ -174,7 +174,7 @@ export function AdvisorImpactFold() {
                 color: "var(--muted, #6b6568)",
               }}
             >
-              Visual comparison: X weeks vs Y weeks
+              Continuous automated discovery reduces assessment timeline from weeks to days.
             </div>
           </div>
 
@@ -293,7 +293,7 @@ export function AdvisorImpactFold() {
                 color: "var(--muted, #6b6568)",
               }}
             >
-              Visual: Expanded follow-on retainers created
+              Turn static compliance assessments into continuous advisory retainers.
             </div>
           </div>
         </div>

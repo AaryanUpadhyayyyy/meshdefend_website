@@ -52,7 +52,7 @@ export function RoleLensSwitcherFold() {
                 display: "inline-block",
               }}
             />
-            [ FOLD 02 · PERSPECTIVE SYNTHESIS ]
+            [ STAKEHOLDER PERSPECTIVES // FUNCTIONAL COHESION ]
           </div>
 
           <h2

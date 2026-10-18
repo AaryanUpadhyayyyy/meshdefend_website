@@ -87,8 +87,10 @@ export function Footer() {
   const isSuppressed =
     pathname === "/demo" ||
     pathname === "/company/contact" ||
+    pathname === "/resources/newsletter" ||
     pathname?.startsWith("/demo") ||
-    pathname?.startsWith("/company/contact");
+    pathname?.startsWith("/company/contact") ||
+    pathname?.startsWith("/resources/newsletter");
 
   return (
     <footer

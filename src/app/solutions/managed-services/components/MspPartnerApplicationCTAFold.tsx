@@ -37,8 +37,8 @@ export function MspPartnerApplicationCTAFold() {
       desc: "Dedicated Partner Success Architect co-managing your first 3 client deployments.",
     },
     {
-      label: "STRICT NON-DISINTERMEDIATION",
-      desc: "Legally binding guarantee: MeshDefend never bypasses you to sell directly to your clients.",
+      label: "CONTRACTUAL PARTNER PROTECTION",
+      desc: "MeshDefend operates exclusively through MSP partners without client disintermediation.",
     },
   ];
 

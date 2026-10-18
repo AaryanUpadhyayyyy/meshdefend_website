@@ -14,7 +14,7 @@ export function FlexibilityBridgeFold() {
       title: "Deploy: How MeshDefend connects",
       sub: "See how MeshDefend connects to your environment across on-premises, hybrid, or air-gapped topologies with zero invasive agents.",
       href: "/platform/deploy",
-      cta: "Explore Deployment Models →",
+      cta: "Explore Deployment Models",
     },
     {
       num: "02",
@@ -22,7 +22,7 @@ export function FlexibilityBridgeFold() {
       title: "Enterprise Readiness: Governed & secured",
       sub: "See how those connections are governed and secured with zero-trust boundaries, cryptographic HITL controls, and audit trails.",
       href: "/platform/enterprise-readiness",
-      cta: "Review Governance & Security →",
+      cta: "Review Governance & Security",
     },
   ];
 

@@ -64,7 +64,7 @@ export default function PrivacyPage() {
               3. Data Sharing & Third Parties
             </h2>
             <p style={{ marginBottom: 16 }}>
-              <strong>We do not sell, rent, or trade your personal data or operational telemetry to third parties or advertising networks.</strong> We do not engage in ad-partner data sharing. We only disclose information to vetted enterprise sub-processors who assist us in operating our infrastructure (such as secure cloud hosting and transactional email), under strict data protection agreements.
+              <strong>We do not sell, rent, or trade your personal data or operational telemetry to third parties or advertising networks.</strong> We do not share data with commercial marketing brokers or third-party profiling services. We only disclose information to vetted enterprise sub-processors who assist us in operating our infrastructure (such as secure cloud hosting and transactional email), under strict data protection agreements.
             </p>
 
             <h2 style={{ fontFamily: "var(--font-display)", fontSize: 24, marginTop: 40, marginBottom: 16 }}>

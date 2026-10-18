@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     description:
       "Authoritative answers on multi-vendor backup integration, agent mesh security boundaries, sovereign air-gap operations, and automated recovery verification.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - FAQ",
+      },
+    ],
   },
 };
 

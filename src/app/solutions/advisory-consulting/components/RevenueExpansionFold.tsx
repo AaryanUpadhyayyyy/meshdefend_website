@@ -68,7 +68,7 @@ export function RevenueExpansionFold() {
               maxWidth: 780,
             }}
           >
-            Turning advisory findings into something that can be solutionized and operationalized creates economic opportunity for the advisory firm.
+            Turning advisory findings into structured remediation architecture and operational workflows creates sustained economic opportunity for the advisory firm.
           </p>
         </div>
 

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export function MspStoriesPreviewFold() {
   const stories = [
     {
-      partner: "MSP Partner Alpha",
+      partner: "Representative Partner Alpha (Anonymized)",
       badge: "MID-MARKET CLOUD MSP",
       headline: "Scaled from 12 to 45 enterprise clients with zero new hires.",
       challenge:
@@ -14,11 +14,11 @@ export function MspStoriesPreviewFold() {
       solution:
         "Unified all 45 clients under MeshDefend ResOC rollup. Automated non-destructive restore dry runs replaced the daily morning checklist.",
       metric: "+140%",
-      metricLabel: "Operating Margin Growth",
+      metricLabel: "Operating Margin Growth*",
       scope: "45 Clients · 1.2 PB Managed",
     },
     {
-      partner: "MSP Partner Beta",
+      partner: "Representative Partner Beta (Anonymized)",
       badge: "HEALTHCARE & FINANCIAL MSP",
       headline: "Eliminated false-green recovery risk across 28 hospital environments.",
       challenge:
@@ -26,11 +26,11 @@ export function MspStoriesPreviewFold() {
       solution:
         "Agent Mesh autonomously executed nightly DAG simulated failovers in isolated sandboxes, producing tamper-evident audit packets automatically.",
       metric: "82%",
-      metricLabel: "Reduction in Morning Triage Time",
+      metricLabel: "Reduction in Morning Triage Time*",
       scope: "28 Hospitals · Zero Audit Findings",
     },
     {
-      partner: "MSP Partner Gamma",
+      partner: "Representative Partner Gamma (Anonymized)",
       badge: "NATIONAL CYBER-FIRST MSP",
       headline: "Client onboarding dropped from 72 hours to 45 minutes.",
       challenge:
@@ -38,7 +38,7 @@ export function MspStoriesPreviewFold() {
       solution:
         "Read-only metadata connectors ingested storage and catalog state without installing agents on production databases or hypervisors.",
       metric: "45 min",
-      metricLabel: "Average Tenant Onboarding Time",
+      metricLabel: "Average Tenant Onboarding Time*",
       scope: "64 Clients · Heterogeneous Fleet",
     },
   ];
@@ -78,7 +78,7 @@ export function MspStoriesPreviewFold() {
               fontWeight: 600,
             }}
           >
-            [ SOURCE SIMILARITY · PEER OPERATING LEVERAGE ]
+            [ REPRESENTATIVE MSP BENCHMARKS // OPERATIONAL LEVERAGE ]
           </span>
           <span
             style={{
@@ -289,6 +289,21 @@ export function MspStoriesPreviewFold() {
           ))}
         </div>
 
+        {/* Footnote */}
+        <p
+          style={{
+            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+            fontSize: 11,
+            color: "var(--muted)",
+            textAlign: "center",
+            maxWidth: 720,
+            margin: "0 auto 32px",
+            lineHeight: 1.5,
+          }}
+        >
+          *Metrics reflect anonymized illustrative partner deployment profiles and operating leverage models based on automated verification and unified multi-tenant triage.
+        </p>
+
         {/* Explicit Action Link */}
         <div style={{ textAlign: "center" }}>
           <Link
@@ -309,7 +324,7 @@ export function MspStoriesPreviewFold() {
               transition: "border-color 0.15s ease",
             }}
           >
-            <span>Explore MSP stories</span>
+            <span>Inquire about MSP partner program</span>
             <span>→</span>
           </Link>
         </div>

@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     description:
       "Autonomous where you allow it. Human-controlled where it matters. Explore the forensic resolution pipeline across Commvault, Veeam, Dell DataDomain, and ServiceNow.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Incident Resolution",
+      },
+    ],
   },
 };
 

@@ -15,7 +15,7 @@ export function FlexibilityCTAFold() {
     },
     {
       label: "ZERO DISRUPTION",
-      desc: "Read-only catalog sync ensures 100% continuous operation of your production backup jobs.",
+      desc: "Read-only by default; automated ingestion ensures zero disruption to production backup schedules, with changes executed only after approval.",
     },
   ];
 

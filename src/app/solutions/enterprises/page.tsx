@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "Security wants resilience. Operations wants efficiency. Leadership wants less risk. One investment answers all three with verified recovery posture.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Enterprise Solutions",
+      },
+    ],
   },
 };
 

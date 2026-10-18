@@ -397,7 +397,7 @@ export function HotSwapMatrixFold() {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  Local Llama 3
+                  Self-Hosted / Open-Weights
                 </button>
               </div>
 
@@ -434,7 +434,7 @@ export function HotSwapMatrixFold() {
                       marginBottom: 8,
                     }}
                   >
-                    {modelVendor === "azure" ? "Azure AI Foundry (GPT-4o)" : "Self-Hosted Local Llama 3"}
+                    {modelVendor === "azure" ? "Frontier AI Models (Azure AI / Anthropic / OpenAI)" : "Self-Hosted Open-Weights (vLLM / Enclave)"}
                   </div>
                   <p
                     style={{
@@ -447,7 +447,7 @@ export function HotSwapMatrixFold() {
                   >
                     {modelVendor === "azure"
                       ? "Dedicated confidential compute enclave, zero data retention agreement, and SOC 2 Type II attestation."
-                      : "100% on-premises vLLM inference over private GPU nodes; zero outbound internet packets during reasoning."}
+                      : "100% on-premises or private VPC inference over private GPU nodes; zero outbound internet packets during reasoning."}
                   </p>
                 </motion.div>
               </AnimatePresence>

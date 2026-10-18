@@ -185,7 +185,7 @@ export function PostureSplitFold() {
                 Traditional vendor consoles report 100% backup success every morning:
               </p>
 
-              {/* Boring 100% Success Metrics */}
+              {/* Vendor Success Metrics */}
               <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 32 }}>
                 <div style={{ paddingBottom: 14, borderBottom: "1px solid var(--border)" }}>
                   <div

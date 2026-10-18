@@ -311,7 +311,7 @@ export function IntegratorContinuityFold() {
                 }}
               >
                 Inspect how MeshDefend survives extreme enterprise procurement scrutiny—demonstrating
-                verifiable zero-hallucination AI governance, SOC2 Type II compliance, tamper-evident audit chains, and multi-tenant isolation.
+                deterministic Human-in-the-Loop AI governance, SOC 2 Type II readiness standards, tamper-evident audit chains, and multi-tenant isolation.
               </p>
 
               {/* Key Highlights */}
@@ -319,13 +319,13 @@ export function IntegratorContinuityFold() {
                 <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
                   <span style={{ color: "var(--orange, #f45532)", fontWeight: 700 }}>✓</span>
                   <span style={{ color: "var(--ink)", fontFamily: 'var(--font-mono), "JetBrains Mono", monospace', fontSize: 12 }}>
-                    Deterministic recovery execution with zero hallucination risk
+                    Deterministic Human-in-the-Loop execution with cryptographically verified action plans
                   </span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
                   <span style={{ color: "var(--orange, #f45532)", fontWeight: 700 }}>✓</span>
                   <span style={{ color: "var(--ink)", fontFamily: 'var(--font-mono), "JetBrains Mono", monospace', fontSize: 12 }}>
-                    SOC2 Type II, ISO 27001, and append-only audit ledgers
+                    SOC 2 Type II and ISO 27001 readiness standards with append-only audit ledgers
                   </span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>

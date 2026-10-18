@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "A real API surface, not a black box. A partnership designed to go beyond a single integration. Build custom client workflows in 48 hours or scale a 12-region cyber resilience practice.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - System Integrators Solutions",
+      },
+    ],
   },
 };
 

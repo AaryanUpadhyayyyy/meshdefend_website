@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "Help every operator manage 10× more clients. Turn multi-tenant backup operations into a high-margin cyber resilience service line.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Managed Services Solutions",
+      },
+    ],
   },
 };
 

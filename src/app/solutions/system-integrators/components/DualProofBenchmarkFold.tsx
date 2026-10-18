@@ -40,20 +40,20 @@ export function DualProofBenchmarkFold() {
     {
       step: "02. PRACTICE ENABLEMENT",
       phase: "Phase 2",
-      title: "MCRA Certification Bootcamps",
-      desc: "Trained and certified 350+ solution architects and delivery leads across North America, EMEA, and Asia-Pacific delivery centers.",
+      title: "Architecture & Practice Enablement",
+      desc: "Designed for enterprise infrastructure architects and certified cloud recovery practitioners across regional delivery centers.",
     },
     {
       step: "03. REGIONAL ENCLAVES",
       phase: "Phase 3",
       title: "Federated Sovereign Architecture",
-      desc: "Deployed sovereign multi-tenant orchestration consoles across 12 distinct cloud and on-premises regulatory enclaves.",
+      desc: "Deployed sovereign multi-tenant orchestration consoles across distinct cloud and on-premises regulatory enclaves.",
     },
     {
       step: "04. MEASURABLE SCALE",
       phase: "Phase 4",
-      title: "Tier-1 Recurring Service Line",
-      desc: "Formalized as the firm's global standard resilience offering, managing 480+ client environments with sustained retainer revenues.",
+      title: "Recurring Resilience Practice",
+      desc: "Formalized as standard resilience offering across multi-tenant and sovereign client enclaves with sustained retainer revenues.",
     },
   ];
 
@@ -586,12 +586,13 @@ export function DualProofBenchmarkFold() {
                 <div
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 22,
+                    fontSize: 16,
                     fontWeight: 600,
                     color: "#fefdfd",
+                    paddingTop: 4,
                   }}
                 >
-                  350+
+                  ALIGNED
                 </div>
                 <div
                   style={{
@@ -601,7 +602,7 @@ export function DualProofBenchmarkFold() {
                     marginTop: 2,
                   }}
                 >
-                  CERTIFIED MCRA
+                  MCRA ARCHITECTURE
                 </div>
               </div>
 
@@ -609,12 +610,13 @@ export function DualProofBenchmarkFold() {
                 <div
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                    fontSize: 22,
+                    fontSize: 16,
                     fontWeight: 600,
                     color: "#a5d6a7",
+                    paddingTop: 4,
                   }}
                 >
-                  480+
+                  SOVEREIGN
                 </div>
                 <div
                   style={{
@@ -624,7 +626,7 @@ export function DualProofBenchmarkFold() {
                     marginTop: 2,
                   }}
                 >
-                  ACTIVE ENCLAVES
+                  MULTI-TENANT ENCLAVES
                 </div>
               </div>
             </div>
@@ -642,7 +644,7 @@ export function DualProofBenchmarkFold() {
             letterSpacing: "0.04em",
           }}
         >
-          NOTE: ALL METRICS REPRESENT DOCUMENTED PARTNER DEPLOYMENT BENCHMARKS UNDER MUTUAL NDA. REAL ENGAGEMENT TIMELINES DEPEND ON CLIENT INFRASTRUCTURE ACCESS.
+          NOTE: METRICS REPRESENT ANONYMIZED ILLUSTRATIVE PARTNER PRACTICE BENCHMARKS. ACTUAL CLIENT ENGAGEMENT TIMELINES AND DEPLOYMENT METRICS DEPEND ON INFRASTRUCTURE TOPOLOGY.
         </div>
       </div>
     </section>

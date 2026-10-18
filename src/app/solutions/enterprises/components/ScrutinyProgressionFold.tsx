@@ -9,7 +9,7 @@ export function ScrutinyProgressionFold() {
       num: "01",
       title: "Business Case",
       description: "Define cross-departmental value, engineer time-savings, and quantified risk reduction.",
-      status: "RESOLVED IN FOLDS 1–4",
+      status: "VALIDATED IN PILOT",
     },
     {
       num: "02",
@@ -75,7 +75,7 @@ export function ScrutinyProgressionFold() {
                 display: "inline-block",
               }}
             />
-            [ FOLD 05 · ENTERPRISE EVALUATION CONTINUITY ]
+            [ EVALUATION MILESTONES // AUDIT CONTINUITY ]
           </div>
 
           <h2

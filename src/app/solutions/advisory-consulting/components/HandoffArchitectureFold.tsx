@@ -13,7 +13,7 @@ const ADVISORY_INPUTS = [
 const ENGINE_STEPS = [
   { id: "step-1", label: "Visualize", stepNum: "01" },
   { id: "step-2", label: "Analyze", stepNum: "02" },
-  { id: "step-3", label: "Solutionize", stepNum: "03" },
+  { id: "step-3", label: "Architect", stepNum: "03" },
   { id: "step-4", label: "Operationalize", stepNum: "04" },
 ];
 
@@ -308,7 +308,7 @@ export function HandoffArchitectureFold() {
               >
                 <span>Pipeline:</span>
                 <span style={{ color: "var(--ink, #221f22)", fontWeight: 500 }}>
-                  Visualize → Analyze → Solutionize → Operationalize
+                  Visualize → Analyze → Architect → Operationalize
                 </span>
               </div>
             </div>

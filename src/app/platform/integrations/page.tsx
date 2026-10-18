@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     description:
       "Find support the way you manage your stack. Native API connectors for Commvault, Veeam, Dell, NetApp, Pure Storage, AWS, Azure, CrowdStrike, and ServiceNow.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Platform Integrations",
+      },
+    ],
   },
 };
 

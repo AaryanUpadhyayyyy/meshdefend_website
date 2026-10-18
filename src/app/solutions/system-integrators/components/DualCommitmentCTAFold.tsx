@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 
 export function DualCommitmentCTAFold() {
   const technicalGuarantees = [
-    "24-hour sandbox provisioning with chaos-injection simulation",
+    "Sandbox access provisioned upon technical qualification with enterprise architects",
     "Direct Slack/Teams bridge with core platform engineers",
     "Full access to open connector SDKs and OpenAPI 3.1 schemas",
   ];
 
   const allianceGuarantees = [
-    "Legally binding non-disintermediation covenant",
+    "Contractual partner protection against client disintermediation",
     "Dedicated Global Partner Solutions Architect (PSA) alignment",
     "Formal deal registration, protected margins, and MDF co-funding",
   ];
@@ -229,7 +229,7 @@ export function DualCommitmentCTAFold() {
               </Link>
 
               <Link
-                href="/support"
+                href="/company/contact?intent=si-technical"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -427,7 +427,7 @@ export function DualCommitmentCTAFold() {
                 fontWeight: 600,
               }}
             >
-              ISO 27001 & SOC 2 TYPE II CERTIFIED
+              ENGINEERED TO SOC 2 TYPE II & ISO 27001 STANDARDS
             </span>
           </div>
 
@@ -438,7 +438,7 @@ export function DualCommitmentCTAFold() {
               color: "var(--muted)",
             }}
           >
-            STRICT NON-DISINTERMEDIATION POLICY · 100% PUBLIC API SURFACE
+            PARTNER PROTECTION POLICY · DOCUMENTED API SPECIFICATIONS
           </span>
         </div>
       </div>

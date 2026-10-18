@@ -64,7 +64,7 @@ export function EnterpriseExecutiveCTAFold() {
               display: "inline-block",
             }}
           />
-          [ FOLD 06 · EXECUTIVE ALIGNMENT ]
+          [ EXECUTIVE EVALUATION // ALIGNMENT ]
         </div>
 
         {/* Verbatim Display H2 */}

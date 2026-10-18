@@ -103,7 +103,7 @@ export function SharedValueBusinessCaseFold() {
                 display: "inline-block",
               }}
             />
-            [ FOLD 03 · THE SHARED-VALUE BUSINESS CASE ]
+            [ ENTERPRISE VALUE // CROSS-FUNCTIONAL ROI ]
           </div>
 
           <h2

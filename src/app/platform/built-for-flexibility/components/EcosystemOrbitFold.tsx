@@ -19,7 +19,7 @@ const ORBIT_NODES: SatelliteNode[] = [
     id: "models",
     label: "AI Models",
     badge: "BRING YOUR OWN MODEL",
-    technologies: ["Anthropic Claude", "OpenAI GPT-4o", "Azure AI Foundry", "Local Llama 3"],
+    technologies: ["Anthropic Claude", "OpenAI GPT Models", "Azure AI Foundry", "Self-Hosted / Open-Weights"],
     role: "Provides inference & root-cause reasoning over normalized telemetry.",
     angle: 315, // Top-Left
   },

@@ -532,7 +532,7 @@ export function DualEntrySplitFold() {
                   alignItems: "center",
                 }}
               >
-                <span>$ curl -H &quot;Authorization: Bearer &quot; api.meshdefend.io/v1/topology/dag</span>
+                <span>$ curl -H &quot;Authorization: Bearer &quot; api.meshdefend.ai/v1/topology/dag</span>
                 <span style={{ color: "var(--orange, #f45532)" }}>200 OK</span>
               </div>
             </div>

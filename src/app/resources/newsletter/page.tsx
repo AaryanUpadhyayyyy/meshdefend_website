@@ -309,14 +309,27 @@ export default function NewsletterPage() {
                     style={{
                       fontFamily: "var(--font-jetbrains-mono), monospace",
                       fontSize: 10,
-                      lineHeight: 1.4,
+                      lineHeight: 1.5,
                       color: "var(--muted)",
                       textAlign: "center",
                       margin: 0,
-                      letterSpacing: "0.02em",
+                      letterSpacing: "0.01em",
                     }}
                   >
-                    No spam. One-click unsubscribe. Read by CISOs globally.
+                    Technical dispatches for infrastructure architects and resilience leaders.
+                    <br />
+                    By subscribing, you agree to receive technical updates. Unsubscribe anytime. View our{" "}
+                    <a
+                      href="/privacy"
+                      style={{
+                        color: "var(--ink)",
+                        textDecoration: "underline",
+                        textUnderlineOffset: "2px",
+                      }}
+                    >
+                      Privacy Policy
+                    </a>
+                    .
                   </p>
                 </motion.form>
               ) : (

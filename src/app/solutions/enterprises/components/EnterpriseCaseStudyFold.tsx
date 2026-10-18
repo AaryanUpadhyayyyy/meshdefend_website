@@ -10,9 +10,9 @@ export function EnterpriseCaseStudyFold() {
       sub: "Managed under completely frozen engineering headcount",
     },
     {
-      figure: "80%",
+      figure: "Up to 80%",
       label: "MTTR REDUCTION",
-      sub: "From 4.5 hours daily triage down to 24 minutes",
+      sub: "Mean time to resolution reduced from ~47 min to ~12 min per incident",
     },
     {
       figure: "100%",
@@ -70,7 +70,7 @@ export function EnterpriseCaseStudyFold() {
                 display: "inline-block",
               }}
             />
-            [ FOLD 04 · REAL-WORLD ENTERPRISE EVIDENCE ]
+            [ REPRESENTATIVE ARCHITECTURE // ANONYMIZED BENCHMARK ]
           </div>
 
           <h2
@@ -84,7 +84,7 @@ export function EnterpriseCaseStudyFold() {
               fontWeight: 400,
             }}
           >
-            Here’s what the business case looked like inside another enterprise.
+            Representative enterprise deployment model.
           </h2>
 
           <p
@@ -96,9 +96,9 @@ export function EnterpriseCaseStudyFold() {
               maxWidth: "760px",
             }}
           >
-            A Global Tier-1 Financial Institution managing 3,400+ protected workloads across
-            Commvault, Dell Data Domain, and AWS hybrid storage unified resilience across
-            Security, Operations, and Compliance without hiring additional staff.
+            Illustrative operational benchmark based on an enterprise estate managing 3,400+ protected workloads across
+            Commvault, Dell Data Domain, and AWS hybrid storage, unifying resilience across
+            Security, Operations, and Compliance without expanding operational headcount.
           </p>
         </div>
 
@@ -358,7 +358,7 @@ export function EnterpriseCaseStudyFold() {
                 marginBottom: "20px",
               }}
             >
-              [ 04 · QUOTABLE METRICS FOR INTERNAL BUDGET PRESENTATIONS ]
+              [ 04 · OPERATIONAL METRICS // BUSINESS IMPACT ]
             </div>
 
             <div
@@ -445,7 +445,7 @@ export function EnterpriseCaseStudyFold() {
                   color: "var(--muted)",
                 }}
               >
-                — VP of Global Infrastructure & Enterprise Resilience, Tier-1 Financial Institution
+                — VP of Infrastructure & Enterprise Resilience, Tier-1 Financial Institution (Anonymized Pilot Deployment)
               </div>
             </div>
           </div>

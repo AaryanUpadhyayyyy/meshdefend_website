@@ -19,9 +19,9 @@ const CAPABILITY_CARDS = [
   },
   {
     id: "case-studies",
-    title: "Case Studies",
-    target: "Real-world application",
-    href: "/resources/blogs",
+    title: "Client Engagements",
+    target: "Real-world advisory cases",
+    href: "/company/contact?intent=advisory",
   },
 ];
 

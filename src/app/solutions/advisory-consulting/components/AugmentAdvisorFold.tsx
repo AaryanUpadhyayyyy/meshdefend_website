@@ -77,7 +77,7 @@ export function AugmentAdvisorFold() {
             margin: "0 0 64px",
           }}
         >
-          The advisor discovers the risks, gaps, and opportunities. MeshDefend builds on those findings to help visualize, analyze, solutionize, and ultimately operationalize what the advisory engagement uncovered.
+          The advisor discovers the risks, gaps, and opportunities. MeshDefend builds on those findings to help visualize, analyze, structure, and ultimately operationalize what the advisory engagement uncovered.
         </p>
 
         {/* Interactive Value Chain Flow Diagram */}

@@ -54,7 +54,7 @@ export function PartnershipDeRiskFold() {
               fontWeight: 600,
             }}
           >
-            [ PARTNERSHIP RISK MITIGATION · PARALLEL CONFIDENCE ]
+            [ PARTNERSHIP RISK MITIGATION // DUAL INTEGRATION TRACKS ]
           </span>
           <span
             style={{
@@ -143,7 +143,7 @@ export function PartnershipDeRiskFold() {
                     fontWeight: 600,
                   }}
                 >
-                  THE BUILDER’S FEAR · TECHNICAL REPUTATION
+                  TECHNICAL INTEGRATION // ARCHITECT REPUTATION
                 </span>
                 <span
                   style={{
@@ -298,7 +298,7 @@ export function PartnershipDeRiskFold() {
                       marginBottom: 4,
                     }}
                   >
-                    4. 24-MONTH API STABILITY GUARANTEE
+                    4. VERSIONED APIS & BACKWARD COMPATIBILITY
                   </div>
                   <div
                     style={{
@@ -308,8 +308,8 @@ export function PartnershipDeRiskFold() {
                       color: "var(--muted)",
                     }}
                   >
-                    Zero breaking changes to released endpoints. Your custom client adapters and integrations
-                    remain functional across platform updates without billable maintenance penalties.
+                    Strict backward compatibility on released endpoints. Your custom client adapters and integrations
+                    remain functional across platform updates without emergency maintenance cycles.
                   </div>
                 </div>
               </div>
@@ -429,7 +429,7 @@ export function PartnershipDeRiskFold() {
                     fontWeight: 600,
                   }}
                 >
-                  THE ALLIANCE LEADER’S FEAR · STRATEGIC SCALE
+                  STRATEGIC ALLIANCE // PRACTICE SCALE
                 </span>
                 <span
                   style={{

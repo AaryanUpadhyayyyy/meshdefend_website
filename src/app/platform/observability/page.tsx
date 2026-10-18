@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     description:
       "Can I see everything in one place, and can I hand something credible to compliance or leadership without compiling it by hand?",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Unified Resilience Observability",
+      },
+    ],
   },
 };
 

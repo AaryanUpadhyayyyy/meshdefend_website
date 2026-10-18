@@ -11,12 +11,20 @@ import { AdvisoryPartnershipCTAFold } from "./components/AdvisoryPartnershipCTAF
 export const metadata: Metadata = {
   title: "Advisory & Consulting Partners | MeshDefend",
   description:
-    "Your expertise goes further when the evidence is already working for you. MeshDefend builds on your advisory findings to help visualize, analyze, solutionize, and operationalize recovery posture.",
+    "Your expertise goes further when the evidence is already working for you. MeshDefend builds on your advisory findings to help visualize, analyze, architect, and operationalize recovery posture.",
   openGraph: {
     title: "Advisory & Consulting Practice Solutions | MeshDefend",
     description:
       "Augment the advisor, don't replace them. Turn one-off cyber resilience audits into multi-year billable implementation projects and continuous posture retainers.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Advisory & Consulting Solutions",
+      },
+    ],
   },
 };
 

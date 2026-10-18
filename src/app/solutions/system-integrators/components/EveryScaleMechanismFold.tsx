@@ -113,7 +113,7 @@ export function EveryScaleMechanismFold() {
               transition: "all 0.15s ease",
             }}
           >
-            [ FULL CONTRAST CANVAS ]
+            [ SIDE-BY-SIDE ARCHITECTURE ]
           </button>
           <button
             onClick={() => setActiveFocus("boutique")}
@@ -777,7 +777,7 @@ export function EveryScaleMechanismFold() {
                   color: "var(--orange, #f45532)",
                 }}
               >
-                12 REGIONS · 480+ ENCLAVES
+                FEDERATED MULTI-REGION TOPOLOGY
               </span>
             </div>
           </div>

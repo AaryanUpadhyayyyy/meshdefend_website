@@ -92,7 +92,7 @@ export function MarginCurveEconomicsFold() {
               fontWeight: 600,
             }}
           >
-            [ ECONOMIC UNCERTAINTY REDUCTION · OPERATING LEVERAGE ]
+            [ PREDICTABLE MARGIN ECONOMICS · OPERATING LEVERAGE ]
           </span>
           <span
             style={{

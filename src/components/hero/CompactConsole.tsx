@@ -19,7 +19,7 @@ export const CompactConsole = forwardRef<HTMLDivElement, CompactConsoleProps>(
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
-    const isDark = mounted ? resolvedTheme === "dark" : true;
+    const isDark = mounted ? resolvedTheme === "dark" : false;
 
     // Timeline state flags
     const isFailedOrLater = state !== "idle";

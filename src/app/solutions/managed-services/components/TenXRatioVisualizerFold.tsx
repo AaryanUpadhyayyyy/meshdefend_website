@@ -350,7 +350,7 @@ export function TenXRatioVisualizerFold() {
               marginBottom: 16,
             }}
           >
-            VERIFIED MSP OPERATOR TESTIMONIAL
+            REPRESENTATIVE MSP OPERATOR PROFILE // ANONYMIZED BENCHMARK
           </div>
 
           <blockquote
@@ -398,7 +398,7 @@ export function TenXRatioVisualizerFold() {
                   color: "var(--muted)",
                 }}
               >
-                Tier-1 Managed Resilience Provider · 48 Active Client Enclaves
+                Representative Pilot Deployment · 48 Active Client Enclaves
               </div>
             </div>
 

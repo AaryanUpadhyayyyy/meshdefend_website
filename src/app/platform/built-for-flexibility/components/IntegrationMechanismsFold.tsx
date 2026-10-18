@@ -34,11 +34,11 @@ export function IntegrationMechanismsFold() {
       specs: [
         {
           label: "Vendor Independent",
-          detail: "MeshDefend reasoning layer does not hardcode vendor weights. Seamlessly route prompts to Anthropic Claude 3.5 Sonnet, GPT-4o, or Bedrock.",
+          detail: "MeshDefend reasoning layer does not hardcode vendor weights. Seamlessly route prompts to Anthropic Claude, OpenAI GPT, AWS Bedrock, or Azure AI.",
         },
         {
           label: "Bring Your Own Model (BYOM)",
-          detail: "Point MeshDefend to your self-hosted vLLM or Ollama instance running open-weights Llama 3 or Mistral inside private VPCs.",
+          detail: "Point MeshDefend to your self-hosted vLLM or Ollama instance running open-weights models (Llama, Mistral) inside private sovereign enclaves.",
         },
         {
           label: "Zero Model Training",

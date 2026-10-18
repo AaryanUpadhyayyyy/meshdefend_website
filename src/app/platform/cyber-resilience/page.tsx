@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       "A completed backup does not mean a safe recovery point. Continuous clean-point validation, dependency mapping, and recovery posture management across Commvault, Veeam, Dell, and ServiceNow.",
     siteName: "MeshDefend",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MeshDefend - Cyber Resilience",
+      },
+    ],
   },
 };
 

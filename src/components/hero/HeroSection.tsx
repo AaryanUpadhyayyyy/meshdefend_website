@@ -416,7 +416,7 @@ export function HeroSection() {
     }
   }
 
-  const isDark = mounted ? resolvedTheme === "dark" : true;
+  const isDark = mounted ? resolvedTheme === "dark" : false;
 
   // ─────────────────────────────────────────────────────────────
   // PIXEL COORDINATE CALCULATIONS (Responsive object-fit: cover)
@@ -473,6 +473,32 @@ export function HeroSection() {
       }}
     >
       <style>{`
+        .hero-landscape-img--light {
+          display: block !important;
+        }
+        .hero-landscape-img--dark {
+          display: none !important;
+        }
+        [data-theme="dark"] .hero-landscape-img--light,
+        html.dark .hero-landscape-img--light,
+        .dark .hero-landscape-img--light {
+          display: none !important;
+        }
+        [data-theme="dark"] .hero-landscape-img--dark,
+        html.dark .hero-landscape-img--dark,
+        .dark .hero-landscape-img--dark {
+          display: block !important;
+        }
+
+        .hero-legibility-overlay {
+          background: linear-gradient(to right, rgba(254, 253, 253, 0.40) 0%, rgba(254, 253, 253, 0.20) 25%, rgba(254, 253, 253, 0) 45%);
+        }
+        [data-theme="dark"] .hero-legibility-overlay,
+        html.dark .hero-legibility-overlay,
+        .dark .hero-legibility-overlay {
+          background: linear-gradient(to right, rgba(18, 16, 18, 0.70) 0%, rgba(18, 16, 18, 0.45) 32%, rgba(18, 16, 18, 0) 55%), rgba(18, 16, 18, 0.26) !important;
+        }
+
         @media (max-width: 900px) {
           .hero-reveal-stage {
             min-height: auto !important;
@@ -526,14 +552,28 @@ export function HeroSection() {
               overflow: "hidden",
             }}
           >
-            {/* Active Theme Artwork Only (prevents dual-image download overhead) */}
+            {/* Dual Theme Artwork controlled seamlessly via pure CSS (zero hydration flash) */}
             <Image
-              src={isDark ? heroLandscapeBgDark : heroLandscapeBg}
+              src={heroLandscapeBg}
               alt="MeshDefend Resilience Operations Center architectural landscape"
               priority
               fill
               sizes="(max-width: 1200px) 100vw, 1920px"
               quality={85}
+              className="hero-landscape-img hero-landscape-img--light"
+              style={{
+                objectFit: "cover",
+                objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
+              }}
+            />
+            <Image
+              src={heroLandscapeBgDark}
+              alt="MeshDefend Resilience Operations Center architectural landscape"
+              priority
+              fill
+              sizes="(max-width: 1200px) 100vw, 1920px"
+              quality={85}
+              className="hero-landscape-img hero-landscape-img--dark"
               style={{
                 objectFit: "cover",
                 objectPosition: `${objPos.x * 100}% ${objPos.y * 100}%`,
@@ -738,7 +778,7 @@ export function HeroSection() {
           )}
         </div>
 
-        {/* Layer (b): Legibility Gradient Overlay */}
+        {/* Layer (b): Legibility Gradient Overlay (pure CSS-driven) */}
         <div
           className="hero-legibility-overlay"
           aria-hidden="true"
@@ -747,13 +787,6 @@ export function HeroSection() {
             inset: 0,
             pointerEvents: "none",
             zIndex: 4,
-            background: isDark
-              ? isMobile
-                ? "linear-gradient(to bottom, rgba(18, 16, 18, 0.78) 0%, rgba(18, 16, 18, 0.85) 60%, rgba(18, 16, 18, 0.94) 100%)"
-                : "linear-gradient(to right, rgba(18, 16, 18, 0.70) 0%, rgba(18, 16, 18, 0.45) 32%, rgba(18, 16, 18, 0) 55%), rgba(18, 16, 18, 0.26)"
-              : isMobile
-                ? "linear-gradient(to bottom, rgba(254, 253, 253, 0.82) 0%, rgba(254, 253, 253, 0.88) 60%, rgba(254, 253, 253, 0.96) 100%)"
-                : "linear-gradient(to right, rgba(254, 253, 253, 0.40) 0%, rgba(254, 253, 253, 0.20) 25%, rgba(254, 253, 253, 0) 45%)",
           }}
         />
 
