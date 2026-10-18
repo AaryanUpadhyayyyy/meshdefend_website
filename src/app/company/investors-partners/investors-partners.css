@@ -293,7 +293,7 @@ html.dark .ip-hero-scrim,
 
 .ip-trust-grid {
   display: grid;
-  grid-template-columns: minmax(340px, 5fr) 7fr;
+  grid-template-columns: minmax(320px, 4.4fr) 7.6fr;
   border: 1px solid var(--border);
   border-radius: 0;
   background: var(--bg-pure);
@@ -449,7 +449,7 @@ html.dark .ip-hero-scrim,
 
 /* Right Column: Strategic Technology Alliances */
 .ip-alliances-col {
-  padding: clamp(36px, 4vw, 48px);
+  padding: clamp(30px, 3.5vw, 44px);
   background-color: var(--bg);
   display: flex;
   flex-direction: column;
@@ -513,7 +513,7 @@ html.dark .ip-hero-scrim,
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px 14px;
+  padding: 16px 12px;
   box-sizing: border-box;
   min-height: 120px;
   min-width: 0;
@@ -534,8 +534,8 @@ html.dark .ip-hero-scrim,
 
 .ip-partner-type {
   font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
   display: flex;
@@ -556,8 +556,8 @@ html.dark .ip-hero-scrim,
 .ip-partner-latency {
   color: var(--orange);
   font-weight: 600;
-  font-size: 8.5px;
-  letter-spacing: 0.04em;
+  font-size: 8px;
+  letter-spacing: 0.03em;
   flex-shrink: 0;
   white-space: nowrap;
 }
