@@ -82,29 +82,34 @@ export default function AboutUsPage() {
       <Navbar />
 
       <main id="main" className="about-page">
-        <div className="about-container">
-          {/* ===================================================================
-              FOLD 1 — IMMERSIVE HERO WITH ARCHITECTURAL FOUNDRY AS BACKGROUND
-              =================================================================== */}
-          <motion.section
-            className="about-hero-canvas"
-            initial="hidden"
-            animate="show"
-            variants={fadeUpVariants}
-            aria-labelledby="about-main-title"
-          >
-            {/* Background Artwork Layer */}
-            <div className="about-hero-bg-layer" aria-hidden="true">
-              <img
-                src="/images/about-foundry-hero.jpg"
-                alt=""
-                className="about-hero-bg-img"
-              />
-              <div className="about-hero-scrim" />
-            </div>
+        {/* ===================================================================
+            FOLD 1 — EXPANSIVE FULL-WIDTH HERO SECTION
+            =================================================================== */}
+        <motion.section
+          className="about-hero"
+          initial="hidden"
+          animate="show"
+          variants={fadeUpVariants}
+          aria-labelledby="about-main-title"
+        >
+          {/* Full-Bleed Background Artwork Layer */}
+          <div className="about-hero-bg-layer" aria-hidden="true">
+            <img
+              src="/images/about-foundry-hero.jpg"
+              alt=""
+              className="about-hero-bg-img about-hero-bg-img--light"
+            />
+            <img
+              src="/images/about-foundry-hero-dark.jpg"
+              alt=""
+              className="about-hero-bg-img about-hero-bg-img--dark"
+            />
+            <div className="about-hero-scrim" />
+          </div>
 
+          <div className="about-container about-hero-container">
             {/* Top Blueprint HUD Bar */}
-            <div className="about-hero-hud-top">
+            <div className="about-hero-top-bar">
               <div className="about-hero-hud-left">
                 <span className="about-pulse-dot" aria-hidden="true" />
                 <span>ORIGINS &amp; MISSION // MESHDEFEND RESILIENCE FOUNDRY</span>
@@ -114,7 +119,7 @@ export default function AboutUsPage() {
               </div>
             </div>
 
-            {/* Hero Main Content (Floats over background on the left) */}
+            {/* Hero Main Content */}
             <div className="about-hero-content">
               <div className="about-meta-bar">
                 <div className="about-eyebrow">
@@ -138,7 +143,7 @@ export default function AboutUsPage() {
             </div>
 
             {/* Bottom Blueprint HUD Bar */}
-            <div className="about-hero-hud-bottom">
+            <div className="about-hero-bottom-bar">
               <span className="about-hero-hud-caption">
                 OPERATING SYSTEM FOR ENTERPRISE DATA INFRASTRUCTURE &amp; RECOVERY
               </span>
@@ -146,27 +151,34 @@ export default function AboutUsPage() {
                 SEED TRANCHE: $2.3M // KALAARI CAPITAL
               </span>
             </div>
-          </motion.section>
+          </div>
+        </motion.section>
 
-          {/* High-End Engineering KPI Ticker (Docked to Hero) */}
-          <div className="about-kpi-strip">
-            <div className="about-kpi-cell">
-              <span className="about-kpi-label">Capital Secured</span>
-              <span className="about-kpi-val">$2.3M SEED TRANCHE</span>
-            </div>
-            <div className="about-kpi-cell">
-              <span className="about-kpi-label">Founding Pedigree</span>
-              <span className="about-kpi-val">EX-DELL INFRASTRUCTURE</span>
-            </div>
-            <div className="about-kpi-cell">
-              <span className="about-kpi-label">Runtime Alliances</span>
-              <span className="about-kpi-val">6 CERTIFIED FABRICS</span>
-            </div>
-            <div className="about-kpi-cell">
-              <span className="about-kpi-label">Core Engineering</span>
-              <span className="about-kpi-val">BENGALURU R&amp;D STUDIO</span>
+        {/* High-End Engineering KPI Ticker (Full-width Docked Band) */}
+        <section className="about-kpi-band">
+          <div className="about-container">
+            <div className="about-kpi-strip">
+              <div className="about-kpi-cell">
+                <span className="about-kpi-label">Capital Secured</span>
+                <span className="about-kpi-val">$2.3M SEED TRANCHE</span>
+              </div>
+              <div className="about-kpi-cell">
+                <span className="about-kpi-label">Founding Pedigree</span>
+                <span className="about-kpi-val">EX-DELL INFRASTRUCTURE</span>
+              </div>
+              <div className="about-kpi-cell">
+                <span className="about-kpi-label">Runtime Alliances</span>
+                <span className="about-kpi-val">6 CERTIFIED FABRICS</span>
+              </div>
+              <div className="about-kpi-cell">
+                <span className="about-kpi-label">Core Engineering</span>
+                <span className="about-kpi-val">BENGALURU R&amp;D STUDIO</span>
+              </div>
             </div>
           </div>
+        </section>
+
+        <div className="about-container">
 
           {/* ===================================================================
               FOLD 2 — THE RESILIENCE THESIS & SCHEMATIC ILLUSTRATION

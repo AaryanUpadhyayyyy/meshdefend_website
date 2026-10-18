@@ -87,47 +87,45 @@ export default function InvestorsPartnersPage() {
       <Navbar />
 
       <main id="main" className="investors-partners-page">
-        <div className="ip-container">
-          {/* ===================================================================
-              FOLD 1 — IMMERSIVE HERO WITH TOPOLOGY ARTWORK AS BACKGROUND
-              =================================================================== */}
-          <motion.section
-            className="ip-hero-canvas"
-            initial="hidden"
-            animate="show"
-            variants={fadeUpVariants}
-            aria-labelledby="ip-main-title"
-          >
-            {/* Background Artwork Layer */}
-            <div className="ip-hero-bg-layer" aria-hidden="true">
-              <img
-                src="/images/investors-topology-art.jpg"
-                alt=""
-                className="ip-hero-bg-img"
-              />
-              <div className="ip-hero-scrim" />
-            </div>
+        {/* ===================================================================
+            FOLD 1 — EXPANSIVE FULL-WIDTH HERO SECTION
+            =================================================================== */}
+        <motion.section
+          className="ip-hero"
+          initial="hidden"
+          animate="show"
+          variants={fadeUpVariants}
+          aria-labelledby="ip-main-title"
+        >
+          {/* Full-Bleed Background Artwork Layer */}
+          <div className="ip-hero-bg-layer" aria-hidden="true">
+            <img
+              src="/images/investors-topology-art.jpg"
+              alt=""
+              className="ip-hero-bg-img ip-hero-bg-img--light"
+            />
+            <img
+              src="/images/investors-topology-art-dark.jpg"
+              alt=""
+              className="ip-hero-bg-img ip-hero-bg-img--dark"
+            />
+            <div className="ip-hero-scrim" />
+          </div>
 
+          <div className="ip-container ip-hero-container">
             {/* Top Blueprint HUD Bar */}
-            <div className="ip-hero-hud-top">
+            <div className="ip-hero-top-bar">
               <div className="ip-hero-hud-left">
                 <span className="ip-pulse-dot" aria-hidden="true" />
                 <span>TOPOLOGY // RESILIENCE OPERATIONS CENTER (ResOC)</span>
               </div>
-              <div className="ip-hero-hud-status">
-                STATUS: MULTI-CLOUD DATA FABRIC ACTIVE
-              </div>
             </div>
 
-            {/* Hero Main Content (Floats over background on the left) */}
+            {/* Hero Main Content */}
             <div className="ip-hero-content">
               <div className="ip-meta-bar">
                 <div className="ip-eyebrow">
                   [ COMPANY · INVESTORS &amp; PARTNERS ]
-                </div>
-                <div className="ip-live-badge">
-                  <span className="ip-pulse-dot" aria-hidden="true" />
-                  <span>LEDGER AUDIT: CERTIFIED // 2026 ARCHIVE</span>
                 </div>
               </div>
 
@@ -141,36 +139,34 @@ export default function InvestorsPartnersPage() {
                 fabrics.
               </p>
             </div>
+          </div>
+        </motion.section>
 
-            {/* Bottom Blueprint HUD Bar */}
-            <div className="ip-hero-hud-bottom">
-              <span className="ip-hero-hud-caption">
-                FIG 1.0 — AIR-GAPPED RECOVERY VAULTS · MULTI-CLOUD DATA CUBES · HIGH-SPEED TELEMETRY
-              </span>
-              <span className="ip-hero-hud-coord">LATENCY: &lt; 4ms // ZERO RETENTION</span>
-            </div>
-          </motion.section>
-
-          {/* High-End Broadsheet KPI Strip (Docked to the Hero Canvas) */}
-          <div className="ip-kpi-strip">
-            <div className="ip-kpi-cell">
-              <span className="ip-kpi-label">Capital Secured</span>
-              <span className="ip-kpi-val">$2.3M SEED TRANCHE</span>
-            </div>
-            <div className="ip-kpi-cell">
-              <span className="ip-kpi-label">Lead Institutional Partner</span>
-              <span className="ip-kpi-val">KALAARI CAPITAL</span>
-            </div>
-            <div className="ip-kpi-cell">
-              <span className="ip-kpi-label">Certified Runtimes</span>
-              <span className="ip-kpi-val">6 ALLIANCES</span>
-            </div>
-            <div className="ip-kpi-cell">
-              <span className="ip-kpi-label">Deployment Architecture</span>
-              <span className="ip-kpi-val">AIR-GAPPED / HYBRID MESH</span>
+        {/* High-End Broadsheet KPI Strip (Full-width Docked Band) */}
+        <section className="ip-kpi-band">
+          <div className="ip-container">
+            <div className="ip-kpi-strip">
+              <div className="ip-kpi-cell">
+                <span className="ip-kpi-label">Capital Secured</span>
+                <span className="ip-kpi-val">$2.3M SEED TRANCHE</span>
+              </div>
+              <div className="ip-kpi-cell">
+                <span className="ip-kpi-label">Lead Institutional Partner</span>
+                <span className="ip-kpi-val">KALAARI CAPITAL</span>
+              </div>
+              <div className="ip-kpi-cell">
+                <span className="ip-kpi-label">Certified Runtimes</span>
+                <span className="ip-kpi-val">6 ALLIANCES</span>
+              </div>
+              <div className="ip-kpi-cell">
+                <span className="ip-kpi-label">Deployment Architecture</span>
+                <span className="ip-kpi-val">AIR-GAPPED / HYBRID MESH</span>
+              </div>
             </div>
           </div>
+        </section>
 
+        <div className="ip-container">
           {/* ===================================================================
               FOLD 2 — INSTITUTIONAL CAPITAL & STRATEGIC ALLIANCES
               =================================================================== */}

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SupportPageClient } from "./components/SupportPageClient";
+import { ContactPageClient } from "./components/ContactPageClient";
 
 export const metadata: Metadata = {
   title: "Contact Us | MeshDefend",
   description:
-    "Technical question, demo request, partnership or enterprise inquiry? Reach the MeshDefend team and we will point it to the right department.",
+    "We'd love to hear from you. Technical question, demo request, partnership or enterprise inquiry — our team typically responds within one business day.",
   openGraph: {
     title: "Contact Us | MeshDefend",
     description:
-      "Technical question, demo request, partnership or enterprise inquiry? Tell us what you need and we will point it to the right department.",
+      "We'd love to hear from you. Technical question, demo request, partnership or enterprise inquiry — our team typically responds within one business day.",
     siteName: "MeshDefend",
     type: "website",
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Us | MeshDefend",
     description:
-      "Technical question, demo request, partnership or enterprise inquiry? Tell us what you need and we will point it to the right department.",
+      "We'd love to hear from you. Technical question, demo request, partnership or enterprise inquiry — our team typically responds within one business day.",
   },
 };
 
@@ -27,7 +27,7 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main id="main">
-        <SupportPageClient />
+        <ContactPageClient />
       </main>
       <Footer />
     </>

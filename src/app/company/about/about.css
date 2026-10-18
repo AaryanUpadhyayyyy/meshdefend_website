@@ -4,7 +4,8 @@
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--ink);
-  padding-top: clamp(130px, 16vh, 160px);
+  margin-top: -60px;
+  padding-top: 0;
   padding-bottom: 140px;
   position: relative;
   overflow-x: hidden;
@@ -32,19 +33,26 @@ html.dark .about-page,
   flex-direction: column;
 }
 
-/* ─── FOLD 1: The Immersive Hero Background Canvas ─── */
+/* ─── FOLD 1: The Expansive Hero Section (Full-Bleed Architecture) ─── */
 
-.about-hero-canvas {
+.about-hero {
   position: relative;
-  min-height: clamp(520px, 64vh, 680px);
-  border: 1px solid var(--border);
-  overflow: hidden;
+  width: 100%;
+  min-height: clamp(620px, 82vh, 840px);
+  padding-top: clamp(110px, 15vh, 140px);
+  padding-bottom: clamp(32px, 5vh, 48px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
   background-color: #fbf9f6;
-  margin-bottom: 0;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .about-hero,
+html.dark .about-hero,
+.dark .about-hero {
+  background-color: #1a1719;
 }
 
 .about-hero-bg-layer {
@@ -56,16 +64,37 @@ html.dark .about-page,
 }
 
 .about-hero-bg-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: right 35%;
+  object-position: right 30%;
   display: block;
-  opacity: 0.96;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.about-hero-canvas:hover .about-hero-bg-img {
+.about-hero-bg-img--light {
+  opacity: 0.96;
+}
+
+.about-hero-bg-img--dark {
+  opacity: 0;
+}
+
+[data-theme="dark"] .about-hero-bg-img--dark,
+html.dark .about-hero-bg-img--dark,
+.dark .about-hero-bg-img--dark {
+  opacity: 0.96;
+}
+
+[data-theme="dark"] .about-hero-bg-img--light,
+html.dark .about-hero-bg-img--light,
+.dark .about-hero-bg-img--light {
+  opacity: 0;
+}
+
+.about-hero:hover .about-hero-bg-img {
   transform: scale(1.02);
 }
 
@@ -75,16 +104,16 @@ html.dark .about-page,
   /* Directional wash so the broadsheet typography on the left is crystal clear while sunset pavilion shines on the right */
   background: 
     linear-gradient(90deg, 
-      rgba(254, 253, 253, 0.97) 0%, 
-      rgba(254, 253, 253, 0.92) 42%, 
-      rgba(254, 253, 253, 0.52) 72%, 
-      rgba(254, 253, 253, 0.15) 100%
+      rgba(254, 253, 253, 0.98) 0%, 
+      rgba(254, 253, 253, 0.94) 42%, 
+      rgba(254, 253, 253, 0.62) 70%, 
+      rgba(254, 253, 253, 0.18) 100%
     ),
     linear-gradient(180deg, 
-      rgba(254, 253, 253, 0.5) 0%, 
-      transparent 20%, 
-      transparent 80%, 
-      rgba(254, 253, 253, 0.5) 100%
+      rgba(254, 253, 253, 0.6) 0%, 
+      transparent 25%, 
+      transparent 75%, 
+      rgba(254, 253, 253, 0.85) 100%
     );
 }
 
@@ -93,31 +122,36 @@ html.dark .about-hero-scrim,
 .dark .about-hero-scrim {
   background: 
     linear-gradient(90deg, 
-      rgba(26, 24, 27, 0.97) 0%, 
-      rgba(26, 24, 27, 0.92) 42%, 
-      rgba(26, 24, 27, 0.6) 72%, 
-      rgba(26, 24, 27, 0.3) 100%
+      rgba(26, 24, 27, 0.98) 0%, 
+      rgba(26, 24, 27, 0.93) 42%, 
+      rgba(26, 24, 27, 0.65) 70%, 
+      rgba(26, 24, 27, 0.25) 100%
     ),
     linear-gradient(180deg, 
-      rgba(26, 24, 27, 0.6) 0%, 
-      transparent 20%, 
-      transparent 80%, 
-      rgba(26, 24, 27, 0.6) 100%
+      rgba(26, 24, 27, 0.65) 0%, 
+      transparent 25%, 
+      transparent 75%, 
+      rgba(26, 24, 27, 0.92) 100%
     );
 }
 
-/* Blueprint HUD Top Bar */
-.about-hero-hud-top {
+.about-hero-container {
   position: relative;
   z-index: 2;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  height: 100%;
+}
+
+/* Blueprint HUD Top Bar */
+.about-hero-top-bar {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--border);
-  background: rgba(254, 253, 253, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
@@ -125,12 +159,6 @@ html.dark .about-hero-scrim,
   color: var(--ink);
   flex-wrap: wrap;
   gap: 12px;
-}
-
-[data-theme="dark"] .about-hero-hud-top,
-html.dark .about-hero-hud-top,
-.dark .about-hero-hud-top {
-  background: rgba(26, 24, 27, 0.85);
 }
 
 .about-hero-hud-left {
@@ -155,10 +183,8 @@ html.dark .about-hero-hud-top,
 
 /* Hero Content Floating Over the Artwork */
 .about-hero-content {
-  position: relative;
-  z-index: 2;
-  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 44px);
-  max-width: 680px;
+  padding: clamp(36px, 5vh, 60px) 0;
+  max-width: 720px;
 }
 
 .about-meta-bar {
@@ -211,22 +237,17 @@ html.dark .about-hero-hud-top,
   font-size: clamp(15px, 1.2vw, 17px);
   line-height: 1.6;
   color: var(--muted);
-  max-width: 600px;
+  max-width: 620px;
   margin: 0;
 }
 
 /* Blueprint HUD Bottom Bar */
-.about-hero-hud-bottom {
-  position: relative;
-  z-index: 2;
+.about-hero-bottom-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
+  padding-top: 20px;
   border-top: 1px solid var(--border);
-  background: rgba(254, 253, 253, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 11px;
   color: var(--muted);
@@ -236,28 +257,27 @@ html.dark .about-hero-hud-top,
   gap: 12px;
 }
 
-[data-theme="dark"] .about-hero-hud-bottom,
-html.dark .about-hero-hud-bottom,
-.dark .about-hero-hud-bottom {
-  background: rgba(26, 24, 27, 0.85);
-}
-
 .about-hero-hud-coord {
   color: var(--orange);
   font-weight: 600;
 }
 
-/* ─── High-End KPI Ticker Strip (Docked to Hero) ─── */
+/* ─── High-End KPI Ticker Band (Docked to Full-Width Hero) ─── */
+
+.about-kpi-band {
+  width: 100%;
+  background: var(--bg-pure);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: clamp(64px, 8vw, 96px);
+  position: relative;
+  z-index: 3;
+}
 
 .about-kpi-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--border);
-  margin-top: -1px;
-  background: var(--bg-pure);
-  margin-bottom: clamp(64px, 8vw, 96px);
-  position: relative;
-  z-index: 3;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 }
 
 .about-kpi-cell {
@@ -946,6 +966,10 @@ html.dark .about-diagram-img-wrap,
 /* ─── Responsive Queries ─── */
 
 @media (max-width: 1024px) {
+  .about-hero {
+    min-height: auto;
+    padding-top: 110px;
+  }
   .about-hero-scrim {
     background: linear-gradient(180deg, 
       rgba(254, 253, 253, 0.94) 0%, 
@@ -1008,8 +1032,15 @@ html.dark .about-diagram-img-wrap,
 }
 
 @media (max-width: 768px) {
-  .about-hero-hud-top,
-  .about-hero-hud-bottom {
+  .about-hero {
+    padding-top: 96px;
+    padding-bottom: 24px;
+  }
+  .about-hero-bg-img {
+    object-position: 70% center;
+  }
+  .about-hero-top-bar,
+  .about-hero-bottom-bar {
     flex-direction: column;
     align-items: flex-start;
   }

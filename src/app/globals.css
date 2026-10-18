@@ -925,12 +925,124 @@ html.js-reveal .line-inner.is-revealed {
   }
 }
 
+/* ─── Navbar Responsive Architecture ────────────────────────────── */
+.nav-header {
+  position: sticky;
+  top: 16px;
+  z-index: 80;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.nav-bar {
+  width: min(var(--max-w), 100%);
+  margin-inline: auto;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--nav-border);
+  border-radius: var(--radius);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: box-shadow 0.3s ease;
+}
+
+.nav-bar.is-scrolled {
+  box-shadow: 0 4px 24px rgba(34, 31, 34, 0.08);
+}
+
+[data-theme="dark"] .nav-bar.is-scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav-logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.nav-cta-btn {
+  font-size: 12px;
+  padding: 8px 16px;
+  height: 36px;
+  white-space: nowrap;
+}
+
+.mobile-toggle {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.mobile-toggle:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
 @media (max-width: 900px) {
   .desktop-nav {
     display: none !important;
   }
   .mobile-toggle {
-    display: flex !important;
+    display: inline-flex !important;
+  }
+  #console,
+  .console-section {
+    display: none !important;
+  }
+  .hero-reveal-stage {
+    min-height: auto !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-header {
+    top: 12px;
+    padding: 0 12px;
+  }
+  .nav-bar {
+    height: 54px;
+    padding: 0 14px;
+    gap: 8px;
+  }
+  .nav-logo-text {
+    font-size: 18px;
+  }
+  .nav-cta-btn {
+    display: none !important;
   }
 }
 

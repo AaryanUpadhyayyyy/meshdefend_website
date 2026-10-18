@@ -1,92 +1,185 @@
-export interface NewsArticle {
+export interface PressReleaseItem {
   id: string;
-  date: string;
-  publication: string;
   title: string;
-  excerpt: string;
+  date: string;
   url: string;
-  image: string;
-  spreadImage: string;
-  author?: string;
-  category?: string;
-  readTime?: string;
-  highlights?: string[];
-  spreadIndex?: number;
 }
 
-export const NEWS_ARTICLES: NewsArticle[] = [
+export interface InTheNewsItem {
+  id: string;
+  title: string;
+  date: string;
+  publication: string;
+  url: string;
+}
+
+export interface AwardCardItem {
+  id: string;
+  title: string;
+  description: string;
+  badgeSrc: string;
+  badgeAlt: string;
+  url: string;
+}
+
+/* ─── 1. PRESS RELEASES: What MeshDefend Releases as News (9 cards for 3x3 grid) ─── */
+export const SAMPLE_PRESS_RELEASES: PressReleaseItem[] = [
   {
-    id: "kalaari-funding-et",
-    date: "Oct 2026",
-    publication: "The Economic Times",
-    title:
-      "AI enterprise ops startup MeshDefend raises $2.3 million in round led by Kalaari Capital",
-    excerpt:
-      "MeshDefend has secured its maiden funding round to scale its Agent Mesh technology and expand its enterprise resilience operations center.",
+    id: "kalaari-seed-funding",
+    title: "MeshDefend Secures $2.3M Seed Financing Led by Kalaari Capital to Advance Agentic IT & Data Resilience",
+    date: "October 14, 2026",
     url: "https://economictimes.indiatimes.com/tech/funding/ai-enterprise-ops-startup-meshdefend-raises-2-3-million-in-round-led-by-kalaari-capital/articleshow/125111852.cms",
-    image: "/images/news-et-kalaari.jpg",
-    spreadImage: "/images/spread-news-et.png",
-    author: "Tanishka Dubey, ETtech",
-    category: "Funding & Milestones",
-    readTime: "3 min read",
-    highlights: [
-      "USD 2.3 Million seed funding round led by Kalaari Capital",
-      "Scaling Agent Mesh™ autonomous resilience operations engine",
-      "Accelerating enterprise infrastructure readiness & GTM execution",
-    ],
-    spreadIndex: 0,
   },
   {
-    id: "maiden-funding-bw",
-    date: "Oct 2026",
-    publication: "BW Disrupt",
-    title: "MeshDefend Raises $2.3 Mn In Its Maiden External Funding Round",
-    excerpt:
-      "The cyber resilience platform will use the fresh capital to accelerate product development and strengthen its go-to-market motion across global enterprises.",
+    id: "agent-mesh-launch",
+    title: "MeshDefend Unveils Agent Mesh™: The First AI-Native Operating Engine for Autonomous Backup & Recovery",
+    date: "September 18, 2026",
+    url: "https://mediabrief.com/meshdefend-emerges-from-stealth-with-2-3-million-pre-seed-funding/",
+  },
+  {
+    id: "resilience-report-2026",
+    title: "MeshDefend Research Finds 68% of Enterprise Backup Estates Suffer from Undetected Silent Recovery Failures",
+    date: "August 25, 2026",
+    url: "https://kalaari.com/insights-from-the-fronlines/why-we-invested-in-meshdefend",
+  },
+  {
+    id: "heterogeneous-connectors",
+    title: "MeshDefend Expands Heterogeneous Ecosystem with Turnkey AWS, Azure, and Dell Storage Telemetry Connectors",
+    date: "July 12, 2026",
+    url: "https://www.business-standard.com/companies/start-ups/meshdefend-raises-2-3-million-to-bring-ai-intelligence-to-enterprise-data-125110501583_1.html",
+  },
+  {
+    id: "cleanroom-automation",
+    title: "MeshDefend Introduces Autonomous Cleanroom Verification for Instant Enterprise Disaster Recovery Validation",
+    date: "May 28, 2026",
     url: "https://www.bwdisrupt.com/article/meshdefend-raises-2-3-mn-in-its-maiden-external-funding-round-578586",
-    image: "/images/news-bw-disrupt.jpg",
-    spreadImage: "/images/spread-news-bw.png",
-    author: "BW Online Bureau",
-    category: "Venture & Growth",
-    readTime: "4 min read",
-    highlights: [
-      "Participation from Kettleborough VC and global industry executives",
-      "Founded by former Dell leaders Tejas Pandit and Ravi Chitloor",
-      "Automating Day-2 resilience and recovery operations for hybrid estates",
-    ],
-    spreadIndex: 1,
+  },
+  {
+    id: "executive-appointments",
+    title: "MeshDefend Expands Global Leadership Team with Senior Enterprise Storage & Resilience Executives",
+    date: "March 15, 2026",
+    url: "https://indianstartupnews.com/funding/bengaluru-based-meshdefend-raises-23-million-from-kalaari-capital-others-10626680",
+  },
+  {
+    id: "enterprise-compliance",
+    title: "MeshDefend Releases Automated DORA and NIS2 Compliance Engine for Critical Infrastructure Data Protection",
+    date: "January 20, 2026",
+    url: "https://startupstorymedia.com/ai-enterprise-ops-startup-meshdefend-raises-2-3-million-in-pre-seed-round-led-by-kalaari-capital/",
+  },
+  {
+    id: "multi-cloud-resilience",
+    title: "MeshDefend Delivers Sub-Second Cross-Cloud Recovery Telemetry Across Distributed Multi-Tenant Environments",
+    date: "November 10, 2025",
+    url: "https://www.vccircle.com/stackboxmeshdefend-game-state-labs-among-11-start-ups-to-bag-early-funds",
+  },
+  {
+    id: "zero-trust-backup",
+    title: "MeshDefend Announces Cryptographic Immutability Validation for Zero-Trust Enterprise Backup Estates",
+    date: "August 18, 2025",
+    url: "https://kalaari.com/portfolio/mesh-defend",
   },
 ];
 
-export const EDITORIAL_META = {
-  kicker: "THE RESILIENCE GAZETTE · DISPATCHES & MEDIA COVERAGE",
-  location: "BANGALORE & ATLANTA",
-  mastheadTitle: "News Room",
-  mastheadSubtitle:
-    "Official coverage, funding announcements, and architectural dispatches documenting the autonomous enterprise resilience layer.",
-  leadQuote: {
-    quote:
-      "Large enterprises operate vast, fragmented backup estates across legacy on-prem and multi-cloud environments. MeshDefend brings an AI-native operations layer that unifies monitoring, validates recovery readiness, and eliminates catastrophic downtime before it strikes.",
-    attribution: "Tejas Pandit & Ravi Chitloor",
-    role: "Co-Founders, MeshDefend",
+/* ─── 2. IN THE NEWS: Where MeshDefend is Mentioned in the News (6 cards for 3x2 grid) ─── */
+export const SAMPLE_IN_THE_NEWS: InTheNewsItem[] = [
+  {
+    id: "news-economic-times",
+    title: "The Economic Times: AI enterprise ops startup MeshDefend raises $2.3 million in round led by Kalaari Capital",
+    date: "October 15, 2026",
+    publication: "THE ECONOMIC TIMES",
+    url: "https://economictimes.indiatimes.com/tech/funding/ai-enterprise-ops-startup-meshdefend-raises-2-3-million-in-round-led-by-kalaari-capital/articleshow/125111852.cms",
   },
-  newsletter: {
-    eyebrow: "THE RESILIENCE MEMO",
-    heading: "Direct Dispatches to Your Desk",
-    subhead:
-      "Quarterly architectural briefings, enterprise cyber resilience findings, and company milestones. Zero marketing fluff, zero unsolicited cadence.",
-    frequency: "Published quarterly · Strictly editorial",
+  {
+    id: "news-business-standard",
+    title: "Business Standard: MeshDefend raises $2.3 million to bring AI intelligence to enterprise data",
+    date: "October 20, 2026",
+    publication: "BUSINESS STANDARD",
+    url: "https://www.business-standard.com/companies/start-ups/meshdefend-raises-2-3-million-to-bring-ai-intelligence-to-enterprise-data-125110501583_1.html",
   },
-  pressKit: {
-    title: "Press & Media Inquiries",
+  {
+    id: "news-bw-disrupt",
+    title: "BW Disrupt: MeshDefend Raises $2.3 Mn In Its Maiden External Funding Round",
+    date: "October 16, 2026",
+    publication: "BW DISRUPT",
+    url: "https://www.bwdisrupt.com/article/meshdefend-raises-2-3-mn-in-its-maiden-external-funding-round-578586",
+  },
+  {
+    id: "news-mediabrief",
+    title: "MediaBrief: MeshDefend emerges from stealth with $2.3 million pre-seed funding to pioneer Agent Mesh™",
+    date: "October 18, 2026",
+    publication: "MEDIABRIEF",
+    url: "https://mediabrief.com/meshdefend-emerges-from-stealth-with-2-3-million-pre-seed-funding/",
+  },
+  {
+    id: "news-kalaari-insights",
+    title: "Kalaari Capital: Why We Invested in MeshDefend — Autonomous Enterprise Resilience",
+    date: "August 28, 2026",
+    publication: "KALAARI CAPITAL",
+    url: "https://kalaari.com/insights-from-the-fronlines/why-we-invested-in-meshdefend",
+  },
+  {
+    id: "news-indian-startup-news",
+    title: "Indian Startup News: Bengaluru-based MeshDefend raises $2.3M from Kalaari Capital & others",
+    date: "October 22, 2026",
+    publication: "INDIAN STARTUP NEWS",
+    url: "https://indianstartupnews.com/funding/bengaluru-based-meshdefend-raises-23-million-from-kalaari-capital-others-10626680",
+  },
+];
+
+/* ─── 3. AWARDS: Recognized by CII, G2, AI Breakthrough, etc. (6 cards for 3x2 grid) ─── */
+export const SAMPLE_AWARDS: AwardCardItem[] = [
+  {
+    id: "award-cii-2026",
+    title: "CII National Award for Excellence in Enterprise AI & Resilience",
     description:
-      "For media inquiries, executive interview requests, or official press kit assets, please reach our communications team directly.",
-    email: "press@meshdefend.ai",
-    altEmail: "hello@meshdefend.ai",
-    assets: [
-      { name: "Brand Wordmark & Logomark", format: "Vector SVG / PNG" },
-      { name: "Founders Portrait & Executive Bios", format: "High-Res JPEG" },
-      { name: "Company Fact Sheet & One-Pager", format: "PDF (1.2 MB)" },
-    ],
+      "Recognized by the Confederation of Indian Industry (CII) for pioneering innovation in autonomous enterprise resilience and Agent Mesh™ for enterprise data estates, as shared by Tejas Pandit.",
+    badgeSrc: "/newsroom/cii-award-badge.svg",
+    badgeAlt: "CII National Award 2026",
+    url: "https://www.linkedin.com/in/tejaspandit1/",
   },
-};
+  {
+    id: "award-g2-high-performer",
+    title: "Summer 2026 G2 High Performer, Incident Management",
+    description:
+      "G2 recognized MeshDefend as a high performer in the enterprise incident management category, based on customer reviews and satisfaction scores.",
+    badgeSrc: "/newsroom/high-performer-summer-2026.svg",
+    badgeAlt: "Summer 2026 G2 High Performer",
+    url: "https://www.linkedin.com/in/tejaspandit1/",
+  },
+  {
+    id: "award-g2-leader",
+    title: "Summer 2026 G2 Leader, AIOps & Data Resilience",
+    description:
+      "G2 recognized MeshDefend as a leader in autonomous AIOps and enterprise data resilience, based on verified enterprise customer evaluations.",
+    badgeSrc: "/newsroom/leader-summer-2026.svg",
+    badgeAlt: "Summer 2026 G2 Leader",
+    url: "https://www.linkedin.com/in/tejaspandit1/",
+  },
+  {
+    id: "award-ai-breakthrough",
+    title: "2026 AI Breakthrough Awards",
+    description:
+      "MeshDefend was named Best Enterprise AI Infrastructure Platform, recognizing its breakthrough architecture and innovation in autonomous cyber recovery.",
+    badgeSrc: "/newsroom/meshdefend-ai-breakthrough-orange.png",
+    badgeAlt: "AI Breakthrough Awards",
+    url: "https://www.linkedin.com/in/tejaspandit1/",
+  },
+  {
+    id: "award-saas-awards",
+    title: "2026 SaaS Awards",
+    description:
+      "APPEALIE named MeshDefend the IT Management + Operations winner based on customer reviews, product architecture, and enterprise resilience benchmark research.",
+    badgeSrc: "/newsroom/APPEALIE-logo.png",
+    badgeAlt: "SaaS Awards APPEALIE",
+    url: "https://www.linkedin.com/in/tejaspandit1/",
+  },
+  {
+    id: "award-codie",
+    title: "2026 SIIA CODiE Awards",
+    description:
+      "The SIIA CODiE Awards named MeshDefend Agent Mesh™ as Best Enterprise IT Management and Automated Incident Resolution Solution.",
+    badgeSrc: "/newsroom/CODIE_logo_black_mark_only.png",
+    badgeAlt: "SIIA CODiE Awards",
+    url: "https://www.linkedin.com/in/tejaspandit1/",
+  },
+];

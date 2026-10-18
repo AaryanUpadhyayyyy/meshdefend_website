@@ -1,35 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-// Schema for contact form submission
+// Schema for contact form submission supporting both standard and extended fields
 const contactSchema = z.object({
-  fullName: z
-    .string()
-    .trim()
-    .min(1, "Full name is required")
-    .max(100, "Full name must be under 100 characters"),
-  workEmail: z
-    .string()
-    .trim()
-    .email("Please provide a valid work email")
-    .max(120, "Email must be under 120 characters"),
-  company: z
-    .string()
-    .trim()
-    .min(1, "Company is required")
-    .max(100, "Company name must be under 100 characters"),
-  topic: z.enum([
-    "Technical support",
-    "Demo or sales",
-    "Partnerships",
-    "Security question",
-    "Other",
-  ]),
+  fullName: z.string().trim().optional(),
+  firstName: z.string().trim().optional(),
+  lastName: z.string().trim().optional(),
+  workEmail: z.string().trim().email("Please provide a valid email").optional(),
+  email: z.string().trim().email("Please provide a valid email").optional(),
+  company: z.string().trim().optional(),
+  companyName: z.string().trim().optional(),
+  jobTitle: z.string().trim().optional(),
+  topic: z
+    .enum([
+      "Technical support",
+      "Demo or sales",
+      "Partnerships",
+      "Security question",
+      "General inquiry",
+      "Other",
+    ])
+    .optional()
+    .default("General inquiry"),
   message: z
     .string()
     .trim()
     .min(1, "Message is required")
-    .max(1500, "Message cannot exceed 1500 characters"),
+    .max(2500, "Message cannot exceed 2500 characters"),
   // Honeypot field - must remain empty
   website: z.string().optional(),
 });
@@ -114,11 +111,25 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. Sanitize inputs
+    const fullName = sanitize(
+      data.fullName || `${data.firstName || ""} ${data.lastName || ""}`.trim() || "Website Visitor"
+    );
+    const workEmail = sanitize(data.workEmail || data.email || "");
+    if (!workEmail) {
+      return NextResponse.json(
+        { success: false, error: "Please provide a valid email." },
+        { status: 400 }
+      );
+    }
+    const company = sanitize(data.company || data.companyName || "Not specified");
+    const jobTitle = data.jobTitle ? sanitize(data.jobTitle) : "";
+
     const sanitizedData = {
-      fullName: sanitize(data.fullName),
-      workEmail: sanitize(data.workEmail),
-      company: sanitize(data.company),
-      topic: data.topic,
+      fullName,
+      workEmail,
+      company,
+      jobTitle,
+      topic: data.topic || "General inquiry",
       message: sanitize(data.message),
     };
 
@@ -140,8 +151,8 @@ export async function POST(request: NextRequest) {
           from: process.env.CONTACT_EMAIL_FROM || "MeshDefend Form <onboarding@resend.dev>",
           to: recipientEmail,
           reply_to: sanitizedData.workEmail,
-          subject: `[MeshDefend Support] ${sanitizedData.topic} - ${sanitizedData.company}`,
-          text: `Name: ${sanitizedData.fullName}\nEmail: ${sanitizedData.workEmail}\nCompany: ${sanitizedData.company}\nTopic: ${sanitizedData.topic}\n\nMessage:\n${sanitizedData.message}`,
+          subject: `[MeshDefend Contact] ${sanitizedData.topic} - ${sanitizedData.company}`,
+          text: `Name: ${sanitizedData.fullName}\nEmail: ${sanitizedData.workEmail}\nCompany: ${sanitizedData.company}${sanitizedData.jobTitle ? `\nJob Title: ${sanitizedData.jobTitle}` : ""}\nTopic: ${sanitizedData.topic}\n\nMessage:\n${sanitizedData.message}`,
         }),
       });
 

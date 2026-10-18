@@ -648,6 +648,62 @@
   color: var(--ink);
 }
 
+/* Fold 5 — Prove the impact: Side-by-Side Outcomes */
+.impact-outcomes-strip {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.impact-outcome-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.impact-capability-tag {
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.impact-metric-val {
+  font-family: var(--font-display), serif;
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.impact-metric-title {
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 2px;
+}
+
+.impact-metric-desc {
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+  .impact-outcomes-strip {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 .index-preview-col {
   position: sticky;
   top: 120px;

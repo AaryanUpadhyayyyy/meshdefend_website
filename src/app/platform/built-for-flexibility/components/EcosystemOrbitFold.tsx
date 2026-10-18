@@ -41,10 +41,10 @@ const ORBIT_NODES: SatelliteNode[] = [
   },
   {
     id: "itsm",
-    label: "ITSM Platforms",
-    badge: "BI-DIRECTIONAL APPROVALS",
+    label: "ITSM & Vendor Integrations",
+    badge: "BI-DIRECTIONAL ACTION & INTEGRATIONS",
     technologies: ["ServiceNow CMDB", "Jira Service Desk", "PagerDuty", "Custom Webhooks"],
-    role: "Synchronizes application asset tiers, automated change tickets, and human approvals.",
+    role: "Synchronizes application asset tiers, automated change tickets, and multi-vendor webhook triggers.",
     angle: 135, // Bottom-Right
   },
 ];
@@ -165,7 +165,7 @@ export function EcosystemOrbitFold() {
               margin: 0,
             }}
           >
-            Bring your own models, backup software, storage arrays, and ITSM platforms.
+            Bring your AI models, backup software, storage, vendor integrations, and ITSM platforms.
             MeshDefend sits at the center, providing a common operational layer across the stack you already own.
           </p>
         </div>
@@ -458,7 +458,7 @@ export function EcosystemOrbitFold() {
                 }}
               >
                 <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--orange, #f45532)", fontWeight: 600, marginBottom: 4 }}>
-                  [ ITSM PLATFORMS ]
+                  [ ITSM & VENDOR INTEGRATIONS ]
                 </div>
                 <div style={{ fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>
                   ServiceNow / Jira / Webhooks

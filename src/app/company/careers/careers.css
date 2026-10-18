@@ -4,7 +4,8 @@
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--ink);
-  padding-top: clamp(130px, 16vh, 160px);
+  margin-top: -60px;
+  padding-top: 0;
   padding-bottom: 140px;
   position: relative;
   overflow-x: hidden;
@@ -32,19 +33,26 @@ html.dark .careers-page,
   flex-direction: column;
 }
 
-/* ─── FOLD 1: The Immersive Hero Background Canvas ─── */
+/* ─── FOLD 1: The Expansive Hero Section (Full-Bleed Architecture) ─── */
 
-.careers-hero-canvas {
+.careers-hero {
   position: relative;
-  min-height: clamp(520px, 62vh, 660px);
-  border: 1px solid var(--border);
-  overflow: hidden;
+  width: 100%;
+  min-height: clamp(580px, 78vh, 800px);
+  padding-top: clamp(120px, 16vh, 150px);
+  padding-bottom: clamp(48px, 6vh, 64px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
   background-color: #fbf9f6;
-  margin-bottom: 0;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .careers-hero,
+html.dark .careers-hero,
+.dark .careers-hero {
+  background-color: #1a1719;
 }
 
 .careers-hero-bg-layer {
@@ -56,35 +64,56 @@ html.dark .careers-page,
 }
 
 .careers-hero-bg-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: right 40%;
+  object-position: right 35%;
   display: block;
-  opacity: 0.95;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.careers-hero-canvas:hover .careers-hero-bg-img {
+.careers-hero-bg-img--light {
+  opacity: 0.95;
+}
+
+.careers-hero-bg-img--dark {
+  opacity: 0;
+}
+
+[data-theme="dark"] .careers-hero-bg-img--dark,
+html.dark .careers-hero-bg-img--dark,
+.dark .careers-hero-bg-img--dark {
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .careers-hero-bg-img--light,
+html.dark .careers-hero-bg-img--light,
+.dark .careers-hero-bg-img--light {
+  opacity: 0;
+}
+
+.careers-hero:hover .careers-hero-bg-img {
   transform: scale(1.02);
 }
 
 .careers-hero-scrim {
   position: absolute;
   inset: 0;
-  /* Left gradient wash so headline text is ultra-legible, while right artwork shines brightly */
+  /* Left gradient wash so broadsheet headline text is ultra-legible, while right artwork shines brightly */
   background: 
     linear-gradient(90deg, 
-      rgba(254, 253, 253, 0.97) 0%, 
-      rgba(254, 253, 253, 0.92) 42%, 
-      rgba(254, 253, 253, 0.5) 72%, 
-      rgba(254, 253, 253, 0.15) 100%
+      rgba(254, 253, 253, 0.98) 0%, 
+      rgba(254, 253, 253, 0.94) 42%, 
+      rgba(254, 253, 253, 0.62) 70%, 
+      rgba(254, 253, 253, 0.18) 100%
     ),
     linear-gradient(180deg, 
-      rgba(254, 253, 253, 0.5) 0%, 
-      transparent 20%, 
-      transparent 80%, 
-      rgba(254, 253, 253, 0.5) 100%
+      rgba(254, 253, 253, 0.6) 0%, 
+      transparent 25%, 
+      transparent 75%, 
+      rgba(254, 253, 253, 0.85) 100%
     );
 }
 
@@ -93,72 +122,40 @@ html.dark .careers-hero-scrim,
 .dark .careers-hero-scrim {
   background: 
     linear-gradient(90deg, 
-      rgba(26, 24, 27, 0.97) 0%, 
-      rgba(26, 24, 27, 0.92) 42%, 
-      rgba(26, 24, 27, 0.6) 72%, 
-      rgba(26, 24, 27, 0.3) 100%
+      rgba(26, 24, 27, 0.98) 0%, 
+      rgba(26, 24, 27, 0.93) 42%, 
+      rgba(26, 24, 27, 0.65) 70%, 
+      rgba(26, 24, 27, 0.25) 100%
     ),
     linear-gradient(180deg, 
-      rgba(26, 24, 27, 0.6) 0%, 
-      transparent 20%, 
-      transparent 80%, 
-      rgba(26, 24, 27, 0.6) 100%
+      rgba(26, 24, 27, 0.65) 0%, 
+      transparent 25%, 
+      transparent 75%, 
+      rgba(26, 24, 27, 0.92) 100%
     );
 }
 
-/* Blueprint HUD Top Bar */
-.careers-hero-hud-top {
+.careers-hero-container {
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(254, 253, 253, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink);
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-[data-theme="dark"] .careers-hero-hud-top,
-html.dark .careers-hero-hud-top,
-.dark .careers-hero-hud-top {
-  background: rgba(26, 24, 27, 0.85);
-}
-
-.careers-hero-hud-left {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-}
-
-.careers-pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--orange);
-  box-shadow: 0 0 6px var(--orange);
-}
-
-.careers-hero-hud-status {
-  color: var(--orange);
-  font-weight: 600;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 /* Hero Content Floating Over the Artwork */
 .careers-hero-content {
   position: relative;
   z-index: 2;
-  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 44px);
   max-width: 660px;
+}
+
+.careers-meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .careers-eyebrow {
@@ -171,7 +168,7 @@ html.dark .careers-hero-hud-top,
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .careers-title {
@@ -193,49 +190,22 @@ html.dark .careers-hero-hud-top,
   margin: 0;
 }
 
-/* Blueprint HUD Bottom Bar */
-.careers-hero-hud-bottom {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  border-top: 1px solid var(--border);
-  background: rgba(254, 253, 253, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  flex-wrap: wrap;
-  gap: 12px;
-}
+/* ─── High-End KPI Ticker Band (Docked to Full-Width Hero) ─── */
 
-[data-theme="dark"] .careers-hero-hud-bottom,
-html.dark .careers-hero-hud-bottom,
-.dark .careers-hero-hud-bottom {
-  background: rgba(26, 24, 27, 0.85);
-}
-
-.careers-hero-hud-coord {
-  color: var(--orange);
-  font-weight: 600;
-}
-
-/* ─── High-End KPI Ticker Strip (Docked to Hero) ─── */
-
-.careers-kpi-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--border);
-  margin-top: -1px;
+.careers-kpi-band {
+  width: 100%;
   background: var(--bg-pure);
+  border-bottom: 1px solid var(--border);
   margin-bottom: clamp(48px, 6vw, 72px);
   position: relative;
   z-index: 3;
+}
+
+.careers-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 }
 
 .careers-kpi-cell {
@@ -730,10 +700,12 @@ html.dark .careers-stack-chip,
 }
 
 @media (max-width: 768px) {
-  .careers-hero-hud-top,
-  .careers-hero-hud-bottom {
-    flex-direction: column;
-    align-items: flex-start;
+  .careers-hero {
+    padding-top: 96px;
+    padding-bottom: 24px;
+  }
+  .careers-hero-bg-img {
+    object-position: 70% center;
   }
   .careers-kpi-strip {
     grid-template-columns: 1fr;

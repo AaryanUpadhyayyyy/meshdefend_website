@@ -166,7 +166,7 @@ export function PodcastShelfClient() {
             </button>
 
             <p className="eyebrow" id="detail-eyebrow">
-              EPISODE {activeEpisode.episodeNumber} · {activeEpisode.discipline.toUpperCase()}
+              EPISODE {activeEpisode.episodeNumber} · {(activeEpisode.discipline || activeEpisode.category || "").toUpperCase()}
             </p>
 
             <h2 className="detail-title" id="detail-title">
@@ -192,7 +192,7 @@ export function PodcastShelfClient() {
               </div>
               <div>
                 <dt>BROADCAST FORMAT</dt>
-                <dd>{activeEpisode.binding}</dd>
+                <dd>{activeEpisode.binding || "16:9 UHD Master"}</dd>
               </div>
             </dl>
 

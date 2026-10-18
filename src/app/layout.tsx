@@ -63,7 +63,32 @@ export default function RootLayout({
       className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <head />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function shouldIgnore(e) {
+                  var str = (e.message || '') + ' ' + (e.filename || '') + ' ' + (e.reason ? (e.reason.message || '') + ' ' + (e.reason.stack || '') : '');
+                  return str.indexOf('chrome-extension://') !== -1 || str.indexOf('moz-extension://') !== -1 || str.indexOf('MetaMask') !== -1;
+                }
+                window.addEventListener('unhandledrejection', function(e) {
+                  if (shouldIgnore(e)) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                  }
+                }, true);
+                window.addEventListener('error', function(e) {
+                  if (shouldIgnore(e)) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                  }
+                }, true);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
         <Providers>
           <a href="#main" className="skip-link">

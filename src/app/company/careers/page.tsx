@@ -157,42 +157,38 @@ export default function CareersPage() {
       <Navbar />
 
       <main id="main" className="careers-page">
-        <div className="careers-container">
-          {/* ===================================================================
-              FOLD 1 — IMMERSIVE HERO WITH LAB STUDIO ARTWORK AS BACKGROUND
-              =================================================================== */}
-          <motion.section
-            className="careers-hero-canvas"
-            initial="hidden"
-            animate="show"
-            variants={fadeUpVariants}
-            aria-labelledby="careers-main-title"
-          >
-            {/* Background Artwork Layer */}
-            <div className="careers-hero-bg-layer" aria-hidden="true">
-              <img
-                src="/images/careers-lab-studio.jpg"
-                alt=""
-                className="careers-hero-bg-img"
-              />
-              <div className="careers-hero-scrim" />
-            </div>
+        {/* ===================================================================
+            FOLD 1 — EXPANSIVE FULL-WIDTH HERO SECTION
+            =================================================================== */}
+        <motion.section
+          className="careers-hero"
+          initial="hidden"
+          animate="show"
+          variants={fadeUpVariants}
+          aria-labelledby="careers-main-title"
+        >
+          {/* Full-Bleed Background Artwork Layer */}
+          <div className="careers-hero-bg-layer" aria-hidden="true">
+            <img
+              src="/images/careers-lab-studio.jpg"
+              alt=""
+              className="careers-hero-bg-img careers-hero-bg-img--light"
+            />
+            <img
+              src="/images/careers-lab-studio-dark.jpg"
+              alt=""
+              className="careers-hero-bg-img careers-hero-bg-img--dark"
+            />
+            <div className="careers-hero-scrim" />
+          </div>
 
-            {/* Top Blueprint HUD Bar */}
-            <div className="careers-hero-hud-top">
-              <div className="careers-hero-hud-left">
-                <span className="careers-pulse-dot" aria-hidden="true" />
-                <span>FACILITY 01 // BENGALURU CORE SYSTEMS R&D LAB</span>
-              </div>
-              <div className="careers-hero-hud-status">
-                STATUS: ACTIVE RESEARCH SPRINT // HARDWARE IN THE LOOP
-              </div>
-            </div>
-
-            {/* Hero Main Content (Floats over background on the left) */}
+          <div className="careers-container careers-hero-container">
+            {/* Hero Main Content */}
             <div className="careers-hero-content">
-              <div className="careers-eyebrow">
-                [ COMPANY · CAREERS &amp; TALENT PIPELINE ]
+              <div className="careers-meta-bar">
+                <div className="careers-eyebrow">
+                  [ COMPANY · CAREERS &amp; TALENT PIPELINE ]
+                </div>
               </div>
 
               <h1 id="careers-main-title" className="careers-title">
@@ -205,37 +201,26 @@ export default function CareersPage() {
                 recovery challenges, and build autonomous systems.
               </p>
             </div>
+          </div>
+        </motion.section>
 
-            {/* Bottom Blueprint HUD Bar */}
-            <div className="careers-hero-hud-bottom">
-              <span className="careers-hero-hud-caption">
-                WHERE DISTRIBUTED KERNEL OBSERVERS, AIR-GAPPED OPTICAL DIODES &amp; DETERMINISTIC RECOVERY AGENTS ARE BUILT.
-              </span>
-              <span className="careers-hero-hud-coord">
-                LATENCY: &lt; 1ms // HYBRID CADENCE
-              </span>
-            </div>
-          </motion.section>
-
-          {/* High-End Engineering KPI Ticker (Docked to the Hero Canvas) */}
-          <div className="careers-kpi-strip">
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Institutional Funding</span>
-              <span className="careers-kpi-val">$2.3M SEED CAPITAL</span>
-            </div>
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Founding Pedigree</span>
-              <span className="careers-kpi-val">EX-AWS · NUTANIX · COMMVAULT</span>
-            </div>
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Core Systems Stack</span>
-              <span className="careers-kpi-val">RUST · GO · EBPF · PYTHON</span>
-            </div>
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Early Team Allocation</span>
-              <span className="careers-kpi-val">HIGH FOUNDING EQUITY</span>
+        {/* High-End Engineering KPI Ticker (Full-width Docked Band) */}
+        <section className="careers-kpi-band">
+          <div className="careers-container">
+            <div className="careers-kpi-strip">
+              <div className="careers-kpi-cell">
+                <span className="careers-kpi-label">Institutional Funding</span>
+                <span className="careers-kpi-val">$2.3M SEED CAPITAL</span>
+              </div>
+              <div className="careers-kpi-cell">
+                <span className="careers-kpi-label">Founding Pedigree</span>
+                <span className="careers-kpi-val">EX-AWS · NUTANIX · COMMVAULT</span>
+              </div>
             </div>
           </div>
+        </section>
+
+        <div className="careers-container">
 
           {/* ===================================================================
               FOLD 2 — OPEN POSITIONS (The Talent Pipeline)

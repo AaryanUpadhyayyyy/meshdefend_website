@@ -51,9 +51,11 @@ export const OBSERVABILITY_CONTENT = {
   stage: {
     beat1: {
       figCaption: "FIG. 1 — SIX CONSOLES, ONE NIGHT (ILLUSTRATIVE)",
-      h1: "Resilience visibility is fragmented.",
-      hook: "The morning routine: open the backup console, then storage, then cloud, then the ITSM queue, and try to piece together what happened overnight.",
+      h1: "Resilience visibility is fragmented",
+      hook: "Your entire protection landscape, finally in view.",
+      subhook: "The morning routine of checking several consoles and trying to understand what happened overnight.",
       body: "Hybrid enterprises rely on multiple backup, storage, cloud, ITSM, CMDB, and security systems, each with its own console, data model, and terminology.",
+      consolesLabel: "Consoles across the enterprise:",
       consoles: [
         { source: "Backup", vendor: "Veeam", time: "02:31", status: "Job completed with warnings", isWarning: true },
         { source: "Storage", vendor: "Dell PowerProtect DataDomain", time: "02:28", status: "Replication lag · within threshold" },
@@ -115,7 +117,7 @@ export const OBSERVABILITY_CONTENT = {
         { title: "Backup warning · payments-db", reason: "Duration threshold reached +18m · storage IO saturation" },
         { title: "Replication lag trending", reason: "Target storage link throughput reduced" },
       ],
-      quietLine: "Everything else: normal, no action.",
+      quietLine: "Normal activity stays quiet. Everything else: normal, no action.",
       totalSignals: 612,
       quietSignals: 610,
     },
@@ -181,6 +183,24 @@ export const OBSERVABILITY_CONTENT = {
       ],
       automatedResult: "Ready",
     },
+    // Fold 5: Prove the impact (two distinct outcomes side by side)
+    impact: {
+      lead: "60% fewer manual checks. Reports ready in minutes, not hours.",
+      outcomes: [
+        {
+          capability: "Visibility",
+          metric: "60%",
+          label: "Fewer manual checks",
+          detail: "Replaces manual checks across multiple consoles with one unified view.",
+        },
+        {
+          capability: "Reporting",
+          metric: "Minutes",
+          label: "Reports ready, not hours",
+          detail: "Eliminates manual compilation for compliance and leadership.",
+        },
+      ],
+    },
     sourceLine: "Generated from live data across Commvault, Veeam, Dell PowerProtect (sample)",
   },
 
@@ -194,9 +214,9 @@ export const OBSERVABILITY_CONTENT = {
     h2Line1: "You've found what needs attention.",
     h2Line2: "What happens next?",
     linkTitle: "Incident Resolution",
-    sentence: "Agentic root cause isolation, human-approved fix proposals.",
+    sentence: "Connect visibility and reporting directly to incident resolution.",
     linkText: "See how MeshDefend takes action",
-    linkHref: "/platform#incident-resolution",
+    linkHref: "/platform/incident-resolution",
   },
 
   // Fold 7: The Ask (Paper section)

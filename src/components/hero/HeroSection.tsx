@@ -375,12 +375,17 @@ export function HeroSection() {
     };
   }, [isMobile]);
 
-  // Smooth scroll to the console section
+  // Smooth scroll to the console section or fallback to trust section if console is hidden on mobile
   const handleScrollToConsole = (e: React.MouseEvent) => {
     e.preventDefault();
     const consoleSection = document.getElementById("console");
-    if (consoleSection) {
+    if (consoleSection && window.getComputedStyle(consoleSection).display !== "none") {
       consoleSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      const nextSection = document.getElementById("trust") || document.getElementById("solution");
+      if (nextSection) {
+        nextSection.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -460,6 +465,24 @@ export function HeroSection() {
         background: "var(--bg)",
       }}
     >
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-reveal-stage {
+            min-height: auto !important;
+            height: auto !important;
+          }
+          .hero-text-container {
+            min-height: auto !important;
+          }
+          .hero-legibility-overlay {
+            background: linear-gradient(to bottom, rgba(254, 253, 253, 0.88) 0%, rgba(254, 253, 253, 0.92) 65%, rgba(254, 253, 253, 0.98) 100%) !important;
+          }
+          .dark .hero-legibility-overlay,
+          [data-theme="dark"] .hero-legibility-overlay {
+            background: linear-gradient(to bottom, rgba(18, 16, 18, 0.78) 0%, rgba(18, 16, 18, 0.85) 65%, rgba(18, 16, 18, 0.94) 100%) !important;
+          }
+        }
+      `}</style>
       {/* Sticky Stage on Desktop */}
       <div
         ref={stageRef}
@@ -477,14 +500,13 @@ export function HeroSection() {
         <div
           className="world hero-stage-bg"
           style={{
-            position: isMobile ? "relative" : "absolute",
+            position: "absolute",
             inset: 0,
             width: "100%",
-            height: isMobile ? "50vh" : "100%",
-            minHeight: isMobile ? 360 : "auto",
-            background: isDark ? "#221f22" : "#fbf8f5",
+            height: "100%",
+            background: "var(--bg)",
             transformOrigin: `${(HERO_COORDINATES.hub.u * 100).toFixed(1)}% ${(HERO_COORDINATES.hub.v * 100).toFixed(1)}%`,
-            transform: prefersReducedMotion ? "none" : `scale(${worldScale}) translateY(${worldY}%)`,
+            transform: prefersReducedMotion || isMobile ? "none" : `scale(${worldScale}) translateY(${worldY}%)`,
             willChange: progress > 0.05 && progress < 0.5 ? "transform" : "auto",
             transition: prefersReducedMotion ? "none" : "transform 0.1s linear",
           }}
@@ -628,98 +650,100 @@ export function HeroSection() {
             );
           })}
 
-          {/* Hotspot Pins (Data center, Hospital, Port, Blackout cluster) */}
-          <div style={{ position: "absolute", inset: 0, zIndex: 6, pointerEvents: "auto" }}>
-            {HERO_COORDINATES.hotspots.map((hotspot) => {
-              const pixel = mapPoint(hotspot);
-              const isOpen = activeHotspot === hotspot.id;
+          {/* Hotspot Pins (Data center, Hospital, Port, Blackout cluster) - Desktop Only */}
+          {!isMobile && (
+            <div style={{ position: "absolute", inset: 0, zIndex: 6, pointerEvents: "auto" }}>
+              {HERO_COORDINATES.hotspots.map((hotspot) => {
+                const pixel = mapPoint(hotspot);
+                const isOpen = activeHotspot === hotspot.id;
 
-              return (
-                <div
-                  key={hotspot.id}
-                  style={{
-                    position: "absolute",
-                    left: pixel.x,
-                    top: pixel.y,
-                    transform: "translate(-50%, -50%)",
-                    zIndex: isOpen ? 20 : 10,
-                  }}
-                >
-                  <button
-                    type="button"
-                    aria-label={hotspot.label}
-                    aria-describedby={`hotspot-chip-${hotspot.id}`}
-                    onMouseEnter={() => {
-                      setActiveHotspot(hotspot.id);
-                      setHasInteractedWithHotspot(true);
-                    }}
-                    onMouseLeave={() => setActiveHotspot(null)}
-                    onFocus={() => {
-                      setActiveHotspot(hotspot.id);
-                      setHasInteractedWithHotspot(true);
-                    }}
-                    onBlur={() => setActiveHotspot(null)}
-                    onClick={() => {
-                      setActiveHotspot((prev) => (prev === hotspot.id ? null : hotspot.id));
-                      setHasInteractedWithHotspot(true);
-                    }}
+                return (
+                  <div
+                    key={hotspot.id}
                     style={{
-                      width: 14,
-                      height: 14,
-                      borderRadius: "50%",
-                      border: "1.5px solid var(--ink)",
-                      background: "transparent",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      padding: 0,
-                      outline: "none",
-                      animation: "hotspot-pulse 2.4s ease-in-out infinite",
-                      transition: "transform 0.2s ease",
+                      position: "absolute",
+                      left: pixel.x,
+                      top: pixel.y,
+                      transform: "translate(-50%, -50%)",
+                      zIndex: isOpen ? 20 : 10,
                     }}
                   >
-                    <span
-                      style={{
-                        width: 4,
-                        height: 4,
-                        borderRadius: "50%",
-                        background: "var(--orange)",
-                        display: "block",
+                    <button
+                      type="button"
+                      aria-label={hotspot.label}
+                      aria-describedby={`hotspot-chip-${hotspot.id}`}
+                      onMouseEnter={() => {
+                        setActiveHotspot(hotspot.id);
+                        setHasInteractedWithHotspot(true);
                       }}
-                    />
-                  </button>
-
-                  {/* Tooltip Paper Chip */}
-                  {isOpen && (
-                    <div
-                      id={`hotspot-chip-${hotspot.id}`}
-                      role="tooltip"
+                      onMouseLeave={() => setActiveHotspot(null)}
+                      onFocus={() => {
+                        setActiveHotspot(hotspot.id);
+                        setHasInteractedWithHotspot(true);
+                      }}
+                      onBlur={() => setActiveHotspot(null)}
+                      onClick={() => {
+                        setActiveHotspot((prev) => (prev === hotspot.id ? null : hotspot.id));
+                        setHasInteractedWithHotspot(true);
+                      }}
                       style={{
-                        position: "absolute",
-                        bottom: "calc(100% + 8px)",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        background: isDark ? "#2b282b" : "#fefdfd",
-                        border: "1px solid var(--border)",
-                        borderRadius: 6,
-                        boxShadow: "0 8px 24px -6px rgba(34, 31, 34, 0.25)",
-                        padding: "6px 12px",
-                        whiteSpace: "nowrap",
-                        fontFamily: "Inter, sans-serif",
-                        fontSize: 13,
-                        color: "var(--ink)",
-                        pointerEvents: "none",
-                        lineHeight: 1.4,
+                        width: 14,
+                        height: 14,
+                        borderRadius: "50%",
+                        border: "1.5px solid var(--ink)",
+                        background: "transparent",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        padding: 0,
+                        outline: "none",
+                        animation: "hotspot-pulse 2.4s ease-in-out infinite",
+                        transition: "transform 0.2s ease",
                       }}
                     >
-                      {hotspot.text}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                      <span
+                        style={{
+                          width: 4,
+                          height: 4,
+                          borderRadius: "50%",
+                          background: "var(--orange)",
+                          display: "block",
+                        }}
+                      />
+                    </button>
+
+                    {/* Tooltip Paper Chip */}
+                    {isOpen && (
+                      <div
+                        id={`hotspot-chip-${hotspot.id}`}
+                        role="tooltip"
+                        style={{
+                          position: "absolute",
+                          bottom: "calc(100% + 8px)",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          background: isDark ? "#2b282b" : "#fefdfd",
+                          border: "1px solid var(--border)",
+                          borderRadius: 6,
+                          boxShadow: "0 8px 24px -6px rgba(34, 31, 34, 0.25)",
+                          padding: "6px 12px",
+                          whiteSpace: "nowrap",
+                          fontFamily: "Inter, sans-serif",
+                          fontSize: 13,
+                          color: "var(--ink)",
+                          pointerEvents: "none",
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {hotspot.text}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Layer (b): Legibility Gradient Overlay */}
@@ -732,12 +756,16 @@ export function HeroSection() {
             pointerEvents: "none",
             zIndex: 4,
             background: isDark
-              ? "linear-gradient(to right, rgba(18, 16, 18, 0.70) 0%, rgba(18, 16, 18, 0.45) 32%, rgba(18, 16, 18, 0) 55%), rgba(18, 16, 18, 0.26)"
-              : "linear-gradient(to right, rgba(254, 253, 253, 0.40) 0%, rgba(254, 253, 253, 0.20) 25%, rgba(254, 253, 253, 0) 45%)",
+              ? isMobile
+                ? "linear-gradient(to bottom, rgba(18, 16, 18, 0.78) 0%, rgba(18, 16, 18, 0.85) 60%, rgba(18, 16, 18, 0.94) 100%)"
+                : "linear-gradient(to right, rgba(18, 16, 18, 0.70) 0%, rgba(18, 16, 18, 0.45) 32%, rgba(18, 16, 18, 0) 55%), rgba(18, 16, 18, 0.26)"
+              : isMobile
+                ? "linear-gradient(to bottom, rgba(254, 253, 253, 0.82) 0%, rgba(254, 253, 253, 0.88) 60%, rgba(254, 253, 253, 0.96) 100%)"
+                : "linear-gradient(to right, rgba(254, 253, 253, 0.40) 0%, rgba(254, 253, 253, 0.20) 25%, rgba(254, 253, 253, 0) 45%)",
           }}
         />
 
-        {/* Seamless Soft Fade into Section 2 (The Console) */}
+        {/* Seamless Soft Fade into Next Section */}
         <div
           aria-hidden="true"
           style={{
@@ -745,7 +773,7 @@ export function HeroSection() {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 120,
+            height: isMobile ? 48 : 120,
             background: "linear-gradient(to bottom, transparent 0%, var(--bg) 100%)",
             pointerEvents: "none",
             zIndex: 5,
@@ -754,15 +782,17 @@ export function HeroSection() {
 
         {/* Layer (c): Text Column (Headline, Eyebrow, Paragraph, CTAs, Endorsements) */}
         <div
-          className="container"
+          className="container hero-text-container"
           style={{
             position: isMobile ? "relative" : "absolute",
             inset: 0,
             zIndex: 8,
             display: "flex",
             alignItems: "flex-start",
-            paddingTop: isMobile ? "28px" : "calc(76px + 64px)", // 76px navbar clearance + 64px breathing room
-            paddingBottom: "32px",
+            minHeight: "auto",
+            justifyContent: "flex-start",
+            paddingTop: isMobile ? "108px" : "calc(76px + 64px)", // 76px navbar clearance + 64px breathing room
+            paddingBottom: isMobile ? "44px" : "32px",
             pointerEvents: "none",
           }}
         >
@@ -830,7 +860,7 @@ export function HeroSection() {
                 color: "var(--ink)",
                 opacity: 0.85,
                 maxWidth: 520,
-                margin: "0 0 36px",
+                margin: isMobile ? "0 0 28px" : "0 0 36px",
               }}
             >
               An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.
@@ -843,7 +873,7 @@ export function HeroSection() {
                 alignItems: "center",
                 gap: 24,
                 flexWrap: "wrap",
-                marginBottom: 44,
+                marginBottom: isMobile ? 32 : 44,
               }}
             >
               <a

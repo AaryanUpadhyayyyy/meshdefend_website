@@ -5,7 +5,7 @@ import { OBSERVABILITY_CONTENT, ReportItem } from "../content";
 import { ReportPreview } from "./ReportPreview";
 
 export function ReportIndex() {
-  const { figCaption, h2, body, reports, process } = OBSERVABILITY_CONTENT.index;
+  const { figCaption, h2, body, reports, process, impact } = OBSERVABILITY_CONTENT.index;
   const [activeReport, setActiveReport] = useState<ReportItem>(reports[0]);
 
   return (
@@ -66,6 +66,18 @@ export function ReportIndex() {
                   <span className="step-text-ready">{process.automatedResult}</span>
                 </div>
               </div>
+            </div>
+
+            {/* Fold 5: Two Distinct Outcomes Side-by-Side */}
+            <div className="impact-outcomes-strip">
+              {impact.outcomes.map((item) => (
+                <div key={item.capability} className="impact-outcome-item">
+                  <span className="impact-capability-tag">{item.capability}</span>
+                  <div className="impact-metric-val">{item.metric}</div>
+                  <div className="impact-metric-title">{item.label}</div>
+                  <div className="impact-metric-desc">{item.detail}</div>
+                </div>
+              ))}
             </div>
           </div>
 

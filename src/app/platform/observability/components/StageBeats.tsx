@@ -32,9 +32,9 @@ export function StageBeats({
         <p className="stage-hook anim-item">{beat1.hook}</p>
         <p className="stage-body anim-item">{beat1.body}</p>
 
-        {/* 6 Consoles Summary in Beat 1 text column */}
+        {/* Consoles Summary in Beat 1 text column */}
         <div className="beat1-consoles-summary anim-item">
-          <div className="consoles-summary-label">Six parallel overnight streams:</div>
+          <div className="consoles-summary-label">{beat1.consolesLabel}</div>
           <div className="consoles-tags-grid">
             {beat1.consoles.map((c) => (
               <div key={c.source} className="console-meta-chip">
