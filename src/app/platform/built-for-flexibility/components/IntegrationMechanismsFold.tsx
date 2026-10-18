@@ -144,8 +144,8 @@ export function IntegrationMechanismsFold() {
               maxWidth: 780,
             }}
           >
-            Architecture demonstrates interoperability more convincingly than generic flexibility claims.
-            Inspect the three verifiable integration mechanisms that connect your heterogeneous ecosystem.
+            Architecture demonstrates interoperability more convincingly than an &ldquo;open platform&rdquo; claim.
+            Inspect the verifiable architectural mechanisms&mdash;APIs, catalog connectors, pluggable model interfaces, and bi-directional ITSM layers&mdash;connecting your stack into MeshDefend&rsquo;s operational layer.
           </p>
         </div>
 

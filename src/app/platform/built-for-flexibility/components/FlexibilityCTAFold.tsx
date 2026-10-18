@@ -93,12 +93,12 @@ export function FlexibilityCTAFold() {
               margin: 0,
             }}
           >
-            Someone evaluating interoperability wants to validate their own stack, not sit through a generic
-            product pitch. Bring your backup vendors, storage arrays, and ITSM platforms to a direct architectural session.
+            Someone evaluating interoperability wants to validate their own stack, not just see a generic demo.
+            Bring your AI models, backup software, storage arrays, and ITSM platforms to see how MeshDefend fits.
           </p>
         </div>
 
-        {/* Action Buttons: Primary & Secondary */}
+        {/* Action Buttons: General CTA & Scoped CTAs */}
         <div
           style={{
             display: "flex",
@@ -107,7 +107,7 @@ export function FlexibilityCTAFold() {
             marginBottom: 72,
           }}
         >
-          {/* Primary: Review your stack (/demo) */}
+          {/* General CTA: Book a demo (/demo) */}
           <Link
             href="/demo"
             style={{
@@ -126,11 +126,34 @@ export function FlexibilityCTAFold() {
               transition: "opacity 0.2s ease",
             }}
           >
+            <span>Book a demo</span>
+            <span>→</span>
+          </Link>
+
+          {/* Scoped CTA: Review your stack (/contact?topic=stack-review) */}
+          <Link
+            href="/demo"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              backgroundColor: "transparent",
+              color: "#fefdfd",
+              padding: "16px 28px",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              textDecoration: "none",
+              border: "1px solid rgba(254, 253, 253, 0.3)",
+              transition: "all 0.2s ease",
+            }}
+          >
             <span>Review your stack</span>
             <span>→</span>
           </Link>
 
-          {/* Secondary: Check compatibility (/platform/integrations) */}
+          {/* Scoped CTA: Check compatibility (/platform/integrations) */}
           <Link
             href="/platform/integrations"
             style={{

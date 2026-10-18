@@ -10,19 +10,19 @@ export function FlexibilityBridgeFold() {
   const branches = [
     {
       num: "01",
-      tag: "IMPLEMENTATION & ARCHITECTURE",
-      title: "Deploy: See implementation",
-      sub: "Explore how MeshDefend deploys into on-premises, hybrid, or air-gapped topologies with zero invasive agents.",
+      tag: "DEPLOYMENT & CONNECTIVITY",
+      title: "Deploy: How MeshDefend connects",
+      sub: "See how MeshDefend connects to your environment across on-premises, hybrid, or air-gapped topologies with zero invasive agents.",
       href: "/platform/deploy",
-      cta: "Inspect Deployment Models →",
+      cta: "Explore Deployment Models →",
     },
     {
       num: "02",
-      tag: "GOVERNANCE & CRYPTOGRAPHY",
-      title: "Enterprise Readiness: Security & Controls",
-      sub: "Inspect the zero-trust data boundary, non-repudiable Ed25519 HITL approval gates, and WORM-sealed audit trails.",
+      tag: "GOVERNANCE & ENTERPRISE CONTROLS",
+      title: "Enterprise Readiness: Governed & secured",
+      sub: "See how those connections are governed and secured with zero-trust boundaries, cryptographic HITL controls, and audit trails.",
       href: "/platform/enterprise-readiness",
-      cta: "Review Security Architecture →",
+      cta: "Review Governance & Security →",
     },
   ];
 
@@ -101,8 +101,8 @@ export function FlexibilityBridgeFold() {
               maxWidth: 780,
             }}
           >
-            Once you know your technology choices remain yours, the next logical questions are how it deploys
-            and how the governance boundaries are enforced.
+            Once you know your technology choices remain yours, the next question is naturally how your stack gets connected, deployed, and governed.
+            Follow the paths below to inspect implementation architecture or enterprise security controls.
           </p>
         </div>
 

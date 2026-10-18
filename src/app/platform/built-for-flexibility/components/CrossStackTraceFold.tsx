@@ -120,7 +120,8 @@ export function CrossStackTraceFold() {
             }}
           >
             Interoperability becomes believable when you can watch multiple technologies work together in one
-            continuous workflow: Veeam backup event → DataDomain storage lock → Anthropic intelligence → ServiceNow action.
+            realistic workflow: backup event &rarr; storage context &rarr; MeshDefend intelligence &rarr; ITSM workflow &rarr; action,
+            showing exactly which system contributes what.
           </p>
         </div>
 

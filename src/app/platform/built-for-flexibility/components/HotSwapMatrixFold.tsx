@@ -87,8 +87,8 @@ export function HotSwapMatrixFold() {
               maxWidth: 780,
             }}
           >
-            Flexibility becomes credible when you can see technology choices remain yours after adoption.
-            Toggle the underlying vendor nodes below. Watch the top-layer operational fabric remain 100% constant.
+            Flexibility becomes credible when you can see that technology choices remain yours after adoption.
+            Choose, change, or replace underlying components independently&mdash;models, backup platforms, or storage&mdash;while MeshDefend&rsquo;s operational experience remains completely consistent.
           </p>
         </div>
 
