@@ -293,24 +293,25 @@ html.dark .ip-hero-scrim,
 
 .ip-trust-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: minmax(340px, 5fr) 7fr;
   border: 1px solid var(--border);
   border-radius: 0;
   background: var(--bg-pure);
+  width: 100%;
 }
 
 /* Left Column: Solid Dark Command Block */
 .ip-capital-col {
-  grid-column: span 5;
   background-color: #1a181b;
   color: #ffffff;
-  padding: clamp(36px, 4vw, 48px);
+  padding: clamp(32px, 3.5vw, 48px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid rgba(255, 255, 255, 0.12);
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .ip-capital-watermark {
@@ -448,12 +449,15 @@ html.dark .ip-hero-scrim,
 
 /* Right Column: Strategic Technology Alliances */
 .ip-alliances-col {
-  grid-column: span 7;
   padding: clamp(36px, 4vw, 48px);
   background-color: var(--bg);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 100%;
+  min-width: 0;
+  width: 100%;
 }
 
 .ip-alliances-header {
@@ -500,7 +504,8 @@ html.dark .ip-hero-scrim,
 /* Broadsheet 1px Grid with Negative Margins */
 .ip-broadsheet-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
   margin-top: 18px;
 }
 
@@ -508,14 +513,16 @@ html.dark .ip-hero-scrim,
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 16px;
+  padding: 16px 14px;
+  box-sizing: border-box;
+  min-height: 120px;
+  min-width: 0;
   border: 1px solid var(--border);
   margin-left: -1px;
   margin-top: -1px;
   background-color: var(--bg-pure);
-  transition: all 0.25s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   position: relative;
-  min-height: 128px;
 }
 
 .ip-partner-box:hover {
@@ -528,17 +535,31 @@ html.dark .ip-hero-scrim,
 .ip-partner-type {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 9px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.ip-partner-type span:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .ip-partner-latency {
   color: var(--orange);
   font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .ip-partner-logo-frame {
@@ -807,12 +828,12 @@ html.dark .ip-partner-box:hover .ip-logo-anthropic,
     grid-template-columns: 1fr;
   }
   .ip-capital-col {
-    grid-column: span 12;
+    grid-column: auto;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
   .ip-alliances-col {
-    grid-column: span 12;
+    grid-column: auto;
   }
   .ip-matrix-grid {
     grid-template-columns: 1fr;
@@ -842,7 +863,7 @@ html.dark .ip-partner-box:hover .ip-logo-anthropic,
     align-items: flex-start;
   }
   .ip-broadsheet-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .ip-kpi-strip {
     grid-template-columns: 1fr;
@@ -856,5 +877,11 @@ html.dark .ip-partner-box:hover .ip-logo-anthropic,
   .ip-kpi-cell:first-child {
     border-top: none;
     margin-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ip-broadsheet-grid {
+    grid-template-columns: 1fr;
   }
 }

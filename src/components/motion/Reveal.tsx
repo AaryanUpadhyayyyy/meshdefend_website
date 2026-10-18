@@ -16,6 +16,7 @@ export interface RevealProps {
   threshold?: number;
   margin?: string;
   id?: string;
+  title?: string;
 }
 
 export function Reveal({
@@ -30,6 +31,7 @@ export function Reveal({
   threshold = REVEAL_CONFIG.viewport.amount,
   margin = REVEAL_CONFIG.viewport.margin,
   id,
+  title,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -63,6 +65,7 @@ export function Reveal({
   return (
     <Tag
       id={id}
+      title={title}
       ref={ref}
       className={className}
       style={customStyle}
