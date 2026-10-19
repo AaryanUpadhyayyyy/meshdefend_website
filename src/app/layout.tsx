@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MeshDefend — Agentic AI for Enterprise Resilience",
     description:
-      "Recovery you can prove. Operations without human error.",
+      "Don't plan resilience. Operate it.",
     siteName: "MeshDefend",
     type: "website",
     images: [
@@ -40,14 +40,14 @@ export const metadata: Metadata = {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MeshDefend — Recovery you can prove. Operations without human error.",
+        alt: "MeshDefend — Don't plan resilience. Operate it.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "MeshDefend — Agentic AI for Enterprise Resilience",
-    description: "Recovery you can prove. Operations without human error.",
+    description: "Don't plan resilience. Operate it.",
     images: ["/images/og-image.png"],
   },
 };

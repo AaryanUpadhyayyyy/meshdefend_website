@@ -7,7 +7,7 @@ export const SITE = {
   product: "Resilience Operations Center",
   productShort: "ResOC",
   agentMesh: "Agent Mesh™",
-  tagline: "Recovery you can prove. Operations without human error.",
+  tagline: "Don't plan resilience. Operate it.",
   email: "hello@meshdefend.ai",
   url: "https://www.meshdefend.ai",
 } as const;
@@ -15,11 +15,11 @@ export const SITE = {
 export const HERO = {
   eyebrow: "Introducing Resilience Operations Center (ResOC)",
   headlines: [
-    { line1: "Recovery you can prove.", line2: "Operations without human error." },
+    { line1: "Don't plan resilience.", line2: "Operate it." },
     { line1: "Your backups work.", line2: "Can your business recover?" },
   ],
-  headlineLine1: "Recovery you can prove.",
-  headlineLine2: "Operations without human error.",
+  headlineLine1: "Don't plan resilience.",
+  headlineLine2: "Operate it.",
   paragraph:
     "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.",
   ctaPrimary: "Book a demo",

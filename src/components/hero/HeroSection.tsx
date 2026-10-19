@@ -68,6 +68,11 @@ function HeadlineTyping({
         }
 
         if (isCancelled) return;
+        // If there is only one headline, keep it permanently displayed
+        if (headlines.length <= 1) {
+          return;
+        }
+
         // 3. Hold and let the user read both lines comfortably
         await wait(3200);
 
