@@ -925,6 +925,41 @@ html.js-reveal .line-inner.is-revealed {
   transform: translateY(-1px);
 }
 
+.partner-logo {
+  display: block;
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.partner-logo--light {
+  display: block !important;
+}
+
+.partner-logo--dark {
+  display: none !important;
+}
+
+[data-theme="dark"] .partner-logo--light,
+html.dark .partner-logo--light,
+.dark .partner-logo--light {
+  display: none !important;
+}
+
+[data-theme="dark"] .partner-logo--dark,
+html.dark .partner-logo--dark,
+.dark .partner-logo--dark {
+  display: block !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .partner-logo--light {
+    display: none !important;
+  }
+  :root:not([data-theme="light"]) .partner-logo--dark {
+    display: block !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .seamless-marquee-track {
     animation: circular-marquee-rtl 50s linear infinite !important;

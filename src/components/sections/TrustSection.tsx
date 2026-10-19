@@ -3,240 +3,65 @@
 import React from "react";
 import { Reveal } from "@/components/motion";
 
-/* ─── Official Verified Strategic Partners (Verbatim from Slide / Deck) ───
-   EXACTLY 8 Partners — Scaled up ~25-30% for high visual impact:
-   1. Sapta Tunas Teknologi
-   2. NVIDIA Inception Program
-   3. Microsoft
-   4. AWS
-   5. OpenAI
-   6. Anthropic
-   7. Azure AI Foundry
-   8. Powered by Dell Technologies
+/* ─── Official Verified Strategic Partners ───
+   All 8 strategic partners use official image assets with
+   theme-aware light and dark mode variants.
    ────────────────────────────────────────────────────────────────────────── */
-const ENTERPRISE_PARTNERS = [
+interface PartnerLogo {
+  name: string;
+  lightSrc: string;
+  darkSrc: string;
+  height: number;
+}
+
+const ENTERPRISE_PARTNERS: PartnerLogo[] = [
   {
     name: "Sapta Tunas Teknologi",
-    svg: (
-      <svg height="34" viewBox="0 0 230 34" fill="none" aria-label="Sapta Tunas Teknologi">
-        <path
-          d="M4 16C4 9 9 4 17 4H29L24 11H16C12 11 10 12 10 16C10 20 12 21 16 21H23C29 21 33 25 33 30C33 35 28 39 19 39H4L9 31H19C23 31 25 30 25 26C25 22 23 21 19 21H13C7 21 4 17 4 16Z"
-          fill="#F5A623"
-        />
-        <path d="M13 11L28 11L18 31L4 31Z" fill="#0066FF" opacity="0.85" />
-        <text
-          x="40"
-          y="18"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="16"
-          fontWeight="800"
-          fill="var(--ink)"
-          letterSpacing="0.04em"
-        >
-          SAPTATUNAS
-        </text>
-        <text
-          x="40"
-          y="31"
-          fontFamily="var(--font-mono), monospace"
-          fontSize="11"
-          fontWeight="600"
-          fill="var(--muted)"
-          letterSpacing="0.16em"
-        >
-          TEKNOLOGI
-        </text>
-      </svg>
-    ),
+    lightSrc: "/images/logos/saptatuns-light.webp",
+    darkSrc: "/images/logos/saptatuns-dark.webp",
+    height: 34,
   },
   {
     name: "NVIDIA Inception Program",
-    svg: (
-      <svg height="36" viewBox="0 0 200 36" fill="none" aria-label="NVIDIA Inception Program">
-        <rect x="1" y="1" width="198" height="34" rx="4" stroke="var(--ink)" strokeWidth="1.2" fill="none" opacity="0.85" />
-        <path
-          d="M14 18C14 13 17.5 9.5 22.5 9.5C26 9.5 28.5 11.5 30.5 14C28 12.5 25.5 12.5 22.5 14C18.5 15.5 17 18 17 20.5C17 23 18.5 25 21.5 25C25.5 25 27 22.5 28.5 19.5"
-          stroke="#76B900"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          fill="none"
-        />
-        <text
-          x="35"
-          y="17.5"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="13"
-          fontWeight="800"
-          fill="var(--ink)"
-          letterSpacing="0.01em"
-        >
-          nVIDIA.
-        </text>
-        <line x1="92" y1="6" x2="92" y2="30" stroke="var(--border)" strokeWidth="1" />
-        <text
-          x="102"
-          y="16.5"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="11.5"
-          fontWeight="600"
-          fill="var(--ink)"
-        >
-          Inception
-        </text>
-        <text
-          x="102"
-          y="28"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="11.5"
-          fontWeight="400"
-          fill="var(--muted)"
-        >
-          Program
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "Microsoft",
-    svg: (
-      <svg height="28" viewBox="0 0 148 28" fill="none" aria-label="Microsoft">
-        <rect x="0" y="3" width="9.5" height="9.5" fill="#F25022" />
-        <rect x="12" y="3" width="9.5" height="9.5" fill="#7FBA00" />
-        <rect x="0" y="15" width="9.5" height="9.5" fill="#00A4EF" />
-        <rect x="12" y="15" width="9.5" height="9.5" fill="#FFB900" />
-        <text
-          x="30"
-          y="20"
-          fontFamily="var(--font-body), Inter, -apple-system, sans-serif"
-          fontSize="18"
-          fontWeight="600"
-          fill="var(--ink)"
-          letterSpacing="-0.02em"
-        >
-          Microsoft
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "AWS",
-    svg: (
-      <svg height="28" viewBox="0 0 92 30" fill="none" aria-label="AWS">
-        <text
-          x="0"
-          y="20"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="20"
-          fontWeight="900"
-          fill="var(--ink)"
-          letterSpacing="0.02em"
-        >
-          aws
-        </text>
-        <path d="M4 25C21 30 38 30 52 24" stroke="#FF9900" strokeWidth="2.6" strokeLinecap="round" />
-        <path d="M49 21L55 24.5L48 27" stroke="#FF9900" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    lightSrc: "/images/logos/nvidia-light.webp",
+    darkSrc: "/images/logos/nvidia-dark.webp",
+    height: 32,
   },
   {
     name: "OpenAI",
-    svg: (
-      <svg height="28" viewBox="0 0 130 28" fill="none" aria-label="OpenAI">
-        <path d="M14 2.5L5.5 7.5V17L14 22L22.5 17V7.5L14 2.5Z" stroke="var(--ink)" strokeWidth="2" fill="none" />
-        <circle cx="14" cy="12" r="4" stroke="var(--ink)" strokeWidth="1.8" fill="none" />
-        <text
-          x="32"
-          y="20"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="18"
-          fontWeight="700"
-          fill="var(--ink)"
-          letterSpacing="-0.02em"
-        >
-          OpenAI
-        </text>
-      </svg>
-    ),
+    lightSrc: "/images/logos/openai-light.png",
+    darkSrc: "/images/logos/openai-dark.webp",
+    height: 28,
+  },
+  {
+    name: "AWS",
+    lightSrc: "/images/logos/aws-light.webp",
+    darkSrc: "/images/logos/aws-dark.webp",
+    height: 28,
+  },
+  {
+    name: "Microsoft",
+    lightSrc: "/images/logos/microsoft-light.png",
+    darkSrc: "/images/logos/microsoft-dark.png",
+    height: 26,
   },
   {
     name: "Anthropic",
-    svg: (
-      <svg height="26" viewBox="0 0 148 26" fill="none" aria-label="Anthropic">
-        <text
-          x="0"
-          y="19"
-          fontFamily="var(--font-mono), monospace"
-          fontSize="18"
-          fontWeight="700"
-          fill="var(--ink)"
-          letterSpacing="0.1em"
-        >
-          ANTHROP\C
-        </text>
-      </svg>
-    ),
+    lightSrc: "/images/logos/anthropic-light.png",
+    darkSrc: "/images/logos/anthropic-dark.png",
+    height: 22,
   },
   {
     name: "Azure AI Foundry",
-    svg: (
-      <svg height="30" viewBox="0 0 190 30" fill="none" aria-label="Azure AI Foundry">
-        <path d="M5 21L14 4L23 21H5Z" fill="#0078D4" />
-        <path d="M14 4L21 14L18 21L14 4Z" fill="#50E6FF" opacity="0.8" />
-        <path d="M13 21L18 14L23 21H13Z" fill="#002050" opacity="0.4" />
-        <text
-          x="32"
-          y="20.5"
-          fontFamily="var(--font-body), sans-serif"
-          fontSize="16.5"
-          fontWeight="600"
-          fill="var(--ink)"
-          letterSpacing="-0.01em"
-        >
-          Azure AI Foundry
-        </text>
-      </svg>
-    ),
+    lightSrc: "/images/logos/azure-light.png",
+    darkSrc: "/images/logos/azure-dark.png",
+    height: 26,
   },
   {
-    name: "Works with Dell Technologies",
-    svg: (
-      <svg height="36" viewBox="0 0 200 36" fill="none" aria-label="Works with Dell Technologies">
-        <text
-          x="100"
-          y="11"
-          textAnchor="middle"
-          fontFamily="var(--font-mono), monospace"
-          fontSize="10"
-          fontWeight="700"
-          fill="#0076CE"
-          letterSpacing="0.16em"
-        >
-          — WORKS WITH —
-        </text>
-        <text
-          x="4"
-          y="29"
-          fontFamily="Georgia, serif"
-          fontSize="20"
-          fontWeight="800"
-          fill="#0076CE"
-          letterSpacing="-0.03em"
-        >
-          DELL
-        </text>
-        <text
-          x="58"
-          y="28.5"
-          fontFamily="var(--font-body), Inter, sans-serif"
-          fontSize="15"
-          fontWeight="500"
-          fill="var(--ink)"
-          letterSpacing="-0.01em"
-        >
-          Technologies
-        </text>
-      </svg>
-    ),
+    name: "Powered by Dell Technologies",
+    lightSrc: "/images/logos/dell-light.png",
+    darkSrc: "/images/logos/dell-dark.png",
+    height: 28,
   },
 ];
 
@@ -439,7 +264,18 @@ export function TrustSection() {
                       className="brand-logo-item"
                       title={logo.name}
                     >
-                      {logo.svg}
+                      <img
+                        src={logo.lightSrc}
+                        alt={logo.name}
+                        className="partner-logo partner-logo--light"
+                        style={{ height: logo.height, width: "auto", objectFit: "contain" }}
+                      />
+                      <img
+                        src={logo.darkSrc}
+                        alt={logo.name}
+                        className="partner-logo partner-logo--dark"
+                        style={{ height: logo.height, width: "auto", objectFit: "contain" }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -458,7 +294,20 @@ export function TrustSection() {
                         title={logo.name}
                         tabIndex={-1}
                       >
-                        {logo.svg}
+                        <img
+                          src={logo.lightSrc}
+                          alt=""
+                          aria-hidden="true"
+                          className="partner-logo partner-logo--light"
+                          style={{ height: logo.height, width: "auto", objectFit: "contain" }}
+                        />
+                        <img
+                          src={logo.darkSrc}
+                          alt=""
+                          aria-hidden="true"
+                          className="partner-logo partner-logo--dark"
+                          style={{ height: logo.height, width: "auto", objectFit: "contain" }}
+                        />
                       </div>
                     ))}
                   </div>
@@ -533,8 +382,9 @@ export function TrustSection() {
         .brand-logo-item {
           display: inline-flex !important;
           align-items: center !important;
+          justify-content: center !important;
           color: var(--ink);
-          opacity: 0.82;
+          opacity: 0.88;
           transition: opacity 0.2s ease, transform 0.2s ease;
           cursor: pointer;
           background: transparent !important;
@@ -546,6 +396,41 @@ export function TrustSection() {
         .brand-logo-item:hover {
           opacity: 1 !important;
           transform: translateY(-1px);
+        }
+
+        .partner-logo {
+          display: block;
+          max-width: 100%;
+          pointer-events: none;
+        }
+
+        .partner-logo--light {
+          display: block !important;
+        }
+
+        .partner-logo--dark {
+          display: none !important;
+        }
+
+        [data-theme="dark"] .partner-logo--light,
+        html.dark .partner-logo--light,
+        .dark .partner-logo--light {
+          display: none !important;
+        }
+
+        [data-theme="dark"] .partner-logo--dark,
+        html.dark .partner-logo--dark,
+        .dark .partner-logo--dark {
+          display: block !important;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          :root:not([data-theme="light"]) .partner-logo--light {
+            display: none !important;
+          }
+          :root:not([data-theme="light"]) .partner-logo--dark {
+            display: block !important;
+          }
         }
 
         @media (max-width: 768px) {
