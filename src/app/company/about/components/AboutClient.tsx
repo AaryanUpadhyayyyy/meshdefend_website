@@ -187,8 +187,8 @@ export function AboutClient() {
 
                 <div className="about-slide-img-wrap">
                   <img
-                    src="/images/about-vision-slide.png"
-                    alt="MeshDefend vision slide featuring press coverage from The Economic Times, Business Standard, YourStory, and the founding team"
+                    src="/images/spread-news-et.png"
+                    alt="The Economic Times coverage: AI enterprise ops startup MeshDefend raises $2.3 million in round led by Kalaari Capital"
                     className="about-slide-img"
                   />
                 </div>

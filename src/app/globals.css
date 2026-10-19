@@ -1275,18 +1275,44 @@ html.js-reveal .line-inner.is-revealed {
 .nav-logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   flex-shrink: 0;
   text-decoration: none;
-  color: var(--ink);
+  line-height: 0;
 }
 
-.nav-logo-text {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  font-family: var(--font-body), sans-serif;
+/* ─── Brand Theme-Aware Logo Display Rules ────────────────────── */
+.logo-img {
+  display: block;
+  max-width: 100%;
+}
+
+.logo-img--light {
+  display: block !important;
+}
+
+.logo-img--dark {
+  display: none !important;
+}
+
+[data-theme="dark"] .logo-img--light,
+html.dark .logo-img--light,
+.dark .logo-img--light {
+  display: none !important;
+}
+
+[data-theme="dark"] .logo-img--dark,
+html.dark .logo-img--dark,
+.dark .logo-img--dark {
+  display: block !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logo-img--light {
+    display: none !important;
+  }
+  :root:not([data-theme="light"]) .logo-img--dark {
+    display: block !important;
+  }
 }
 
 .nav-actions {

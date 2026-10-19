@@ -1,18 +1,20 @@
 /**
- * MeshDefend Brand Vector Identity
- * Precision-engineered geometric SVG vectors matching official Wordmark brand assets.
+ * MeshDefend Brand Identity
+ * Uses official brand assets: LOGOWHITETHEME.png for light mode, LOGOBALCKTHEME.png for dark mode.
  */
 
 interface LogoProps {
   className?: string;
   mono?: boolean;
   style?: React.CSSProperties;
+  height?: number;
   size?: number;
+  theme?: "light" | "dark" | "auto";
+  alt?: string;
 }
 
 /**
  * Clean Geometric MeshDefend Double-Chevron Mark
- * Razor-sharp 45° angles, crisp vector geometry (no jagged auto-tracer artifacts).
  */
 export function LogoMark({
   className = "",
@@ -35,12 +37,10 @@ export function LogoMark({
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* Upper angled chevron band */}
       <path
         d="M3 4H10.5L25 18.5V25.5L3 4Z"
         fill={brandOrange}
       />
-      {/* Lower chevron band with checkmark corner */}
       <path
         d="M3 13.5H10.5L20 23L29 14H29V21L20 30L3 13.5Z"
         fill={brandOrange}
@@ -51,7 +51,6 @@ export function LogoMark({
 
 /**
  * Lucide-Style Shield Mesh Mark
- * Pure 24x24 vector grid with 1.75px stroke geometry for a clean modern icon aesthetic.
  */
 export function LucideShieldMark({
   size = 24,
@@ -82,33 +81,78 @@ export function LucideShieldMark({
 }
 
 /**
- * Full MeshDefend Logo (Mark + Clean Wordmark)
+ * Full MeshDefend Logo with theme-aware image lockups:
+ * - LOGOWHITETHEME.png for light mode
+ * - LOGOBALCKTHEME.png for dark mode
+ * Both assets contain the complete lockup (mark + wordmark).
  */
-export function Logo({ className = "", mono = false, style }: LogoProps) {
+export function Logo({
+  className = "",
+  style,
+  height = 30,
+  mono = false,
+  theme = "auto",
+  alt = "MeshDefend",
+}: LogoProps) {
+  // If mono or forced dark mode (e.g., in dark footer)
+  if (mono || theme === "dark") {
+    return (
+      <img
+        src="/images/LOGOBALCKTHEME.png"
+        alt={alt}
+        className={`logo-img logo-img--dark-forced ${className}`}
+        style={{
+          height,
+          width: "auto",
+          objectFit: "contain",
+          display: "block",
+          ...style,
+        }}
+      />
+    );
+  }
+
+  // If forced light mode
+  if (theme === "light") {
+    return (
+      <img
+        src="/images/LOGOWHITETHEME.png"
+        alt={alt}
+        className={`logo-img logo-img--light-forced ${className}`}
+        style={{
+          height,
+          width: "auto",
+          objectFit: "contain",
+          display: "block",
+          ...style,
+        }}
+      />
+    );
+  }
+
+  // Responsive / CSS theme switching to prevent SSR hydration flash
   return (
-    <div
-      className={className}
+    <span
+      className={`meshdefend-brand-logo ${className}`}
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 10,
-        textDecoration: "none",
+        lineHeight: 0,
         ...style,
       }}
     >
-      <LogoMark size={28} mono={mono} />
-      <span
-        style={{
-          fontFamily: "var(--font-body), system-ui, -apple-system, sans-serif",
-          fontSize: 20,
-          fontWeight: 600,
-          letterSpacing: "-0.025em",
-          color: mono ? "currentColor" : "var(--ink, #161416)",
-          lineHeight: 1,
-        }}
-      >
-        MeshDefend
-      </span>
-    </div>
+      <img
+        src="/images/LOGOWHITETHEME.png"
+        alt={alt}
+        className="logo-img logo-img--light"
+        style={{ height, width: "auto", objectFit: "contain" }}
+      />
+      <img
+        src="/images/LOGOBALCKTHEME.png"
+        alt={alt}
+        className="logo-img logo-img--dark"
+        style={{ height, width: "auto", objectFit: "contain" }}
+      />
+    </span>
   );
 }

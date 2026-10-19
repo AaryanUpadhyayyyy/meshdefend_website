@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { LogoMark } from "@/components/brand/Logo";
+import { Logo, LogoMark } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface MegaLinkItem {
@@ -301,17 +301,14 @@ export function Navbar() {
         className={`nav-bar ${scrolled ? "is-scrolled" : ""} ${openMenu ? "has-open-menu" : ""}`}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Logo: 28px mark + 20px semibold wordmark */}
+        {/* Logo: Brand lockup containing both mark & wordmark */}
         <Link
           href="/"
           aria-label="MeshDefend home"
           className="nav-logo"
           onClick={() => setOpenMenu(null)}
         >
-          <LogoMark size={28} />
-          <span className="nav-logo-text">
-            MeshDefend
-          </span>
+          <Logo height={30} />
         </Link>
 
         {/* Desktop Nav */}

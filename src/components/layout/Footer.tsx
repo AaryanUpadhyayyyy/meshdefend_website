@@ -125,7 +125,7 @@ export function Footer() {
             {/* Left: Brand Identity & Status */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
-                <Logo mono style={{ height: 26, width: "auto", color: "#fefdfd" }} />
+                <Logo mono height={28} />
               </div>
 
               <p
