@@ -859,14 +859,14 @@ html.js-reveal .line-inner.is-revealed {
   will-change: auto;
 }
 
-/* ─── Circular Marquee (Continuous Left-to-Right Loop) ─────────────── */
+/* ─── Circular Marquee (Continuous Right-to-Left Loop) ─────────────── */
 
-@keyframes circular-marquee-ltr {
+@keyframes circular-marquee-rtl {
   0% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -900,7 +900,7 @@ html.js-reveal .line-inner.is-revealed {
   white-space: nowrap !important;
   width: max-content !important;
   will-change: transform;
-  animation: circular-marquee-ltr 72s linear infinite !important;
+  animation: circular-marquee-rtl 50s linear infinite !important;
 }
 
 .seamless-marquee-wrapper:hover .seamless-marquee-track {
@@ -927,8 +927,8 @@ html.js-reveal .line-inner.is-revealed {
 
 @media (prefers-reduced-motion: reduce) {
   .seamless-marquee-track {
-    animation: circular-marquee-ltr 72s linear infinite !important;
-    animation-duration: 72s !important;
+    animation: circular-marquee-rtl 50s linear infinite !important;
+    animation-duration: 50s !important;
     animation-iteration-count: infinite !important;
   }
 }

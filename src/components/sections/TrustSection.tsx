@@ -470,12 +470,12 @@ export function TrustSection() {
       </div>
 
       <style>{`
-        @keyframes circular-marquee-ltr {
+        @keyframes circular-marquee-rtl {
           0% {
-            transform: translate3d(-50%, 0, 0);
+            transform: translate3d(0, 0, 0);
           }
           100% {
-            transform: translate3d(0, 0, 0);
+            transform: translate3d(-50%, 0, 0);
           }
         }
 
@@ -508,7 +508,7 @@ export function TrustSection() {
           white-space: nowrap !important;
           width: max-content !important;
           will-change: transform;
-          animation: circular-marquee-ltr 72s linear infinite !important;
+          animation: circular-marquee-rtl 50s linear infinite !important;
         }
 
         .marquee-group {
@@ -526,8 +526,7 @@ export function TrustSection() {
 
         @media (prefers-reduced-motion: reduce) {
           .seamless-marquee-track {
-            animation: none !important;
-            transform: none !important;
+            animation: circular-marquee-rtl 60s linear infinite !important;
           }
         }
 
