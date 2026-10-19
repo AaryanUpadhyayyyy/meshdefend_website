@@ -25,7 +25,7 @@
   --surface-panel: #221f22; /* dashboard sidebar, always dark */
 
   /* Functional */
-  --nav-bg: rgba(254, 253, 253, 0.94);
+  --nav-bg: #fefdfd;
   --nav-border: rgba(34, 31, 34, 0.1);
   --radius: 4px;
   --max-w: 1200px;
@@ -46,7 +46,7 @@ html.dark {
   --surface-raised: #2a272a;
   --orange-text: #f45532; /* WCAG AA: 4.8:1 on #221f22 dark background */
   --orange-soft: #3a2420;
-  --nav-bg: rgba(34, 31, 34, 0.94);
+  --nav-bg: #221f22;
   --nav-border: rgba(254, 253, 253, 0.1);
 }
 
@@ -1023,8 +1023,7 @@ html.js-reveal .line-inner.is-revealed {
   width: min(var(--max-w), 100%);
   margin-inline: auto;
   background: var(--nav-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  opacity: 1;
   border: 1px solid var(--nav-border);
   border-radius: var(--radius);
   padding: 0 20px;
@@ -1033,7 +1032,8 @@ html.js-reveal .line-inner.is-revealed {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, border-radius 0.15s ease;
+  position: relative;
 }
 
 .nav-bar.is-scrolled {
@@ -1042,6 +1042,234 @@ html.js-reveal .line-inner.is-revealed {
 
 [data-theme="dark"] .nav-bar.is-scrolled {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.nav-bar.has-open-menu {
+  background: var(--nav-bg);
+  opacity: 1;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none !important;
+}
+
+/* ─── Desktop Nav Items & Mega Menu ──────────────────────────────── */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-inline: auto;
+}
+
+.nav-item-btn {
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body), sans-serif;
+  line-height: 1.2;
+}
+
+.nav-item-btn:hover {
+  background: var(--surface-raised);
+  color: var(--ink);
+}
+
+.nav-item-btn.is-active {
+  border-color: var(--orange-text);
+  background: rgba(217, 58, 26, 0.04);
+  color: var(--ink);
+}
+
+[data-theme="dark"] .nav-item-btn.is-active {
+  border-color: var(--orange);
+  background: rgba(244, 85, 50, 0.08);
+}
+
+.nav-item-btn .nav-chevron {
+  transition: transform 0.2s ease;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.nav-item-btn.is-active .nav-chevron {
+  transform: rotate(180deg);
+  color: var(--orange-text);
+}
+
+[data-theme="dark"] .nav-item-btn.is-active .nav-chevron {
+  color: var(--orange);
+}
+
+/* Mega dropdown panel: exact width and alignment of navbar container */
+.nav-mega-menu {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: -1px;
+  right: -1px;
+  width: calc(100% + 2px);
+  background: var(--nav-bg);
+  opacity: 1;
+  border: 1px solid var(--nav-border);
+  border-top: 1px solid var(--nav-border);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  box-shadow: 0 20px 48px -8px rgba(34, 31, 34, 0.14), 0 8px 16px -4px rgba(34, 31, 34, 0.06);
+  padding: 32px 36px 36px;
+  z-index: 95;
+  animation: megaDropdownIn 0.16s ease-out;
+}
+
+[data-theme="dark"] .nav-mega-menu {
+  box-shadow: 0 24px 60px -8px rgba(0, 0, 0, 0.7), 0 10px 24px -4px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes megaDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+@media (max-width: 1050px) {
+  .nav-mega-grid {
+    gap: 24px;
+  }
+  .nav-mega-menu {
+    padding: 24px 28px 28px;
+  }
+}
+
+.nav-mega-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-mega-eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-mega-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-mega-link {
+  display: block;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm, 4px);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-mega-link:hover {
+  background: var(--surface-raised);
+}
+
+.nav-mega-link-title {
+  font-size: 13.5px;
+  font-weight: 550;
+  line-height: 1.35;
+  color: var(--ink);
+  display: block;
+  transition: color 0.15s ease;
+}
+
+.nav-mega-link:hover .nav-mega-link-title {
+  color: var(--orange-text);
+}
+
+.nav-mega-link-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: 2px;
+  display: block;
+}
+
+.nav-mega-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.15s ease, background 0.15s ease;
+}
+
+.nav-mega-card:hover {
+  border-color: var(--orange-text);
+  transform: translateY(-1px);
+}
+
+.nav-mega-card-tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.nav-mega-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  display: block;
+}
+
+.nav-mega-card-body {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.nav-mega-card-cta {
+  font-family: var(--font-mono), monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--orange-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .nav-logo {
@@ -1098,6 +1326,9 @@ html.js-reveal .line-inner.is-revealed {
 
 @media (max-width: 900px) {
   .desktop-nav {
+    display: none !important;
+  }
+  .nav-mega-menu {
     display: none !important;
   }
   .mobile-toggle {

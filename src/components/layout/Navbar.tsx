@@ -4,13 +4,260 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { LogoMark } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { NAV } from "@/lib/content";
+
+interface MegaLinkItem {
+  label: string;
+  desc?: string;
+  href: string;
+}
+
+interface MegaColumn {
+  eyebrow: string;
+  items: MegaLinkItem[];
+}
+
+interface FeaturedCard {
+  tag: string;
+  title: string;
+  desc: string;
+  cta: string;
+  href: string;
+}
+
+interface MegaMenuSection {
+  label: string;
+  columns: MegaColumn[];
+  featured?: FeaturedCard;
+}
+
+const MEGA_MENUS: Record<string, MegaMenuSection> = {
+  platform: {
+    label: "Platform",
+    columns: [
+      {
+        eyebrow: "PLATFORM CAPABILITIES",
+        items: [
+          {
+            label: "Unified Resilience Observability",
+            desc: "Cross-vendor telemetry, estate map & posture",
+            href: "/platform/observability",
+          },
+          {
+            label: "Backup Operations",
+            desc: "Policy automation & backup job validation",
+            href: "/platform/backup-operations",
+          },
+          {
+            label: "Incident Resolution",
+            desc: "Autonomous root cause analysis & runbooks",
+            href: "/platform/incident-resolution",
+          },
+        ],
+      },
+      {
+        eyebrow: "CYBER RESILIENCE",
+        items: [
+          {
+            label: "Cyber Resilience",
+            desc: "Air-gapped immutable recovery orchestration",
+            href: "/platform/cyber-resilience",
+          },
+          {
+            label: "Integrations",
+            desc: "Commvault, Veeam, Dell PowerProtect & ServiceNow",
+            href: "/platform/integrations",
+          },
+        ],
+      },
+      {
+        eyebrow: "ENTERPRISE FOUNDATION",
+        items: [
+          {
+            label: "Enterprise Readiness",
+            desc: "Zero-trust governance, audit trails & scale",
+            href: "/platform/enterprise-readiness",
+          },
+          {
+            label: "Deploy Architecture",
+            desc: "Air-gapped, on-premises, hybrid & multi-cloud",
+            href: "/platform/deploy",
+          },
+          {
+            label: "Built for Flexibility",
+            desc: "BYO models, backup engines, storage & ITSM",
+            href: "/platform/built-for-flexibility",
+          },
+        ],
+      },
+    ],
+  },
+  solutions: {
+    label: "Solutions",
+    columns: [
+      {
+        eyebrow: "PARTNER ECOSYSTEM",
+        items: [
+          {
+            label: "System Integrators",
+            desc: "Architecture practices & enterprise delivery acceleration",
+            href: "/solutions/system-integrators",
+          },
+          {
+            label: "Managed Services (MSPs)",
+            desc: "Multi-tenant operations with autonomous policy enforcement",
+            href: "/solutions/managed-services",
+          },
+        ],
+      },
+      {
+        eyebrow: "ORGANIZATIONS",
+        items: [
+          {
+            label: "Enterprises",
+            desc: "Mission-critical estate protection & compliance assurance",
+            href: "/solutions/enterprises",
+          },
+          {
+            label: "Advisory & Consulting",
+            desc: "Resilience frameworks & operational risk readiness",
+            href: "/solutions/advisory-consulting",
+          },
+        ],
+      },
+    ],
+    featured: {
+      tag: "READINESS ASSESSMENT",
+      title: "Validate Cyber Recovery Posture",
+      desc: "Evaluate cross-vendor backup SLAs, air-gapped vaults, and recovery posture with our architecture team.",
+      cta: "Request Architecture Review →",
+      href: "/company/contact?intent=arch-review",
+    },
+  },
+  resources: {
+    label: "Resources",
+    columns: [
+      {
+        eyebrow: "PUBLICATIONS",
+        items: [
+          {
+            label: "The Resilience Pulse",
+            desc: "Bi-weekly executive briefings on autonomous cyber recovery",
+            href: "/resources/newsletter",
+          },
+          {
+            label: "Engineering Blog",
+            desc: "Technical deep dives, post-mortems & systems architecture",
+            href: "/resources/blog",
+          },
+        ],
+      },
+      {
+        eyebrow: "MEDIA & SUPPORT",
+        items: [
+          {
+            label: "Resilience Podcast",
+            desc: "Conversations with infrastructure architects & operators",
+            href: "/resources/podcast",
+          },
+          {
+            label: "Technical FAQ",
+            desc: "Architecture, integration security & deployment answers",
+            href: "/resources/faq",
+          },
+        ],
+      },
+    ],
+    featured: {
+      tag: "TECHNICAL ARCHITECTURE",
+      title: "Autonomous Resilience Operations",
+      desc: "Deep-dive into Agent Mesh™ non-disintermediation covenants, air-gap integrity, and failover runbooks.",
+      cta: "Read Architecture FAQs →",
+      href: "/resources/faq",
+    },
+  },
+  company: {
+    label: "Company",
+    columns: [
+      {
+        eyebrow: "ORGANIZATION",
+        items: [
+          {
+            label: "About Us",
+            desc: "Mission, executive leadership & the resilience thesis",
+            href: "/company/about",
+          },
+          {
+            label: "Careers",
+            desc: "Join our systems engineering & agent architecture teams",
+            href: "/company/careers",
+          },
+        ],
+      },
+      {
+        eyebrow: "ECOSYSTEM & PRESS",
+        items: [
+          {
+            label: "Investors & Partners",
+            desc: "Backed by Kalaari Capital & enterprise industry leaders",
+            href: "/company/investors-partners",
+          },
+          {
+            label: "Newsroom",
+            desc: "Press releases, product announcements & media coverage",
+            href: "/company/newsroom",
+          },
+          {
+            label: "Contact Us",
+            desc: "Direct access to solutions architects & leadership",
+            href: "/company/contact",
+          },
+        ],
+      },
+    ],
+    featured: {
+      tag: "EXPERIENCE RESOC",
+      title: "Private Architecture Briefing",
+      desc: "See how ResOC orchestrates cross-vendor recovery across Commvault, Veeam, Dell, and ServiceNow in a live console.",
+      cta: "Book a Live Demo →",
+      href: "/demo",
+    },
+  },
+};
 
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const clearCloseTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  const handleMouseEnter = (menuKey: string) => {
+    clearCloseTimeout();
+    setOpenMenu(menuKey);
+  };
+
+  const handleMenuEnter = () => {
+    clearCloseTimeout();
+  };
+
+  const handleMouseLeave = () => {
+    clearCloseTimeout();
+    timeoutRef.current = setTimeout(() => {
+      setOpenMenu(null);
+    }, 180);
+  };
+
+  const handleToggle = (menuKey: string) => {
+    clearCloseTimeout();
+    setOpenMenu(openMenu === menuKey ? null : menuKey);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -24,8 +271,17 @@ export function Navbar() {
         setOpenMenu(null);
       }
     };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenMenu(null);
+      }
+    };
     document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useEffect(() => {
@@ -34,14 +290,24 @@ export function Navbar() {
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   return (
     <header ref={navRef} className="nav-header">
-      <div className={`nav-bar ${scrolled ? "is-scrolled" : ""}`}>
+      <div
+        className={`nav-bar ${scrolled ? "is-scrolled" : ""} ${openMenu ? "has-open-menu" : ""}`}
+        onMouseLeave={handleMouseLeave}
+      >
         {/* Logo: 28px mark + 20px semibold wordmark */}
-        <Link href="/" aria-label="MeshDefend home" className="nav-logo">
+        <Link
+          href="/"
+          aria-label="MeshDefend home"
+          className="nav-logo"
+          onClick={() => setOpenMenu(null)}
+        >
           <LogoMark size={28} />
           <span className="nav-logo-text">
             MeshDefend
@@ -49,79 +315,49 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="desktop-nav" aria-label="Main navigation" style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 4,
-          marginInline: "auto",
-        }}>
-          {/* Platform */}
-          <NavDropdown
-            label={NAV.platform.label}
-            isOpen={openMenu === "platform"}
-            onToggle={() => setOpenMenu(openMenu === "platform" ? null : "platform")}
-          >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, padding: 24, minWidth: 640 }}>
-              {NAV.platform.groups.map((group) => (
-                <div key={group.title}>
-                  <div className="mono-sm" style={{ marginBottom: 12, fontSize: 11, textTransform: "uppercase", color: "var(--muted)" }}>{group.title}</div>
-                  {group.items.map((item) => (
-                    <MegaLink key={item.label} label={item.label} desc={"desc" in item ? (item as any).desc : undefined} href={item.href} />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </NavDropdown>
-
-          {/* Solutions */}
-          <NavDropdown
-            label={NAV.solutions.label}
-            isOpen={openMenu === "solutions"}
-            onToggle={() => setOpenMenu(openMenu === "solutions" ? null : "solutions")}
-          >
-            <div style={{ padding: 24, minWidth: 260 }}>
-              {NAV.solutions.items.map((item) => (
-                <MegaLink key={item.label} label={item.label} href={item.href} />
-              ))}
-            </div>
-          </NavDropdown>
-
-          {/* Resources */}
-          <NavDropdown
-            label={NAV.resources.label}
-            isOpen={openMenu === "resources"}
-            onToggle={() => setOpenMenu(openMenu === "resources" ? null : "resources")}
-          >
-            <div style={{ padding: 24, minWidth: 240 }}>
-              {NAV.resources.items.map((item) => (
-                <MegaLink key={item.label} label={item.label} href={item.href} />
-              ))}
-            </div>
-          </NavDropdown>
-
-          {/* Company */}
-          <NavDropdown
-            label={NAV.company.label}
-            isOpen={openMenu === "company"}
-            onToggle={() => setOpenMenu(openMenu === "company" ? null : "company")}
-          >
-            <div style={{ padding: 24, minWidth: 280 }}>
-              {NAV.company.items.map((item) => (
-                <MegaLink key={item.label} label={item.label} desc={"desc" in item ? (item as any).desc : undefined} href={item.href} />
-              ))}
-            </div>
-          </NavDropdown>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {Object.entries(MEGA_MENUS).map(([key, section]) => {
+            const isActive = openMenu === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                className={`nav-item-btn ${isActive ? "is-active" : ""}`}
+                onClick={() => handleToggle(key)}
+                onMouseEnter={() => handleMouseEnter(key)}
+                onFocus={() => handleMouseEnter(key)}
+                aria-expanded={isActive}
+                aria-haspopup="true"
+              >
+                <span>{section.label}</span>
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="nav-chevron"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            );
+          })}
         </nav>
 
         {/* Right actions */}
         <div className="nav-actions">
           <ThemeToggle />
-          <a
+          <Link
             href="/demo"
             className="btn btn-primary nav-cta-btn"
+            onClick={() => setOpenMenu(null)}
           >
             Book a Demo
-          </a>
+          </Link>
           <button
             className="mobile-toggle"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -137,6 +373,64 @@ export function Navbar() {
             </svg>
           </button>
         </div>
+
+        {/* Mega Menu Dropdown: anchored to exact width & position of nav-bar */}
+        {openMenu && MEGA_MENUS[openMenu] && (
+          <div
+            className="nav-mega-menu"
+            onMouseEnter={handleMenuEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="nav-mega-grid">
+              {MEGA_MENUS[openMenu].columns.map((column) => (
+                <div key={column.eyebrow} className="nav-mega-col">
+                  <div className="nav-mega-eyebrow">{column.eyebrow}</div>
+                  <div className="nav-mega-items">
+                    {column.items.map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        className="nav-mega-link"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        <span className="nav-mega-link-title">{item.label}</span>
+                        {item.desc && (
+                          <span className="nav-mega-link-desc">{item.desc}</span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {MEGA_MENUS[openMenu].featured && (
+                <div className="nav-mega-col">
+                  <div className="nav-mega-eyebrow">EXPLORE</div>
+                  <Link
+                    href={MEGA_MENUS[openMenu].featured!.href}
+                    className="nav-mega-card"
+                    onClick={() => setOpenMenu(null)}
+                  >
+                    <div>
+                      <span className="nav-mega-card-tag">
+                        {MEGA_MENUS[openMenu].featured!.tag}
+                      </span>
+                      <span className="nav-mega-card-title">
+                        {MEGA_MENUS[openMenu].featured!.title}
+                      </span>
+                      <span className="nav-mega-card-body">
+                        {MEGA_MENUS[openMenu].featured!.desc}
+                      </span>
+                    </div>
+                    <span className="nav-mega-card-cta">
+                      {MEGA_MENUS[openMenu].featured!.cta}
+                    </span>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Mobile nav overlay */}
@@ -154,153 +448,41 @@ export function Navbar() {
           }}
         >
           <nav aria-label="Mobile navigation" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {[NAV.platform, NAV.solutions, NAV.resources, NAV.company].map((section) => {
-              const items: {label: string; href: string}[] = "groups" in section
-                ? section.groups.flatMap((g): {label: string; desc?: string; href: string}[] => [...g.items])
-                : [...section.items];
+            {Object.entries(MEGA_MENUS).map(([key, section]) => {
+              const allItems = section.columns.flatMap((col) => col.items);
               return (
-                <details key={section.label} style={{ borderBottom: "1px solid var(--border)", paddingBottom: 8 }}>
+                <details key={key} style={{ borderBottom: "1px solid var(--border)", paddingBottom: 8 }}>
                   <summary style={{ padding: "12px 0", fontSize: 15, fontWeight: 600, cursor: "pointer", color: "var(--ink)" }}>
                     {section.label}
                   </summary>
                   <div style={{ paddingLeft: 12, display: "flex", flexDirection: "column", gap: 4 }}>
-                    {items.map((item) => (
-                      <a
+                    {allItems.map((item) => (
+                      <Link
                         key={item.label}
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
                         style={{ padding: "8px 0", fontSize: 14, color: "var(--muted)", textDecoration: "none" }}
                       >
                         {item.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </details>
               );
             })}
             <div style={{ marginTop: 20 }}>
-              <a
+              <Link
                 href="/demo"
                 onClick={() => setMobileOpen(false)}
                 className="btn btn-primary"
                 style={{ width: "100%", justifyContent: "center", height: 44, fontSize: 14 }}
               >
                 Book a Demo
-              </a>
+              </Link>
             </div>
           </nav>
         </div>
       )}
     </header>
-  );
-}
-
-/* ─── Sub-components ──────────────────────────────────────────── */
-
-const navLinkStyle: React.CSSProperties = {
-  fontSize: 13,
-  fontWeight: 500,
-  padding: "8px 12px",
-  borderRadius: "var(--radius)",
-  transition: "background 0.15s, color 0.15s",
-  cursor: "pointer",
-  whiteSpace: "nowrap",
-  color: "var(--ink)",
-  background: "transparent",
-  border: "none",
-};
-
-function NavDropdown({
-  label,
-  isOpen,
-  onToggle,
-  children,
-}: {
-  label: string;
-  isOpen: boolean;
-  onToggle: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <div style={{ position: "relative" }}>
-      <button
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        style={{
-          ...navLinkStyle,
-          display: "flex",
-          alignItems: "center",
-          gap: 4,
-          background: isOpen ? "var(--surface-raised)" : "transparent",
-          color: "var(--ink)",
-        }}
-      >
-        <span>{label}</span>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            transition: "transform 0.2s",
-            transform: isOpen ? "rotate(180deg)" : "none",
-            color: "var(--ink)",
-          }}
-        >
-          <path d="m7 10 5 5 5-5" />
-        </svg>
-      </button>
-      {isOpen && (
-        <div
-          style={{
-            position: "absolute",
-            top: "calc(100% + 8px)",
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "var(--bg)",
-            color: "var(--ink)",
-            border: "1px solid var(--border)",
-            borderTop: "2px solid var(--orange)",
-            borderRadius: "var(--radius)",
-            boxShadow: "0 16px 48px rgba(0,0,0,0.35)",
-            zIndex: 90,
-            animation: "menuIn 0.15s ease",
-          }}
-        >
-          {children}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function MegaLink({ label, desc, href }: { label: string; desc?: string; href: string }) {
-  return (
-    <a
-      href={href}
-      style={{
-        display: "block",
-        padding: "10px 8px",
-        borderRadius: "var(--radius)",
-        transition: "background 0.15s, color 0.15s",
-        color: "var(--ink)",
-        textDecoration: "none",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--surface-raised)")}
-      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-    >
-      <span style={{ fontSize: 13, fontWeight: 600, display: "block", lineHeight: 1.35, color: "var(--ink)" }}>
-        {label}
-      </span>
-      {desc && (
-        <span style={{ fontSize: 12, color: "var(--muted)", display: "block", marginTop: 2 }}>
-          {desc}
-        </span>
-      )}
-    </a>
   );
 }

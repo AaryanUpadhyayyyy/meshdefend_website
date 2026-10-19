@@ -10,44 +10,20 @@ const LEADERSHIP = [
   {
     name: "Tejas Pandit",
     role: "Co-Founder & Chief Executive Officer",
-    pedigree: "Ex-Dell Technologies · Enterprise Storage & Resilience Leader",
+    pedigree: "Ex-Dell Technologies & Data Domain · Enterprise Storage & Resilience Leader",
     avatar: "/images/author-tejas.jpg",
     quote:
-      "Enterprise backup estates are vast, fragmented, and vulnerable to silent failures. We built MeshDefend to give CISOs continuous, undeniable proof of recoverability before a crisis strikes.",
+      "Enterprise backup estates are vast, fragmented, and vulnerable to silent failures. We built MeshDefend to give enterprise leaders continuous, undeniable proof of recoverability before a crisis strikes.",
     linkedin: "https://www.linkedin.com/in/tejaspandit1/",
-    email: "tejas@meshdefend.ai",
   },
   {
     name: "Ravi Chitloor",
     role: "Co-Founder & Chief Technology Officer",
-    pedigree: "Ex-Dell Technologies · Systems Architect, Distributed Resilience",
+    pedigree: "Ex-Dell Technologies & Data Domain · Systems Architect, Distributed Resilience",
     avatar: "/images/author-ravi.jpg",
     quote:
-      "Agent Mesh™ brings deterministic intelligence to high-stress recovery—allowing autonomous agents to correlate multi-vendor dependencies while strictly enforcing human-in-the-loop authorization.",
+      "Agent Mesh™ brings deterministic intelligence to high-stress recovery—allowing autonomous agents to correlate multi-vendor dependencies while strictly enforcing human-in-the-loop authorization and air-gapped non-disintermediation.",
     linkedin: "https://www.linkedin.com/in/ravichitloor/",
-    email: "ravi@meshdefend.ai",
-  },
-];
-
-// Core Operating Principles
-const PRINCIPLES = [
-  {
-    index: "01",
-    tag: "EMPIRICAL PROOF",
-    title: "Truth Over Assumption",
-    body: "Green checkmarks on backup consoles mean nothing without continuous, automated application mount validation in an isolated cleanroom.",
-  },
-  {
-    index: "02",
-    tag: "DETERMINISTIC AI",
-    title: "Governed Autonomy",
-    body: "Agentic AI with strict cryptographic guardrails. The intelligence to observe and recommend; the discipline to halt and wait for human authorization.",
-  },
-  {
-    index: "03",
-    tag: "MULTI-VENDOR",
-    title: "Heterogeneous Reality",
-    body: "Enterprises do not run a single tool. We unify Commvault, Veeam, NetWorker, DataDomain, AWS, and Azure into a single authoritative operating plane.",
   },
 ];
 
@@ -64,17 +40,6 @@ const fadeUpVariants: Variants = {
 };
 
 export function AboutClient() {
-  const [diagramLightbox, setDiagramLightbox] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!diagramLightbox) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDiagramLightbox(false);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [diagramLightbox]);
-
   return (
     <div className="about-page-client">
       {/* ===================================================================
@@ -103,23 +68,23 @@ export function AboutClient() {
         </div>
 
         <div className="about-container about-hero-container">
-          {/* Top Clean Single Eyebrow (No Stacking) */}
+          {/* Eyebrow */}
           <div className="about-meta-bar" style={{ marginBottom: 20 }}>
             <div className="about-eyebrow">
-              [ COMPANY // ORIGINS &amp; MISSION · SEED STAGE ]
+              [ MESHDEFEND VISION ]
             </div>
           </div>
 
           {/* Hero Main Content */}
           <div className="about-hero-content">
             <h1 id="about-main-title" className="about-title">
-              Backups work. Businesses still fail to recover. We are fixing the gap.
+              Be an agentic OS for enterprise Resilience Operations.
             </h1>
 
             <p className="about-deck">
-              MeshDefend is the autonomous enterprise operations layer for backup,
-              recovery, and continuous cyber resilience. Founded by former Dell
-              infrastructure leaders and powered by patent-pending Agent Mesh™.
+              Powered by Agent Mesh™. Built by industry veterans with 35+ years
+              of data protection, storage, and cyber resilience experience across
+              Data Domain, EMC, and Dell Technologies.
             </p>
           </div>
 
@@ -135,203 +100,160 @@ export function AboutClient() {
         </div>
       </motion.section>
 
-      {/* High-End Engineering KPI Ticker (Full-width Docked Band) */}
-      <section className="about-kpi-band">
-        <div className="about-container">
-          <div className="about-kpi-strip">
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Capital Secured</span>
-              <span className="careers-kpi-val">$2.3M SEED TRANCHE</span>
-            </div>
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Founding Pedigree</span>
-              <span className="careers-kpi-val">EX-DELL INFRASTRUCTURE</span>
-            </div>
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Runtime Alliances</span>
-              <span className="careers-kpi-val">6 CERTIFIED CONNECTORS</span>
-            </div>
-            <div className="careers-kpi-cell">
-              <span className="careers-kpi-label">Core Engineering</span>
-              <span className="careers-kpi-val">BENGALURU R&amp;D STUDIO</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <div className="about-container">
         {/* ===================================================================
-            FOLD 2 — THE RESILIENCE THESIS & SCHEMATIC ILLUSTRATION
+            FOLD 2 — VISION, PEDIGREE & INSTITUTIONAL TRAJECTORY
             =================================================================== */}
         <section
-          className="about-thesis-section"
-          aria-labelledby="about-thesis-title"
+          className="about-vision-section"
+          aria-labelledby="about-vision-title"
         >
-          <div className="about-section-label">
-            <span>THE RESILIENCE THESIS // STORAGE vs. RECOVERABILITY</span>
-            <span>FIGURE 2.0 // ARCHITECTURAL SPLIT</span>
-          </div>
-
-          <div className="about-thesis-header">
+          <div className="about-vision-header">
             <Reveal delay={0}>
-              <div className="about-thesis-eyebrow">[ THE CORE PROBLEM ]</div>
+              <div className="about-vision-eyebrow">
+                [ MESHDEFEND VISION &amp; TRAJECTORY ]
+              </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <h2 id="about-thesis-title" className="about-thesis-h2">
-                Storage integrity is not operational recoverability.
+              <h2 id="about-vision-title" className="about-vision-h2">
+                Engineered for enterprise scale. Validated by institutional capital.
               </h2>
             </Reveal>
             <Reveal delay={0.16}>
-              <p className="about-thesis-deck">
-                Every enterprise has immutable backups. Yet when ransomware
-                strikes, recovery takes weeks of manual runbooks, missing
-                dependencies, and unverified configurations. MeshDefend replaces
-                passive data storage with active, policy-governed operational
-                readiness.
+              <p className="about-vision-sub">
+                A proven leadership track record in data protection and cyber
+                resilience, backed by leading deep-tech venture capital to
+                automate cross-vendor recovery operations.
               </p>
             </Reveal>
           </div>
 
-          {/* Architectural Blueprint Schematic Showcase */}
-          <Reveal variant="scale-in" delay={0.24}>
-            <div className="about-diagram-frame">
-              <div className="about-diagram-top">
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span className="about-diagram-tag">[ SCHEMATIC // 02 ]</span>
-                  <span className="about-diagram-title">THE RESILIENCE PARADIGM SHIFT</span>
+          <div className="about-vision-grid">
+            {/* Card 1: Built by Industry Veterans */}
+            <Reveal
+              as="div"
+              variant="slide-left"
+              delay={0.1}
+              className="about-vision-card"
+            >
+              <div>
+                <div className="about-vision-card-tag">
+                  BUILT BY INDUSTRY VETERANS
                 </div>
-                <button
-                  type="button"
-                  className="about-diagram-expand-btn"
-                  onClick={() => setDiagramLightbox(true)}
-                  aria-label="Inspect schematic at full resolution"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="15 3 21 3 21 9" />
-                    <polyline points="9 21 3 21 3 15" />
-                    <line x1="21" y1="3" x2="14" y2="10" />
-                    <line x1="3" y1="21" x2="10" y2="14" />
-                  </svg>
-                  <span>INSPECT FULL RESOLUTION</span>
-                </button>
-              </div>
 
-              <div
-                className="about-diagram-canvas"
-                onClick={() => setDiagramLightbox(true)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setDiagramLightbox(true);
-                  }
-                }}
-                title="Click to view full-resolution schematic"
-              >
-                <div className="about-diagram-img-wrap">
+                <div className="about-hero-stat-block">
+                  <div className="about-hero-stat-num">35+ Years</div>
+                  <div className="about-hero-stat-desc">
+                    in Data Protection, Storage and Cyber Resilience Industry
+                  </div>
+                </div>
+
+                <div className="about-pedigree-strip">
+                  Data Domain | EMC | Dell Tech
+                </div>
+
+                <div className="about-stat-row">
+                  <span className="about-stat-row-num">4</span>
+                  <span className="about-stat-row-label">
+                    Enterprise Products Built
+                  </span>
+                </div>
+
+                <div className="about-stat-row">
+                  <span className="about-stat-row-num">$1Bn+</span>
+                  <span className="about-stat-row-label">
+                    ARR Built &amp; Scaled Together
+                  </span>
+                </div>
+
+                <div className="about-stat-row">
+                  <span className="about-stat-row-num">35+</span>
+                  <span className="about-stat-row-label">Patents</span>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Card 2 (Center): Institutional Validation & Media */}
+            <Reveal
+              as="div"
+              variant="fade-up"
+              delay={0.18}
+              className="about-vision-card about-media-card"
+            >
+              <div>
+                <div className="about-vision-card-tag">
+                  INSTITUTIONAL VALIDATION
+                </div>
+
+                <div className="about-slide-img-wrap">
                   <img
-                    src="/images/about-thesis-diagram.jpg"
-                    alt="Architectural schematic comparing legacy backup silos with manual runbooks against MeshDefend's unified Resilience Operations Center with automated cleanrooms and verified telemetry"
-                    className="about-diagram-img"
+                    src="/images/about-vision-slide.png"
+                    alt="MeshDefend vision slide featuring press coverage from The Economic Times, Business Standard, YourStory, and the founding team"
+                    className="about-slide-img"
                   />
-                  <div className="about-diagram-zoom-hint">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="11" cy="11" r="8" />
-                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                      <line x1="11" y1="8" x2="11" y2="14" />
-                      <line x1="8" y1="11" x2="14" y2="11" />
-                    </svg>
-                    <span>Click to Expand</span>
+                </div>
+
+                <div className="about-press-quote-list">
+                  <div className="about-press-quote-item">
+                    <span className="about-press-quote-source">
+                      The Economic Times
+                    </span>
+                    &ldquo;AI enterprise ops startup MeshDefend raises $2.3 million
+                    in round led by Kalaari Capital&rdquo;
+                  </div>
+                  <div className="about-press-quote-item">
+                    <span className="about-press-quote-source">
+                      Business Standard
+                    </span>
+                    &ldquo;MeshDefend raises $2.3 million to bring AI
+                    intelligence to enterprise data&rdquo;
                   </div>
                 </div>
               </div>
+            </Reveal>
 
-              <div className="about-diagram-caption">
-                <span>
-                  FIG 2.1 — PASSIVE STORAGE MONOLITHS (LEFT) vs. ACTIVE RESILIENCE CLEANROOM MESH (RIGHT)
-                </span>
-                <span style={{ color: "var(--orange)", fontWeight: 600 }}>
-                  VERIFIED IMPACT: SUB-HOUR RECONSTITUTION · UP TO 80% LOWER MTTR
-                </span>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Fullscreen Lightbox Modal */}
-          {diagramLightbox && (
-            <div
-              className="about-lightbox-overlay"
-              onClick={() => setDiagramLightbox(false)}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Schematic Full Resolution View"
+            {/* Card 3: MeshDefend Today */}
+            <Reveal
+              as="div"
+              variant="slide-right"
+              delay={0.24}
+              className="about-vision-card"
             >
-              <div className="about-lightbox-bar" onClick={(e) => e.stopPropagation()}>
-                <span>FIG 2.1 // THE RESILIENCE PARADIGM SHIFT (FULL RESOLUTION ARCHITECTURAL BLUEPRINT)</span>
-                <button
-                  type="button"
-                  className="about-lightbox-close"
-                  onClick={() => setDiagramLightbox(false)}
-                >
-                  [ ESC / CLOSE ✕ ]
-                </button>
-              </div>
-              <div className="about-lightbox-content">
-                <img
-                  src="/images/about-thesis-diagram.jpg"
-                  alt="Full resolution architectural schematic"
-                  className="about-lightbox-img"
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </div>
-            </div>
-          )}
+              <div>
+                <div className="about-vision-card-tag">MESHDEFEND TODAY</div>
 
-          {/* Contrast Ledger (2 Columns) */}
-          <RevealGroup staggerDelay={0.1} className="about-contrast-grid">
-            <div className="about-contrast-card">
-              <span className="about-contrast-tag is-legacy">
-                [ 01 // THE LEGACY ILLUSION ]
-              </span>
-              <h3 className="about-contrast-title">Passive Storage Focus</h3>
-              <p className="about-contrast-body">
-                Siloed consoles across Commvault, Veeam, and NetWorker. Annual
-                manual recovery fire-drills. Static PDF runbooks that fail
-                during real production disasters.
-              </p>
-              <div className="about-contrast-metric">
-                AVG RECOVERY TIME: 3 TO 14 DAYS
-              </div>
-            </div>
+                <div className="about-pillar-item">
+                  <h3 className="about-pillar-title">Institutional VC Backed</h3>
+                  <p className="about-pillar-body">
+                    Seed funding led by Kalaari Capital with participation from
+                    Kettleborough VC, accelerating enterprise go-to-market.
+                  </p>
+                </div>
 
-            <div className="about-contrast-card">
-              <span className="about-contrast-tag is-mesh">
-                [ 02 // THE ACTIVE RESILIENCE MESH ]
-              </span>
-              <h3 className="about-contrast-title">
-                Continuous Operational Proof
-              </h3>
-              <p className="about-contrast-body">
-                Agent Mesh™ cross-vendor correlation. Continuous automated
-                restoration tests in air-gapped cleanrooms. Policy-governed
-                human-in-the-loop recovery orchestration.
-              </p>
-              <div
-                className="about-contrast-metric"
-                style={{
-                  color: "var(--orange)",
-                  borderColor: "rgba(244, 85, 50, 0.4)",
-                }}
-              >
-                VERIFIED RTO: SUB-HOUR RECONSTITUTION
+                <div className="about-pillar-item">
+                  <h3 className="about-pillar-title">
+                    Enterprise-Grade Agentic Platform
+                  </h3>
+                  <p className="about-pillar-body">
+                    Autonomous resilience operations across multi-vendor backup
+                    estates with deterministic human-in-the-loop governance.
+                  </p>
+                </div>
+
+                <div className="about-pillar-item">
+                  <h3 className="about-pillar-title">IP-Driven Foundation</h3>
+                  <p className="about-pillar-body">
+                    9 Patents and 3 Trademarks protecting our core Agent Mesh™
+                    orchestration and cleanroom reconstitution engines.
+                  </p>
+                </div>
               </div>
-            </div>
-          </RevealGroup>
+            </Reveal>
+          </div>
         </section>
 
         {/* ===================================================================
-            FOLD 3 — EXECUTIVE LEADERSHIP (Founders & Pedigree)
+            FOLD 3 — EXECUTIVE LEADERSHIP (Co-Founders Intro)
             =================================================================== */}
         <section
           className="about-leadership-section"
@@ -339,7 +261,7 @@ export function AboutClient() {
         >
           <div className="about-section-label">
             <span>FOUNDERS &amp; SYSTEMS ARCHITECTS // EXECUTIVE LEADERSHIP</span>
-            <span>PEDIGREE: DELL INFRASTRUCTURE</span>
+            <span>PEDIGREE: DELL TECHNOLOGIES &amp; DATA DOMAIN</span>
           </div>
 
           <RevealGroup staggerDelay={0.1} className="about-leaders-grid">
@@ -378,7 +300,7 @@ export function AboutClient() {
                     rel="noopener noreferrer"
                     className="about-leader-link"
                   >
-                    <span>Connect</span>
+                    <span>Connect on LinkedIn</span>
                     <span aria-hidden="true">↗</span>
                   </a>
                 </div>
@@ -388,37 +310,7 @@ export function AboutClient() {
         </section>
 
         {/* ===================================================================
-            FOLD 4 — GUIDING OPERATING PRINCIPLES
-            =================================================================== */}
-        <section
-          className="about-principles-section"
-          aria-labelledby="about-principles-title"
-        >
-          <div className="about-section-label">
-            <span>OPERATING CODE // CORE VALUES</span>
-            <span>ENGINEERING RIGOR</span>
-          </div>
-
-          <RevealGroup staggerDelay={0.1} className="about-principles-grid">
-            {PRINCIPLES.map((principle) => (
-              <div key={principle.index} className="about-principle-card">
-                <div className="about-principle-top-row">
-                  <span className="about-principle-index">
-                    {principle.index} //
-                  </span>
-                  <span className="about-principle-tag">
-                    {principle.tag}
-                  </span>
-                </div>
-                <h3 className="about-principle-title">{principle.title}</h3>
-                <p className="about-principle-body">{principle.body}</p>
-              </div>
-            ))}
-          </RevealGroup>
-        </section>
-
-        {/* ===================================================================
-            FOLD 5 — ACTION CTA BANNER
+            FOLD 4 — ACTION CTA BANNER
             =================================================================== */}
         <section
           className="about-cta-banner"
@@ -427,7 +319,7 @@ export function AboutClient() {
           <div className="about-cta-left">
             <Reveal delay={0}>
               <div className="about-cta-eyebrow">
-                [ OPERATE RESILIENCE ]
+                [ CONNECT WITH OUR FOUNDING TEAM ]
               </div>
             </Reveal>
             <Reveal delay={0.08}>
@@ -437,8 +329,8 @@ export function AboutClient() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="about-cta-deck">
-                Experience how MeshDefend unifies fragmented backup consoles into
-                a single autonomous operations center.
+                Inquire about enterprise deployments, architecture reviews, or
+                joining our engineering studio.
               </p>
             </Reveal>
           </div>

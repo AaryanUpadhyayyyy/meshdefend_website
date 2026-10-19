@@ -262,6 +262,247 @@ html.dark .about-hero-scrim,
   font-weight: 600;
 }
 
+/* ─── Vision Slide Section (Built by Veterans / Validation / Today) ─── */
+.about-vision-section {
+  padding: clamp(60px, 8vh, 100px) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-vision-header {
+  margin-bottom: 44px;
+  max-width: 860px;
+}
+
+.about-vision-eyebrow {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange-text, #d93a1a);
+  margin-bottom: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+[data-theme="dark"] .about-vision-eyebrow {
+  color: var(--orange, #f45532);
+}
+
+.about-vision-h2 {
+  font-family: var(--font-display), serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.about-vision-sub {
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.about-vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 1080px) {
+  .about-vision-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.about-vision-card {
+  background-color: var(--bg-pure);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-vision-card:hover {
+  border-color: rgba(244, 85, 50, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.about-vision-card-tag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-text, #d93a1a);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+[data-theme="dark"] .about-vision-card-tag {
+  color: var(--orange, #f45532);
+}
+
+/* Card 1: Built by Industry Veterans */
+.about-hero-stat-block {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-hero-stat-num {
+  font-family: var(--font-display), serif;
+  font-size: 44px;
+  font-weight: 500;
+  color: var(--orange-text, #d93a1a);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+[data-theme="dark"] .about-hero-stat-num {
+  color: var(--orange, #f45532);
+}
+
+.about-hero-stat-desc {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.about-pedigree-strip {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-hairline, rgba(0,0,0,0.06));
+}
+
+.about-stat-row:last-child {
+  border-bottom: none;
+}
+
+.about-stat-row-num {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  min-width: 68px;
+}
+
+.about-stat-row-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Card 2: Center Media & Visual Showcase */
+.about-media-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--bg-pure);
+}
+
+.about-slide-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.about-slide-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.about-slide-img-wrap:hover .about-slide-img {
+  transform: scale(1.02);
+}
+
+.about-press-quote-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-press-quote-item {
+  padding: 10px 12px;
+  background: var(--surface-raised);
+  border-left: 2px solid var(--orange);
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.about-press-quote-source {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Card 3: MeshDefend Today */
+.about-pillar-item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-pillar-item:first-child {
+  padding-top: 0;
+}
+
+.about-pillar-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.about-pillar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-pillar-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
 /* ─── High-End KPI Ticker Band (Docked to Full-Width Hero) ─── */
 
 .about-kpi-band {
