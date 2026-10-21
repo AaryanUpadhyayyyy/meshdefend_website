@@ -7,23 +7,18 @@ export const SITE = {
   product: "Resilience Operations Center",
   productShort: "ResOC",
   agentMesh: "Agent Mesh™",
-  tagline: "Don't plan resilience. Operate it.",
+  tagline: "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™.",
   email: "hello@meshdefend.ai",
   url: "https://www.meshdefend.ai",
 } as const;
 
 export const HERO = {
   eyebrow: "Introducing Resilience Operations Center (ResOC)",
-  headlines: [
-    { line1: "Don't plan resilience.", line2: "Operate it." },
-    { line1: "Your backups work.", line2: "Can your business recover?" },
-  ],
-  headlineLine1: "Don't plan resilience.",
-  headlineLine2: "Operate it.",
-  paragraph:
-    "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.",
-  ctaPrimary: "Book a demo",
-  ctaSecondary: "See ResOC in action",
+  headline: "Introducing Resilience Operations Center (ResOC)",
+  subheading: "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™.",
+  body: "ResOC unifies business, infrastructure and security to deliver continuous resilience.",
+  ctaPrimary: { label: "Book a demo", href: "/demo" },
+  ctaSecondary: { label: "See ResOC in action", href: "/platform/observability" },
   trustRow: [
     "Policy-governed autonomy: human in the loop and human on the loop",
     "Policy-bound",
@@ -64,6 +59,12 @@ export const NAV = {
       { label: "Enterprises", href: "/solutions/enterprises" },
     ],
   },
+  support: {
+    label: "Support",
+    items: [
+      { label: "MD Support Portal", href: "/support" },
+    ],
+  },
   resources: {
     label: "Resources",
     items: [
@@ -100,7 +101,7 @@ interface SidebarItem {
 
 export const DASHBOARD = {
   statusBar: {
-    left: "ResOC · One console · Every vendor",
+    left: "ResOC · Operations Console",
     chips: ["Auto 5s", "Telemetry stream", "Policy-governed autonomy"],
   },
   tabs: [
@@ -123,58 +124,61 @@ export const DASHBOARD = {
       titleBar: { left: "Ticket detail", right: "INC0041892 · P2" },
     },
   ],
-  /* Tab 1: Estate sidebar */
   sidebarTab1: {
-    org: "Acme · Prod",
-    title: "ESTATE",
+    title: "ESTATE & TARGETS",
     items: [
-      { label: "Backup", children: ["Commvault", "Veeam", "NetWorker"], active: true },
-      { label: "Storage", children: ["DataDomain"] },
-      { label: "Applications", badge: 14 },
-      { label: "Security" },
-      { label: "ITSM" },
-      { label: "Cloud" },
+      {
+        label: "Backup Software",
+        children: ["Commvault (Prod)", "Veeam (Tier-2)", "Dell NetWorker (Legacy)"],
+      },
+      {
+        label: "Storage Targets",
+        children: ["Dell DataDomain (DD9900)", "AWS S3 Glacier Vault", "Azure Blob Archive"],
+      },
+      {
+        label: "Cloud & Virtual",
+        children: ["VMware vSphere", "AWS us-east-1", "Azure East US"],
+      },
     ] as SidebarItem[],
   },
-  /* Tab 2: Briefs sidebar */
   sidebarTab2: {
-    org: "Acme · Prod",
-    title: "BRIEFS",
+    title: "READINESS BRIEFS",
     items: [
-      { label: "Recovery readiness", active: true },
-      { label: "Backup coverage" },
-      { label: "SLA compliance" },
-      { label: "Open gaps" },
-      { label: "Weekly summary" },
+      { label: "Weekly Recovery Brief", muted: false, active: true },
+      { label: "Cyber Vault Attestation", muted: false },
+      { label: "Audit Evidence Pack (Q3)", muted: false },
+      { label: "Cross-Vendor SLA Variance", muted: true },
     ] as SidebarItem[],
   },
-  /* Tab 3: Queue sidebar */
   sidebarTab3: {
-    org: "Acme · Prod",
-    title: "QUEUE",
+    title: "OPERATIONS QUEUE",
     items: [
-      { label: "INC0041892", active: true, children: ["Recovery test failure"] },
-      { label: "INC0041877", children: ["Replication lag alert"] },
-      { label: "CHG0019204", children: ["Config restore staged"], muted: true },
+      { label: "P1 / P2 Incidents", badge: 1, active: true },
+      { label: "Pending Approvals", badge: 2 },
+      { label: "Automated Remediations", badge: 8 },
+      { label: "Closed Today", badge: 14, muted: true },
     ] as SidebarItem[],
   },
   feed: [
     {
-      type: "system" as const,
-      text: "Backup job completed 02:00",
-      time: "02:00",
+      badge: "ALERT",
+      source: "Commvault · payments-db",
+      time: "02:41 UTC",
+      text: "Daily backup succeeded (4.2 TB), but recovery validation detected configuration drift on target storage.",
     },
     {
-      type: "alert" as const,
-      text: "Recovery test failed 02:41",
-      time: "02:41",
+      badge: "AGENT MESH™",
+      source: "Correlation Engine",
+      time: "02:42 UTC",
+      text: "Correlated across 3 systems: VMware vSphere host updated at 01:47 UTC. NetWorker replication path intact. DataDomain retention lock holding.",
     },
     {
-      type: "agent" as const,
-      title: "Agent Mesh™",
+      badge: "RECOMMENDED ACTION",
+      source: "MeshDefend Orchestrator",
+      time: "02:43 UTC",
       rows: [
-        { label: "ROOT CAUSE", value: "Config drift on payments-db · restore test failed" },
-        { label: "EVIDENCE", value: "backup success · 2 changes since last test · cited" },
+        { label: "PRIMARY ROOT CAUSE", value: "Snapshot mount path mismatch after ESXi patch" },
+        { label: "RECOVERY IMPACT", value: "RTO exceeds SLA by 42m based on last test · cited" },
         { label: "BLAST RADIUS", value: "payments, ledger, checkout · 3 of 14 applications" },
         { label: "PROPOSED FIX", value: "Restore config snapshot 02:14, re-run restore test · awaiting approval" },
       ],
@@ -227,7 +231,7 @@ export const DASHBOARD = {
       { id: "MEM-0041", conclusion: "payments-db config drifted after infra change" },
       { id: "MEM-0040", conclusion: "ledger restore validated in 4m 12s" },
       { id: "MEM-0039", conclusion: "checkout dependency on payments-db confirmed" },
-      { id: "MEM-0038", conclusion: "Veeam job 1847 completed, no exceptions" },
+      { id: "MEM-0038", conclusion: "Veeam job completed, no exceptions" },
       { id: "MEM-0037", conclusion: "NetWorker retention policy aligned to SLA" },
       { id: "MEM-0036", conclusion: "DataDomain replication lag within threshold" },
       { id: "MEM-0035", conclusion: "3 applications missing restore test this week" },
@@ -253,26 +257,15 @@ export const DASHBOARD = {
 
 export const TRUST = {
   bannerSrc: "/trust-banner.png",
-  bannerAlt: "Backed by Kalaari Capital, Kettleborough VC, Enterprise CXOs and Founders. Partners: Sapta Tunas Teknologi, NVIDIA Inception Program, Microsoft, AWS, OpenAI, Anthropic, Azure AI Foundry, Dell Technologies.",
-  partners: [
-    "Dell Technologies",
-    "HCLTech",
-    "IT Simple",
-    "Sapta Tunas Teknologi",
-    "Microsoft",
-    "AWS",
-  ],
-  backedBy: [
-    "Kalaari Capital",
-    "Kettleborough VC",
-    "Enterprise CXOs and Founders",
-  ],
+  backedBy: "Kalaari Capital · Kettleborough VC",
+  investorNote: "And enterprise CXOs and founders across cloud, data, and security.",
 } as const;
 
 export const AGENT_MESH = {
+  // TODO(content): this section is not in the sitemap. Verify all copy (especially "cryptographically verifiable audit records") against the vision deck before launch.
   eyebrow: "POWERED BY AGENT MESH™",
   headline: "The intelligence to act. The discipline to stop.",
-  lede: "ResOC is the unified operations center teams use daily; Agent Mesh™ is the autonomous intelligence engine beneath it. It continuously ingests telemetry across vendors, maps Multi-Vendor Cleanroom (MVC) dependencies, and automates remediation with strict Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) governance.",
+  lede: "ResOC is the unified operations center teams use daily; Agent Mesh™ is the autonomous intelligence engine beneath it. It continuously ingests telemetry across vendors, maps Minimum Viable Company (MVC) dependencies, and automates remediation with strict Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) governance.",
   beats: [
     {
       num: "01",
@@ -380,4 +373,3 @@ export const INSIGHTS = {
     },
   ],
 } as const;
-

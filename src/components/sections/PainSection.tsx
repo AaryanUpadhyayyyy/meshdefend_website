@@ -306,20 +306,18 @@ export function PainSection() {
                       style={{
                         display: "grid",
                         gridTemplateColumns:
-                          current.items.length === 4 ? "repeat(2, 1fr)" : "1fr",
+                          current.items.length === 4 ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
                         height: "100%",
                       }}
                     >
                       {current.items.map((item, iIdx) => {
                         const isHovered = hoveredCell === iIdx;
-                        const itemTag = `${(current as any).tag || "FAILURE FACTOR"} · 0${iIdx + 1}`;
+                        const itemTag = `${current.group.toUpperCase()} · 0${iIdx + 1}`;
 
                         // Calculate shared 1px borders
                         const is4 = current.items.length === 4;
-                        const hasRightBorder = is4 && iIdx % 2 === 0;
-                        const hasBottomBorder = is4
-                          ? iIdx < 2
-                          : iIdx < current.items.length - 1;
+                        const hasRightBorder = is4 ? (iIdx % 2 === 0) : (iIdx < current.items.length - 1);
+                        const hasBottomBorder = is4 ? (iIdx < 2) : false;
 
                         return (
                           <motion.div

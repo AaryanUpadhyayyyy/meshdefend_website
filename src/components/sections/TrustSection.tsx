@@ -14,6 +14,7 @@ interface PartnerLogo {
   height: number;
 }
 
+// TODO(content): confirm each logo is an approved partner before launch
 const ENTERPRISE_PARTNERS: PartnerLogo[] = [
   {
     name: "Sapta Tunas Teknologi",
@@ -245,7 +246,7 @@ export function TrustSection() {
                   fontWeight: 600,
                 }}
               >
-                WORKS WITH // RUNTIME ECOSYSTEM
+                Partners
               </span>
             </div>
 

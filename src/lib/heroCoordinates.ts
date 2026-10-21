@@ -37,14 +37,14 @@ export interface HeroCoordinatesConfig {
 
 export const HERO_COORDINATES: HeroCoordinatesConfig = {
   naturalDimensions: {
-    width: 1672,
-    height: 1261,
+    width: 1182,
+    height: 1330,
   },
   hub: {
-    u: 1126.6 / 1672, // ~0.6738 (67.4%)
-    v: 677.8 / 1261,  // ~0.53751 (53.8%)
-    pixelX: 1126.6,
-    pixelY: 677.8,
+    u: 760 / 1182,
+    v: 790 / 1330,
+    pixelX: 760,
+    pixelY: 790,
   },
   blackoutCluster: {
     u: 0.480,

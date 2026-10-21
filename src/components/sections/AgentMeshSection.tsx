@@ -1,3 +1,4 @@
+// TODO(content): this section is not in the sitemap. Verify all copy (especially "cryptographically verifiable audit records") against the vision deck before launch.
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
@@ -442,7 +443,7 @@ export function AgentMeshSection() {
                     maxWidth: 520,
                   }}
                 >
-                  ResOC is the unified console teams operate in; Agent Mesh™ is the multi-agent engine beneath it. It correlates signals across vendors, maps Multi-Vendor Cleanroom (MVC) dependencies, and automates operations with Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) approval gates.
+                  ResOC is the unified console teams operate in; Agent Mesh™ is the multi-agent engine beneath it. It correlates signals across vendors, maps Minimum Viable Company (MVC) dependencies, and automates operations with Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) approval gates.
                 </p>
               </Reveal>
             </div>

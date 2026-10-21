@@ -1,17 +1,17 @@
 /* ─── Homepage Section Content ──────────────────────────────────
-   Sitemap and deck copy for the MeshDefend Homepage.
+   Exact client-approved sitemap copy for the MeshDefend Homepage.
    ────────────────────────────────────────────────────────────────── */
 
 export const PAIN = {
   eyebrow: "[ 02 // THE REALITY OF ENTERPRISE RESILIENCE ]",
-  headline: "Successful backups don't prove you can recover.",
+  headline: "The Reality of Business, Data & Cyber Resilience",
   openingLine:
     "Modern enterprises face rising recovery uncertainty, growing infrastructure complexity, and operations that struggle to scale.",
   clusters: [
     {
       num: "01",
       group: "Recovery Confidence",
-      tag: "RECOVERY GAP",
+      tag: "RECOVERY CONFIDENCE",
       diagramCaption: "FIG. 2.1 — ASSUMED BACKUP SUCCESS VS. PROVABLE APPLICATION RECOVERY",
       items: [
         {
@@ -35,7 +35,7 @@ export const PAIN = {
     {
       num: "02",
       group: "Complexity at Scale",
-      tag: "SPRAWL GAP",
+      tag: "COMPLEXITY AT SCALE",
       diagramCaption: "FIG. 2.2 — DISCONNECTED PLATFORMS, CLOUDS, AND PROTECTION VENDORS",
       items: [
         {
@@ -55,7 +55,7 @@ export const PAIN = {
     {
       num: "03",
       group: "Operational Friction",
-      tag: "OPS FRICTION",
+      tag: "OPERATIONAL FRICTION",
       diagramCaption: "FIG. 2.3 — MANUAL CORRELATION AND CONTEXT LOSS ACROSS L1 / L2 / L3",
       items: [
         {
@@ -81,8 +81,12 @@ export const PAIN = {
 
 export const SOLUTION = {
   eyebrow: "[ 03 // RESILIENCE OPERATIONS CENTER ]",
-  headline: "ResOC: The resilience operations center",
+  headline: "ResOC: Resilience Operations Center",
   lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments.",
+  columns: {
+    col1: "ResOC Capability",
+    col2: "What It Solves",
+  },
   items: [
     {
       num: "01",
@@ -106,7 +110,8 @@ export const SOLUTION = {
       num: "04",
       capability: "Agentic Automation",
       solves: "Solves brittle scripts and maintenance-heavy workflows",
-      href: "/platform/built-for-flexibility",
+      // TODO(content): sitemap has no Agentic Automation page, confirm target
+      href: "/platform/backup-operations",
     },
     {
       num: "05",
@@ -119,9 +124,8 @@ export const SOLUTION = {
 
 export const IMPACT = {
   eyebrow: "[ 05 // PROVEN ENTERPRISE IMPACT ]",
-  headline: "Measurable impact across resilience operations",
-  openingLine:
-    "From day-to-day operations to executive confidence, ResOC delivers measurable operational and business value.",
+  headline: "Measurable Impact Across Resilience Operations",
+  openingLine: "",
   stats: [
     {
       value: "30–50%",
@@ -131,7 +135,7 @@ export const IMPACT = {
     {
       value: "Up to 80%",
       label: "Lower MTTR",
-      desc: "Accelerates investigation, diagnosis, and remediation to restore services faster. Offload repetitive tasks to MeshDefend's Agent Mesh with HITL/HIOL.",
+      desc: "Accelerates investigation, diagnosis, and remediation to restore services faster. Offload repetitive tasks to MeshDefend’s Agent Mesh with HITL/HIOL.",
     },
     {
       value: "Up to 60%",
@@ -139,43 +143,41 @@ export const IMPACT = {
       desc: "Preserve context across L1, L2, L3, and specialist teams to reduce repeated investigation.",
     },
   ],
-  footnote:
-    "* Performance figures, MTTR reductions, and downtime benchmarks are derived from composite enterprise telemetry and industry studies (Gartner/IDC) calculating downtime costs between $5,000 and $15,000 per minute for mid-to-large multi-cloud and hybrid environments.",
   costOptimization: {
-    title: "Cost & Spend Optimization",
+    title: "Financial ROI",
     points: [
       {
         title: "Optimize Infrastructure Spend and Costs for resilience.",
-        desc: "Reclaim storage from stale and redundant copies of data; optimize cyber scanning cost and coverage.",
+        desc: "",
       },
       {
         title: "Lower Cyber Insurance Costs.",
-        desc: "Reduce recovery time by hours when outages can cost $5K–$15K per minute.",
+        desc: "",
       },
     ],
   },
   resiliencePosture: {
     title: "Stronger Resilience Posture",
     points: [
-      "Single pane of glass across business, IT, and security",
-      "Minimum Viable Company (MVC) dependency mapping",
-      "Application and business recovery across hybrid clouds",
-      "Continuous audit-ready compliance evidence",
-      "Always-on posture validation and readiness scoring",
+      "Unify business, IT infrastructure and security teams with a single pane of glass for establishing and managing resilience posture.",
+      "Reduce operational and cyber risks with Minimum Viable Company (MVC) mapping and live system dependencies.",
+      "Ensure business recovery, not just data recovery, across hybrid cloud and heterogeneous vendors.",
+      "Improved compliance and audit-ready evidence.",
+      "Continuous business resilience posture with always-on observability, validation and readiness.",
     ],
   },
 };
 
 export const AUDIENCE = {
   eyebrow: "[ 06 // BUILT FOR ENTERPRISE RESILIENCE ]",
-  headline: "Built for the teams accountable for resilience",
+  headline: "Built for the Teams Accountable for Resilience",
   segments: [
     {
-      id: "enterprises",
+      id: "si",
       num: "01",
-      title: "Enterprises",
-      desc: "Reduce recovery uncertainty, operational complexity, and risk across large heterogeneous environments.",
-      href: "/solutions/enterprises",
+      title: "Systems Integrators",
+      desc: "Build repeatable assessment, implementation, integration, and managed-service offerings around resilience.",
+      href: "/solutions/system-integrators",
     },
     {
       id: "msp",
@@ -185,27 +187,26 @@ export const AUDIENCE = {
       href: "/solutions/managed-services",
     },
     {
-      id: "si",
-      num: "03",
-      title: "Systems Integrators",
-      desc: "Build repeatable assessment, implementation, integration, and managed-service offerings around resilience.",
-      href: "/solutions/system-integrators",
-    },
-    {
       id: "advisory",
-      num: "04",
+      num: "03",
       title: "Advisory and Consulting",
       desc: "Turn resilience assessments into actionable roadmaps, measurable outcomes, and ongoing improvement programs.",
       href: "/solutions/advisory-consulting",
+    },
+    {
+      id: "enterprises",
+      num: "04",
+      title: "Enterprises",
+      desc: "Reduce recovery uncertainty, operational complexity, and risk across large heterogeneous environments.",
+      href: "/solutions/enterprises",
     },
   ],
 };
 
 export const FINAL_CTA = {
   eyebrow: "[ CONTINUOUS RESILIENCE ]",
-  headline: "Don't wait for the next incident to test your resilience",
+  headline: "Don’t Wait for the Next Incident to Test Your Resilience",
   lede: "Modern resilience requires continuous visibility, readiness, and action. Recovery plans tested only after failure are no longer enough.",
-  ctaPrimary: "Book a Demo",
+  ctaPrimary: "Book a demo",
   ctaSecondary: "See ResOC in action",
 };
-

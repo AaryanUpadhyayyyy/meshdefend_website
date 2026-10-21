@@ -98,6 +98,29 @@ export function SolutionSection() {
             background: "var(--bg)",
           }}
         >
+          {/* Column Header Row */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "56px 1.4fr 1.6fr 44px",
+              gap: 24,
+              padding: "16px 32px",
+              borderBottom: "1px solid var(--border)",
+              background: "var(--surface)",
+              fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+              fontSize: 11,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "var(--muted)",
+              fontWeight: 600,
+            }}
+            className="capability-index-header"
+          >
+            <div>#</div>
+            <div>ResOC Capability</div>
+            <div>What It Solves</div>
+            <div></div>
+          </div>
             {SOLUTION.items.map((item, idx) => {
               const isHovered = hoveredIdx === idx;
               const isLast = idx === SOLUTION.items.length - 1;

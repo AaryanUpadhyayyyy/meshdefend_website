@@ -133,6 +133,21 @@ const MEGA_MENUS: Record<string, MegaMenuSection> = {
       href: "/company/contact?intent=arch-review",
     },
   },
+  support: {
+    label: "Support",
+    columns: [
+      {
+        eyebrow: "CUSTOMER SUPPORT",
+        items: [
+          {
+            label: "MD Support Portal",
+            desc: "Technical documentation, ticketing & enterprise customer support",
+            href: "/support",
+          },
+        ],
+      },
+    ],
+  },
   resources: {
     label: "Resources",
     columns: [

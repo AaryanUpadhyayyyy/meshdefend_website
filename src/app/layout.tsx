@@ -25,14 +25,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MeshDefend — Agentic AI for Enterprise Resilience",
+  title: "MeshDefend — Resilience Operations Center (ResOC)",
   description:
-    "Powered by Agent Mesh™, MeshDefend unifies backup, recovery, and cyber resilience operations across heterogeneous environments. Continuously monitor, troubleshoot, and orchestrate recovery.",
+    "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.",
   metadataBase: new URL("https://www.meshdefend.ai"),
   openGraph: {
-    title: "MeshDefend — Agentic AI for Enterprise Resilience",
+    title: "MeshDefend — Resilience Operations Center (ResOC)",
     description:
-      "Don't plan resilience. Operate it.",
+      "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.",
     siteName: "MeshDefend",
     type: "website",
     images: [
@@ -40,14 +40,15 @@ export const metadata: Metadata = {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MeshDefend — Don't plan resilience. Operate it.",
+        alt: "MeshDefend — Resilience Operations Center (ResOC)",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MeshDefend — Agentic AI for Enterprise Resilience",
-    description: "Don't plan resilience. Operate it.",
+    title: "MeshDefend — Resilience Operations Center (ResOC)",
+    description:
+      "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™. ResOC unifies business, infrastructure and security to deliver continuous resilience.",
     images: ["/images/og-image.png"],
   },
 };

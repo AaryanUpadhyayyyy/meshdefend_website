@@ -144,12 +144,10 @@ export function FinalCTA() {
                 borderRadius: 4,
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 8,
                 textDecoration: "none",
               }}
             >
-              <span>{FINAL_CTA.ctaPrimary}</span>
-              <span>→</span>
+              {FINAL_CTA.ctaPrimary}
             </motion.a>
 
             <motion.a
