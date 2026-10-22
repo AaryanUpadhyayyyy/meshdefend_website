@@ -31,8 +31,8 @@ export function HeroSection() {
       <div
         className="container hero-container"
         style={{
-          maxWidth: 1100,
-          width: "min(1100px, calc(100% - 48px))",
+          maxWidth: 1180,
+          width: "min(1180px, calc(100% - 48px))",
           margin: "0 auto",
         }}
       >
@@ -40,9 +40,9 @@ export function HeroSection() {
           className="hero-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 560px) minmax(0, 415px)",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 560px) minmax(0, 470px)",
             justifyContent: isMobile ? "stretch" : "center",
-            gap: isMobile ? "32px" : "40px",
+            gap: isMobile ? "32px" : "44px",
             alignItems: "center",
           }}
         >

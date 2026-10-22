@@ -6,42 +6,42 @@ const HERO_SLIDES = [
   {
     step: "01",
     label: "CONNECT",
-    src: "/images/img/slide 1.png",
+    src: "/images/img/slide 1.png?v=2",
     alt: "ResOC Connect: Agent Mesh unifying Business, Infrastructure and Security",
     prompt: "Connect payments, databases & clouds to Agent Mesh",
   },
   {
     step: "02",
     label: "ASK",
-    src: "/images/img/slide 2.png",
+    src: "/images/img/slide 2.png?v=2",
     alt: "ResOC Ask: Can we recover payments right now?",
     prompt: 'Ask ResOC: "Can we recover payments right now?"',
   },
   {
     step: "03",
     label: "REASON",
-    src: "/images/img/slide 3.png",
+    src: "/images/img/slide 3.png?v=2",
     alt: "ResOC Reason: Probable cause diagnosis across telemetry",
     prompt: "Probable cause: Resource contention from leftover artifacts",
   },
   {
     step: "04",
     label: "APPROVE",
-    src: "/images/img/slide 4.png",
+    src: "/images/img/slide 4.png?v=2",
     alt: "ResOC Approve: Human-in-the-loop decision and policy check",
     prompt: 'Proposed fix: "Clean up leftover artifacts"',
   },
   {
     step: "05",
     label: "PROVE",
-    src: "/images/img/slide 5.png",
+    src: "/images/img/slide 5.png?v=2",
     alt: "ResOC Prove: Audit-ready evidence record and restore proof",
     prompt: "Evidence record: Audit-ready restore test passed",
   },
   {
     step: "06",
     label: "REPEAT",
-    src: "/images/img/slide 6.png",
+    src: "/images/img/slide 6.png?v=2",
     alt: "ResOC Repeat: Automated daily continuous resilience cycle",
     prompt: "Continuous resilience: Mon-Sun continuous verify",
   },
@@ -137,7 +137,7 @@ export function HeroSlideStack() {
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: 405,
+        maxWidth: 470,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -203,12 +203,12 @@ export function HeroSlideStack() {
         </div>
       </div>
 
-      {/* ─── Slide Image Stage (Image ITSELF is the Box, No Outer Double Box) ─── */}
+      {/* ─── Slide Image Stage (1:1 Ratio Matching New Square Images) ─── */}
       <div
         style={{
           position: "relative",
           width: "100%",
-          aspectRatio: "1122 / 1402",
+          aspectRatio: "1 / 1",
           borderRadius: 20,
           overflow: "hidden",
           boxShadow:
