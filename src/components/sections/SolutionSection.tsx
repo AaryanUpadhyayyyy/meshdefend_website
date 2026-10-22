@@ -12,7 +12,7 @@ export function SolutionSection() {
     <section
       id="solution"
       style={{
-        padding: "96px 0 112px",
+        padding: "48px 0 96px",
         borderBottom: "1px solid var(--border)",
         background: "var(--bg)",
         position: "relative",

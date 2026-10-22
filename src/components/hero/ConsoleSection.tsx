@@ -9,7 +9,7 @@ export function ConsoleSection() {
       className="console-section"
       style={{
         position: "relative",
-        padding: "0 0 96px",
+        padding: "0 0 24px",
         background: "var(--bg)",
       }}
     >

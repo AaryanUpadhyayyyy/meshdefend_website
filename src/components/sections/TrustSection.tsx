@@ -71,7 +71,7 @@ export function TrustSection() {
     <section
       id="trust"
       style={{
-        padding: "48px 0 24px",
+        padding: "24px 0 24px",
         borderTop: "1px solid var(--border)",
         borderBottom: "1px solid var(--border)",
         background: "var(--bg)",
