@@ -235,11 +235,12 @@ export function PainSection() {
   return (
     <section
       id="pain"
-      className="pain-section-wrap"
+      className="pain-section"
       style={{
         background: "var(--bg)",
         position: "relative",
-        padding: "48px 0 28px",
+        padding: "48px 0 32px",
+        minHeight: "auto",
         borderBottom: "1px solid var(--border)",
         overflow: "hidden",
       }}

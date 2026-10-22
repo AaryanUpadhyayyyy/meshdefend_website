@@ -1427,7 +1427,7 @@ html.dark .logo-img--dark,
 
 /* ─── Pain Section Responsive & Sticky Stage ────────────────────── */
 .pain-section-wrap {
-  min-height: 200vh;
+  min-height: auto !important;
   padding: 0;
 }
 
