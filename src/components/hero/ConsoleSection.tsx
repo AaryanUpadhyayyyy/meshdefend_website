@@ -13,7 +13,7 @@ export function ConsoleSection() {
         background: "var(--bg)",
       }}
     >
-      <div className="container" style={{ maxWidth: 1240, margin: "0 auto" }}>
+      <div className="container" style={{ maxWidth: 860, margin: "0 auto", padding: "0 16px" }}>
         <img
           src="/images/img/protection-jobs-command-dashboard.png"
           alt="MeshDefend Resilience Operations Console"
