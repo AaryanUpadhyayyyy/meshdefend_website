@@ -59,9 +59,15 @@ const PAIN_CARDS = [
   },
 ];
 
+// Create 7 repeating sets of 3 cards (21 items) for infinite circular sliding
+const SET_COUNT = 7;
+const CARDS_PER_SET = PAIN_CARDS.length; // 3
+const REPEATED_CARDS = Array.from({ length: SET_COUNT }, () => PAIN_CARDS).flat();
+const INITIAL_INDEX = Math.floor(SET_COUNT / 2) * CARDS_PER_SET; // starts at middle set (index 9)
+
 export function PainSection() {
-  // Virtual index supports infinite circular scrolling (1 -> 2 -> 3 -> 1 -> 2 -> 3 ...)
-  const [virtualIndex, setVirtualIndex] = useState<number>(0);
+  const [index, setIndex] = useState<number>(INITIAL_INDEX);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
   const [viewportWidth, setViewportWidth] = useState<number>(1200);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -82,29 +88,47 @@ export function PainSection() {
   }, []);
 
   const handlePrev = useCallback(() => {
-    setVirtualIndex((v) => v - 1);
+    setIsTransitioning(true);
+    setIndex((prev) => prev - 1);
   }, []);
 
   const handleNext = useCallback(() => {
-    setVirtualIndex((v) => v + 1);
+    setIsTransitioning(true);
+    setIndex((prev) => prev + 1);
   }, []);
 
-  const handleJumpTo = useCallback((targetRealIdx: number) => {
-    setVirtualIndex((currentV) => {
-      const currentReal = ((currentV % 3) + 3) % 3;
+  // When reaching ends of repeated sets, seamlessly snap back to middle set without animation
+  const handleTransitionEnd = useCallback(() => {
+    // If we moved 6 steps forward into later sets, snap back by 6
+    if (index >= INITIAL_INDEX + 6) {
+      setIsTransitioning(false);
+      setIndex((prev) => prev - 6);
+    }
+    // If we moved 6 steps backward into earlier sets, snap forward by 6
+    else if (index <= INITIAL_INDEX - 6) {
+      setIsTransitioning(false);
+      setIndex((prev) => prev + 6);
+    }
+  }, [index]);
+
+  const handleJumpTo = useCallback(
+    (targetRealIdx: number) => {
+      const currentReal = ((index % 3) + 3) % 3;
       let diff = targetRealIdx - currentReal;
       if (diff > 1) diff -= 3;
       if (diff < -1) diff += 3;
-      return currentV + diff;
-    });
-  }, []);
+      setIsTransitioning(true);
+      setIndex((prev) => prev + diff);
+    },
+    [index]
+  );
 
-  // Calm auto-advance loop with slow moving glide
-  // Pauses smoothly when user hovers over carousel or touches screen
+  // Gentle auto-advance loop with slow moving glide
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
-      setVirtualIndex((v) => v + 1);
+      setIsTransitioning(true);
+      setIndex((prev) => prev + 1);
     }, 5600);
     return () => clearInterval(interval);
   }, [isPaused]);
@@ -158,79 +182,10 @@ export function PainSection() {
     : isTablet
     ? Math.min(460, viewportWidth * 0.52)
     : Math.min(490, Math.max(430, viewportWidth * 0.36));
+  const cardGap = isMobile ? 16 : 28;
 
   // Active real card index (0, 1, or 2)
-  const activeRealIdx = ((virtualIndex % 3) + 3) % 3;
-
-  // 7 virtual slots around active virtualIndex: [v - 3 ... v + 3]
-  // Pre-mounting ensures smooth slide transitions with zero flicker
-  const slots: number[] = [
-    virtualIndex - 3,
-    virtualIndex - 2,
-    virtualIndex - 1,
-    virtualIndex,
-    virtualIndex + 1,
-    virtualIndex + 2,
-    virtualIndex + 3,
-  ];
-
-  // Flat, untilted slide positioning (no rotation / no tilt)
-  const getSlotStyle = (s: number) => {
-    const dist = s - virtualIndex;
-    const sign = Math.sign(dist);
-    const abs = Math.abs(dist);
-
-    if (abs === 0) {
-      return {
-        transform: "translateX(0px) scale(1)",
-        opacity: 1,
-        zIndex: 20,
-        pointerEvents: "auto" as const,
-        cursor: "default",
-        filter: "none",
-        boxShadow: "0 20px 48px -12px rgba(34, 31, 34, 0.12), 0 2px 8px rgba(0,0,0,0.04)",
-      };
-    }
-
-    if (abs === 1) {
-      // Behind slide: NOT tilted, flat and parallel, slightly smaller scale and lower opacity
-      const xOffset = sign * (cardWidth + (isMobile ? 16 : 28));
-      return {
-        transform: `translateX(${xOffset}px) scale(${isMobile ? 0.92 : 0.94})`,
-        opacity: isMobile ? 0.45 : 0.65,
-        zIndex: 10,
-        pointerEvents: "auto" as const,
-        cursor: "pointer",
-        filter: "none",
-        boxShadow: "0 8px 24px -10px rgba(0,0,0,0.08)",
-      };
-    }
-
-    if (abs === 2) {
-      const xOffset = sign * (cardWidth * 2 + (isMobile ? 32 : 56));
-      return {
-        transform: `translateX(${xOffset}px) scale(${isMobile ? 0.84 : 0.88})`,
-        opacity: 0.16,
-        zIndex: 5,
-        pointerEvents: "none" as const,
-        cursor: "default",
-        filter: "none",
-        boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
-      };
-    }
-
-    // abs >= 3 (pre-mounted buffer slots offstage)
-    const xOffset = sign * (cardWidth * 2.8);
-    return {
-      transform: `translateX(${xOffset}px) scale(0.8)`,
-      opacity: 0,
-      zIndex: 1,
-      pointerEvents: "none" as const,
-      cursor: "default",
-      filter: "none",
-      boxShadow: "none",
-    };
-  };
+  const activeRealIdx = ((index % 3) + 3) % 3;
 
   return (
     <section
@@ -437,49 +392,63 @@ export function PainSection() {
           <ChevronRightIcon />
         </button>
 
-        {/* ─── Circular Cards Track (Slow Smooth Glide, Untilted Behind Slides) ─── */}
+        {/* ─── Continuous Sliding Track (Slow Smooth Glide, Untilted Behind Slides) ─── */}
         <div
+          onTransitionEnd={handleTransitionEnd}
           style={{
-            position: "relative",
-            width: "100%",
+            display: "flex",
+            alignItems: "flex-start",
+            position: "absolute",
+            top: 0,
+            left: "50%",
             height: "100%",
+            transform: `translateX(calc(-${index * (cardWidth + cardGap) + cardWidth / 2}px))`,
+            transition: isTransitioning
+              ? "transform 1.15s cubic-bezier(0.33, 0.05, 0.25, 1)"
+              : "none",
+            willChange: "transform",
           }}
         >
-          {slots.map((s) => {
-            const cardData = PAIN_CARDS[((s % 3) + 3) % 3];
-            const dist = s - virtualIndex;
+          {REPEATED_CARDS.map((cardData, itemIdx) => {
+            const dist = Math.abs(itemIdx - index);
             const isActive = dist === 0;
-            const style = getSlotStyle(s);
+            const isAdjacent = dist === 1;
+
+            const scale = isActive ? 1 : isAdjacent ? (isMobile ? 0.92 : 0.94) : 0.88;
+            const opacity = isActive ? 1 : isAdjacent ? (isMobile ? 0.45 : 0.65) : 0.15;
+            const zIndex = isActive ? 15 : isAdjacent ? 10 : 2;
 
             return (
               <div
-                key={`slot-${s}`}
+                key={`card-${itemIdx}`}
                 onClick={() => {
-                  if (!isActive) setVirtualIndex(s);
+                  if (!isActive) {
+                    setIsTransitioning(true);
+                    setIndex(itemIdx);
+                  }
                 }}
                 style={{
-                  position: "absolute",
-                  top: 0,
-                  left: "50%",
                   width: cardWidth,
-                  marginLeft: -cardWidth / 2,
-                  transform: style.transform,
-                  opacity: style.opacity,
-                  zIndex: style.zIndex,
-                  cursor: style.cursor,
-                  pointerEvents: style.pointerEvents,
-                  filter: style.filter,
-                  boxShadow: style.boxShadow,
+                  marginRight: cardGap,
+                  flexShrink: 0,
+                  transform: `scale(${scale})`,
+                  opacity,
+                  zIndex,
+                  cursor: isActive ? "default" : "pointer",
                   borderRadius: 16,
                   background: "var(--card-bg, var(--surface-raised, #ffffff))",
                   border: "1px solid var(--border)",
+                  boxShadow: isActive
+                    ? "0 20px 48px -12px rgba(34, 31, 34, 0.12), 0 2px 8px rgba(0,0,0,0.04)"
+                    : "0 8px 24px -10px rgba(0,0,0,0.08)",
                   padding: isMobile ? "14px 12px" : "18px 16px 16px",
                   display: "flex",
                   flexDirection: "column",
                   gap: 12,
-                  // Slow, smooth moving glide across slides
-                  transition:
-                    "transform 1.15s cubic-bezier(0.33, 0.05, 0.25, 1), opacity 0.95s ease, box-shadow 0.8s ease",
+                  // Smooth scale and opacity transitions during track glide
+                  transition: isTransitioning
+                    ? "transform 1.15s cubic-bezier(0.33, 0.05, 0.25, 1), opacity 0.95s ease, box-shadow 0.8s ease"
+                    : "none",
                   willChange: "transform, opacity",
                 }}
               >
