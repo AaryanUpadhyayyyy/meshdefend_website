@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { HeroSlideStack } from "./HeroSlideStack";
 
 export function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,7 +24,7 @@ export function HeroSection() {
         position: "relative",
         background: "var(--bg)",
         paddingTop: isMobile ? "108px" : "136px",
-        paddingBottom: isMobile ? "48px" : "72px",
+        paddingBottom: isMobile ? "48px" : "64px",
         overflow: "hidden",
       }}
     >
@@ -166,7 +167,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Simple Standard Image, balanced scale & position */}
+          {/* Right Column: Interactive 3-Slide Overlapping Stack */}
           <div
             className="hero-media"
             style={{
@@ -177,21 +178,7 @@ export function HeroSection() {
               position: "relative",
             }}
           >
-            <img
-              src="/images/img/backup-success-recovery-unproven.png"
-              alt="Backup Success, Recovery Unproven"
-              style={{
-                width: "100%",
-                maxWidth: "100%",
-                transform: isMobile ? "none" : "scale(1.05) translateY(8px)",
-                transformOrigin: "center center",
-                height: "auto",
-                display: "block",
-                border: "none",
-                borderRadius: 0,
-                boxShadow: "none",
-              }}
-            />
+            <HeroSlideStack />
           </div>
         </div>
       </div>
