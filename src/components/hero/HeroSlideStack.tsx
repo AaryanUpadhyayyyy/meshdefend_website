@@ -52,7 +52,6 @@ export function HeroSlideStack() {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
 
   const total = HERO_SLIDES.length;
@@ -131,7 +130,6 @@ export function HeroSlideStack() {
 
   return (
     <div
-      ref={containerRef}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -139,33 +137,25 @@ export function HeroSlideStack() {
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: 460,
-        minHeight: 485,
-        borderRadius: 22,
-        overflow: "hidden",
-        border: "1px solid var(--border)",
-        background:
-          "radial-gradient(ellipse at 50% 20%, rgba(244, 85, 50, 0.08) 0%, var(--surface, #f5f4f2) 75%)",
-        boxShadow: "0 20px 48px -14px rgba(34, 31, 34, 0.12)",
+        maxWidth: 405,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        alignItems: "center",
         userSelect: "none",
-        padding: "2px 0",
+        margin: "0",
       }}
     >
-      {/* ─── Top Step Pills & Live Status ─── */}
+      {/* ─── Top Step Pills & Live Status (No Outer Box) ─── */}
       <div
         style={{
-          position: "relative",
-          zIndex: 15,
-          padding: "14px 18px 6px",
+          width: "100%",
+          padding: "0 4px 10px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
           <span
             style={{
               width: 7,
@@ -179,7 +169,7 @@ export function HeroSlideStack() {
           <span
             style={{
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-              fontSize: 10.5,
+              fontSize: 11,
               letterSpacing: "0.08em",
               color: "var(--muted)",
               textTransform: "uppercase",
@@ -191,7 +181,7 @@ export function HeroSlideStack() {
         </div>
 
         {/* 6 Step Dials */}
-        <div style={{ display: "flex", alignItems: "center", gap: 3.5 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
           {HERO_SLIDES.map((s, idx) => (
             <button
               key={idx}
@@ -199,8 +189,8 @@ export function HeroSlideStack() {
               onClick={() => setActiveIndex(idx)}
               aria-label={`Jump to slide ${s.step}`}
               style={{
-                width: activeIndex === idx ? 18 : 5,
-                height: 4.5,
+                width: activeIndex === idx ? 20 : 6,
+                height: 5,
                 borderRadius: 2.5,
                 background: activeIndex === idx ? "var(--orange)" : "var(--border)",
                 border: "none",
@@ -213,16 +203,18 @@ export function HeroSlideStack() {
         </div>
       </div>
 
-      {/* ─── Single Active Card Stage (No background images, full image visible) ─── */}
+      {/* ─── Slide Image Stage (Image ITSELF is the Box, No Outer Double Box) ─── */}
       <div
         style={{
           position: "relative",
           width: "100%",
-          height: 365,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "2px 0 6px",
+          aspectRatio: "1122 / 1402",
+          borderRadius: 20,
+          overflow: "hidden",
+          boxShadow:
+            "0 22px 50px -12px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.04)",
+          border: "1px solid var(--border)",
+          background: "var(--card-bg, #ffffff)",
         }}
       >
         {HERO_SLIDES.map((slide, idx) => {
@@ -233,20 +225,12 @@ export function HeroSlideStack() {
               key={slide.step}
               style={{
                 position: "absolute",
-                top: 0,
-                left: "50%",
-                width: "68%",
-                maxWidth: 310,
-                transform: `translateX(-50%) scale(${isActive ? 1 : 0.96})`,
-                zIndex: isActive ? 10 : 1,
+                inset: 0,
                 opacity: isActive ? 1 : 0,
-                pointerEvents: isActive ? "auto" : "none",
-                borderRadius: 16,
-                overflow: "hidden",
-                boxShadow:
-                  "0 18px 40px -8px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.06)",
+                transform: `scale(${isActive ? 1 : 0.98})`,
                 transition:
                   "opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)",
+                pointerEvents: isActive ? "auto" : "none",
               }}
             >
               <img
@@ -254,8 +238,9 @@ export function HeroSlideStack() {
                 alt={slide.alt}
                 style={{
                   width: "100%",
-                  height: "auto",
+                  height: "100%",
                   display: "block",
+                  objectFit: "contain",
                   border: "none",
                 }}
               />
@@ -267,20 +252,17 @@ export function HeroSlideStack() {
       {/* ─── Floating Action / Prompt Pill with Real-Time Typing Animation ─── */}
       <div
         style={{
-          position: "relative",
-          zIndex: 20,
-          margin: "6px auto 12px",
-          width: "calc(100% - 32px)",
-          maxWidth: 410,
+          width: "100%",
+          marginTop: 12,
           background: "var(--card-bg, #ffffff)",
           border: "1px solid var(--border)",
           borderRadius: 40,
-          padding: "7px 10px 7px 14px",
+          padding: "8px 12px 8px 16px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: 10,
-          boxShadow: "0 6px 20px -4px rgba(0, 0, 0, 0.12)",
+          boxShadow: "0 8px 24px -4px rgba(0, 0, 0, 0.1)",
           transition: "all 0.25s ease",
         }}
       >

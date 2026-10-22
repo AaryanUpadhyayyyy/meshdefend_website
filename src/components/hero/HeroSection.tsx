@@ -23,16 +23,16 @@ export function HeroSection() {
       style={{
         position: "relative",
         background: "var(--bg)",
-        paddingTop: isMobile ? "108px" : "136px",
-        paddingBottom: isMobile ? "48px" : "64px",
+        paddingTop: isMobile ? "20px" : "28px",
+        paddingBottom: isMobile ? "36px" : "48px",
         overflow: "hidden",
       }}
     >
       <div
         className="container hero-container"
         style={{
-          maxWidth: 1320,
-          width: "min(1320px, calc(100% - 64px))",
+          maxWidth: 1100,
+          width: "min(1100px, calc(100% - 48px))",
           margin: "0 auto",
         }}
       >
@@ -40,8 +40,9 @@ export function HeroSection() {
           className="hero-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "48% 52%",
-            gap: isMobile ? "36px" : "36px",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 560px) minmax(0, 415px)",
+            justifyContent: isMobile ? "stretch" : "center",
+            gap: isMobile ? "32px" : "40px",
             alignItems: "center",
           }}
         >
@@ -167,14 +168,14 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Interactive 3-Slide Overlapping Stack */}
+          {/* Right Column: Slide Showcase (Image acts as the box directly) */}
           <div
             className="hero-media"
             style={{
               width: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: isMobile ? "center" : "flex-end",
+              justifyContent: isMobile ? "center" : "flex-start",
               position: "relative",
             }}
           >
