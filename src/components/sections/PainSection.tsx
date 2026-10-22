@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/motion";
 import { PAIN } from "@/lib/sections";
 import { MeshDefendBackground } from "@/components/hero/MeshDefendBackground";
 
 const ChevronLeftIcon = () => (
   <svg
-    width="22"
-    height="22"
+    width="18"
+    height="18"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -23,8 +22,8 @@ const ChevronLeftIcon = () => (
 
 const ChevronRightIcon = () => (
   <svg
-    width="22"
-    height="22"
+    width="18"
+    height="18"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -40,86 +39,37 @@ const PAIN_CARDS = [
   {
     num: "01",
     group: "Recovery Confidence",
-    tag: "RECOVERY CONFIDENCE",
     image: "/images/img/backup-success-recovery-unproven.png",
     summary:
       "Successful backups do not prove application recovery. Modern cyber recovery lags AI-driven attacks, while recovery objectives (RTO/RPO) remain untested assumptions.",
-    items: [
-      {
-        label: "Cyber Recovery Lags AI-Driven Attacks",
-        desc: "Recovery strategies struggle to match the speed, scale, and complexity of modern cyberattacks.",
-      },
-      {
-        label: "Low Recovery Confidence",
-        desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
-      },
-      {
-        label: "Unverified Application Recovery",
-        desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
-      },
-      {
-        label: "Unproven RTO/RPO",
-        desc: "Recovery objectives often remain assumptions until they are actually tested.",
-      },
-    ],
   },
   {
     num: "02",
     group: "Complexity at Scale",
-    tag: "COMPLEXITY AT SCALE",
     image: "/images/img/fragmented-systems-missing-single-view.png",
     summary:
-      "Disconnected platforms, clouds, and protection vendors leave teams operating in silos with no single view connecting protection health to business risk.",
-    items: [
-      {
-        label: "Data and Platform Sprawl",
-        desc: "Data and dependencies span multiple platforms, clouds, and protection vendors.",
-      },
-      {
-        label: "Heterogeneous Environments",
-        desc: "Multi-cloud, multi-vendor environments are increasingly difficult to operate consistently at scale.",
-      },
-      {
-        label: "Siloed Visibility",
-        desc: "No single view connects protection health, failures, dependencies, and recovery risk.",
-      },
-    ],
+      "Disconnected platforms, clouds, and protection vendors leave teams operating in silos with no unified view connecting protection health to business risk.",
   },
   {
     num: "03",
     group: "Operational Friction",
-    tag: "OPERATIONAL FRICTION",
     image: "/images/img/context-loss-support.png",
     summary:
       "Critical operational context is lost across L1, L2, L3, and specialist escalations, while brittle automation and scattered knowledge create constant friction.",
-    items: [
-      {
-        label: "Fragmented knowledge",
-        desc: "Critical expertise is scattered across runbooks, tickets, tools, and specialists.",
-      },
-      {
-        label: "Slow investigation",
-        desc: "Teams manually correlate signals across systems before identifying root cause.",
-      },
-      {
-        label: "Context-Losing Handoffs",
-        desc: "Critical context is lost across L1, L2, L3, and specialist escalations.",
-      },
-      {
-        label: "Brittle Automation",
-        desc: "Scripts and workflows break as infrastructure changes, creating constant maintenance.",
-      },
-    ],
   },
 ];
 
 export function PainSection() {
-  const [activeIdx, setActiveIdx] = useState<number>(0);
+  // Virtual index supports infinite circular scrolling (1 -> 2 -> 3 -> 1 -> 2 -> 3 ...)
+  const [virtualIndex, setVirtualIndex] = useState<number>(0);
   const [viewportWidth, setViewportWidth] = useState<number>(1200);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isUserInteracting, setIsUserInteracting] = useState<boolean>(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const userInteractionTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Update viewport width on resize
+  // Measure container width
   useEffect(() => {
     const updateWidth = () => {
       if (stageRef.current) {
@@ -133,12 +83,63 @@ export function PainSection() {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const handlePrev = useCallback(() => {
-    setActiveIdx((prev) => (prev > 0 ? prev - 1 : PAIN_CARDS.length - 1));
+  // Temporarily pause auto-rotation when user clicks or swipes
+  const pauseAutoRotateTemporarily = useCallback(() => {
+    setIsUserInteracting(true);
+    if (userInteractionTimerRef.current) {
+      clearTimeout(userInteractionTimerRef.current);
+    }
+    userInteractionTimerRef.current = setTimeout(() => {
+      setIsUserInteracting(false);
+    }, 4500);
   }, []);
 
+  const handlePrev = useCallback(() => {
+    pauseAutoRotateTemporarily();
+    setVirtualIndex((v) => v - 1);
+  }, [pauseAutoRotateTemporarily]);
+
   const handleNext = useCallback(() => {
-    setActiveIdx((prev) => (prev < PAIN_CARDS.length - 1 ? prev + 1 : 0));
+    pauseAutoRotateTemporarily();
+    setVirtualIndex((v) => v + 1);
+  }, [pauseAutoRotateTemporarily]);
+
+  const handleJumpTo = useCallback(
+    (targetRealIdx: number) => {
+      pauseAutoRotateTemporarily();
+      setVirtualIndex((currentV) => {
+        const currentReal = ((currentV % 3) + 3) % 3;
+        let diff = targetRealIdx - currentReal;
+        if (diff > 1) diff -= 3;
+        if (diff < -1) diff += 3;
+        return currentV + diff;
+      });
+    },
+    [pauseAutoRotateTemporarily]
+  );
+
+  // Auto-rotating animation loop: rotates 1 -> 2 -> 3 -> 1 -> 2 -> 3 ...
+  useEffect(() => {
+    if (isHovered || isUserInteracting) return;
+
+    const timer = setInterval(() => {
+      setVirtualIndex((v) => v + 1);
+    }, 3600);
+
+    return () => clearInterval(timer);
+  }, [isHovered, isUserInteracting]);
+
+  // Pause auto-rotation when browser tab is inactive
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setIsHovered(true);
+      } else {
+        setIsHovered(false);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   // Keyboard navigation
@@ -153,15 +154,16 @@ export function PainSection() {
 
   // Touch Swipe
   const handleTouchStart = (e: React.TouchEvent) => {
+    pauseAutoRotateTemporarily();
     touchStartX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-    if (deltaX > 45) {
+    if (deltaX > 40) {
       handlePrev();
-    } else if (deltaX < -45) {
+    } else if (deltaX < -40) {
       handleNext();
     }
     touchStartX.current = null;
@@ -171,14 +173,23 @@ export function PainSection() {
   const isMobile = viewportWidth < 768;
   const isTablet = viewportWidth >= 768 && viewportWidth < 1080;
   const cardWidth = isMobile
-    ? Math.max(300, viewportWidth - 48)
+    ? Math.max(280, viewportWidth - 44)
     : isTablet
-    ? Math.min(640, viewportWidth * 0.75)
-    : Math.min(740, viewportWidth * 0.58);
-  const cardGap = isMobile ? 18 : 28;
+    ? Math.min(460, viewportWidth * 0.55)
+    : Math.min(520, viewportWidth * 0.38);
+  const cardGap = isMobile ? 14 : 24;
 
-  // Center offset formula
-  const translateX = (viewportWidth - cardWidth) / 2 - activeIdx * (cardWidth + cardGap);
+  // Active real card index (0, 1, or 2)
+  const activeRealIdx = ((virtualIndex % 3) + 3) % 3;
+
+  // Generate 5 virtual slots around active virtualIndex: [v - 2, v - 1, v, v + 1, v + 2]
+  const slots: number[] = [
+    virtualIndex - 2,
+    virtualIndex - 1,
+    virtualIndex,
+    virtualIndex + 1,
+    virtualIndex + 2,
+  ];
 
   return (
     <section
@@ -187,7 +198,7 @@ export function PainSection() {
       style={{
         background: "var(--bg)",
         position: "relative",
-        padding: "88px 0 100px",
+        padding: "64px 0 76px",
         borderBottom: "1px solid var(--border)",
         overflow: "hidden",
       }}
@@ -196,7 +207,7 @@ export function PainSection() {
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
         {/* ─── TOP EDITORIAL HEADER ─── */}
-        <div style={{ maxWidth: 940, margin: "0 auto 44px", textAlign: "center" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto 36px", textAlign: "center" }}>
           {/* Eyebrow */}
           <Reveal delay={0}>
             <div
@@ -204,7 +215,7 @@ export function PainSection() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                marginBottom: 16,
+                marginBottom: 12,
               }}
             >
               <span
@@ -223,7 +234,7 @@ export function PainSection() {
                   letterSpacing: "0.08em",
                   color: "var(--muted)",
                   textTransform: "uppercase",
-                  fontWeight: 600,
+                  fontWeight: 500,
                 }}
               >
                 {PAIN.eyebrow}
@@ -237,10 +248,10 @@ export function PainSection() {
               className="display"
               style={{
                 fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                fontSize: "clamp(34px, 4.4vw, 58px)",
+                fontSize: "clamp(30px, 3.8vw, 50px)",
                 lineHeight: 1.08,
                 letterSpacing: "-0.025em",
-                margin: "0 0 16px 0",
+                margin: "0 0 12px 0",
                 color: "var(--ink)",
                 fontWeight: 400,
               }}
@@ -254,75 +265,34 @@ export function PainSection() {
             <p
               style={{
                 fontFamily: "Inter, sans-serif",
-                fontSize: "clamp(16px, 1.4vw, 18.5px)",
+                fontSize: "clamp(14.5px, 1.2vw, 16.5px)",
                 color: "var(--muted)",
-                lineHeight: 1.6,
-                maxWidth: 720,
+                lineHeight: 1.55,
+                maxWidth: 620,
                 margin: "0 auto",
+                fontWeight: 400,
               }}
             >
               {PAIN.openingLine}
             </p>
           </Reveal>
         </div>
-
-        {/* ─── 3 PILLAR SELECTOR TABS ─── */}
-        <div
-          role="tablist"
-          aria-label="Core Failure Domains"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 12,
-            flexWrap: "wrap",
-            marginBottom: 36,
-          }}
-        >
-          {PAIN_CARDS.map((card, idx) => {
-            const isActive = activeIdx === idx;
-            return (
-              <button
-                key={card.num}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setActiveIdx(idx)}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "10px 20px",
-                  borderRadius: 30,
-                  background: isActive ? "var(--ink)" : "var(--surface)",
-                  color: isActive ? "var(--bg)" : "var(--muted)",
-                  border: `1px solid ${isActive ? "var(--ink)" : "var(--border)"}`,
-                  cursor: "pointer",
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 12,
-                  fontWeight: 500,
-                  letterSpacing: "0.02em",
-                  transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
-                <span style={{ color: isActive ? "var(--orange)" : "var(--muted)", fontWeight: 600 }}>
-                  {card.num}
-                </span>
-                <span>{card.group}</span>
-              </button>
-            );
-          })}
-        </div>
       </div>
 
-      {/* ─── INTERACTIVE CAROUSEL STAGE (Reference Image 2 UI) ─── */}
+      {/* ─── INFINITE CIRCULAR CAROUSEL STAGE ─── */}
       <div
         ref={stageRef}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{
           position: "relative",
           width: "100%",
-          padding: "12px 0 24px",
+          height: isMobile ? 410 : 450,
+          padding: "6px 0 16px",
           overflow: "hidden",
+          perspective: "1200px",
         }}
       >
         {/* Soft edge vignette fades */}
@@ -333,9 +303,9 @@ export function PainSection() {
             top: 0,
             bottom: 0,
             left: 0,
-            width: isMobile ? 16 : 80,
+            width: isMobile ? 12 : 72,
             background: "linear-gradient(to right, var(--bg) 0%, transparent 100%)",
-            zIndex: 10,
+            zIndex: 15,
             pointerEvents: "none",
           }}
         />
@@ -346,9 +316,9 @@ export function PainSection() {
             top: 0,
             bottom: 0,
             right: 0,
-            width: isMobile ? 16 : 80,
+            width: isMobile ? 12 : 72,
             background: "linear-gradient(to left, var(--bg) 0%, transparent 100%)",
-            zIndex: 10,
+            zIndex: 15,
             pointerEvents: "none",
           }}
         />
@@ -360,11 +330,11 @@ export function PainSection() {
           aria-label="Previous failure domain"
           style={{
             position: "absolute",
-            left: isMobile ? 12 : "max(24px, calc((100% - 1280px) / 2))",
-            top: "40%",
+            left: isMobile ? 6 : "max(16px, calc((100% - 1200px) / 2))",
+            top: "50%",
             transform: "translateY(-50%)",
-            width: isMobile ? 40 : 48,
-            height: isMobile ? 40 : 48,
+            width: isMobile ? 36 : 40,
+            height: isMobile ? 36 : 40,
             borderRadius: "50%",
             background: "var(--card-bg, #ffffff)",
             border: "1px solid var(--border)",
@@ -373,8 +343,8 @@ export function PainSection() {
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
-            zIndex: 20,
-            boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
+            zIndex: 25,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
             transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
           onMouseEnter={(e) => {
@@ -396,11 +366,11 @@ export function PainSection() {
           aria-label="Next failure domain"
           style={{
             position: "absolute",
-            right: isMobile ? 12 : "max(24px, calc((100% - 1280px) / 2))",
-            top: "40%",
+            right: isMobile ? 6 : "max(16px, calc((100% - 1200px) / 2))",
+            top: "50%",
             transform: "translateY(-50%)",
-            width: isMobile ? 40 : 48,
-            height: isMobile ? 40 : 48,
+            width: isMobile ? 36 : 40,
+            height: isMobile ? 36 : 40,
             borderRadius: "50%",
             background: "var(--card-bg, #ffffff)",
             border: "1px solid var(--border)",
@@ -409,8 +379,8 @@ export function PainSection() {
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
-            zIndex: 20,
-            boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
+            zIndex: 25,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
             transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
           onMouseEnter={(e) => {
@@ -425,96 +395,144 @@ export function PainSection() {
           <ChevronRightIcon />
         </button>
 
-        {/* Sliding Cards Track */}
-        <motion.div
-          animate={{ x: translateX }}
-          transition={{
-            type: "spring",
-            stiffness: 240,
-            damping: 28,
-          }}
+        {/* ─── Circular Infinite Cards Track with 3D Rotation ─── */}
+        <div
           style={{
-            display: "flex",
-            gap: cardGap,
-            alignItems: "stretch",
-            willChange: "transform",
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            transformStyle: "preserve-3d",
           }}
         >
-          {PAIN_CARDS.map((card, idx) => {
-            const isActive = activeIdx === idx;
+          {slots.map((s) => {
+            const cardData = PAIN_CARDS[((s % 3) + 3) % 3];
+            const distFromActive = s - virtualIndex;
+            const isActive = distFromActive === 0;
+            const isAdjacent = Math.abs(distFromActive) === 1;
+
+            // 3D Circular Rotation Calculations
+            let xOffset = 0;
+            let zOffset = 0;
+            let rotateY = 0;
+            let cardScale = 1;
+            let cardOpacity = 1;
+
+            if (distFromActive === 0) {
+              xOffset = 0;
+              zOffset = 0;
+              rotateY = 0;
+              cardScale = 1;
+              cardOpacity = 1;
+            } else if (distFromActive === 1) {
+              xOffset = cardWidth * 0.84 + cardGap;
+              zOffset = isMobile ? -35 : -65;
+              rotateY = isMobile ? -8 : -14;
+              cardScale = 0.92;
+              cardOpacity = isMobile ? 0.35 : 0.62;
+            } else if (distFromActive === -1) {
+              xOffset = -(cardWidth * 0.84 + cardGap);
+              zOffset = isMobile ? -35 : -65;
+              rotateY = isMobile ? 8 : 14;
+              cardScale = 0.92;
+              cardOpacity = isMobile ? 0.35 : 0.62;
+            } else if (distFromActive > 1) {
+              xOffset = (cardWidth * 0.84 + cardGap) * 1.85;
+              zOffset = -140;
+              rotateY = -24;
+              cardScale = 0.82;
+              cardOpacity = 0;
+            } else {
+              xOffset = -(cardWidth * 0.84 + cardGap) * 1.85;
+              zOffset = -140;
+              rotateY = 24;
+              cardScale = 0.82;
+              cardOpacity = 0;
+            }
+
             return (
-              <motion.div
-                key={card.num}
-                onClick={() => setActiveIdx(idx)}
-                animate={{
-                  scale: isActive ? 1 : 0.94,
-                  opacity: isActive ? 1 : 0.45,
+              <div
+                key={`slot-${s}`}
+                onClick={() => {
+                  if (!isActive) {
+                    pauseAutoRotateTemporarily();
+                    setVirtualIndex(s);
+                  }
                 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 style={{
+                  position: "absolute",
+                  top: 0,
+                  left: "50%",
                   width: cardWidth,
-                  flexShrink: 0,
+                  marginLeft: -cardWidth / 2,
+                  transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotateY}deg) scale(${cardScale})`,
+                  transformStyle: "preserve-3d",
+                  opacity: cardOpacity,
+                  zIndex: isActive ? 10 : isAdjacent ? 5 : 1,
+                  pointerEvents: isActive || isAdjacent ? "auto" : "none",
                   cursor: isActive ? "default" : "pointer",
-                  borderRadius: 20,
+                  borderRadius: 16,
                   background: "var(--card-bg, #ffffff)",
                   border: "1px solid var(--border)",
                   boxShadow: isActive
-                    ? "0 20px 48px -12px rgba(34, 31, 34, 0.12)"
-                    : "0 4px 16px rgba(0,0,0,0.04)",
-                  padding: isMobile ? "20px 16px" : "28px 24px",
+                    ? "0 16px 40px -10px rgba(34, 31, 34, 0.12), 0 2px 8px rgba(0,0,0,0.04)"
+                    : "0 4px 16px rgba(0,0,0,0.03)",
+                  padding: isMobile ? "14px 12px" : "18px 16px 16px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 20,
-                  position: "relative",
-                  transition: "box-shadow 0.3s ease",
+                  gap: 12,
+                  transition:
+                    "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, box-shadow 0.4s ease, border-color 0.3s ease",
+                  willChange: "transform, opacity",
                 }}
               >
-                {/* Visual Part: Problem Diagram Image */}
+                {/* Visual Part: Problem Diagram Image (Border removed) */}
                 <div
                   style={{
                     width: "100%",
-                    borderRadius: 14,
+                    borderRadius: 10,
                     overflow: "hidden",
-                    border: "1px solid var(--border)",
-                    background: "#fbfbfb",
+                    border: "none",
+                    background: "transparent",
                     position: "relative",
                   }}
                 >
                   <img
-                    src={card.image}
-                    alt={`${card.group} Architecture Diagram`}
+                    src={cardData.image}
+                    alt={`${cardData.group} Architecture Diagram`}
                     style={{
                       width: "100%",
                       height: "auto",
                       display: "block",
                       objectFit: "contain",
+                      border: "none",
                     }}
                   />
                 </div>
 
-                {/* Editorial Content Part */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {/* Editorial Content Part (Title + Summary Only, non-bold!) */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "baseline",
-                      gap: 12,
+                      gap: 8,
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                        fontSize: 32,
+                        fontSize: 24,
                         lineHeight: 1,
                         color: "var(--orange)",
+                        fontWeight: 400,
                       }}
                     >
-                      {card.num}
+                      {cardData.num}
                     </span>
                     <h3
                       style={{
                         fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
-                        fontSize: "clamp(26px, 2.2vw, 34px)",
+                        fontSize: "clamp(21px, 1.8vw, 26px)",
                         lineHeight: 1.15,
                         letterSpacing: "-0.02em",
                         color: "var(--ink)",
@@ -522,107 +540,50 @@ export function PainSection() {
                         fontWeight: 400,
                       }}
                     >
-                      {card.group}
+                      {cardData.group}
                     </h3>
                   </div>
 
                   <p
                     style={{
                       fontFamily: "Inter, sans-serif",
-                      fontSize: 15,
-                      lineHeight: 1.55,
+                      fontSize: 13.5,
+                      lineHeight: 1.5,
                       color: "var(--muted)",
                       margin: 0,
+                      fontWeight: 400,
                     }}
                   >
-                    {card.summary}
+                    {cardData.summary}
                   </p>
-
-                  {/* 3-4 Detailed Failure Items */}
-                  <div
-                    style={{
-                      marginTop: 8,
-                      borderTop: "1px solid var(--border)",
-                      paddingTop: 16,
-                      display: "grid",
-                      gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
-                      gap: "12px 20px",
-                    }}
-                  >
-                    {card.items.map((item, iIdx) => (
-                      <div
-                        key={item.label}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 4,
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 6,
-                            fontSize: 13.5,
-                            fontWeight: 600,
-                            color: "var(--ink)",
-                            fontFamily: "Inter, sans-serif",
-                          }}
-                        >
-                          <span
-                            style={{
-                              width: 5,
-                              height: 5,
-                              borderRadius: "50%",
-                              background: "var(--orange)",
-                              display: "inline-block",
-                              flexShrink: 0,
-                            }}
-                          />
-                          <span>{item.label}</span>
-                        </div>
-                        <p
-                          style={{
-                            fontSize: 12.5,
-                            lineHeight: 1.45,
-                            color: "var(--muted)",
-                            margin: 0,
-                            paddingLeft: 11,
-                          }}
-                        >
-                          {item.desc}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
 
-      {/* ─── BOTTOM DOT INDICATORS ─── */}
+      {/* ─── BOTTOM DOT INDICATORS (Reflects Active 01 / 02 / 03) ─── */}
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: 8,
-          marginTop: 20,
+          gap: 6,
+          marginTop: 14,
         }}
       >
         {PAIN_CARDS.map((_, idx) => (
           <button
             key={idx}
             type="button"
-            onClick={() => setActiveIdx(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
+            onClick={() => handleJumpTo(idx)}
+            aria-label={`Go to problem ${idx + 1}`}
             style={{
-              width: activeIdx === idx ? 28 : 8,
-              height: 8,
-              borderRadius: 4,
-              background: activeIdx === idx ? "var(--orange)" : "var(--border)",
+              width: activeRealIdx === idx ? 20 : 6,
+              height: 6,
+              borderRadius: 3,
+              background: activeRealIdx === idx ? "var(--orange)" : "var(--border)",
               border: "none",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
