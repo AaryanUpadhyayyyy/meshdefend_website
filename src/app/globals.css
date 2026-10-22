@@ -22,6 +22,7 @@
   --grid-line: rgba(34, 31, 34, 0.04);
   --surface: #f5f4f2;
   --surface-raised: #f5f4f2;
+  --card-bg: #ffffff;
   --surface-panel: #221f22; /* dashboard sidebar, always dark */
 
   /* Functional */
@@ -44,6 +45,7 @@ html.dark {
   --grid-line: rgba(254, 253, 253, 0.04);
   --surface: #2a272a;
   --surface-raised: #2a272a;
+  --card-bg: #292629;
   --orange-text: #f45532; /* WCAG AA: 4.8:1 on #221f22 dark background */
   --orange-soft: #3a2420;
   --nav-bg: #221f22;

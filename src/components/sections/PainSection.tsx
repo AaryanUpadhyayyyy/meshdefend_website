@@ -99,12 +99,13 @@ export function PainSection() {
     });
   }, []);
 
-  // Gentle auto-rotation loop (pauses when hovered, touched, or document hidden)
+  // Calm auto-advance loop with slow moving glide
+  // Pauses smoothly when user hovers over carousel or touches screen
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       setVirtualIndex((v) => v + 1);
-    }, 4800);
+    }, 5600);
     return () => clearInterval(interval);
   }, [isPaused]);
 
@@ -153,16 +154,16 @@ export function PainSection() {
   const isMobile = viewportWidth < 768;
   const isTablet = viewportWidth >= 768 && viewportWidth < 1080;
   const cardWidth = isMobile
-    ? Math.max(280, Math.min(380, viewportWidth - 48))
+    ? Math.max(280, Math.min(380, viewportWidth - 56))
     : isTablet
     ? Math.min(460, viewportWidth * 0.52)
-    : Math.min(500, Math.max(420, viewportWidth * 0.36));
+    : Math.min(490, Math.max(430, viewportWidth * 0.36));
 
   // Active real card index (0, 1, or 2)
   const activeRealIdx = ((virtualIndex % 3) + 3) % 3;
 
-  // Generate 7 virtual slots around active virtualIndex: [v - 3 ... v + 3]
-  // Pre-mounting ensures smooth incoming and outgoing 3D rotation with zero layout flash
+  // 7 virtual slots around active virtualIndex: [v - 3 ... v + 3]
+  // Pre-mounting ensures smooth slide transitions with zero flicker
   const slots: number[] = [
     virtualIndex - 3,
     virtualIndex - 2,
@@ -173,15 +174,15 @@ export function PainSection() {
     virtualIndex + 3,
   ];
 
-  // Helper to compute 3D rotating carousel parameters for each slot
-  const getSlot3DStyle = (s: number) => {
+  // Flat, untilted slide positioning (no rotation / no tilt)
+  const getSlotStyle = (s: number) => {
     const dist = s - virtualIndex;
     const sign = Math.sign(dist);
     const abs = Math.abs(dist);
 
     if (abs === 0) {
       return {
-        transform: "translateX(0px) translateZ(0px) rotateY(0deg) scale(1)",
+        transform: "translateX(0px) scale(1)",
         opacity: 1,
         zIndex: 20,
         pointerEvents: "auto" as const,
@@ -192,47 +193,41 @@ export function PainSection() {
     }
 
     if (abs === 1) {
-      const xOffset = sign * (cardWidth * (isMobile ? 0.82 : 0.78));
-      const zOffset = isMobile ? -80 : -110;
-      // Rotates inward towards the center stage: left card tilts right (+28deg), right card tilts left (-28deg)
-      const yRot = -sign * (isMobile ? 22 : 28);
+      // Behind slide: NOT tilted, flat and parallel, slightly smaller scale and lower opacity
+      const xOffset = sign * (cardWidth + (isMobile ? 16 : 28));
       return {
-        transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${yRot}deg) scale(${isMobile ? 0.9 : 0.88})`,
-        opacity: isMobile ? 0.45 : 0.68,
+        transform: `translateX(${xOffset}px) scale(${isMobile ? 0.92 : 0.94})`,
+        opacity: isMobile ? 0.45 : 0.65,
         zIndex: 10,
         pointerEvents: "auto" as const,
         cursor: "pointer",
-        filter: "blur(0.3px)",
-        boxShadow: "0 10px 28px -10px rgba(0,0,0,0.08)",
+        filter: "none",
+        boxShadow: "0 8px 24px -10px rgba(0,0,0,0.08)",
       };
     }
 
     if (abs === 2) {
-      const xOffset = sign * (cardWidth * (isMobile ? 1.45 : 1.48));
-      const zOffset = isMobile ? -160 : -240;
-      const yRot = -sign * (isMobile ? 35 : 46);
+      const xOffset = sign * (cardWidth * 2 + (isMobile ? 32 : 56));
       return {
-        transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${yRot}deg) scale(${isMobile ? 0.78 : 0.76})`,
-        opacity: 0.18,
+        transform: `translateX(${xOffset}px) scale(${isMobile ? 0.84 : 0.88})`,
+        opacity: 0.16,
         zIndex: 5,
         pointerEvents: "none" as const,
         cursor: "default",
-        filter: "blur(1.2px)",
+        filter: "none",
         boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
       };
     }
 
     // abs >= 3 (pre-mounted buffer slots offstage)
-    const xOffset = sign * (cardWidth * 2.1);
-    const zOffset = -360;
-    const yRot = -sign * 56;
+    const xOffset = sign * (cardWidth * 2.8);
     return {
-      transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${yRot}deg) scale(0.65)`,
+      transform: `translateX(${xOffset}px) scale(0.8)`,
       opacity: 0,
       zIndex: 1,
       pointerEvents: "none" as const,
       cursor: "default",
-      filter: "blur(2px)",
+      filter: "none",
       boxShadow: "none",
     };
   };
@@ -325,7 +320,7 @@ export function PainSection() {
         </div>
       </div>
 
-      {/* ─── 3D ROTATING CIRCULAR CAROUSEL STAGE ─── */}
+      {/* ─── CAROUSEL STAGE WITH EDGE GRADIENT FADES ─── */}
       <div
         ref={stageRef}
         onTouchStart={handleTouchStart}
@@ -338,11 +333,9 @@ export function PainSection() {
           height: isMobile ? 420 : 455,
           padding: "6px 0 16px",
           overflow: "hidden",
-          perspective: isMobile ? "900px" : "1300px",
-          perspectiveOrigin: "50% 48%",
         }}
       >
-        {/* Soft edge vignette fades */}
+        {/* Soft edge gradient fades that partially hide the sides of the outer cards */}
         <div
           aria-hidden="true"
           style={{
@@ -350,8 +343,9 @@ export function PainSection() {
             top: 0,
             bottom: 0,
             left: 0,
-            width: isMobile ? 16 : 80,
-            background: "linear-gradient(to right, var(--bg) 0%, transparent 100%)",
+            width: isMobile ? "24%" : "min(380px, 28vw)",
+            background:
+              "linear-gradient(to right, var(--bg) 0%, var(--bg) 25%, color-mix(in srgb, var(--bg) 85%, transparent) 55%, color-mix(in srgb, var(--bg) 35%, transparent) 82%, transparent 100%)",
             zIndex: 25,
             pointerEvents: "none",
           }}
@@ -363,8 +357,9 @@ export function PainSection() {
             top: 0,
             bottom: 0,
             right: 0,
-            width: isMobile ? 16 : 80,
-            background: "linear-gradient(to left, var(--bg) 0%, transparent 100%)",
+            width: isMobile ? "24%" : "min(380px, 28vw)",
+            background:
+              "linear-gradient(to left, var(--bg) 0%, var(--bg) 25%, color-mix(in srgb, var(--bg) 85%, transparent) 55%, color-mix(in srgb, var(--bg) 35%, transparent) 82%, transparent 100%)",
             zIndex: 25,
             pointerEvents: "none",
           }}
@@ -377,13 +372,13 @@ export function PainSection() {
           aria-label="Previous failure domain"
           style={{
             position: "absolute",
-            left: isMobile ? 8 : "max(18px, calc((100% - 1140px) / 2))",
+            left: isMobile ? 8 : "max(24px, calc((100% - 1160px) / 2))",
             top: "50%",
             transform: "translateY(-50%)",
-            width: isMobile ? 38 : 42,
-            height: isMobile ? 38 : 42,
+            width: isMobile ? 38 : 44,
+            height: isMobile ? 38 : 44,
             borderRadius: "50%",
-            background: "var(--card-bg, #ffffff)",
+            background: "var(--card-bg, var(--surface-raised, #ffffff))",
             border: "1px solid var(--border)",
             color: "var(--ink)",
             display: "flex",
@@ -391,7 +386,7 @@ export function PainSection() {
             justifyContent: "center",
             cursor: "pointer",
             zIndex: 35,
-            boxShadow: "0 6px 18px rgba(0,0,0,0.1)",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
             transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
           onMouseEnter={(e) => {
@@ -413,13 +408,13 @@ export function PainSection() {
           aria-label="Next failure domain"
           style={{
             position: "absolute",
-            right: isMobile ? 8 : "max(18px, calc((100% - 1140px) / 2))",
+            right: isMobile ? 8 : "max(24px, calc((100% - 1160px) / 2))",
             top: "50%",
             transform: "translateY(-50%)",
-            width: isMobile ? 38 : 42,
-            height: isMobile ? 38 : 42,
+            width: isMobile ? 38 : 44,
+            height: isMobile ? 38 : 44,
             borderRadius: "50%",
-            background: "var(--card-bg, #ffffff)",
+            background: "var(--card-bg, var(--surface-raised, #ffffff))",
             border: "1px solid var(--border)",
             color: "var(--ink)",
             display: "flex",
@@ -427,7 +422,7 @@ export function PainSection() {
             justifyContent: "center",
             cursor: "pointer",
             zIndex: 35,
-            boxShadow: "0 6px 18px rgba(0,0,0,0.1)",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
             transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
           onMouseEnter={(e) => {
@@ -442,20 +437,19 @@ export function PainSection() {
           <ChevronRightIcon />
         </button>
 
-        {/* ─── 3D Rotating Cards Track ─── */}
+        {/* ─── Circular Cards Track (Slow Smooth Glide, Untilted Behind Slides) ─── */}
         <div
           style={{
             position: "relative",
             width: "100%",
             height: "100%",
-            transformStyle: "preserve-3d",
           }}
         >
           {slots.map((s) => {
             const cardData = PAIN_CARDS[((s % 3) + 3) % 3];
             const dist = s - virtualIndex;
             const isActive = dist === 0;
-            const style3D = getSlot3DStyle(s);
+            const style = getSlotStyle(s);
 
             return (
               <div
@@ -469,25 +463,24 @@ export function PainSection() {
                   left: "50%",
                   width: cardWidth,
                   marginLeft: -cardWidth / 2,
-                  transform: style3D.transform,
-                  opacity: style3D.opacity,
-                  zIndex: style3D.zIndex,
-                  cursor: style3D.cursor,
-                  pointerEvents: style3D.pointerEvents,
-                  filter: style3D.filter,
-                  boxShadow: style3D.boxShadow,
+                  transform: style.transform,
+                  opacity: style.opacity,
+                  zIndex: style.zIndex,
+                  cursor: style.cursor,
+                  pointerEvents: style.pointerEvents,
+                  filter: style.filter,
+                  boxShadow: style.boxShadow,
                   borderRadius: 16,
-                  background: "var(--card-bg, #ffffff)",
+                  background: "var(--card-bg, var(--surface-raised, #ffffff))",
                   border: "1px solid var(--border)",
                   padding: isMobile ? "14px 12px" : "18px 16px 16px",
                   display: "flex",
                   flexDirection: "column",
                   gap: 12,
-                  backfaceVisibility: "hidden",
-                  transformStyle: "preserve-3d",
+                  // Slow, smooth moving glide across slides
                   transition:
-                    "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, filter 0.45s ease, box-shadow 0.4s ease",
-                  willChange: "transform, opacity, filter",
+                    "transform 1.15s cubic-bezier(0.33, 0.05, 0.25, 1), opacity 0.95s ease, box-shadow 0.8s ease",
+                  willChange: "transform, opacity",
                 }}
               >
                 {/* Visual Part: Problem Diagram Image (Border removed) */}
