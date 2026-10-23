@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { HeroSlideStack } from "./HeroSlideStack";
 
 export function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
@@ -168,7 +167,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Slide Showcase (Image acts as the box directly) */}
+          {/* Right Column: Hero Graphic (without border or shadow) */}
           <div
             className="hero-media"
             style={{
@@ -179,7 +178,20 @@ export function HeroSection() {
               position: "relative",
             }}
           >
-            <HeroSlideStack />
+            <img
+              src="/images/img/homepage.png"
+              alt="Data recovered vs Business recovery - Resilience Operations Center"
+              style={{
+                width: "100%",
+                maxWidth: isMobile ? 380 : 470,
+                height: "auto",
+                display: "block",
+                border: "none",
+                outline: "none",
+                boxShadow: "none",
+                borderRadius: 16,
+              }}
+            />
           </div>
         </div>
       </div>
