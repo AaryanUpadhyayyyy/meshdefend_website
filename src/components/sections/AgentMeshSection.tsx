@@ -295,20 +295,56 @@ export function AgentMeshSection() {
         const px = d.x + mouseOffset.x * depthFactor * 0.8;
         const py = d.y + mouseOffset.y * depthFactor * 0.8;
 
-        ctx.fillStyle = `rgba(254, 253, 253, ${d.alpha})`;
+        // Ambient dust with warm orange points
+        ctx.fillStyle = i % 3 === 0
+          ? `rgba(244, 85, 50, ${d.alpha * 0.85})`
+          : `rgba(254, 253, 253, ${d.alpha})`;
         ctx.fillRect(px, py, d.size, d.size);
       }
 
-      // ─── 2. RENDER THE HUMAN BUST (Positioned at 70% from left to give left content ample space) ───
+      // ─── 2. CALCULATE SCALE & CENTER TO GUARANTEE HEAD IS NEVER CUT OFF ───
+      // Head crown is at py ≈ 198, shoulder bottom is at py ≈ -205. Total height ≈ 410 units.
+      const maxHeadRoom = isMobile ? Math.max(50, height * 0.06) : Math.max(76, height * 0.09);
+      const availableHeight = height - maxHeadRoom - (isMobile ? 32 : 54);
+      const scale = isMobile
+        ? Math.min(availableHeight / 410, width / 340, 1.25)
+        : Math.min(availableHeight / 410, (width * 0.46) / 240, 1.68);
+
+      const bustCenterX = width * (isMobile ? 0.50 : 0.69) + mouseOffset.x;
+      // Exact placement ensuring crown top = maxHeadRoom (never clipped or cut off!)
+      const bustCenterY = maxHeadRoom + 198 * scale + mouseOffset.y * 0.5;
+
+      // ─── 3. ATMOSPHERIC ORANGE RADIAL GLOW BEHIND THE BUST ───
+      const glowHeadX = bustCenterX;
+      const glowHeadY = bustCenterY - 60 * scale;
+      const glowRadius = width * (isMobile ? 0.45 : 0.36);
+      const glowPulse = 1 + Math.sin(time * 1.5) * 0.06;
+
+      const grad = ctx.createRadialGradient(
+        glowHeadX,
+        glowHeadY,
+        20,
+        glowHeadX,
+        glowHeadY,
+        glowRadius * glowPulse
+      );
+      grad.addColorStop(0, 'rgba(244, 85, 50, 0.22)');
+      grad.addColorStop(0.38, 'rgba(244, 85, 50, 0.08)');
+      grad.addColorStop(0.72, 'rgba(244, 85, 50, 0.02)');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // ─── 4. RENDER ORANGE 3D AGENT MESH BUST ───
       const bust = bustPointsRef.current;
-      const bustCenterX = width * (isMobile ? 0.50 : 0.70) + mouseOffset.x;
-      const bustCenterY = height * (isMobile ? 0.38 : 0.46) + mouseOffset.y;
-      const scale = isMobile ? Math.min(width / 360, 1.05) : Math.min(height / 480, 1.45) * 1.35;
+      const orangeR = 244;
+      const orangeG = 85;
+      const orangeB = 50;
 
       for (let i = 0; i < bust.length; i++) {
         const p = bust[i];
 
-        const rotY = mouseOffset.x * 0.01;
+        const rotY = mouseOffset.x * 0.012 + Math.sin(time * 0.5) * 0.03;
         const cosR = Math.cos(rotY);
         const sinR = Math.sin(rotY);
 
@@ -319,7 +355,13 @@ export function AgentMeshSection() {
 
         if (sx < -10 || sx > width + 10 || sy < -10 || sy > height + 20) continue;
 
-        ctx.fillStyle = `rgba(254, 253, 253, ${p.baseAlpha})`;
+        // Signature Glowing Orange Palette:
+        // Core rim points shine in bright gold-orange, body points in pure orange
+        if (p.fresnel > 0.70) {
+          ctx.fillStyle = `rgba(255, 185, 125, ${Math.min(1.0, p.baseAlpha * 1.25)})`;
+        } else {
+          ctx.fillStyle = `rgba(${orangeR}, ${orangeG}, ${orangeB}, ${p.baseAlpha})`;
+        }
         ctx.fillRect(sx, sy, p.size, p.size);
       }
 
@@ -349,7 +391,11 @@ export function AgentMeshSection() {
         `,
         color: "#fefdfd",
         position: "relative",
-        padding: "64px 0 56px",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: isMobile ? "80px 0 64px" : "96px 0",
         overflow: "hidden",
       }}
     >

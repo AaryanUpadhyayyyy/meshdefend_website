@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { HeroAgentMesh } from "./HeroAgentMesh";
 
 export function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
@@ -167,7 +168,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Hero Graphic (without border or shadow) */}
+          {/* Right Column: Interactive Orange Agent Mesh */}
           <div
             className="hero-media"
             style={{
@@ -178,20 +179,7 @@ export function HeroSection() {
               position: "relative",
             }}
           >
-            <img
-              src="/images/img/homepage.png"
-              alt="Data recovered vs Business recovery - Resilience Operations Center"
-              style={{
-                width: "100%",
-                maxWidth: isMobile ? 380 : 470,
-                height: "auto",
-                display: "block",
-                border: "none",
-                outline: "none",
-                boxShadow: "none",
-                borderRadius: 16,
-              }}
-            />
+            <HeroAgentMesh />
           </div>
         </div>
       </div>
