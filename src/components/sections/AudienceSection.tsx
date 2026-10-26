@@ -5,7 +5,12 @@ import Link from "next/link";
 import { AUDIENCE } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 
-export function AudienceSection() {
+export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE> } = {}) {
+  const audience = {
+    ...AUDIENCE,
+    ...content,
+    segments: content?.segments ?? AUDIENCE.segments,
+  };
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
@@ -50,7 +55,7 @@ export function AudienceSection() {
                   fontWeight: 600,
                 }}
               >
-                {AUDIENCE.eyebrow}
+                {audience.eyebrow}
               </span>
             </div>
           </Reveal>
@@ -69,7 +74,7 @@ export function AudienceSection() {
                 fontWeight: 400,
               }}
             >
-              {AUDIENCE.headline}
+              {audience.headline}
             </h2>
           </Reveal>
         </div>
@@ -89,9 +94,9 @@ export function AudienceSection() {
             }}
             className="audience-grid"
           >
-              {AUDIENCE.segments.map((seg, idx) => {
+              {audience.segments.map((seg, idx) => {
                 const isHovered = hoveredIdx === idx;
-                const isLast = idx === AUDIENCE.segments.length - 1;
+                const isLast = idx === audience.segments.length - 1;
 
                 return (
                   <Link

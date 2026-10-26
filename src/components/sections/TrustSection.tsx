@@ -2,71 +2,20 @@
 
 import React from "react";
 import { Reveal } from "@/components/motion";
+import { TRUST_SECTION_CONTENT } from "@/lib/cmsHomepage";
 
-/* ─── Official Verified Strategic Partners ───
-   All 8 strategic partners use official image assets with
-   theme-aware light and dark mode variants.
-   ────────────────────────────────────────────────────────────────────────── */
-interface PartnerLogo {
-  name: string;
-  lightSrc: string;
-  darkSrc: string;
-  height: number;
-}
+export type TrustSectionCMSContent = Partial<typeof TRUST_SECTION_CONTENT>;
 
-// TODO(content): confirm each logo is an approved partner before launch
-const ENTERPRISE_PARTNERS: PartnerLogo[] = [
-  {
-    name: "Sapta Tunas Teknologi",
-    lightSrc: "/images/logos/saptatuns-light.webp",
-    darkSrc: "/images/logos/saptatuns-dark.webp",
-    height: 34,
-  },
-  {
-    name: "NVIDIA Inception Program",
-    lightSrc: "/images/logos/nvidia-light.webp",
-    darkSrc: "/images/logos/nvidia-dark.webp",
-    height: 32,
-  },
-  {
-    name: "OpenAI",
-    lightSrc: "/images/logos/openai-light.png",
-    darkSrc: "/images/logos/openai-dark.webp",
-    height: 28,
-  },
-  {
-    name: "AWS",
-    lightSrc: "/images/logos/aws-light.webp",
-    darkSrc: "/images/logos/aws-dark.webp",
-    height: 28,
-  },
-  {
-    name: "Microsoft",
-    lightSrc: "/images/logos/microsoft-light.png",
-    darkSrc: "/images/logos/microsoft-dark.png",
-    height: 26,
-  },
-  {
-    name: "Anthropic",
-    lightSrc: "/images/logos/anthropic-light.png",
-    darkSrc: "/images/logos/anthropic-dark.png",
-    height: 22,
-  },
-  {
-    name: "Azure AI Foundry",
-    lightSrc: "/images/logos/azure-light.png",
-    darkSrc: "/images/logos/azure-dark.png",
-    height: 26,
-  },
-  {
-    name: "Powered by Dell Technologies",
-    lightSrc: "/images/logos/dell-light.png",
-    darkSrc: "/images/logos/dell-dark.png",
-    height: 28,
-  },
-];
-
-export function TrustSection() {
+export function TrustSection({
+  content,
+}: {
+  content?: TrustSectionCMSContent;
+} = {}) {
+  const copy = {
+    ...TRUST_SECTION_CONTENT,
+    ...content,
+    partners: content?.partners ?? TRUST_SECTION_CONTENT.partners,
+  };
   return (
     <section
       id="trust"
@@ -120,77 +69,42 @@ export function TrustSection() {
                     textTransform: "uppercase",
                   }}
                 >
-                  BACKED BY
+                  {copy.backedByLabel}
                 </span>
 
-                {/* Kalaari Capital */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                    opacity: 0.95,
-                  }}
-                  title="Kalaari Capital — Lead Investor"
-                >
-                  <svg height="34" viewBox="0 0 178 38" fill="none" aria-label="Kalaari Capital">
-                    <path
-                      d="M15 2C16 7 18 13 20 17C23 13 28 9 32 6C30 11 25 16 22 20C27 21 32 22 36 23C31 24 25 24 21 24C23 29 27 34 30 38C25 34 21 29 18 25C16 30 12 35 10 39C11 34 13 28 16 23C11 22 6 22 2 21C7 20 12 19 16 17C13 12 10 7 7 4C11 7 15 11 17 16L15 2Z"
-                      fill="#0056B3"
-                    />
-                    <text
-                      x="44"
-                      y="20"
-                      fontFamily="var(--font-body), sans-serif"
-                      fontSize="19"
-                      fontWeight="700"
-                      fill="var(--ink)"
-                      letterSpacing="-0.02em"
-                    >
-                      kalaari
-                    </text>
-                    <text
-                      x="44"
-                      y="33"
-                      fontFamily="var(--font-body), sans-serif"
-                      fontSize="13.5"
-                      fontWeight="500"
-                      fill="var(--muted)"
-                      letterSpacing="0.02em"
-                    >
-                      capital
-                    </text>
-                  </svg>
-                </div>
-
-                {/* Kettleborough VC */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                    opacity: 0.95,
-                  }}
-                  title="Kettleborough VC"
-                >
-                  <svg height="34" viewBox="0 0 205 38" fill="none" aria-label="Kettleborough VC">
-                    <circle cx="19" cy="19" r="15" fill="var(--ink)" />
-                    <path d="M19 4A15 15 0 0 1 19 34A7.5 7.5 0 0 1 19 19A7.5 7.5 0 0 0 19 4Z" fill="#ffffff" />
-                    <circle cx="19" cy="11.5" r="2.8" fill="var(--ink)" />
-                    <circle cx="19" cy="26.5" r="2.8" fill="#ffffff" />
-                    <text
-                      x="44"
-                      y="24"
-                      fontFamily="var(--font-body), sans-serif"
-                      fontSize="16"
-                      fontWeight="700"
-                      fill="var(--ink)"
-                      letterSpacing="-0.01em"
-                    >
-                      Kettleborough VC
-                    </text>
-                  </svg>
-                </div>
+                {copy.backers.map((backer, index) => {
+                  const logo = (
+                    <>
+                      {backer.lightSrc && (
+                        <img
+                          src={backer.lightSrc}
+                          alt={backer.name}
+                          className="trust-backer-logo trust-backer-logo--light"
+                          style={{ height: backer.height, width: "auto", maxWidth: 220, objectFit: "contain" }}
+                        />
+                      )}
+                      {backer.darkSrc && (
+                        <img
+                          src={backer.darkSrc}
+                          alt=""
+                          aria-hidden="true"
+                          className="trust-backer-logo trust-backer-logo--dark"
+                          style={{ height: backer.height, width: "auto", maxWidth: 220, objectFit: "contain" }}
+                        />
+                      )}
+                    </>
+                  );
+                  const style = { display: "flex", alignItems: "center", opacity: 0.95 };
+                  return backer.href ? (
+                    <a key={`${backer.name}-${index}`} href={backer.href} title={backer.name} style={style}>
+                      {logo}
+                    </a>
+                  ) : (
+                    <div key={`${backer.name}-${index}`} title={backer.name} style={style}>
+                      {logo}
+                    </div>
+                  );
+                })}
               </div>
 
               {/* 1px Hairline Divider + Enterprise CXOs and Founders */}
@@ -218,7 +132,7 @@ export function TrustSection() {
                     fontStyle: "italic",
                   }}
                 >
-                  Enterprise CXOs and Founders
+                  {copy.backedByCaption}
                 </span>
               </div>
             </div>
@@ -246,7 +160,7 @@ export function TrustSection() {
                   fontWeight: 600,
                 }}
               >
-                Partners
+                {copy.partnersLabel}
               </span>
             </div>
 
@@ -254,12 +168,12 @@ export function TrustSection() {
             <div
               className="seamless-marquee-wrapper"
               role="region"
-              aria-label="Supported Runtime Ecosystem & Platforms"
+              aria-label={copy.partnersLabel || "Supported Runtime Ecosystem & Platforms"}
             >
               <div className="seamless-marquee-track">
                 {/* Primary Track (Accessible to screen readers) */}
                 <div className="marquee-group">
-                  {ENTERPRISE_PARTNERS.map((logo, idx) => (
+                  {copy.partners.map((logo, idx) => (
                     <div
                       key={`primary-${logo.name}-${idx}`}
                       className="brand-logo-item"
@@ -288,7 +202,7 @@ export function TrustSection() {
                     className="marquee-group"
                     aria-hidden="true"
                   >
-                    {ENTERPRISE_PARTNERS.map((logo, idx) => (
+                    {copy.partners.map((logo, idx) => (
                       <div
                         key={`copy-${copyIdx}-${logo.name}-${idx}`}
                         className="brand-logo-item"
@@ -413,6 +327,10 @@ export function TrustSection() {
           display: none !important;
         }
 
+        .trust-backer-logo--dark {
+          display: none !important;
+        }
+
         [data-theme="dark"] .partner-logo--light,
         html.dark .partner-logo--light,
         .dark .partner-logo--light {
@@ -425,11 +343,29 @@ export function TrustSection() {
           display: block !important;
         }
 
+        [data-theme="dark"] .trust-backer-logo--light,
+        html.dark .trust-backer-logo--light,
+        .dark .trust-backer-logo--light {
+          display: none !important;
+        }
+
+        [data-theme="dark"] .trust-backer-logo--dark,
+        html.dark .trust-backer-logo--dark,
+        .dark .trust-backer-logo--dark {
+          display: block !important;
+        }
+
         @media (prefers-color-scheme: dark) {
           :root:not([data-theme="light"]) .partner-logo--light {
             display: none !important;
           }
           :root:not([data-theme="light"]) .partner-logo--dark {
+            display: block !important;
+          }
+          :root:not([data-theme="light"]) .trust-backer-logo--light {
+            display: none !important;
+          }
+          :root:not([data-theme="light"]) .trust-backer-logo--dark {
             display: block !important;
           }
         }

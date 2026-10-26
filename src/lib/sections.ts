@@ -2,6 +2,9 @@
    Exact client-approved sitemap copy for the MeshDefend Homepage.
    ────────────────────────────────────────────────────────────────── */
 
+// Keep the Agent Mesh section available in code and CMS, but hidden on the homepage for now.
+export const HOME_AGENT_MESH_SECTION_VISIBLE = false;
+
 export const PAIN = {
   eyebrow: "[ 02 // THE REALITY OF ENTERPRISE RESILIENCE ]",
   headline: "The Reality of Business, Data & Cyber Resilience",
@@ -84,6 +87,7 @@ export const SOLUTION = {
   headline: "ResOC: Resilience Operations Center",
   lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments.",
   columns: {
+    number: "#",
     col1: "ResOC Capability",
     col2: "What It Solves",
   },
@@ -123,27 +127,31 @@ export const SOLUTION = {
 };
 
 export const IMPACT = {
-  eyebrow: "[ 05 // PROVEN ENTERPRISE IMPACT ]",
+  eyebrow: "[ 04 // PROVEN ENTERPRISE IMPACT ]",
   headline: "Measurable Impact Across Resilience Operations",
-  openingLine: "",
+  metricPrefix: "TELEMETRY //",
   stats: [
     {
+      tag: "SCALE",
       value: "30–50%",
       label: "More Infrastructure Managed",
       desc: "Manage 30–50% more infrastructure with the same team.",
     },
     {
+      tag: "RESOLUTION",
       value: "Up to 80%",
       label: "Lower MTTR",
       desc: "Accelerates investigation, diagnosis, and remediation to restore services faster. Offload repetitive tasks to MeshDefend’s Agent Mesh with HITL/HIOL.",
     },
     {
+      tag: "CONTINUITY",
       value: "Up to 60%",
       label: "Less Handoff Effort",
       desc: "Preserve context across L1, L2, L3, and specialist teams to reduce repeated investigation.",
     },
   ],
   costOptimization: {
+    label: "FINANCIAL ROI",
     title: "Financial ROI",
     points: [
       {
@@ -157,6 +165,7 @@ export const IMPACT = {
     ],
   },
   resiliencePosture: {
+    label: "OPERATIONAL RESILIENCE",
     title: "Stronger Resilience Posture",
     points: [
       "Unify business, IT infrastructure and security teams with a single pane of glass for establishing and managing resilience posture.",
@@ -169,7 +178,7 @@ export const IMPACT = {
 };
 
 export const AUDIENCE = {
-  eyebrow: "[ 06 // BUILT FOR ENTERPRISE RESILIENCE ]",
+  eyebrow: "[ 05 // BUILT FOR ENTERPRISE RESILIENCE ]",
   headline: "Built for the Teams Accountable for Resilience",
   segments: [
     {

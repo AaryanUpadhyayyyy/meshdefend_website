@@ -37,7 +37,7 @@ The platform includes an editorial-grade interactive experience built with Next.
 
 ### Prerequisites
 
-- Node.js 18.18+ or 20+
+- Node.js 22.23.4+ or 24.22.1+ (Payload CMS requirement)
 - npm, pnpm, or yarn
 
 ### Installation
@@ -69,4 +69,5 @@ npm run start
 
 - [`docs/DESIGN_NOTES.md`](./docs/DESIGN_NOTES.md) — Comprehensive design system, mathematical grid ratios, and editorial guidelines.
 - [`docs/RESEARCH.md`](./docs/RESEARCH.md) — Modern 3D web design trends, WebGL craft principles, and microinteraction architecture.
+- [`docs/CMS.md`](./docs/CMS.md) — Self-hosted CMS setup, page editing, preview, and database deployment.
 

@@ -1,200 +1,90 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { HERO_CONTENT } from "@/content/home";
+import { ConsoleSection } from "@/components/hero/ConsoleSection";
+import { HERO_BACKING_LINE } from "@/lib/cmsHomepage";
 
-export function HeroSection() {
-  const [isMobile, setIsMobile] = useState(false);
+export type HeroSectionCMSContent = Partial<typeof HERO_CONTENT> & {
+  backingLine?: string;
+  dashboardImageUrl?: string;
+  dashboardImage?: { url?: string } | null;
+  dashboardImageAlt?: string;
+};
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 991px)");
-    setIsMobile(mediaQuery.matches);
-
-    const handleResize = () => setIsMobile(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleResize);
-    return () => mediaQuery.removeEventListener("change", handleResize);
-  }, []);
+export function HeroSection({
+  content,
+}: {
+  content?: HeroSectionCMSContent;
+} = {}) {
+  const hero = {
+    ...HERO_CONTENT,
+    ...content,
+    primaryCta: { ...HERO_CONTENT.primaryCta, ...content?.primaryCta },
+    secondaryCta: { ...HERO_CONTENT.secondaryCta, ...content?.secondaryCta },
+  };
+  const dashboardImage = content?.dashboardImage?.url || content?.dashboardImageUrl;
 
   return (
     <section
       id="hero"
-      aria-label="Introducing Resilience Operations Center (ResOC)"
-      style={{
-        position: "relative",
-        background: "var(--bg)",
-        paddingTop: isMobile ? "20px" : "28px",
-        paddingBottom: isMobile ? "36px" : "48px",
-        overflow: "hidden",
-      }}
+      className="home-hero"
+      aria-label={`${hero.h1Prefix} ${hero.h1Accent}`}
     >
-      <div
-        className="container hero-container"
-        style={{
-          maxWidth: 1180,
-          width: "min(1180px, calc(100% - 48px))",
-          margin: "0 auto",
-        }}
-      >
-        <div
-          className="hero-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 560px) minmax(0, 470px)",
-            justifyContent: isMobile ? "stretch" : "center",
-            gap: isMobile ? "32px" : "44px",
-            alignItems: "center",
-          }}
-        >
-          {/* Left Column: Headings, Copy, CTAs, Backed by */}
-          <div className="hero-content" style={{ maxWidth: isMobile ? "100%" : 560 }}>
-            {/* H1: Introducing Resilience Operations Center (ResOC) */}
-            <h1
-              className="display"
-              style={{
-                fontSize: "clamp(34px, 3.8vw, 56px)",
-                lineHeight: 1.08,
-                letterSpacing: "-0.025em",
-                margin: "0 0 18px",
-                color: "var(--ink)",
-                fontWeight: 400,
-              }}
-            >
-              Introducing Resilience Operations Center{" "}
-              <span className="display-italic" style={{ color: "var(--orange)", fontStyle: "italic" }}>
-                (ResOC)
-              </span>
-            </h1>
+      <div className="home-hero__mesh" aria-hidden="true">
+        <svg viewBox="0 0 1440 560" preserveAspectRatio="none" focusable="false">
+          <g className="home-hero__mesh-lines">
+            <path d="M-40 156 92 94 224 146 356 78 488 130 620 62 752 116 884 54 1016 108 1148 48 1280 94 1480 18" />
+            <path d="M-40 330 92 266 224 318 356 250 488 302 620 234 752 288 884 226 1016 280 1148 220 1280 266 1480 190" />
+            <path d="M-40 506 92 442 224 494 356 426 488 478 620 410 752 464 884 402 1016 456 1148 396 1280 442 1480 366" />
+            <path d="M92 94 92 266 92 442M224 146 224 318 224 494M356 78 356 250 356 426M488 130 488 302 488 478M620 62 620 234 620 410M752 116 752 288 752 464M884 54 884 226 884 402M1016 108 1016 280 1016 456M1148 48 1148 220 1148 396M1280 94 1280 266 1280 442" />
+            <path d="M92 94 224 318 356 78 488 302 620 62 752 288 884 54 1016 280 1148 48 1280 266 1480 18M-40 330 92 442 224 318 356 426 488 302 620 410 752 288 884 402 1016 280 1148 396 1280 266 1480 366" />
+          </g>
+          <g className="home-hero__mesh-nodes">
+            <circle cx="92" cy="94" r="2.5" /><circle cx="224" cy="146" r="2" />
+            <circle cx="356" cy="78" r="2.5" /><circle cx="488" cy="130" r="2" />
+            <circle cx="620" cy="62" r="2.5" /><circle cx="752" cy="116" r="2" />
+            <circle cx="884" cy="54" r="2.5" /><circle cx="1016" cy="108" r="2" />
+            <circle cx="1148" cy="48" r="2.5" /><circle cx="1280" cy="94" r="2" />
+            <circle cx="92" cy="442" r="2" /><circle cx="356" cy="426" r="2" />
+            <circle cx="620" cy="410" r="2" /><circle cx="884" cy="402" r="2" />
+            <circle cx="1148" cy="396" r="2" /><circle cx="1280" cy="442" r="2" />
+          </g>
+        </svg>
+      </div>
 
-            {/* Sub-heading (one-liner) */}
-            <p
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "clamp(16px, 1.35vw, 18px)",
-                fontWeight: 600,
-                lineHeight: 1.45,
-                color: "var(--ink)",
-                margin: "0 0 14px",
-              }}
-            >
-              An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™.
-            </p>
+      <div className="home-hero__container">
+        <div className="home-hero__content">
+          <h1 className="display home-hero__title">
+            {hero.h1Prefix}{" "}
+            <span className="display-italic">{hero.h1Accent}</span>
+          </h1>
 
-            {/* Body */}
-            <p
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: 15.5,
-                lineHeight: 1.6,
-                color: "var(--muted)",
-                margin: "0 0 32px",
-              }}
-            >
-              ResOC unifies business, infrastructure and security to deliver continuous resilience.
-            </p>
+          <p className="home-hero__subheading">{hero.subheading}</p>
 
-            {/* Inline CTAs */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 20,
-                flexWrap: "wrap",
-                marginBottom: 36,
-              }}
-            >
-              <Link
-                href="/demo"
-                className="btn btn-primary"
-                style={{
-                  background: "var(--orange)",
-                  color: "#221f22",
-                  fontWeight: 600,
-                  fontSize: 15,
-                  padding: "13px 28px",
-                  borderRadius: 4,
-                  textDecoration: "none",
-                  display: "inline-block",
-                  boxShadow: "0 2px 8px rgba(244, 85, 50, 0.2)",
-                }}
-              >
-                Book a demo
-              </Link>
+          <p className="home-hero__body">{hero.body}</p>
 
-              <Link
-                href="/platform/observability"
-                className="hero-secondary-link"
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "var(--ink)",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  padding: "8px 0",
-                  position: "relative",
-                  display: "inline-flex",
-                  alignItems: "center",
-                }}
-              >
-                See ResOC in action
-              </Link>
-            </div>
-
-            {/* Bottom-left VC Caption */}
-            <div
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: 12.5,
-                color: "var(--muted)",
-                letterSpacing: "0.02em",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                opacity: 0.9,
-              }}
+          <div className="home-hero__actions">
+            <Link href={hero.primaryCta.href} className="btn btn-primary">
+              {hero.primaryCta.label}
+            </Link>
+            <Link
+              href={hero.secondaryCta.href}
+              className="hero-secondary-link home-hero__secondary-link"
             >
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "var(--orange)",
-                  display: "inline-block",
-                  flexShrink: 0,
-                }}
-              />
-              <span>Backed by Kalaari Capital · Kettleborough VC</span>
-            </div>
+              {hero.secondaryCta.label}
+            </Link>
           </div>
 
-          {/* Right Column: Hero Graphic (without border or shadow) */}
-          <div
-            className="hero-media"
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: isMobile ? "center" : "flex-start",
-              position: "relative",
-            }}
-          >
-            <img
-              src="/images/img/homepage.png"
-              alt="Data recovered vs Business recovery - Resilience Operations Center"
-              style={{
-                width: "100%",
-                maxWidth: isMobile ? 380 : 470,
-                height: "auto",
-                display: "block",
-                border: "none",
-                outline: "none",
-                boxShadow: "none",
-                borderRadius: 16,
-              }}
-            />
-          </div>
+          <p className="home-hero__backing">
+            <span aria-hidden="true" />
+            {content?.backingLine || HERO_BACKING_LINE}
+          </p>
         </div>
       </div>
+
+      <ConsoleSection
+        imageSrc={dashboardImage}
+        imageAlt={content?.dashboardImageAlt}
+      />
     </section>
   );
 }

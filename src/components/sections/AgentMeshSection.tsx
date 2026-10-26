@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { AGENT_MESH } from "@/lib/content";
+import { AGENT_MESH_SECTION_CONTENT } from "@/lib/cmsHomepage";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
 import { Reveal } from "@/components/motion";
@@ -185,7 +185,25 @@ function generateDust(count: number, width: number, height: number): DustParticl
   return dust;
 }
 
-export function AgentMeshSection() {
+type AgentMeshCMSContent = Omit<Partial<typeof AGENT_MESH_SECTION_CONTENT>, "pillars"> & {
+  steps?: Array<Partial<(typeof AGENT_MESH_SECTION_CONTENT.steps)[number]>>;
+  pillars?: Array<{ title: string; desc: string }>;
+};
+
+export function AgentMeshSection({
+  content,
+}: {
+  content?: AgentMeshCMSContent;
+} = {}) {
+  const copy = {
+    ...AGENT_MESH_SECTION_CONTENT,
+    ...content,
+    steps: AGENT_MESH_SECTION_CONTENT.steps.map((step, index) => ({
+      ...step,
+      ...content?.steps?.[index],
+    })),
+    pillars: content?.pillars ?? AGENT_MESH_SECTION_CONTENT.pillars,
+  };
   const [activeBeat, setActiveBeat] = useState<0 | 1 | 2>(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -295,10 +313,8 @@ export function AgentMeshSection() {
         const px = d.x + mouseOffset.x * depthFactor * 0.8;
         const py = d.y + mouseOffset.y * depthFactor * 0.8;
 
-        // Ambient dust with warm orange points
-        ctx.fillStyle = i % 3 === 0
-          ? `rgba(244, 85, 50, ${d.alpha * 0.85})`
-          : `rgba(254, 253, 253, ${d.alpha})`;
+        // Keep the ambient dust monochrome to match the white mesh figure.
+        ctx.fillStyle = `rgba(254, 253, 253, ${d.alpha})`;
         ctx.fillRect(px, py, d.size, d.size);
       }
 
@@ -314,32 +330,8 @@ export function AgentMeshSection() {
       // Exact placement ensuring crown top = maxHeadRoom (never clipped or cut off!)
       const bustCenterY = maxHeadRoom + 198 * scale + mouseOffset.y * 0.5;
 
-      // ─── 3. ATMOSPHERIC ORANGE RADIAL GLOW BEHIND THE BUST ───
-      const glowHeadX = bustCenterX;
-      const glowHeadY = bustCenterY - 60 * scale;
-      const glowRadius = width * (isMobile ? 0.45 : 0.36);
-      const glowPulse = 1 + Math.sin(time * 1.5) * 0.06;
-
-      const grad = ctx.createRadialGradient(
-        glowHeadX,
-        glowHeadY,
-        20,
-        glowHeadX,
-        glowHeadY,
-        glowRadius * glowPulse
-      );
-      grad.addColorStop(0, 'rgba(244, 85, 50, 0.22)');
-      grad.addColorStop(0.38, 'rgba(244, 85, 50, 0.08)');
-      grad.addColorStop(0.72, 'rgba(244, 85, 50, 0.02)');
-      grad.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
-
-      // ─── 4. RENDER ORANGE 3D AGENT MESH BUST ───
+      // ─── 3. RENDER WHITE 3D AGENT MESH BUST ───
       const bust = bustPointsRef.current;
-      const orangeR = 244;
-      const orangeG = 85;
-      const orangeB = 50;
 
       for (let i = 0; i < bust.length; i++) {
         const p = bust[i];
@@ -355,12 +347,11 @@ export function AgentMeshSection() {
 
         if (sx < -10 || sx > width + 10 || sy < -10 || sy > height + 20) continue;
 
-        // Signature Glowing Orange Palette:
-        // Core rim points shine in bright gold-orange, body points in pure orange
+        // Keep the bust crisp white against the dark canvas.
         if (p.fresnel > 0.70) {
-          ctx.fillStyle = `rgba(255, 185, 125, ${Math.min(1.0, p.baseAlpha * 1.25)})`;
+          ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(1.0, p.baseAlpha * 1.25)})`;
         } else {
-          ctx.fillStyle = `rgba(${orangeR}, ${orangeG}, ${orangeB}, ${p.baseAlpha})`;
+          ctx.fillStyle = `rgba(254, 253, 253, ${p.baseAlpha})`;
         }
         ctx.fillRect(sx, sy, p.size, p.size);
       }
@@ -385,10 +376,7 @@ export function AgentMeshSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       style={{
-        background: `
-          radial-gradient(circle at 70% 42%, #2a2629 0%, #221f22 66%),
-          #221f22
-        `,
+        background: "#221f22",
         color: "#fefdfd",
         position: "relative",
         minHeight: "100vh",
@@ -438,8 +426,8 @@ export function AgentMeshSection() {
             <div>
               <Reveal delay={0}>
                 <TechIndexTag
-                  tag="[ 04 // AGENT MESH INTELLIGENCE ENGINE ]"
-                  status="POLICY_GOVERNED"
+                  tag={copy.eyebrow}
+                  status={copy.policyStatus}
                   dark={true}
                   style={{ marginBottom: 16 }}
                 />
@@ -459,16 +447,16 @@ export function AgentMeshSection() {
                 >
                   <TextReveal
                     as="span"
-                    text="The intelligence to act."
+                    text={copy.headingFirst}
                     style={{ display: "block" }}
                     delay={0}
                     stagger={0.045}
                   />
                   <TextReveal
                     as="span"
-                    text="The discipline to stop."
+                    text={copy.headingSecond}
                     style={{
-                      color: "#f45532",
+                      color: "#fefdfd",
                       fontStyle: "italic",
                       display: "block",
                     }}
@@ -489,7 +477,7 @@ export function AgentMeshSection() {
                     maxWidth: 520,
                   }}
                 >
-                  ResOC is the unified console teams operate in; Agent Mesh™ is the multi-agent engine beneath it. It correlates signals across vendors, maps Minimum Viable Company (MVC) dependencies, and automates operations with Human-in-the-Loop (HITL) and Human-on-the-Loop (HIOL) approval gates.
+                  {copy.intro}
                 </p>
               </Reveal>
             </div>
@@ -498,7 +486,7 @@ export function AgentMeshSection() {
             <Reveal delay={0.24}>
               <div
                 role="tablist"
-                aria-label="Agent Mesh Reasoning Cycle"
+                aria-label={copy.cycleAriaLabel}
                 style={{
                   position: "relative",
                   paddingLeft: 20,
@@ -525,7 +513,7 @@ export function AgentMeshSection() {
                     top: activeBeat === 0 ? "0%" : activeBeat === 1 ? "33%" : "66%",
                     height: "34%",
                     width: 1,
-                    background: "#f45532",
+                    background: "#fefdfd",
                     transition: "top 0.28s cubic-bezier(0.2, 0.8, 0.2, 1)",
                   }}
                 />
@@ -564,7 +552,7 @@ export function AgentMeshSection() {
                     transition: "color 0.22s ease",
                   }}
                 >
-                  Learn
+                  {copy.steps[0].label}
                 </button>
                 <div
                   id="beat-panel-0"
@@ -591,7 +579,7 @@ export function AgentMeshSection() {
                       maxWidth: 480,
                     }}
                   >
-                    Agents map your backup, storage, application, security, ITSM and cloud tools. They read; they change nothing.
+                    {copy.steps[0].description}
                   </p>
                   <span
                     style={{
@@ -601,7 +589,7 @@ export function AgentMeshSection() {
                       letterSpacing: "0.04em",
                     }}
                   >
-                    OBSERVES · NO CHANGES
+                    {copy.steps[0].status}
                   </span>
                 </div>
               </div>
@@ -639,7 +627,7 @@ export function AgentMeshSection() {
                     transition: "color 0.22s ease",
                   }}
                 >
-                  Reason
+                  {copy.steps[1].label}
                 </button>
                 <div
                   id="beat-panel-1"
@@ -666,7 +654,7 @@ export function AgentMeshSection() {
                       maxWidth: 480,
                     }}
                   >
-                    They join the signals, trace the cause and propose a fix, with the evidence attached.
+                    {copy.steps[1].description}
                   </p>
                   <span
                     style={{
@@ -676,7 +664,7 @@ export function AgentMeshSection() {
                       letterSpacing: "0.04em",
                     }}
                   >
-                    RECOMMENDS · NO CHANGES
+                    {copy.steps[1].status}
                   </span>
                 </div>
               </div>
@@ -714,7 +702,7 @@ export function AgentMeshSection() {
                     transition: "color 0.22s ease",
                   }}
                 >
-                  Act
+                  {copy.steps[2].label}
                 </button>
                 <div
                   id="beat-panel-2"
@@ -741,17 +729,17 @@ export function AgentMeshSection() {
                       maxWidth: 480,
                     }}
                   >
-                    The approved step runs inside policy limits, and the result is saved as audit-ready evidence.
+                    {copy.steps[2].description}
                   </p>
                   <span
                     style={{
                       fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                       fontSize: 11.5,
-                      color: "#f45532",
+                      color: "#fefdfd",
                       letterSpacing: "0.04em",
                     }}
                   >
-                    REQUIRES HUMAN APPROVAL
+                    {copy.steps[2].status}
                   </span>
                 </div>
               </div>
@@ -799,7 +787,7 @@ export function AgentMeshSection() {
             marginBottom: 36,
           }}
         >
-          {AGENT_MESH.pillars.map((pillar, idx) => {
+          {copy.pillars.map((pillar, idx) => {
             const num = String(idx + 1).padStart(2, "0");
             return (
               <div
@@ -860,7 +848,7 @@ export function AgentMeshSection() {
             textAlign: "center",
           }}
         >
-          Works across on-prem, public cloud and hybrid estates.
+          {copy.closingLine}
         </p>
       </div>
 
@@ -875,7 +863,7 @@ export function AgentMeshSection() {
           -webkit-tap-highlight-color: transparent !important;
         }
         .beat-btn:focus-visible {
-          outline: 2px solid #f45532 !important;
+          outline: 2px solid #fefdfd !important;
           outline-offset: 4px !important;
         }
       `}</style>

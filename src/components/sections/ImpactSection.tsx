@@ -4,8 +4,26 @@ import { IMPACT } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 import { NumberCounter } from "@/components/motion/NumberCounter";
 
-export function ImpactSection() {
-  const { eyebrow, headline, stats, costOptimization, resiliencePosture } = IMPACT;
+export function ImpactSection({
+  content,
+  showQualitativeSplit = true,
+}: {
+  content?: Partial<typeof IMPACT>;
+  showQualitativeSplit?: boolean;
+} = {}) {
+  const copy = {
+    ...IMPACT,
+    ...content,
+    costOptimization: {
+      ...IMPACT.costOptimization,
+      ...content?.costOptimization,
+    },
+    resiliencePosture: {
+      ...IMPACT.resiliencePosture,
+      ...content?.resiliencePosture,
+    },
+  };
+  const { eyebrow, headline, metricPrefix, stats, costOptimization, resiliencePosture } = copy;
 
   return (
     <section
@@ -92,7 +110,6 @@ export function ImpactSection() {
             className="impact-stats-grid"
           >
             {stats.map((stat, idx) => {
-              const metricTags = ["SCALE", "RESOLUTION", "CONTINUITY"];
               const isLast = idx === stats.length - 1;
 
               return (
@@ -119,7 +136,7 @@ export function ImpactSection() {
                         marginBottom: 20,
                       }}
                     >
-                      TELEMETRY // {metricTags[idx]}
+                      {metricPrefix} {stat.tag}
                     </div>
 
                     {/* Monumental Figure with NumberCounter */}
@@ -175,6 +192,7 @@ export function ImpactSection() {
         {/* ═══════════════════════════════════════════════════════════════
             TIER 2: TWO-COLUMN QUALITATIVE SPLIT (FINANCIAL ROI & POSTURE)
            ═══════════════════════════════════════════════════════════════ */}
+        {showQualitativeSplit && (
         <Reveal variant="fade-up" delay={0.1}>
           <div
             style={{
@@ -212,7 +230,7 @@ export function ImpactSection() {
                     marginBottom: 14,
                   }}
                 >
-                  FINANCIAL ROI
+                  {costOptimization.label}
                 </div>
 
                 <h3
@@ -261,7 +279,12 @@ export function ImpactSection() {
                           fontWeight: 500,
                         }}
                       >
-                        {pt.title}
+                        <div>{pt.title}</div>
+                        {pt.desc && (
+                          <div style={{ marginTop: 4, color: "var(--muted)", fontSize: 13 }}>
+                            {pt.desc}
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -289,7 +312,7 @@ export function ImpactSection() {
                     marginBottom: 14,
                   }}
                 >
-                  OPERATIONAL RESILIENCE
+                  {resiliencePosture.label}
                 </div>
 
                 <h3
@@ -357,6 +380,7 @@ export function ImpactSection() {
             </div>
           </div>
         </Reveal>
+        )}
       </div>
     </section>
   );

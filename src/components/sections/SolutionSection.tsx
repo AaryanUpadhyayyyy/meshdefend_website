@@ -5,7 +5,13 @@ import Link from "next/link";
 import { SOLUTION } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 
-export function SolutionSection() {
+export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION> } = {}) {
+  const solution = {
+    ...SOLUTION,
+    ...content,
+    columns: { ...SOLUTION.columns, ...content?.columns },
+    items: content?.items ?? SOLUTION.items,
+  };
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
@@ -50,7 +56,7 @@ export function SolutionSection() {
                   fontWeight: 600,
                 }}
               >
-                {SOLUTION.eyebrow}
+                {solution.eyebrow}
               </span>
             </div>
           </Reveal>
@@ -69,7 +75,7 @@ export function SolutionSection() {
                 fontWeight: 400,
               }}
             >
-              {SOLUTION.headline}
+              {solution.headline}
             </h2>
           </Reveal>
 
@@ -85,7 +91,7 @@ export function SolutionSection() {
                 margin: 0,
               }}
             >
-              {SOLUTION.lede}
+              {solution.lede}
             </p>
           </Reveal>
         </div>
@@ -116,14 +122,14 @@ export function SolutionSection() {
             }}
             className="capability-index-header"
           >
-            <div>#</div>
-            <div>ResOC Capability</div>
-            <div>What It Solves</div>
+            <div>{solution.columns.number}</div>
+            <div>{solution.columns.col1}</div>
+            <div>{solution.columns.col2}</div>
             <div></div>
           </div>
-            {SOLUTION.items.map((item, idx) => {
+            {solution.items.map((item, idx) => {
               const isHovered = hoveredIdx === idx;
-              const isLast = idx === SOLUTION.items.length - 1;
+              const isLast = idx === solution.items.length - 1;
 
               return (
                 <Link

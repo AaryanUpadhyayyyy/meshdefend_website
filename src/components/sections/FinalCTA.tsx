@@ -4,7 +4,15 @@ import { motion } from "framer-motion";
 import { FINAL_CTA } from "@/lib/sections";
 import { Reveal } from "@/components/motion";
 
-export function FinalCTA() {
+export function FinalCTA({
+  content,
+}: {
+  content?: Partial<typeof FINAL_CTA> & {
+    ctaPrimaryHref?: string;
+    ctaSecondaryHref?: string;
+  };
+} = {}) {
+  const copy = { ...FINAL_CTA, ...content };
   return (
     <section
       id="cta"
@@ -81,7 +89,7 @@ export function FinalCTA() {
                 fontWeight: 600,
               }}
             >
-              {FINAL_CTA.eyebrow}
+              {copy.eyebrow}
             </span>
           </div>
         </Reveal>
@@ -100,7 +108,7 @@ export function FinalCTA() {
               margin: "0 0 20px",
             }}
           >
-            {FINAL_CTA.headline}
+            {copy.headline}
           </h2>
         </Reveal>
 
@@ -116,7 +124,7 @@ export function FinalCTA() {
               margin: "0 auto 40px",
             }}
           >
-            {FINAL_CTA.lede}
+            {copy.lede}
           </p>
         </Reveal>
 
@@ -131,7 +139,7 @@ export function FinalCTA() {
             }}
           >
             <motion.a
-              href="/demo"
+              href={content?.ctaPrimaryHref || "/demo"}
               className="btn btn-primary"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -147,11 +155,11 @@ export function FinalCTA() {
                 textDecoration: "none",
               }}
             >
-              {FINAL_CTA.ctaPrimary}
+              {copy.ctaPrimary}
             </motion.a>
 
             <motion.a
-              href="/platform/observability"
+              href={content?.ctaSecondaryHref || "/platform/observability"}
               className="btn btn-secondary"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -164,7 +172,7 @@ export function FinalCTA() {
                 textDecoration: "none",
               }}
             >
-              {FINAL_CTA.ctaSecondary}
+              {copy.ctaSecondary}
             </motion.a>
           </div>
         </Reveal>
