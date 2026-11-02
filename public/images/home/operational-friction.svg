@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1586" height="768" viewBox="0 0 1586 768" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Operational friction and context loss</title>
+  <desc id="desc">Support work passes through L1, L2, L3, and specialists before context is lost; brittle scripts and scattered knowledge make investigation harder.</desc>
+  <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#eef0f2" stroke-width="1"/></pattern></defs>
+  <rect width="1586" height="768" fill="#fff"/><rect width="1586" height="768" fill="url(#grid)" opacity=".48"/>
+  <g stroke="#9aa6b4" stroke-width="3" fill="none"><path d="M180 190h170M470 190h170M760 190h170M1050 190h140"/><path d="m330 180 14 10-14 10M620 180l14 10-14 10M910 180l14 10-14 10M1160 180l14 10-14 10"/></g>
+  <g fill="#fff" stroke="#d8dee6" stroke-width="2">
+    <rect x="70" y="118" width="220" height="150" rx="16"/><rect x="360" y="118" width="220" height="150" rx="16"/><rect x="650" y="118" width="220" height="150" rx="16"/><rect x="940" y="118" width="220" height="150" rx="16"/>
+    <rect x="1190" y="145" width="320" height="94" rx="14" stroke="#f45532" stroke-width="3"/>
+  </g>
+  <g fill="#fff" stroke="#8c98a7" stroke-width="5"><circle cx="180" cy="169" r="19"/><path d="M146 216c3-24 19-35 34-35s31 11 34 35"/><circle cx="470" cy="169" r="19"/><path d="M436 216c3-24 19-35 34-35s31 11 34 35"/><circle cx="760" cy="169" r="19"/><path d="M726 216c3-24 19-35 34-35s31 11 34 35"/><circle cx="1050" cy="169" r="19"/><path d="M1016 216c3-24 19-35 34-35s31 11 34 35"/></g>
+  <g font-family="Inter, Arial, sans-serif" fill="#26313e" font-size="24" font-weight="700" text-anchor="middle"><text x="180" y="249">L1</text><text x="470" y="249">L2</text><text x="760" y="249">L3</text><text x="1050" y="249">Specialist</text><text x="1350" y="202" fill="#d74728" font-size="27">Context lost</text></g>
+  <g fill="#fff" stroke="#d8dee6" stroke-width="2">
+    <rect x="74" y="342" width="666" height="326" rx="16"/><rect x="846" y="342" width="666" height="326" rx="16"/>
+  </g>
+  <g>
+    <path d="M74 388h666" stroke="#e4e8ed" stroke-width="2"/><circle cx="106" cy="365" r="7" fill="#fa655b"/><circle cx="130" cy="365" r="7" fill="#f3bc4d"/><circle cx="154" cy="365" r="7" fill="#55bf78"/>
+    <rect x="106" y="418" width="256" height="218" rx="12" fill="#f7f8fa"/><rect x="388" y="418" width="322" height="218" rx="12" fill="#f7f8fa"/>
+    <g stroke="#d3d8df" stroke-width="12" stroke-linecap="round"><path d="M130 456h172M130 488h126M130 520h190M130 552h120M130 584h176M130 616h92"/><path d="M414 450h236M414 482h176M414 514h218M414 546h154M414 578h230M414 610h168"/></g>
+    <path d="m370 416-12 70 22 46-26 70 16 66" stroke="#758293" stroke-width="4"/>
+    <path d="M846 388h666" stroke="#e4e8ed" stroke-width="2"/><circle cx="878" cy="365" r="7" fill="#fa655b"/><circle cx="902" cy="365" r="7" fill="#f3bc4d"/><circle cx="926" cy="365" r="7" fill="#55bf78"/>
+    <g fill="#fff" stroke="#d7dde5" stroke-width="2"><rect x="906" y="430" width="138" height="98" rx="12"/><rect x="1086" y="472" width="140" height="98" rx="12"/><rect x="1268" y="418" width="156" height="100" rx="12"/><rect x="948" y="568" width="138" height="70" rx="12"/><rect x="1194" y="578" width="148" height="74" rx="12"/></g>
+    <g stroke="#b6c0cc" stroke-width="3" stroke-dasharray="8 8" fill="none"><path d="M1044 480c26-38 46-38 64 21M1226 520c45 12 52 22 42 29M1080 606c53-27 82-30 114-6M1268 550c-19 17-31 24-36 28"/></g>
+    <g fill="#98a4b2"><path d="M932 455h84M932 477h70M932 499h92M1112 495h88M1112 517h66M1294 442h100M1294 464h74M1294 486h86M974 590h82M974 612h54M1220 600h94M1220 622h70"/></g>
+    <g fill="#fff" stroke="#9aa6b4" stroke-width="3"><circle cx="972" cy="475" r="10"/><circle cx="1150" cy="514" r="10"/><circle cx="1346" cy="464" r="10"/><circle cx="1015" cy="605" r="10"/><circle cx="1268" cy="615" r="10"/></g>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" fill="#26313e" font-size="24" font-weight="700" text-anchor="middle"><text x="407" y="714">[ BRITTLE SCRIPT ]</text><text x="1179" y="714">[ SCATTERED KNOWLEDGE ]</text></g>
+</svg>

@@ -97,14 +97,6 @@ function ImageSection({ block }: { block: CmsBlock }) {
   );
 }
 
-function renumberHomepageEyebrow(value: string, oldNumber: number, newNumber: number) {
-  return value.replace(/^(\s*\[\s*)0*(\d+)(\s*\/\/)/, (match, prefix: string, number: string, divider: string) =>
-    Number(number) === oldNumber
-      ? `${prefix}${String(newNumber).padStart(2, "0")}${divider}`
-      : match,
-  );
-}
-
 function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
   const key = String(block.id ?? `${block.blockType}-${index}`);
   switch (block.blockType) {
@@ -119,9 +111,14 @@ function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
             primaryCta: block.primaryCta as { label: string; href: string } | undefined,
             secondaryCta: block.secondaryCta as { label: string; href: string } | undefined,
             backingLine: asText(block.backingLine),
-            dashboardImage: asMedia(block.dashboardImage),
-            dashboardImageUrl: asText(block.dashboardImageUrl),
-            dashboardImageAlt: asText(block.dashboardImageAlt),
+            dashboardImage: isHomepage ? null : asMedia(block.dashboardImage),
+            dashboardImageUrl: isHomepage
+              ? undefined
+              : asText(block.dashboardImageUrl),
+            dashboardImageAlt: isHomepage
+              ? undefined
+              : asText(block.dashboardImageAlt),
+            useResocVisual: isHomepage,
           }} />
         </HeroStateProvider>
       );
@@ -162,7 +159,7 @@ function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
     }
     case "painPoints":
       return <PainSection key={key} content={{
-        eyebrow: asText(block.eyebrow),
+        eyebrow: isHomepage ? "" : asText(block.eyebrow),
         headline: asText(block.headline),
         openingLine: asText(block.openingLine),
         previousButtonLabel: asText(block.previousButtonLabel),
@@ -179,7 +176,7 @@ function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
       }} />;
     case "capabilities":
       return <SolutionSection key={key} content={{
-        eyebrow: asText(block.eyebrow),
+        eyebrow: isHomepage ? "" : asText(block.eyebrow),
         headline: asText(block.headline),
         lede: asText(block.lede),
         columns: {
@@ -216,7 +213,7 @@ function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
       }} />;
     case "impact":
       return <ImpactSection key={key} content={{
-        eyebrow: isHomepage ? renumberHomepageEyebrow(asText(block.eyebrow), 5, 4) : asText(block.eyebrow),
+        eyebrow: isHomepage ? "" : asText(block.eyebrow),
         headline: asText(block.headline),
         metricPrefix: asText(block.metricPrefix),
         stats: asBlocks(block.stats).map((stat) => ({
@@ -239,10 +236,10 @@ function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
           title: asText((block.resiliencePosture as Record<string, unknown> | undefined)?.title),
           points: asBlocks((block.resiliencePosture as Record<string, unknown> | undefined)?.points).map((point) => asText(point.point)),
         },
-      }} showQualitativeSplit={!isHomepage} />;
+      }} isHomepage={isHomepage} />;
     case "audiences":
       return <AudienceSection key={key} content={{
-        eyebrow: isHomepage ? renumberHomepageEyebrow(asText(block.eyebrow), 6, 5) : asText(block.eyebrow),
+        eyebrow: isHomepage ? "" : asText(block.eyebrow),
         headline: asText(block.headline),
         segments: asBlocks(block.segments).map((segment, segmentIndex) => ({
           id: asText(segment.id, String(segmentIndex)),

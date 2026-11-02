@@ -16,6 +16,7 @@ export function FinalCTA({
   return (
     <section
       id="cta"
+      className="home-final-cta-section"
       style={{
         padding: "112px 0 120px",
         background: "#221f22",

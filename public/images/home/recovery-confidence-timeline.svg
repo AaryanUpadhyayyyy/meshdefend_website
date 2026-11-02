@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1580" height="555" viewBox="46 105 1580 555" preserveAspectRatio="xMidYMid meet" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Recovery confidence timeline</title>
+  <desc id="desc">A passed recovery test is verified today, then evidence becomes stale after three months without another test. The timeline recommends a retest.</desc>
+  <defs>
+    <linearGradient id="panel" x1="60" y1="210" x2="1620" y2="740" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#fbfcfe"/></linearGradient>
+    <linearGradient id="green" x1="80" y1="350" x2="440" y2="720" gradientUnits="userSpaceOnUse"><stop stop-color="#e9fff1"/><stop offset="1" stop-color="#d9f8e5"/></linearGradient>
+    <linearGradient id="amber" x1="1240" y1="470" x2="1595" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#fff8e9"/><stop offset="1" stop-color="#ffefcf"/></linearGradient>
+  </defs>
+  <rect width="1672" height="810" fill="#fff"/>
+
+  <g transform="translate(0 -95)">
+  <!-- Verified today -->
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="50" y="214" width="410" height="512" rx="24" fill="url(#panel)" stroke="#e1e7f0" stroke-width="2"/>
+    <rect x="82" y="247" width="153" height="54" rx="27" fill="#e9edf6"/>
+    <text x="158.5" y="282" fill="#132344" font-size="22" font-weight="750" text-anchor="middle">TODAY</text>
+
+    <circle cx="128" cy="382" r="39" fill="#20c567"/>
+    <path d="m109 382 13 13 27-29" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="197" y="373" fill="#12203d" font-size="29" font-weight="750">Recovery test</text>
+    <text x="197" y="407" fill="#12203d" font-size="29" font-weight="750">passed</text>
+
+    <path d="M82 431h346" stroke="#e1e7ef" stroke-width="2"/>
+    <rect x="82" y="464" width="86" height="84" rx="18" fill="#f0f3f8"/>
+    <circle cx="125" cy="506" r="23" stroke="#74839a" stroke-width="5"/>
+    <path d="M125 491v16l12 8" stroke="#74839a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="197" y="499" fill="#78869b" font-size="23" font-weight="500">Recovery time:</text>
+    <text x="197" y="534" fill="#12203d" font-size="28" font-weight="750">4 hours</text>
+
+    <path d="M82 579h346" stroke="#e1e7ef" stroke-width="2"/>
+    <rect x="82" y="610" width="346" height="84" rx="20" fill="url(#green)"/>
+    <circle cx="132" cy="652" r="27" fill="#20c567"/>
+    <path d="m120 652 9 9 17-19" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="195" y="663" fill="#087441" font-size="27" font-weight="750">Verified</text>
+  </g>
+
+  <!-- Evidence ages along the timeline -->
+  <g stroke="#b5c0d0" stroke-width="3" stroke-dasharray="12 10">
+    <path d="M480 492h655"/>
+  </g>
+  <path d="m1135 481 15 11-15 11" stroke="#9aa8bc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <g transform="translate(561 334)">
+      <rect width="110" height="108" rx="19" fill="url(#panel)" stroke="#e0e6ef" stroke-width="2"/>
+      <path d="M27 26h46v54H27z" fill="#f7f9fc" stroke="#d8e0eb" stroke-width="2"/>
+      <path d="M37 42h27M37 54h27M37 66h20" stroke="#9aa8bc" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="80" cy="83" r="18" fill="#20c567" stroke="#fff" stroke-width="4"/>
+      <path d="m72 83 6 6 11-13" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(770 334)">
+      <rect width="110" height="108" rx="19" fill="url(#panel)" stroke="#e0e6ef" stroke-width="2"/>
+      <path d="M27 26h46v54H27z" fill="#f7f9fc" stroke="#d8e0eb" stroke-width="2"/>
+      <path d="M37 42h27M37 54h27M37 66h20" stroke="#9aa8bc" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="80" cy="83" r="18" fill="#74d49a" stroke="#fff" stroke-width="4"/>
+      <path d="m72 83 6 6 11-13" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(979 334)">
+      <rect width="110" height="108" rx="19" fill="url(#panel)" stroke="#e0e6ef" stroke-width="2"/>
+      <path d="M27 26h46v54H27z" fill="#f7f9fc" stroke="#d8e0eb" stroke-width="2"/>
+      <path d="M37 42h27M37 54h27M37 66h20" stroke="#9aa8bc" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="80" cy="83" r="18" fill="#f5ad27" stroke="#fff" stroke-width="4"/>
+      <path d="M80 73v11l7 5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <path d="M616 442v33M825 442v33M1034 442v33" stroke="#d6dee9" stroke-width="2"/>
+    <circle cx="616" cy="492" r="19" fill="#20c567" stroke="#fff" stroke-width="7"/>
+    <circle cx="825" cy="492" r="19" fill="#84dba5" stroke="#fff" stroke-width="7"/>
+    <circle cx="1034" cy="492" r="19" fill="#f5ad27" stroke="#fff" stroke-width="7"/>
+    <text x="616" y="551" fill="#132344" font-size="23" font-weight="500">Month 1</text>
+    <text x="825" y="551" fill="#132344" font-size="23" font-weight="500">Month 2</text>
+    <text x="1034" y="551" fill="#132344" font-size="23" font-weight="500">Month 3</text>
+  </g>
+
+  <!-- Stale evidence after three months -->
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="1204" y="214" width="422" height="526" rx="24" fill="url(#panel)" stroke="#e1e7f0" stroke-width="2"/>
+    <rect x="1236" y="247" width="257" height="54" rx="27" fill="#e9edf6"/>
+    <text x="1364.5" y="282" fill="#132344" font-size="21" font-weight="750" text-anchor="middle">AFTER 3 MONTHS</text>
+
+    <rect x="1243" y="314" width="98" height="98" rx="18" fill="#fff" stroke="#e0e6ef" stroke-width="2"/>
+    <path d="M1263 337h48v47h-48z" fill="#f7f9fc" stroke="#d8e0eb" stroke-width="2"/>
+    <path d="M1273 350h27M1273 361h27M1273 372h19" stroke="#a3afc0" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="1328" cy="393" r="18" fill="#f5ad27" stroke="#fff" stroke-width="4"/>
+    <path d="M1328 383v11l7 5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1366" y="350" fill="#78869b" font-size="22" font-weight="500">Last verified:</text>
+    <text x="1366" y="383" fill="#12203d" font-size="25" font-weight="750">3 months ago</text>
+
+    <path d="M1236 429h358" stroke="#e1e7ef" stroke-width="2"/>
+    <rect x="1236" y="448" width="358" height="62" rx="31" fill="url(#amber)"/>
+    <path d="m1270 465 17 30h-34z" fill="#f1a000"/>
+    <path d="M1270 474v9M1270 487v1" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="1393" y="488" fill="#865208" font-size="22" font-weight="750" text-anchor="middle">Evidence stale</text>
+
+    <path d="M1236 528h358" stroke="#e1e7ef" stroke-width="2"/>
+    <text x="1240" y="574" fill="#78869b" font-size="20" font-weight="500">Recovery confidence:</text>
+    <text x="1240" y="614" fill="#12203d" font-size="28" font-weight="750">Unverified</text>
+
+    <path d="M1480 615a60 60 0 0 1 120 0" stroke="#e4e9f1" stroke-width="16" stroke-linecap="round"/>
+    <path d="M1480 615a60 60 0 0 1 43-58" stroke="#f45532" stroke-width="16" stroke-linecap="round"/>
+    <path d="m1540 612-43-31" stroke="#132344" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="1540" cy="612" r="8" fill="#132344"/>
+
+    <rect x="1236" y="647" width="358" height="64" rx="17" fill="#fff6f2" stroke="#f45532" stroke-width="2"/>
+    <text x="1415" y="687" fill="#e84d2e" font-size="21" font-weight="750" text-anchor="middle">Retest recommended</text>
+  </g>
+  </g>
+</svg>

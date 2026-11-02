@@ -7,9 +7,11 @@ import { NumberCounter } from "@/components/motion/NumberCounter";
 export function ImpactSection({
   content,
   showQualitativeSplit = true,
+  isHomepage = false,
 }: {
   content?: Partial<typeof IMPACT>;
   showQualitativeSplit?: boolean;
+  isHomepage?: boolean;
 } = {}) {
   const copy = {
     ...IMPACT,
@@ -24,6 +26,7 @@ export function ImpactSection({
     },
   };
   const { eyebrow, headline, metricPrefix, stats, costOptimization, resiliencePosture } = copy;
+  const costPoints = costOptimization.points;
 
   return (
     <section
@@ -39,7 +42,7 @@ export function ImpactSection({
         {/* ─── SECTION HEADER ─── */}
         <div style={{ maxWidth: 880, marginBottom: 48 }}>
           {/* Eyebrow */}
-          <Reveal delay={0}>
+          {eyebrow && <Reveal delay={0}>
             <div
               style={{
                 display: "flex",
@@ -70,7 +73,7 @@ export function ImpactSection({
                 {eyebrow}
               </span>
             </div>
-          </Reveal>
+          </Reveal>}
 
           {/* H2 Headline */}
           <Reveal delay={0.08}>
@@ -190,36 +193,38 @@ export function ImpactSection({
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════
-            TIER 2: TWO-COLUMN QUALITATIVE SPLIT (FINANCIAL ROI & POSTURE)
+            TIER 2: TWO-COLUMN QUALITATIVE SPLIT
            ═══════════════════════════════════════════════════════════════ */}
         {showQualitativeSplit && (
         <Reveal variant="fade-up" delay={0.1}>
           <div
             style={{
-              border: "1px solid var(--border)",
-              background: "var(--surface)",
+              border: isHomepage ? "none" : "1px solid var(--border)",
+              background: isHomepage ? "transparent" : "var(--surface)",
             }}
           >
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "5fr 7fr",
+                gridTemplateColumns: isHomepage ? "1fr 1fr" : "5fr 7fr",
+                gap: isHomepage ? "clamp(28px, 4vw, 56px)" : 0,
+                alignItems: "start",
               }}
               className="impact-split-grid"
             >
-              {/* Left Column: Financial ROI */}
+              {/* Left Column: Cost Optimization */}
               <div
                 style={{
-                  padding: "36px 32px",
-                  borderRight: "1px solid var(--border)",
-                  background: "var(--surface)",
+                  padding: isHomepage ? "8px 0" : "36px 32px",
+                  borderRight: isHomepage ? "none" : "1px solid var(--border)",
+                  background: isHomepage ? "transparent" : "var(--surface)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                 }}
                 className="impact-left-col"
               >
-                <div
+                {!isHomepage && <div
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 10.5,
@@ -231,9 +236,9 @@ export function ImpactSection({
                   }}
                 >
                   {costOptimization.label}
-                </div>
+                </div>}
 
-                <h3
+                {!isHomepage && <h3
                   style={{
                     fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
                     fontSize: "clamp(26px, 2.6vw, 34px)",
@@ -245,35 +250,69 @@ export function ImpactSection({
                   }}
                 >
                   {costOptimization.title}
-                </h3>
+                </h3>}
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  {costOptimization.points.map((pt, pIdx) => (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    gap: isHomepage ? 0 : 14,
+                  }}
+                >
+                  {costPoints.map((pt, pIdx) => (
                     <div
                       key={pIdx}
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 12,
-                        padding: "16px 18px",
-                        background: "var(--bg)",
-                        border: "1px solid var(--border)",
-                        borderRadius: 4,
+                        gap: isHomepage ? 16 : 12,
+                        padding: isHomepage ? "24px 0" : "16px 18px",
+                        background: isHomepage ? "transparent" : "var(--bg)",
+                        border: isHomepage ? "none" : "1px solid var(--border)",
+                        borderBottom:
+                          isHomepage && pIdx < costPoints.length - 1
+                            ? "1px solid var(--border)"
+                            : undefined,
+                        borderRadius: isHomepage ? 0 : 4,
                       }}
                     >
-                      <span
-                        style={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: "50%",
-                          background: "var(--orange)",
-                          flexShrink: 0,
-                        }}
-                      />
+                      {isHomepage ? (
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            display: "grid",
+                            width: 34,
+                            height: 34,
+                            placeItems: "center",
+                            flexShrink: 0,
+                            border: "1px solid color-mix(in srgb, var(--orange) 28%, var(--border))",
+                            borderRadius: "50%",
+                            background: "color-mix(in srgb, var(--orange) 8%, var(--bg))",
+                            color: "var(--orange)",
+                            fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                            fontSize: 12,
+                            fontWeight: 600,
+                          }}
+                        >
+                          {String(pIdx + 1).padStart(2, "0")}
+                        </span>
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            width: 6,
+                            height: 6,
+                            borderRadius: "50%",
+                            background: "var(--orange)",
+                            flexShrink: 0,
+                          }}
+                        />
+                      )}
                       <div
                         style={{
                           fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                          fontSize: 15,
+                          fontSize: isHomepage ? 16 : 15,
                           color: "var(--ink)",
                           lineHeight: 1.45,
                           fontWeight: 500,
@@ -294,14 +333,14 @@ export function ImpactSection({
               {/* Right Column: Stronger Resilience Posture */}
               <div
                 style={{
-                  padding: "36px 32px",
+                  padding: isHomepage ? "8px 0" : "36px 32px",
                   background: "var(--bg)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                 }}
               >
-                <div
+                {!isHomepage && <div
                   style={{
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     fontSize: 10.5,
@@ -313,7 +352,7 @@ export function ImpactSection({
                   }}
                 >
                   {resiliencePosture.label}
-                </div>
+                </div>}
 
                 <h3
                   style={{
@@ -332,7 +371,7 @@ export function ImpactSection({
                 <div
                   style={{
                     border: "1px solid var(--border)",
-                    borderRadius: 4,
+                    borderRadius: 10,
                     overflow: "hidden",
                   }}
                 >
@@ -344,20 +383,27 @@ export function ImpactSection({
                         key={pIdx}
                         style={{
                           display: "flex",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                           gap: 14,
-                          padding: "16px 20px",
+                          padding: "18px 20px",
                           borderBottom: isLastPt ? "none" : "1px solid var(--border)",
                           background: "var(--bg)",
                         }}
                       >
                         <span
                           style={{
+                            display: "grid",
+                            width: 24,
+                            height: 24,
+                            placeItems: "center",
+                            flexShrink: 0,
                             fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                             fontSize: 13,
                             color: "var(--orange)",
                             fontWeight: 700,
-                            lineHeight: 1.5,
+                            lineHeight: 1,
+                            borderRadius: "50%",
+                            background: "color-mix(in srgb, var(--orange) 9%, var(--bg))",
                           }}
                         >
                           ✓

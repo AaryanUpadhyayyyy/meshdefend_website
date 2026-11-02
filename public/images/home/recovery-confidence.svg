@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1586" height="768" viewBox="0 0 1586 768" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Recovery confidence and restore readiness</title>
+  <desc id="desc">A backup dashboard shows successful backups alongside unverified restores, highlighting the difference between backup status and application recovery.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#eef0f2" stroke-width="1"/></pattern>
+    <linearGradient id="glass" x1="90" y1="180" x2="1490" y2="748" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#f7f8fa"/></linearGradient>
+  </defs>
+  <rect width="1586" height="768" fill="#fff"/>
+  <rect width="1586" height="768" fill="url(#grid)" opacity=".48"/>
+  <g font-family="Inter, Arial, sans-serif" fill="#222a34">
+    <text x="92" y="106" font-size="30" font-weight="750" letter-spacing="1.2">[</text>
+    <text x="126" y="106" font-size="30" font-weight="700">BACKUPS <tspan fill="#f45532">SUCCEED</tspan></text>
+    <path d="M540 96h486" stroke="#aeb6c0" stroke-width="2"/>
+    <text x="1050" y="106" font-size="30" font-weight="750" letter-spacing="1.2" fill="#f45532">[</text>
+    <text x="1086" y="106" font-size="30" font-weight="700">RECOVERY <tspan fill="#f45532">ISN’T PROVEN</tspan></text>
+    <text x="1472" y="106" font-size="30" font-weight="750" fill="#f45532">]</text>
+  </g>
+  <g>
+    <rect x="82" y="150" width="1422" height="584" rx="16" fill="url(#glass)" stroke="#d8dde4" stroke-width="2"/>
+    <path d="M82 194h1422" stroke="#e0e4e9" stroke-width="2"/>
+    <circle cx="112" cy="174" r="8" fill="#fa655b"/><circle cx="140" cy="174" r="8" fill="#f3bc4d"/><circle cx="168" cy="174" r="8" fill="#55bf78"/>
+    <rect x="106" y="218" width="1374" height="472" rx="10" fill="#fff" stroke="#d8dde4" stroke-width="2"/>
+    <path d="M106 264h1374M106 334h1374M106 404h1374M106 474h1374M106 544h1374M106 614h1374" stroke="#e4e7eb" stroke-width="2"/>
+    <path d="M380 218v472M554 218v472M790 218v472M1016 218v472M1246 218v472" stroke="#e4e7eb" stroke-width="2"/>
+    <g font-family="Inter, Arial, sans-serif" fill="#677381" font-size="20" font-weight="600">
+      <text x="128" y="248">Application</text><text x="400" y="248">Asset Type</text><text x="574" y="248">Last Backup</text><text x="810" y="248">Status</text><text x="1036" y="248">Backup</text><text x="1266" y="248">Restore</text>
+    </g>
+    <g font-family="Inter, Arial, sans-serif" font-size="18" fill="#697583">
+      <g><circle cx="142" cy="299" r="12" stroke="#667382" stroke-width="2"/><path d="M134 295h16v9h-16zM134 291h16" stroke="#667382" stroke-width="2"/><rect x="166" y="292" width="102" height="12" rx="6" fill="#d4d8de"/><text x="400" y="305">VM</text><text x="574" y="305">Oct 21, 2026 02:18</text></g>
+      <g><ellipse cx="142" cy="369" rx="12" ry="6" stroke="#667382" stroke-width="2"/><path d="M130 369v12c0 4 24 4 24 0v-12M130 375c0 5 24 5 24 0" stroke="#667382" stroke-width="2"/><rect x="166" y="362" width="102" height="12" rx="6" fill="#d4d8de"/><text x="400" y="375">Database</text><text x="574" y="375">Oct 21, 2026 01:44</text></g>
+      <g><path d="M132 439a10 10 0 0 1 20 0h3a7 7 0 0 1 0 14h-27a7 7 0 0 1 0-14h4" stroke="#667382" stroke-width="2"/><rect x="166" y="432" width="102" height="12" rx="6" fill="#d4d8de"/><text x="400" y="445">SaaS</text><text x="574" y="445">Oct 21, 2026 00:32</text></g>
+      <g><ellipse cx="142" cy="509" rx="12" ry="6" stroke="#667382" stroke-width="2"/><path d="M130 509v12c0 4 24 4 24 0v-12M130 515c0 5 24 5 24 0" stroke="#667382" stroke-width="2"/><rect x="166" y="502" width="102" height="12" rx="6" fill="#d4d8de"/><text x="400" y="515">Database</text><text x="574" y="515">Oct 20, 2026 23:11</text></g>
+      <g><rect x="108" y="546" width="1370" height="66" rx="8" fill="#fff0eb" stroke="#f45532" stroke-width="2"/><ellipse cx="142" cy="579" rx="12" ry="6" stroke="#f45532" stroke-width="2"/><path d="M130 579v12c0 4 24 4 24 0v-12M130 585c0 5 24 5 24 0" stroke="#f45532" stroke-width="2"/><text x="166" y="586" fill="#d74728" font-weight="700">payments-db</text><text x="400" y="586">Database</text><text x="574" y="586">Oct 20, 2026 22:07</text></g>
+      <g><circle cx="142" cy="649" r="12" stroke="#667382" stroke-width="2"/><path d="M134 645h16v9h-16zM134 641h16" stroke="#667382" stroke-width="2"/><rect x="166" y="642" width="102" height="12" rx="6" fill="#d4d8de"/><text x="400" y="655">VM</text><text x="574" y="655">Oct 20, 2026 21:36</text></g>
+    </g>
+    <g font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">
+      <g fill="#0d8544"><rect x="810" y="282" width="126" height="34" rx="7" fill="#e2f5ea"/><text x="873" y="305">● Completed</text><rect x="810" y="352" width="126" height="34" rx="7" fill="#e2f5ea"/><text x="873" y="375">● Completed</text><rect x="810" y="422" width="126" height="34" rx="7" fill="#e2f5ea"/><text x="873" y="445">● Completed</text><rect x="810" y="492" width="126" height="34" rx="7" fill="#e2f5ea"/><text x="873" y="515">● Completed</text><rect x="810" y="632" width="126" height="34" rx="7" fill="#e2f5ea"/><text x="873" y="655">● Completed</text></g>
+      <g stroke="#728092" stroke-width="2" fill="#fff"><circle cx="1064" cy="299" r="15"/><circle cx="1064" cy="369" r="15"/><circle cx="1064" cy="439" r="15"/><circle cx="1064" cy="509" r="15"/><circle cx="1064" cy="649" r="15"/><circle cx="1294" cy="299" r="15"/><circle cx="1294" cy="369" r="15"/><circle cx="1294" cy="439" r="15"/><circle cx="1294" cy="509" r="15"/><circle cx="1294" cy="649" r="15"/></g>
+      <g font-size="20" fill="#697583"><text x="1064" y="306">✓</text><text x="1064" y="376">✓</text><text x="1064" y="446">✓</text><text x="1064" y="516">✓</text><text x="1064" y="656">✓</text><text x="1294" y="306">×</text><text x="1294" y="376">×</text><text x="1294" y="446">×</text><text x="1294" y="516">×</text><text x="1294" y="656">×</text></g>
+      <g fill="#d0d4da"><rect x="1090" y="293" width="98" height="12" rx="6"/><rect x="1090" y="363" width="98" height="12" rx="6"/><rect x="1090" y="433" width="98" height="12" rx="6"/><rect x="1090" y="503" width="98" height="12" rx="6"/><rect x="1090" y="573" width="98" height="12" rx="6"/><rect x="1090" y="643" width="98" height="12" rx="6"/><rect x="1320" y="293" width="98" height="12" rx="6"/><rect x="1320" y="363" width="98" height="12" rx="6"/><rect x="1320" y="433" width="98" height="12" rx="6"/><rect x="1320" y="503" width="98" height="12" rx="6"/><rect x="1320" y="643" width="98" height="12" rx="6"/></g>
+      <g fill="#f45532"><circle cx="1064" cy="579" r="15"/><text x="1064" y="586" fill="#fff">✓</text><circle cx="1294" cy="579" r="15"/><text x="1294" y="586" fill="#fff">×</text><rect x="1320" y="573" width="98" height="12" rx="6"/></g>
+    </g>
+  </g>
+</svg>

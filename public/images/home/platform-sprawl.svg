@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1586" height="768" viewBox="0 0 1586 768" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Fragmented systems and missing single view</title>
+  <desc id="desc">Separate backup, storage, cloud, security, ITSM, and ticketing consoles remain disconnected around a central missing single view.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#eef0f2" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1586" height="768" fill="#fff"/><rect width="1586" height="768" fill="url(#grid)" opacity=".5"/>
+  <g stroke="#aab4c0" stroke-width="3" stroke-dasharray="10 12" fill="none">
+    <path d="M362 235C492 235 526 318 648 368M1224 235c-130 0-164 83-286 133M362 630c132 0 166-112 286-162M1224 630c-132 0-166-112-286-162M790 190v156M790 590v-75"/>
+  </g>
+  <g fill="#fff" stroke="#d8dee6" stroke-width="2">
+    <rect x="68" y="110" width="420" height="220" rx="18"/><rect x="583" y="54" width="420" height="220" rx="18"/><rect x="1098" y="110" width="420" height="220" rx="18"/>
+    <rect x="68" y="520" width="420" height="220" rx="18"/><rect x="583" y="590" width="420" height="170" rx="18"/><rect x="1098" y="520" width="420" height="220" rx="18"/>
+  </g>
+  <g fill="#f5f7f9" stroke="#e4e8ed" stroke-width="2"><rect x="88" y="154" width="380" height="150" rx="10"/><rect x="603" y="98" width="380" height="150" rx="10"/><rect x="1118" y="154" width="380" height="150" rx="10"/><rect x="88" y="564" width="380" height="150" rx="10"/><rect x="603" y="634" width="380" height="106" rx="10"/><rect x="1118" y="564" width="380" height="150" rx="10"/></g>
+  <g font-family="Inter, Arial, sans-serif" fill="#26313e" font-size="28" font-weight="700">
+    <text x="110" y="143">[ BACKUP ]</text><text x="625" y="87">[ STORAGE ]</text><text x="1140" y="143">[ CLOUD ]</text><text x="110" y="553">[ SECURITY ]</text><text x="625" y="623">[ TICKETS ]</text><text x="1140" y="553">[ ITSM ]</text>
+  </g>
+  <g stroke="#d2d8df" stroke-width="2" fill="#d2d8df">
+    <path d="M112 184h130M112 216h208M112 248h160M112 280h255M628 128h136M628 160h228M628 192h180M1142 184h120M1142 216h220M1142 248h164M1142 280h280M112 594h122M112 626h250M112 658h184M628 664h190M628 696h260M1142 594h180M1142 626h238M1142 658h142"/>
+    <path d="M347 180h14v14h-14zM365 180h14v14h-14zM383 180h14v14h-14zM347 211h14v14h-14zM365 211h14v14h-14zM383 211h14v14h-14z" fill="#55b777" stroke="none"/><path d="M918 184h18v58h-18zM942 162h18v80h-18zM966 145h18v97h-18z" fill="#aeb8c4" stroke="none"/>
+  </g>
+  <g fill="#fff" stroke="#cbd3dd" stroke-width="2"><circle cx="458" cy="344" r="20"/><circle cx="1128" cy="344" r="20"/><circle cx="458" cy="496" r="20"/><circle cx="1128" cy="496" r="20"/></g>
+  <g font-family="Inter, Arial, sans-serif" fill="#7b8794" font-size="25" font-weight="700" text-anchor="middle"><text x="458" y="353">?</text><text x="1128" y="353">?</text><text x="458" y="505">?</text><text x="1128" y="505">?</text></g>
+  <g>
+    <rect x="558" y="365" width="464" height="146" rx="18" fill="#fff" stroke="#b9c3cf" stroke-width="3" stroke-dasharray="11 10"/>
+    <circle cx="790" cy="408" r="23" fill="#fff3ef"/><text x="790" y="418" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="31" font-weight="750" fill="#f45532">?</text>
+    <text x="790" y="465" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="1.2" fill="#26313e">[ NO SINGLE VIEW ]</text>
+  </g>
+</svg>

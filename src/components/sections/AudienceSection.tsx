@@ -5,6 +5,55 @@ import Link from "next/link";
 import { AUDIENCE } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 
+function AudienceMark({ id }: { id: string }) {
+  const shared = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+
+  return (
+    <span className={`audience-cell__mark audience-cell__mark--${id}`} aria-hidden="true">
+      <svg viewBox="0 0 48 48" focusable="false">
+        {id === "si" && (
+          <g {...shared}>
+            <path d="M12 12h13v11H12zM27 25h10v11H27zM10 29h11v9H10z" />
+            <path d="M25 17h5a5 5 0 0 1 5 5v3M17 23v6M21 33h6" />
+            <circle cx="12" cy="12" r="1.8" className="audience-cell__mark-accent" />
+            <circle cx="37" cy="36" r="1.8" className="audience-cell__mark-accent" />
+          </g>
+        )}
+        {id === "msp" && (
+          <g {...shared}>
+            <rect x="10" y="10" width="28" height="12" rx="2.5" />
+            <rect x="10" y="26" width="28" height="12" rx="2.5" />
+            <path d="M16 16h12M16 32h12" />
+            <circle cx="33" cy="16" r="1.5" className="audience-cell__mark-accent" />
+            <circle cx="33" cy="32" r="1.5" className="audience-cell__mark-accent" />
+          </g>
+        )}
+        {id === "advisory" && (
+          <g {...shared}>
+            <circle cx="24" cy="24" r="14" />
+            <path d="m29.5 18.5-3.8 8.2-8.2 3.8 3.8-8.2 8.2-3.8Z" />
+            <path d="m24 10 .8 3M38 24l-3 .8M24 38l-.8-3M10 24l3-.8" />
+            <circle cx="24" cy="24" r="1.5" className="audience-cell__mark-accent" />
+          </g>
+        )}
+        {id === "enterprises" && (
+          <g {...shared}>
+            <path d="M10 38V17l14-7 14 7v21M7 38h34" />
+            <path d="M16 21h4M28 21h4M16 27h4M28 27h4M21 38v-6h6v6" />
+            <path d="M24 10v4" className="audience-cell__mark-accent" />
+          </g>
+        )}
+      </svg>
+    </span>
+  );
+}
+
 export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE> } = {}) {
   const audience = {
     ...AUDIENCE,
@@ -16,6 +65,7 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
   return (
     <section
       id="audience"
+      className="home-audience-section"
       style={{
         padding: "96px 0 112px",
         borderBottom: "1px solid var(--border)",
@@ -27,38 +77,40 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
         {/* ─── SECTION HEADER with stepped reveals ─── */}
         <div style={{ maxWidth: 880, marginBottom: 48 }}>
           {/* Eyebrow */}
-          <Reveal delay={0}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 16,
-              }}
-            >
-              <span
+          {audience.eyebrow && (
+            <Reveal delay={0}>
+              <div
                 style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "var(--orange)",
-                  display: "inline-block",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  letterSpacing: "0.08em",
-                  color: "var(--muted)",
-                  textTransform: "uppercase",
-                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 16,
                 }}
               >
-                {audience.eyebrow}
-              </span>
-            </div>
-          </Reveal>
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "var(--orange)",
+                    display: "inline-block",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    fontSize: 11,
+                    letterSpacing: "0.08em",
+                    color: "var(--muted)",
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                  }}
+                >
+                  {audience.eyebrow}
+                </span>
+              </div>
+            </Reveal>
+          )}
 
           {/* H2 Headline */}
           <Reveal delay={0.08}>
@@ -134,18 +186,14 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
                     />
 
                     <div>
-                      {/* Numeral */}
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                          fontSize: 12,
-                          color: isHovered ? "var(--orange)" : "var(--muted)",
-                          marginBottom: 16,
-                          fontWeight: 600,
-                          transition: "color 0.2s ease",
-                        }}
-                      >
-                        {seg.num}
+                      <div className="audience-cell__meta">
+                        <span
+                          className="audience-cell__number"
+                          style={{ color: isHovered ? "var(--orange)" : "var(--muted)" }}
+                        >
+                          {seg.num}
+                        </span>
+                        <AudienceMark id={seg.id} />
                       </div>
 
                       {/* Persona Title */}

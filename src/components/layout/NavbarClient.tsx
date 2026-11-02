@@ -6,7 +6,13 @@ import { Logo, LogoMark } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import type { CmsHeaderSettings } from "@/lib/siteSettingsTypes";
 
-export function NavbarClient({ settings }: { settings: CmsHeaderSettings }) {
+export function NavbarClient({
+  settings,
+  heroVariant = false,
+}: {
+  settings: CmsHeaderSettings;
+  heroVariant?: boolean;
+}) {
   const menuEntries = settings.menus.map((section) => [section.key, section] as const);
   const megaMenus = Object.fromEntries(menuEntries);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -80,9 +86,9 @@ export function NavbarClient({ settings }: { settings: CmsHeaderSettings }) {
   }, [mobileOpen]);
 
   return (
-    <header ref={navRef} className="nav-header">
+    <header ref={navRef} className={`nav-header${heroVariant ? " nav-header--hero" : ""}`}>
       <div
-        className={`nav-bar ${scrolled ? "is-scrolled" : ""} ${openMenu ? "has-open-menu" : ""}`}
+        className={`nav-bar${heroVariant ? " nav-bar--hero" : ""} ${scrolled ? "is-scrolled" : ""} ${openMenu ? "has-open-menu" : ""}`}
         onMouseLeave={handleMouseLeave}
       >
         {/* Logo: Brand lockup containing both mark & wordmark */}
@@ -146,14 +152,19 @@ export function NavbarClient({ settings }: { settings: CmsHeaderSettings }) {
 
         {/* Right actions */}
         <div className="nav-actions">
-          {settings.showThemeToggle && <ThemeToggle />}
+          {!heroVariant && settings.showThemeToggle && <ThemeToggle />}
+          {heroVariant && (
+            <Link className="nav-hero-secondary" href="/platform/observability" onClick={() => setOpenMenu(null)}>
+              See ResOC in action
+            </Link>
+          )}
           {settings.primaryCta.label && settings.primaryCta.href && (
             <Link
               href={settings.primaryCta.href}
-              className="btn btn-primary nav-cta-btn"
+              className={`btn btn-primary nav-cta-btn${heroVariant ? " nav-hero-primary" : ""}`}
               onClick={() => setOpenMenu(null)}
             >
-              {settings.primaryCta.label}
+              {heroVariant ? "Book a demo" : settings.primaryCta.label}
             </Link>
           )}
           {settings.showPrimaryNavigation && <button
@@ -234,10 +245,11 @@ export function NavbarClient({ settings }: { settings: CmsHeaderSettings }) {
       {/* Mobile nav overlay */}
       {settings.showPrimaryNavigation && mobileOpen && (
         <div
+          className={heroVariant ? "nav-mobile-menu nav-mobile-menu--hero" : "nav-mobile-menu"}
           style={{
             position: "fixed",
             inset: 0,
-            top: 68,
+            top: heroVariant ? 52 : 68,
             background: "var(--bg)",
             zIndex: 79,
             padding: "24px 20px 48px",
@@ -269,13 +281,20 @@ export function NavbarClient({ settings }: { settings: CmsHeaderSettings }) {
               );
             })}
             <div style={{ marginTop: 20 }}>
+              {heroVariant && <Link
+                href="/platform/observability"
+                onClick={() => setMobileOpen(false)}
+                className="nav-mobile-hero-secondary"
+              >
+                See ResOC in action
+              </Link>}
               {settings.primaryCta.label && settings.primaryCta.href && <Link
                 href={settings.primaryCta.href}
                 onClick={() => setMobileOpen(false)}
-                className="btn btn-primary"
+                className={`btn btn-primary${heroVariant ? " nav-mobile-hero-primary" : ""}`}
                 style={{ width: "100%", justifyContent: "center", height: 44, fontSize: 14 }}
               >
-                {settings.primaryCta.label}
+                {heroVariant ? "Book a demo" : settings.primaryCta.label}
               </Link>}
             </div>
           </nav>

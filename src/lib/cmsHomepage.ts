@@ -9,26 +9,23 @@ export const PAIN_CAROUSEL_CARDS = [
   {
     num: "01",
     group: "Recovery Confidence",
-    imageAlt: "Recovery confidence and restore readiness",
-    imageUrl: "/images/img/backup-success-recovery-unproven.png",
-    summary:
-      "Successful backups do not prove application recovery. Modern cyber recovery lags AI-driven attacks, while recovery objectives (RTO/RPO) remain untested assumptions.",
+    imageAlt: "Recovery confidence timeline showing fresh proof today and stale evidence after three months",
+    imageUrl: "/images/home/recovery-confidence-timeline.svg",
+    summary: "",
   },
   {
     num: "02",
     group: "Complexity at Scale",
-    imageAlt: "Fragmented platforms and resilience complexity",
-    imageUrl: "/images/img/fragmented-systems-missing-single-view.png",
-    summary:
-      "Disconnected platforms, clouds, and protection vendors leave teams operating in silos with no unified view connecting protection health to business risk.",
+    imageAlt: "Complex hybrid cloud environments connected across AWS, Azure, Veeam, Commvault, Rubrik, and Dell",
+    imageUrl: "/images/img/1000227811.png",
+    summary: "",
   },
   {
     num: "03",
     group: "Operational Friction",
-    imageAlt: "Operational friction and context loss",
-    imageUrl: "/images/img/context-loss-support.png",
-    summary:
-      "Critical operational context is lost across L1, L2, L3, and specialist escalations, while brittle automation and scattered knowledge create constant friction.",
+    imageAlt: "An overwhelmed operator surrounded by disconnected runbooks, tickets, tools, and specialist handoffs",
+    imageUrl: "/images/img/Operational Friction.png",
+    summary: "",
   },
 ];
 
@@ -38,15 +35,15 @@ export const TRUST_SECTION_CONTENT = {
   backers: [
     {
       name: "Kalaari Capital",
-      lightSrc: "/images/logos/kalaari-dark-lead.png",
+      lightSrc: "/images/logos/kalaari-transparent.png",
       darkSrc: "/images/logos/kalaari-white.png",
       height: 34,
       href: "",
     },
     {
       name: "Kettleborough VC",
-      lightSrc: "/images/logos/kettleborough-dark.png",
-      darkSrc: "/images/logos/kettleborough-transparent.png",
+      lightSrc: "/images/logos/kettleborough-transparent.png",
+      darkSrc: "/images/logos/kettleborough-dark.png",
       height: 34,
       href: "",
     },

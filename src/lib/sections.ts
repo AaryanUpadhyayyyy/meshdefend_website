@@ -6,7 +6,7 @@
 export const HOME_AGENT_MESH_SECTION_VISIBLE = false;
 
 export const PAIN = {
-  eyebrow: "[ 02 // THE REALITY OF ENTERPRISE RESILIENCE ]",
+  eyebrow: "",
   headline: "The Reality of Business, Data & Cyber Resilience",
   openingLine:
     "Modern enterprises face rising recovery uncertainty, growing infrastructure complexity, and operations that struggle to scale.",
@@ -22,12 +22,12 @@ export const PAIN = {
           desc: "Recovery strategies struggle to match the speed, scale, and complexity of modern cyberattacks.",
         },
         {
-          label: "Low Recovery Confidence",
-          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
-        },
-        {
           label: "Unverified Application Recovery",
           desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
+        },
+        {
+          label: "Low Recovery Confidence",
+          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
         },
         {
           label: "Unproven RTO/RPO",
@@ -83,7 +83,7 @@ export const PAIN = {
 };
 
 export const SOLUTION = {
-  eyebrow: "[ 03 // RESILIENCE OPERATIONS CENTER ]",
+  eyebrow: "",
   headline: "ResOC: Resilience Operations Center",
   lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments.",
   columns: {
@@ -127,7 +127,7 @@ export const SOLUTION = {
 };
 
 export const IMPACT = {
-  eyebrow: "[ 04 // PROVEN ENTERPRISE IMPACT ]",
+  eyebrow: "",
   headline: "Measurable Impact Across Resilience Operations",
   metricPrefix: "TELEMETRY //",
   stats: [
@@ -178,7 +178,7 @@ export const IMPACT = {
 };
 
 export const AUDIENCE = {
-  eyebrow: "[ 05 // BUILT FOR ENTERPRISE RESILIENCE ]",
+  eyebrow: "",
   headline: "Built for the Teams Accountable for Resilience",
   segments: [
     {

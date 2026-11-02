@@ -128,14 +128,14 @@ export const PAIN_POINTS_CONTENT = {
         {
           id: "rc-2",
           num: "02",
-          title: "Low Recovery Confidence",
-          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
+          title: "Unverified Application Recovery",
+          desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
         },
         {
           id: "rc-3",
           num: "03",
-          title: "Unverified Application Recovery",
-          desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
+          title: "Low Recovery Confidence",
+          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
         },
         {
           id: "rc-4",

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ResOC – Powered by Agent Mesh</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap"><style>:root{--o:#ff5a1f;--ink:#14161c;--ln:#2b2e36}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:transparent;font-family:Roboto,Inter,"Segoe UI",Arial,sans-serif}
+.stage{width:100%;height:100%;min-height:0;display:grid;place-items:center;overflow:hidden;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+#scene{width:100%;max-width:1915px;height:100%;display:block;overflow:hidden}
+#scene rect,#scene path,#scene circle,#scene polygon{stroke-linejoin:round}
+.l{fill:#fff;stroke:var(--ln);stroke-width:1.5}.g{fill:#f1f2f4;stroke:var(--ln);stroke-width:1.5}
+.g2{fill:#e3e5e9;stroke:var(--ln);stroke-width:1.5}.k{fill:#f7f8fa;stroke:var(--ln);stroke-width:1.1}
+.pole{fill:#e9ebee;stroke:var(--ln);stroke-width:1.3}.tree{fill:#dbe7dc;stroke:var(--ln);stroke-width:1.4}
+.sol{fill:#2f7fe0;stroke:#1c3f7a;stroke-width:1.2}.dash{fill:none;stroke:#3a3d45;stroke-width:1.2;stroke-dasharray:7 7}
+.fr{fill:url(#fg);stroke:var(--ln);stroke-width:1.5}.sd{fill:url(#sg);stroke:var(--ln);stroke-width:1.5}.tp{fill:url(#tg);stroke:var(--ln);stroke-width:1.5}.dk{fill:#3a3d45;stroke:#2b2e36;stroke-width:1.5}.mk{fill:none;stroke:#9aa0aa;stroke-width:1.7;stroke-linecap:round}.ar{fill:var(--o)}.or{fill:var(--o)}.gn{fill:#22b07d}
+.lbl rect{fill:#fff;stroke:var(--ln);stroke-width:1.7;transition:stroke .3s,filter .3s}.logo-plaque{fill:#fff;stroke:#2b2e36;stroke-width:2}
+.lbl text{font:700 20px Roboto,Inter,Arial,sans-serif;fill:var(--ink);text-anchor:middle}
+.lbl text.or{fill:var(--o)}.lbl path{fill:none;stroke:var(--ln);stroke-width:1.5}
+.lbl.on rect{stroke:var(--o);stroke-width:3;filter:drop-shadow(0 4px 10px rgba(255,90,31,.4))}
+#scene [class*=fx]{transform-box:fill-box;transform-origin:center}
+.s0 .fxcloud{animation:bob 1.8s ease-in-out infinite}.s0 .fxbolt{animation:flash 1.1s infinite}
+.s1 .fxx{animation:xin .35s both;animation-delay:calc(var(--i)*.09s)}
+.s2 .fxbar{transform-origin:50% 100%;animation:grow 1.1s ease-in-out infinite alternate;animation-delay:calc(var(--i)*.14s)}
+.s3 .fxgear{animation:spin 3s linear infinite}.s3 .fxsync{animation:spin 2.2s linear infinite reverse}
+.s4 .fxchk{animation:pop .6s cubic-bezier(.2,1.8,.4,1) both .3s}
+.s5 .fxumb{transform-origin:50% 100%;animation:open .8s cubic-bezier(.2,1.5,.4,1) both}.s5 .fxbadge{animation:pop .6s cubic-bezier(.2,1.8,.4,1) both .5s}
+@keyframes flash{0%,100%{opacity:.35}10%,30%{opacity:1}20%{opacity:.5}}@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes xin{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}@keyframes grow{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}@keyframes open{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){#scene [class*=fx]{animation:none!important}}
+</style></head><body><main class="stage"><svg id="scene" viewBox="0 155 1915 550" role="img" aria-label="ResOC animated journey"></svg></main><script>"use strict";
+const rc = (x, y, w, h, c = "l", r = 3) => `<rect class="${c}" x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}"/>`;
+const iso = (x, y, w, h, d = 11) => `<path class="tp" d="M${x},${y}l${d},${-d * .6}h${w}l${-d},${d * .6}z"/><path class="sd" d="M${x + w},${y}l${d},${-d * .6}v${h}l${-d},${d * .6}z"/>${rc(x, y, w, h, "fr")}`;
+const rack = (x, y, w = 48, h = 140) => `<ellipse cx="${x + w / 2 + 6}" cy="${y + h + 2}" rx="${w * .8}" ry="5" fill="#000" opacity=".07"/>` + iso(x, y, w, h) +
+    Array.from({ length: Math.floor((h - 14) / 22) }, (_, i) => `<path class="mk" d="M${x + 8},${y + 14 + i * 22}h7m4,0h7M${x + 8},${y + 22 + i * 22}h7m4,0h5"/>`).join("") +
+    rc(x + 8, y - 15, w - 16, 5, "g", 1) + rc(x + 11, y - 20, w - 22, 5, "g", 1);
+const tr = (x, y) => `<rect class="pole" x="${x + 4}" y="${y + 20}" width="6" height="22"/><rect class="tree" x="${x}" y="${y - 20}" width="14" height="44" rx="7"/>`;
+const bo = (x, y) => `<rect class="pole" x="${x}" y="${y}" width="9" height="48" rx="4"/><rect class="g2" x="${x - 1}" y="${y - 4}" width="11" height="8" rx="3"/>`;
+const lab = (id, x, y, w, h, a, b = "", o = false, pl = 14) => `<g class="lbl" id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3"/>
+  <text textLength="${(a.length * 9.3).toFixed(0)}" lengthAdjust="spacingAndGlyphs" x="${x + w / 2}" y="${b ? y + 24 : y + h / 2 + 7}">${a}</text>${b ? `<text class="${o ? "or" : ""}" textLength="${(b.length * 9.3).toFixed(0)}" lengthAdjust="spacingAndGlyphs" x="${x + w / 2}" y="${y + 46}">${b}</text>` : ""}
+  <path d="M${x + w / 2 - 6},${y + h}l6,8l6,-8M${x + w / 2},${y + h + 6}v${pl}"/></g>`;
+const sol = (x) => Array.from({ length: 4 }, (_, i) => `<path class="sol" d="M${x + i * 38},283l9,-28h34l-9,28z"/>`).join("");
+const arrow = (x) => `<path class="dash" d="M${x - 78},598h62"/><path class="ar" d="M${x - 10},591l18,7l-18,7z"/>`;
+const X = Array.from({ length: 25 }, (_, i) => `<text class="fxx or" style="--i:${i}" x="${334 + (i % 5) * 14.5}" y="${416 + Math.floor(i / 5) * 14}" font-size="15" font-weight="900">✕</text>`).join("");
+const bars = [16, 24, 12, 20].map((h, i) => `<rect class="fxbar" style="--i:${i}" x="${722 + i * 11}" y="${466 - h}" width="8" height="${h}" fill="#2f7fe0"/>`).join("");
+const SCENE = `
+<defs><linearGradient id="fg" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#eceef1"/></linearGradient><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7dadf"/><stop offset="1" stop-color="#eceef1"/></linearGradient><linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#f8f9fb"/><stop offset="1" stop-color="#e4e7eb"/></linearGradient><linearGradient id="rdg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8e1db"/><stop offset="1" stop-color="#f3efeb"/></linearGradient><linearGradient id="rm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8eaed"/><stop offset=".6" stop-color="#fbfbfc"/><stop offset="1" stop-color="#fff"/></linearGradient><pattern id="d" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#d6d9de"/></pattern></defs>
+<rect width="1915" height="821" fill="url(#d)"/>
+<path d="M0,523L548,592V656L0,583z" fill="url(#rdg)" stroke="#d6cfc9"/>
+<path class="dash" d="M10,556L548,621"/>
+<path class="ar" d="M-9,-6L9,0L-9,6z" transform="translate(135,565)rotate(7)"/><path class="ar" d="M-9,-6L9,0L-9,6z" transform="translate(440,597)rotate(7)"/>
+${bo(27, 500)}${bo(163, 524)}${bo(536, 600)}${bo(565, 572)}
+<!-- RISK -->
+${iso(33, 426, 52, 98, 10)}${rc(40, 442, 38, 10, "k", 2)}${rc(40, 462, 38, 10, "k", 2)}${rc(40, 482, 38, 10, "k", 2)}
+${lab("L0", 58, 272, 108, 36, "Risk", "", false, 12)}
+<g class="fxcloud"><path d="M90,386a16,16 0 0 1 4,-31a22,22 0 0 1 40,-5a17,17 0 0 1 15,36z" fill="#9aa0ab" stroke="#2b2e36" stroke-width="1.6"/>
+<path class="fxbolt or" d="M115,381h17l-10,14h11l-22,28l5,-20h-11z"/></g>
+<!-- LONG TIME -->
+${lab("L1", 210, 276, 233, 63, "Long time to recover", "Human effort", true, 28)}
+${rack(176, 398, 38, 74)}${rack(136, 455, 40, 54)}${rack(416, 436, 46, 60)}${rack(448, 478, 22, 20)}
+${rc(326, 378, 81, 94)}<rect class="or" x="327" y="379" width="79" height="14"/>${rc(340, 372, 6, 12, "k", 2)}${rc(388, 372, 6, 12, "k", 2)}${X}
+${rc(262, 418, 68, 52, "dk")}${rc(268, 424, 56, 40, "k", 2)}<rect x="272" y="448" width="10" height="14" fill="#2f7fe0"/><rect x="286" y="440" width="10" height="22" fill="#22b07d"/><rect x="300" y="432" width="10" height="30" fill="#ff5a1f"/>
+${rc(210, 432, 50, 54, "dk")}<rect x="216" y="440" width="38" height="40" fill="#cfe3f7" stroke="#2b2e36"/><path d="M220,474l10,-14l8,8l10,-18" stroke="#ff5a1f" stroke-width="3" fill="none"/>
+${rc(334, 440, 54, 50, "dk")}${rc(340, 446, 42, 38, "k", 2)}
+${iso(190, 506, 200, 40, 12)}
+${[0, 1, 2, 3, 4, 5].map(i => rc(190 + (i % 2) * 3, 574 - i * 8, 42, 8, "g", 1)).join("")}
+${[0, 1, 2, 3, 4, 5, 6].map(i => rc(352 - (i % 2) * 3, 590 - i * 8, 44, 8, "g", 1)).join("")}
+${rc(300, 497, 44, 7, "k", 2)}${rc(352, 499, 9, 6, "k", 3)}<path class="g" d="M392,596l30,-6l8,14l-30,6z"/><path class="g" d="M176,592l34,4l-6,14l-34,-4z"/>${rc(278, 566, 56, 8, "g", 1)}${rc(284, 576, 56, 8, "g", 1)}<path class="dk" d="M236,486q-8,20 0,40h8q-8,-20 0,-40z"/>${rc(238, 524, 42, 9, "dk", 4)}${rc(255, 533, 6, 20, "dk", 1)}${rc(240, 553, 38, 6, "dk", 3)}
+<!-- BUILDING -->
+${iso(540, 338, 38, 225, 8)}${rc(546, 352, 24, 18, "k", 2)}${rc(546, 380, 24, 18, "k", 2)}${tr(522, 468)}
+<path class="g" d="M580,290L632,246H1850V290z"/>
+${rc(580, 290, 1270, 366, "l", 0)}<rect x="598" y="318" width="1234" height="282" fill="url(#rm)" stroke="#2b2e36" stroke-width="1.5"/>${rc(580, 600, 1130, 56, "l", 0)}
+${rc(1850, 322, 38, 208, "g", 2)}${rc(1850, 640, 47, 36, "g", 2)}<path class="l" d="M1708,618h108v80h-108zM1708,634h108M1708,650h108M1708,666h108M1708,682h108"/>
+${tr(1873, 500)}${rc(1868, 548, 26, 62, "tree", 12)}
+<path class="g2" d="M972,318V600M1284,318V600M1570,318V600" fill="none" stroke-width="2.5"/>
+${[795, 1124, 1420, 1700].map(c => rc(c - 22, 328, 44, 7, "k", 3)).join("")}
+${sol(626)}${sol(1666)}
+${iso(822, 224, 92, 46, 10)}${rc(832, 240, 70, 6, "k", 2)}${iso(1335, 228, 82, 56, 10)}${rc(1345, 246, 60, 6, "k", 2)}${iso(1523, 230, 34, 38, 6)}
+<path class="g2" d="M983,248v32M1136,248v32M1290,248v32" fill="none"/>
+<rect class="logo-plaque" x="960" y="163" width="355" height="76" rx="4"/>
+<image href="/images/Orange(1).png" x="1001" y="153" width="96" height="96" preserveAspectRatio="xMidYMid meet"/><text x="1099" y="209" font-size="44" font-weight="900" fill="#0b1e47" font-family="Roboto,Inter,Arial,sans-serif">ResOC</text><text x="1100" y="229" font-size="15" font-weight="700" fill="#0b1e47" font-family="Roboto,Inter,Arial,sans-serif"><tspan>Powered by </tspan><tspan fill="#ff5a1f">Agent Mesh™</tspan></text>
+<!-- UNIFIED -->
+${lab("L2", 679, 347, 235, 56, "Unified Resilience", "Observability", false, 14)}
+${iso(609, 412, 36, 70, 8)}${rc(614, 420, 26, 54, "k", 2)}<circle cx="627" cy="436" r="6" fill="none" stroke="#22b07d" stroke-width="3"/><path d="M618,462l8,-8l6,5l6,-10" stroke="#ff5a1f" stroke-width="2.5" fill="none"/>
+${rc(660, 416, 180, 66)}<circle cx="686" cy="438" r="11" fill="none" stroke="#e5e7eb" stroke-width="7"/><path d="M686,427a11,11 0 0 1 11,11" fill="none" stroke="#ff5a1f" stroke-width="7"/><circle cx="686" cy="465" r="9" fill="none" stroke="#d1d5db" stroke-width="6"/>
+${bars}<path d="M726,430l8,-8l8,6l10,-10" stroke="#2f7fe0" stroke-width="2" fill="none"/>${[0, 1, 2].map(i => `<rect x="772" y="${428 + i * 14}" width="${58 - i * 8}" height="7" rx="3" fill="${i == 1 ? "#2f7fe0" : "#cfd3da"}"/>`).join("")}
+${rc(742, 474, 60, 42, "dk")}${rc(748, 480, 48, 30, "k", 2)}${rc(768, 516, 10, 12, "g2", 1)}
+<path class="dk" d="M690,498q-8,18 0,38h8q-8,-18 0,-38z"/>${rc(692, 538, 40, 9, "dk", 4)}${rc(708, 547, 6, 16, "dk", 1)}${rc(694, 563, 36, 6, "dk", 3)}${rack(852, 446, 52, 126)}${rack(914, 428, 52, 144)}${tr(632, 526)}${tr(822, 528)}${tr(866, 528)}
+<!-- BACKUP -->
+${lab("L3", 1007, 347, 235, 56, "Backup and", "Recovery Operations", false, 14)}
+${rc(1076, 442, 56, 60)}${rc(1132, 436, 78, 66)}
+<g transform="translate(1104,472)"><g class="fxgear"><circle r="13" fill="none" stroke="#ff5a1f" stroke-width="7" stroke-dasharray="5.2 5.2"/><circle r="9" fill="none" stroke="#ff5a1f" stroke-width="4"/></g></g>
+<g transform="translate(1172,470)"><g class="fxsync"><path d="M-17,3a17,17 0 0 1 28,-12M17,-3a17,17 0 0 1 -28,12" fill="none" stroke="#ff5a1f" stroke-width="5"/><path class="or" d="M8,-17l8,10l-12,3zM-8,17l-8,-10l12,-3z"/></g></g>
+${rack(985, 426, 44, 146)}${rack(985, 454, 44, 10)}${rack(1225, 424, 48, 148)}${tr(1000, 530)}${tr(1190, 530)}${tr(1245, 530)}
+<!-- HUMAN APPROVED -->
+${lab("L4", 1317, 347, 206, 57, "Human Approved", "Agent Mesh fixes", true, 76)}
+${rack(1293, 430, 46, 140)}${rack(1352, 458, 40, 112)}${rack(1496, 426, 56, 148)}${tr(1310, 530)}${tr(1478, 530)}
+
+<!-- BUSINESS -->
+${lab("L5", 1590, 346, 212, 46, "Business Keep Running", "", false, 18)}
+${rack(1580, 432, 44, 140)}${tr(1596, 530)}${rc(1790, 512, 26, 56, "tree", 12)}
+<g class="fxumb"><path class="or" stroke="#2b2e36" stroke-width="1.4" d="M1654,452Q1658,408 1702,394Q1746,408 1750,452Q1738,441 1726,452Q1714,441 1702,452Q1690,441 1678,452Q1666,441 1654,452z"/><path d="M1702,394L1678,452M1702,394L1726,452M1702,394L1664,448M1702,394L1740,448" stroke="#fff" stroke-width="1.6" fill="none" opacity=".85"/><path d="M1693,424l7,7l12,-14" stroke="#fff" stroke-width="3.5" fill="none"/><path d="M1702,452V476" stroke="#2b2e36" stroke-width="2"/></g>
+<g class="fxbadge"><circle class="gn" cx="1756" cy="468" r="18"/><path d="M1747,468l7,7l12,-14" stroke="#fff" stroke-width="3.5" fill="none"/></g>
+<path class="dash" opacity=".7" d="M606,598H1826"/>${[865, 980, 1238, 1610].map(arrow).join("")}`;
+const FG = `<g transform="translate(1428,540)rotate(-24)">${rc(0, 0, 80, 58, "dk", 7)}${rc(5, 5, 70, 48, "l", 4)}<circle class="fxchk gn" cx="40" cy="29" r="14"/><path class="fxchk" d="M33,29l6,6l11,-13" fill="none" stroke="#fff" stroke-width="3.4"/></g>${iso(646, 546, 92, 34, 10)}${rc(654, 554, 76, 8, "k", 2)}${iso(742, 542, 66, 42, 10)}${rc(750, 550, 50, 10, "k", 2)}
+${iso(1080, 524, 98, 60, 10)}${rc(1090, 534, 40, 10, "k", 2)}${rc(1136, 534, 32, 10, "k", 2)}${rc(1092, 516, 56, 8, "g2", 2)}`;
+const PERSON = `<ellipse cx="0" cy="3" rx="28" ry="5" fill="#000" opacity=".08"/>
+<g id="B">
+ <g id="tL"><rect class="lg" x="-5" y="0" width="10" height="21" rx="5"/><g id="sL"><rect class="lg" x="-5" y="0" width="10" height="21" rx="5"/><rect x="-6" y="17" width="16" height="6" rx="3" fill="#222"/></g></g>
+ <g id="tR"><rect class="lg" x="-5" y="0" width="10" height="21" rx="5"/><g id="sR"><rect class="lg" x="-5" y="0" width="10" height="21" rx="5"/><rect x="-6" y="17" width="16" height="6" rx="3" fill="#222"/></g></g>
+ <path d="M-19,-30Q-22,-8 -16,5H16Q22,-8 19,-30Q0,-40 -19,-30z" fill="#ff5a1f" stroke="#2b2e36" stroke-width="1.6"/>
+ <path d="M8,-35Q20,-32 19,-30Q22,-8 16,5H8Q13,-14 8,-35z" fill="#c93d0c" opacity=".35"/><path d="M-9,-35Q0,-27 9,-35" fill="none" stroke="#2b2e36" stroke-width="1.5"/><circle cx="0" cy="-54" r="19" fill="#fff" stroke="#2b2e36" stroke-width="1.8"/>
+ <g id="aL"><rect class="arm" x="-5" y="0" width="10" height="17" rx="5"/><g id="fL"><rect class="arm" x="-5" y="0" width="10" height="16" rx="5"/><circle cy="17" r="5" fill="#fff" stroke="#2b2e36" stroke-width="1.4"/></g></g>
+ <g id="aR"><rect class="arm" x="-5" y="0" width="10" height="17" rx="5"/><g id="fR"><rect class="arm" x="-5" y="0" width="10" height="16" rx="5"/><circle cy="17" r="5" fill="#fff" stroke="#2b2e36" stroke-width="1.4"/></g></g>
+</g>`;
+const svg = document.getElementById("scene");
+svg.innerHTML = SCENE + `<g id="P"><style>.lg{fill:#4b4b4b;stroke:#2b2e36;stroke-width:1.4}.arm{fill:#ff5a1f;stroke:#2b2e36;stroke-width:1.5}</style>${PERSON}</g>` + FG;
+const el = (id) => svg.querySelector("#" + id);
+const [P, B, tL, tR, sL, sR, aL, aR, fL, fR] = ["P", "B", "tL", "tR", "sL", "sR", "aL", "aR", "fL", "fR"].map(el);
+const labels = Array.from({ length: 6 }, (_, i) => el("L" + i));
+// pose = [thighL, thighR, kneeL, kneeR, armL, armR, foreL, foreR, hipDrop]
+const POSE = {
+    stand: [0, 0, 0, 0, 8, -8, -6, -6, 0], raise: [0, 0, 0, 0, 8, -140, -6, -45, 0], sit: [-88, -88, 88, 88, -48, -48, -38, -38, 19],
+    point: [0, 0, 0, 0, 8, -108, -6, -14, 0], umb: [0, 0, 0, 0, 8, -172, -6, 0, 0],
+};
+// waypoints [x, y, stageIndex?] — feet position; stops are stages
+const WP = [[105, 529, 0], [285, 561, 1], [470, 592], [548, 598], [620, 592], [716, 570, 2], [1050, 588, 3], [1412, 583, 4], [1700, 588, 5]];
+const POSES = ["raise", "sit", "sit", "point", "point", "umb"], DWELL = [2800, 3400, 3400, 3200, 3400, 4200];
+const cum = [0];
+WP.forEach((p, i) => i && cum.push(cum[i - 1] + Math.hypot(p[0] - WP[i - 1][0], p[1] - WP[i - 1][1])));
+const stopAt = WP.map((p, i) => (p[2] !== undefined ? i : -1)).filter(i => i >= 0);
+const SPEED = 175;
+const segs = [];
+let T = 0;
+stopAt.forEach((wi, s) => {
+    segs.push({ t0: T, t1: T + DWELL[s], s, walk: false });
+    T += DWELL[s];
+    if (s < 5) {
+        const d = (cum[stopAt[s + 1]] - cum[wi]) / SPEED * 1000;
+        segs.push({ t0: T, t1: T + d, s, walk: true });
+        T += d;
+    }
+});
+const FADE = 900;
+T += FADE;
+const at = (d) => { let i = 1; while (i < WP.length - 1 && cum[i] < d)
+    i++; const k = (d - cum[i - 1]) / (cum[i] - cum[i - 1]); return [WP[i - 1][0] + (WP[i][0] - WP[i - 1][0]) * k, WP[i - 1][1] + (WP[i][1] - WP[i - 1][1]) * k]; };
+const ease = (k) => (1 - Math.cos(Math.PI * k)) / 2;
+const cur = POSE.raise.slice();
+let phase = 0, last = performance.now(), shown = -2;
+function frame(now) {
+    const dt = Math.min(now - last, 60);
+    last = now;
+    const tt = now % T;
+    const sg = segs.find(g => tt >= g.t0 && tt < g.t1);
+    let x, y, pose, op = 1, moving = false, active = -1;
+    if (!sg) {
+        x = WP[8][0];
+        y = WP[8][1];
+        pose = "umb";
+        op = 1 - (tt - segs[segs.length - 1].t1) / FADE;
+        active = 5;
+    }
+    else if (sg.walk) {
+        const a = cum[stopAt[sg.s]], b = cum[stopAt[sg.s + 1]], k = (tt - sg.t0) / (sg.t1 - sg.t0);
+        [x, y] = at(a + (b - a) * ease(k));
+        pose = "stand";
+        moving = k > .04 && k < .96;
+    }
+    else {
+        [x, y] = WP[stopAt[sg.s]];
+        pose = POSES[sg.s];
+        active = sg.s;
+        if (sg.s === 0 && tt < 600)
+            op = tt / 600;
+    }
+    if (active !== shown) {
+        shown = active;
+        svg.setAttribute("class", active < 0 ? "" : "s" + active);
+        labels.forEach((l, i) => l.classList.toggle("on", i === active));
+    }
+    const tg = POSE[pose].slice();
+    if (moving) {
+        phase += dt * .0078;
+        const s = Math.sin(phase);
+        tg[0] = s * 30;
+        tg[1] = -s * 30;
+        tg[2] = 28 * Math.max(0, Math.cos(phase));
+        tg[3] = 28 * Math.max(0, -Math.cos(phase));
+        tg[4] = -s * 24 + 6;
+        tg[5] = s * 24 - 6;
+        tg[6] = tg[7] = -20;
+    }
+    if (pose === "sit") {
+        tg[6] += Math.sin(now / 70) * 8;
+        tg[7] += Math.sin(now / 70 + 2) * 8;
+    }
+    const k = 1 - Math.exp(-dt / 80);
+    for (let i = 0; i < 9; i++)
+        cur[i] += (tg[i] - cur[i]) * k;
+    const bob = moving ? -Math.abs(Math.sin(phase)) * 3.5 : Math.sin(now / 520) * -1.2;
+    P.setAttribute("transform", `translate(${x.toFixed(1)},${y.toFixed(1)})scale(1.02)`);
+    P.style.opacity = String(op);
+    B.setAttribute("transform", `translate(0,${(-39 + cur[8] + bob).toFixed(1)})`);
+    tL.setAttribute("transform", `translate(-8,0)rotate(${cur[0]})`);
+    tR.setAttribute("transform", `translate(8,0)rotate(${cur[1]})`);
+    sL.setAttribute("transform", `translate(0,20)rotate(${cur[2]})`);
+    sR.setAttribute("transform", `translate(0,20)rotate(${cur[3]})`);
+    aL.setAttribute("transform", `translate(-17,-27)rotate(${cur[4]})`);
+    aR.setAttribute("transform", `translate(17,-27)rotate(${cur[5]})`);
+    fL.setAttribute("transform", `translate(0,16)rotate(${cur[6]})`);
+    fR.setAttribute("transform", `translate(0,16)rotate(${cur[7]})`);
+    requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script></body></html>

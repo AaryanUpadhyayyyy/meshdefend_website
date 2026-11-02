@@ -42,7 +42,7 @@ async function HomePageContent() {
       <PainSection />
       <SolutionSection />
       {HOME_AGENT_MESH_SECTION_VISIBLE && <AgentMeshSection />}
-      <ImpactSection showQualitativeSplit={false} />
+      <ImpactSection isHomepage />
       <AudienceSection />
       <FinalCTA />
     </>
@@ -52,8 +52,8 @@ async function HomePageContent() {
 export default function HomePage() {
   return (
     <>
-      <Navbar />
-      <main id="main"><Suspense fallback={<CmsLoading />}><HomePageContent /></Suspense></main>
+      <Navbar heroVariant />
+      <main id="main" className="home-page"><Suspense fallback={<CmsLoading />}><HomePageContent /></Suspense></main>
       <Suspense fallback={<div aria-hidden="true" style={{ minHeight: 180 }} />}><Footer /></Suspense>
     </>
   );

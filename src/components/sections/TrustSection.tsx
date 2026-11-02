@@ -6,6 +6,15 @@ import { TRUST_SECTION_CONTENT } from "@/lib/cmsHomepage";
 
 export type TrustSectionCMSContent = Partial<typeof TRUST_SECTION_CONTENT>;
 
+const LEGACY_BACKER_LIGHT_LOGOS: Record<string, string> = {
+  "/images/logos/kalaari-dark-lead.png": "/images/logos/kalaari-transparent.png",
+  "/images/logos/kettleborough-dark.png": "/images/logos/kettleborough-transparent.png",
+};
+
+const LEGACY_BACKER_DARK_LOGOS: Record<string, string> = {
+  "/images/logos/kettleborough-transparent.png": "/images/logos/kettleborough-dark.png",
+};
+
 export function TrustSection({
   content,
 }: {
@@ -14,11 +23,17 @@ export function TrustSection({
   const copy = {
     ...TRUST_SECTION_CONTENT,
     ...content,
+    backers: (content?.backers ?? TRUST_SECTION_CONTENT.backers).map((backer) => ({
+      ...backer,
+      lightSrc: LEGACY_BACKER_LIGHT_LOGOS[backer.lightSrc] || backer.lightSrc,
+      darkSrc: LEGACY_BACKER_DARK_LOGOS[backer.darkSrc] || backer.darkSrc,
+    })),
     partners: content?.partners ?? TRUST_SECTION_CONTENT.partners,
   };
   return (
     <section
       id="trust"
+      className="home-trust-section"
       style={{
         padding: "24px 0 24px",
         borderTop: "1px solid var(--border)",
@@ -33,6 +48,7 @@ export function TrustSection({
               TIER 1: INSTITUTIONAL & ANGEL BACKING
              ═══════════════════════════════════════════════════════════════ */}
           <div
+            className="trust-backed-panel"
             style={{
               border: "1px solid var(--border)",
               background: "var(--surface)",
@@ -281,11 +297,6 @@ export function TrustSection({
           gap: 64px !important;
           margin-right: 64px !important;
           flex-shrink: 0 !important;
-        }
-
-        .seamless-marquee-wrapper:hover .seamless-marquee-track,
-        .seamless-marquee-wrapper:focus-within .seamless-marquee-track {
-          animation-play-state: paused !important;
         }
 
         @media (prefers-reduced-motion: reduce) {
