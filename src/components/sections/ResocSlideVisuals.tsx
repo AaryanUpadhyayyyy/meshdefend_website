@@ -202,18 +202,21 @@ function PaymentsRecovery() {
         <T x={node.x+66} y={node.y+100} size={15} weight={700} anchor="middle">{node.label}</T>
       </g>)}
       <rect x="552" y="267" width="152" height="112" rx="18" fill="#fff" stroke="#d8e1e9" strokeWidth="2" />
-      <g fill="none" stroke={ink} strokeWidth="5"><ellipse cx="628" cy="300" rx="22" ry="9"/><path d="M606 300v34c0 12 44 12 44 0v-34m-44 17c0 12 44 12 44 0"/></g>
+      <g fill="none" stroke={ink} strokeWidth="5"><ellipse cx="628" cy="292" rx="22" ry="9"/><path d="M606 292v34c0 12 44 12 44 0v-34m-44 17c0 12 44 12 44 0"/></g>
       <T x={628} y={360} size={19} weight={750} anchor="middle">payments</T>
       <path d="M628 379v102" stroke={orange} strokeWidth="3" strokeDasharray="8 7" /><Dot x={628} y={394} r={6} /><Dot x={628} y={481} r={6} />
       <rect x="506" y="500" width="244" height="54" rx="14" fill="#fff8f5" stroke={orange} strokeWidth="2" strokeDasharray="7 5" />
       <path d="m533 528 13-13a8 8 0 0 1 11 11l-5 5m-3-3-5 5a8 8 0 1 1-11-11l5-5" fill="none" stroke={orange} strokeWidth="3" />
       <T x={568} y={533} size={14} weight={700}>Missed dependency</T>
-      <rect x="1010" y="220" width="160" height="188" rx="14" fill="#fff" stroke={line} strokeWidth="2" />
+      <rect x="1010" y="220" width="160" height="146" rx="14" fill="#fff" stroke={line} strokeWidth="2" />
       <T x={1032} y={251} size={14} weight={750}>Recovery proof</T>
       <T x={1032} y={288} size={15} fill={muted}>RTO</T><rect x="1080" y="265" width="70" height="34" rx="8" fill="#f0f3f6" /><T x={1115} y={288} size={13} weight={700} anchor="middle">Unproven</T>
       <T x={1032} y={341} size={15} fill={muted}>RPO</T><rect x="1080" y="318" width="70" height="34" rx="8" fill="#f0f3f6" /><T x={1115} y={341} size={13} weight={700} anchor="middle">Unproven</T>
-      <path d="M1010 384h160" stroke={line} />
-      <T x={1010} y={450} size={14} weight={800} fill={ink}>RECOVERY ORDER</T>
+      <T x={1010} y={398} size={14} weight={800} fill={ink}>RECOVERY ORDER</T>
+      {[118, 100, 82].map((width, index) => {
+        const y = 420 + index * 23;
+        return <g key={width}><Dot x={1018} y={y} r={4} /><rect x="1032" y={y - 4} width={width} height="8" rx="4" fill="#e3e8ee" /></g>;
+      })}
     </Canvas>
   );
 }

@@ -1,22 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { SOLUTION } from "@/lib/sections";
 import { Reveal } from "@/components/motion";
+import { CapabilityWheel, type CapabilityWheelItem } from "./CapabilityWheel";
 import { ResocSlideVisual } from "./ResocSlideVisuals";
 import { ResOCJourney } from "@/components/hero/ResOCJourney";
 import "./SolutionSection.css";
 
 type SolutionView = "wheel" | "story" | "map";
-
-const wheelPositions = [
-  { x: 16, y: 8 },
-  { x: 31, y: 29 },
-  { x: 40, y: 50 },
-  { x: 31, y: 71 },
-  { x: 16, y: 92 },
-];
 
 function CapabilityIcon({ index }: { index: number }) {
   const icons = [
@@ -122,25 +115,21 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
   const wheelToggleId = useId();
   const storyToggleId = useId();
   const sectionRef = useRef<HTMLElement | null>(null);
-  const wheelTrackRef = useRef<HTMLDivElement | null>(null);
-  const wheelPinRef = useRef<HTMLDivElement | null>(null);
-  const wheelNavRef = useRef<HTMLElement | null>(null);
   const storyTrackRef = useRef<HTMLDivElement | null>(null);
   const storyPinRef = useRef<HTMLDivElement | null>(null);
   const slideCount = solution.items.length;
-  const wheelOrder = useMemo(() => [0, 1, 4, 3, 2].filter((index) => index < slideCount), [slideCount]);
-  const wheelFlow = useMemo(() => [4, 3, 2, 0, 1].filter((index) => index < slideCount), [slideCount]);
+  const wheelItems: CapabilityWheelItem[] = [0, 1, 4, 3, 2]
+    .filter((index) => index < slideCount)
+    .map((sourceIndex) => ({ ...solution.items[sourceIndex], sourceIndex }));
   const showScrollStory = viewMode === "story";
-  const activeItem = solution.items[activeSlide] ?? solution.items[0];
 
   useEffect(() => {
-    if (viewMode === "map" || slideCount < 1) return;
+    if (viewMode !== "story" || slideCount < 1) return;
 
     let frame = 0;
     const updateActiveSlide = () => {
-      const isWheel = viewMode === "wheel";
-      const track = isWheel ? wheelTrackRef.current : storyTrackRef.current;
-      const pin = isWheel ? wheelPinRef.current : storyPinRef.current;
+      const track = storyTrackRef.current;
+      const pin = storyPinRef.current;
       if (!track || !pin) return;
 
       const trackTop = track.getBoundingClientRect().top + window.scrollY;
@@ -148,9 +137,8 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
       const scrollStart = trackTop - stickyTop;
       const scrollDistance = Math.max(1, track.offsetHeight - pin.offsetHeight);
       const progress = Math.max(0, Math.min(1, (window.scrollY - scrollStart) / scrollDistance));
-      const stepCount = isWheel ? wheelFlow.length : slideCount;
-      const step = Math.min(stepCount - 1, Math.floor(progress * stepCount));
-      const nextSlide = isWheel ? wheelFlow[step] : step;
+      const step = Math.min(slideCount - 1, Math.floor(progress * slideCount));
+      const nextSlide = step;
 
       setActiveSlide((current) => current === nextSlide ? current : nextSlide);
     };
@@ -171,19 +159,7 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
       window.removeEventListener("resize", requestUpdate);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [viewMode, slideCount, wheelOrder, wheelFlow]);
-
-  useEffect(() => {
-    if (viewMode !== "wheel" || window.matchMedia("(min-width: 761px)").matches) return;
-
-    const nav = wheelNavRef.current;
-    const activeButton = nav?.querySelector<HTMLElement>(`[data-capability-index="${activeSlide}"]`);
-    if (!nav || !activeButton) return;
-
-    const left = activeButton.offsetLeft - (nav.clientWidth - activeButton.offsetWidth) / 2;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    nav.scrollTo({ left, behavior: reducedMotion ? "auto" : "smooth" });
-  }, [activeSlide, viewMode]);
+  }, [viewMode, slideCount]);
 
   const scrollSectionToTop = () => {
     window.requestAnimationFrame(() => {
@@ -199,23 +175,6 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
   const handleViewChange = (mode: "wheel" | "story", checked: boolean) => {
     setViewMode((current) => checked ? mode : current === mode ? "map" : current);
     scrollSectionToTop();
-  };
-
-  const selectWheelCapability = (index: number) => {
-    const step = wheelFlow.indexOf(index);
-    const track = wheelTrackRef.current;
-    const pin = wheelPinRef.current;
-    if (step < 0 || !track || !pin) return;
-
-    const trackTop = track.getBoundingClientRect().top + window.scrollY;
-    const stickyTop = Number.parseFloat(window.getComputedStyle(pin).top) || 0;
-    const scrollStart = trackTop - stickyTop;
-    const scrollDistance = Math.max(1, track.offsetHeight - pin.offsetHeight);
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({
-      top: scrollStart + scrollDistance * (step / wheelFlow.length),
-      behavior: reducedMotion ? "auto" : "smooth",
-    });
   };
 
   const sectionHeader = (
@@ -274,81 +233,10 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
     >
       <div className="container solution-section__container">
         {viewMode === "wheel" ? (
-          <div
-            ref={wheelTrackRef}
-            id="solution-wheel-story"
-            className="solution-wheel-story"
-            style={{ height: `${Math.max(1, wheelOrder.length) * 100}svh` }}
-          >
-            <div ref={wheelPinRef} className="solution-wheel-story__pin">
-              {viewToggle}
-              {sectionHeader}
-
-              <div className="solution-wheel-story__layout">
-                <nav ref={wheelNavRef} className="solution-capability-wheel" aria-label="ResOC capabilities">
-                  <svg className="solution-capability-wheel__path" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M64 40 C118 62 154 91 124 145 C94 199 99 221 160 250 C99 279 94 301 124 355 C154 409 118 438 64 460" />
-                    {wheelOrder.map((index, position) => {
-                      const point = wheelPositions[position] ?? wheelPositions[wheelPositions.length - 1];
-                      return (
-                        <circle
-                          key={solution.items[index].num}
-                          className={index === activeSlide ? "is-active" : ""}
-                          cx={point.x * 4}
-                          cy={point.y * 5}
-                          r={index === activeSlide ? 7 : 4}
-                        />
-                      );
-                    })}
-                  </svg>
-                  {wheelOrder.map((index, position) => {
-                    const item = solution.items[index];
-                    const point = wheelPositions[position] ?? wheelPositions[wheelPositions.length - 1];
-                    const isActive = index === activeSlide;
-                    return (
-                      <button
-                        key={item.num}
-                        type="button"
-                        className={`solution-capability-wheel__item${isActive ? " is-active" : ""}`}
-                        style={{ "--wheel-x": `${point.x}%`, "--wheel-y": `${point.y}%` } as CSSProperties}
-                        data-capability-index={index}
-                        aria-current={isActive ? "step" : undefined}
-                        aria-label={`Show capability ${item.num}: ${item.capability}`}
-                        onClick={() => selectWheelCapability(index)}
-                      >
-                        <span className="solution-capability-wheel__icon"><CapabilityIcon index={index} /></span>
-                        <span className="solution-capability-wheel__label">{item.capability}</span>
-                      </button>
-                    );
-                  })}
-                </nav>
-
-                {activeItem && (
-                  <div className="solution-wheel-feature" aria-live="polite">
-                    <div className="solution-wheel-feature__visual-card">
-                      <div className="solution-wheel-feature__chrome" aria-hidden="true">
-                        <span className="solution-wheel-feature__traffic-lights"><i /><i /><i /></span>
-                        <span className="solution-wheel-feature__brand">ResOC</span>
-                        <span className="solution-wheel-feature__chrome-title">{activeItem.capability}</span>
-                      </div>
-                      <div key={activeSlide} className="solution-wheel-feature__visual">
-                        <ResocSlideVisual index={activeSlide} />
-                      </div>
-                    </div>
-
-                    <article key={activeSlide} className="solution-wheel-feature__copy">
-                      <span className="solution-story__index">CAPABILITY {activeItem.num} / {String(slideCount).padStart(2, "0")}</span>
-                      <h3>{activeItem.capability}</h3>
-                      <p>{activeItem.solves}</p>
-                      <Link href={activeItem.href} className="solution-story__link">
-                        Read more <span aria-hidden="true">→</span>
-                      </Link>
-                    </article>
-                  </div>
-                )}
-              </div>
-
-            </div>
+          <div id="solution-wheel-story" className="solution-wheel-stage">
+            {viewToggle}
+            {sectionHeader}
+            <CapabilityWheel items={wheelItems} />
           </div>
         ) : showScrollStory ? (
           <div
