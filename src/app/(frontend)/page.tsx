@@ -11,10 +11,14 @@ import { ImpactSection } from "@/components/sections/ImpactSection";
 import { PainSection } from "@/components/sections/PainSection";
 import { SolutionSection } from "@/components/sections/SolutionSection";
 import { TrustSection } from "@/components/sections/TrustSection";
-import { HeroSection } from "@/components/hero/HeroSection";
-import { HeroStateProvider } from "@/lib/heroState";
+import { PixelStudioHero } from "@/components/hero/PixelStudioHero";
 import { HOME_AGENT_MESH_SECTION_VISIBLE } from "@/lib/sections";
 import { getCmsPageBySlug } from "@/lib/cmsPages";
+
+// The home page resolves Payload CMS content (and draft preview state) per
+// request, so this route is allowed to finish after navigation instead of
+// claiming an instant, fully prefetched UI.
+export const instant = false;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getCmsPageBySlug("home");
@@ -37,7 +41,7 @@ async function HomePageContent() {
   const [page, draft] = await Promise.all([getCmsPageBySlug("home"), draftMode()]);
   return (
     page ? <CmsPageView page={page} isPreview={draft.isEnabled} /> : <>
-      <HeroStateProvider><HeroSection /></HeroStateProvider>
+      <PixelStudioHero />
       <TrustSection />
       <PainSection />
       <SolutionSection />

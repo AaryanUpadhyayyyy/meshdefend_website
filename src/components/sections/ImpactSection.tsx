@@ -16,9 +16,13 @@ export function ImpactSection({
   const copy = {
     ...IMPACT,
     ...content,
+    stats: isHomepage ? IMPACT.stats : content?.stats ?? IMPACT.stats,
     costOptimization: {
       ...IMPACT.costOptimization,
       ...content?.costOptimization,
+      points: isHomepage
+        ? IMPACT.costOptimization.points
+        : content?.costOptimization?.points ?? IMPACT.costOptimization.points,
     },
     resiliencePosture: {
       ...IMPACT.resiliencePosture,
@@ -27,6 +31,87 @@ export function ImpactSection({
   };
   const { eyebrow, headline, metricPrefix, stats, costOptimization, resiliencePosture } = copy;
   const costPoints = costOptimization.points;
+
+  if (isHomepage) {
+    return (
+      <section
+        id="impact"
+        className="home-impact-section"
+        aria-labelledby="home-impact-heading"
+      >
+        <div className="container home-impact__container">
+          <header className="home-impact__header">
+            <h2 id="home-impact-heading" className="home-impact__heading">
+              {headline}
+            </h2>
+          </header>
+
+          <div className="home-impact__metrics" aria-label="Measured outcomes">
+            {stats.map((stat) => {
+              const sourceUrl = "sourceUrl" in stat && typeof stat.sourceUrl === "string"
+                ? stat.sourceUrl
+                : undefined;
+              const sourceLabel = "sourceLabel" in stat && typeof stat.sourceLabel === "string"
+                ? stat.sourceLabel
+                : "Source";
+              const sourceLogoLabel = sourceLabel.replace(/\s+source$/i, "");
+
+              return (
+                <article className="home-impact__metric" key={stat.tag}>
+                  <div className="home-impact__metric-value">
+                    <NumberCounter value={stat.value} />
+                  </div>
+                  <h3 className="home-impact__metric-label">{stat.label}</h3>
+                  <p className="home-impact__metric-description">
+                    {stat.desc}
+                    {sourceUrl && (
+                      <>
+                        {" "}
+                        <a
+                          className="home-impact__source"
+                          href={sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${sourceLogoLabel} source`}
+                        >
+                          {sourceLogoLabel}
+                        </a>
+                      </>
+                    )}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="home-impact__lower">
+            <div className="home-impact__costs" aria-label="Cost outcomes">
+              {costPoints.map((point, index) => (
+                <article className="home-impact__cost" key={`${index}-${point.title}`}>
+                  <div className="home-impact__cost-copy">
+                    <h3>{point.title}</h3>
+                    {point.desc && <p>{point.desc}</p>}
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="home-impact__posture">
+              <h3>{resiliencePosture.title}</h3>
+              <ul>
+                {resiliencePosture.points.map((point, index) => (
+                  <li key={`${index}-${point}`}>
+                    <span className="home-impact__check" aria-hidden="true">✓</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -95,9 +180,10 @@ export function ImpactSection({
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════
-            TIER 1: 3 HEADLINE IMPACT CARDS (staggered 0.1s)
+            TIER 1: 5 HEADLINE IMPACT CARDS (staggered 0.1s)
            ═══════════════════════════════════════════════════════════════ */}
         <div
+          className="impact-stats-shell"
           style={{
             border: "1px solid var(--border)",
             background: "var(--bg)",
@@ -108,12 +194,18 @@ export function ImpactSection({
             staggerDelay={0.1}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
             }}
             className="impact-stats-grid"
           >
             {stats.map((stat, idx) => {
               const isLast = idx === stats.length - 1;
+              const sourceUrl = "sourceUrl" in stat && typeof stat.sourceUrl === "string"
+                ? stat.sourceUrl
+                : undefined;
+              const sourceLabel = "sourceLabel" in stat && typeof stat.sourceLabel === "string"
+                ? stat.sourceLabel
+                : "Source";
 
               return (
                 <div
@@ -184,6 +276,15 @@ export function ImpactSection({
                       }}
                     >
                       {stat.desc}
+                      {sourceUrl && (
+                        <>
+                          {" "}
+                          <a className="impact-source-link" href={sourceUrl} target="_blank" rel="noopener noreferrer">
+                            {sourceLabel}
+                            <span aria-hidden="true"> ↗</span>
+                          </a>
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>

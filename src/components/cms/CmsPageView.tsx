@@ -8,6 +8,7 @@ import { PainSection } from "@/components/sections/PainSection";
 import { SolutionSection } from "@/components/sections/SolutionSection";
 import { TrustSection, type TrustSectionCMSContent } from "@/components/sections/TrustSection";
 import { HeroSection } from "@/components/hero/HeroSection";
+import { PixelStudioHero } from "@/components/hero/PixelStudioHero";
 import { HeroStateProvider } from "@/lib/heroState";
 import { HOME_AGENT_MESH_SECTION_VISIBLE } from "@/lib/sections";
 import { CmsPageDocument } from "@/lib/cmsPages";
@@ -97,10 +98,11 @@ function ImageSection({ block }: { block: CmsBlock }) {
   );
 }
 
-function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
+function renderBlock(block: CmsBlock, index: number, isHomepage: boolean, isHomepageHero: boolean) {
   const key = String(block.id ?? `${block.blockType}-${index}`);
   switch (block.blockType) {
     case "hero":
+      if (isHomepage) return isHomepageHero ? <PixelStudioHero key={key} /> : null;
       return (
         <HeroStateProvider key={key}>
           <HeroSection content={{
@@ -271,6 +273,10 @@ function renderBlock(block: CmsBlock, index: number, isHomepage: boolean) {
 }
 
 export function CmsPageView({ page, isPreview = false }: { page: CmsPageDocument; isPreview?: boolean }) {
+  const blocks = asBlocks(page.layout);
+  const isHomepage = page.slug === "home";
+  const homepageHeroIndex = isHomepage ? blocks.findIndex((block) => block.blockType === "hero") : -1;
+
   return (
     <>
       {isPreview && (
@@ -279,7 +285,8 @@ export function CmsPageView({ page, isPreview = false }: { page: CmsPageDocument
         </div>
       )}
       <div className="cms-page-builder">
-        {asBlocks(page.layout).map((block, index) => renderBlock(block, index, page.slug === "home"))}
+        {isHomepage && homepageHeroIndex === -1 && <PixelStudioHero />}
+        {blocks.map((block, index) => renderBlock(block, index, isHomepage, index === homepageHeroIndex))}
       </div>
     </>
   );

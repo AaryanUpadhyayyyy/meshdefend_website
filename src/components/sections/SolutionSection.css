@@ -1086,6 +1086,36 @@ html.dark #solution .solution-story__image [stroke="#edf1f5"],
   #solution .solution-story__slide { transition: opacity 320ms ease, visibility 320ms ease; }
 }
 
+/* The segmented control remains at the existing mode-switch positions. */
+#solution .solution-wheel-stage > .resoc-view-toggle {
+  position: relative;
+  z-index: 3;
+  flex: 0 0 auto;
+  margin: 0;
+  padding-right: clamp(18px, 2.4vw, 46px);
+}
+
+#solution .solution-story__pin > .resoc-view-toggle {
+  margin: 0;
+}
+
+#solution.solution-section--map-mode .solution-section__container > .solution-map-stage {
+  width: 100%;
+  max-width: none !important;
+  min-height: calc(100svh - 110px);
+  margin: 0 !important;
+}
+
+#solution .solution-map-stage > .resoc-view-toggle {
+  margin: 0 0 10px;
+}
+
+@media (max-width: 760px) {
+  #solution .solution-wheel-stage > .resoc-view-toggle {
+    padding-right: 0;
+  }
+}
+
 /* Scroll driven capability wheel: the page heading stays fixed while the
    curved capability rail and the featured content advance together. */
 #solution.home-solution-section.solution-section--wheel-mode {

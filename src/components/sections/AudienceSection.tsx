@@ -5,6 +5,13 @@ import Link from "next/link";
 import { AUDIENCE } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 
+const AUDIENCE_SEGMENT_ORDER = [
+  "/solutions/enterprises",
+  "/solutions/advisory-consulting",
+  "/solutions/system-integrators",
+  "/solutions/managed-services",
+];
+
 function AudienceMark({ id }: { id: string }) {
   const shared = {
     fill: "none",
@@ -55,10 +62,25 @@ function AudienceMark({ id }: { id: string }) {
 }
 
 export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE> } = {}) {
+  const segments = [...(content?.segments ?? AUDIENCE.segments)]
+    .map((segment, originalIndex) => ({
+      segment,
+      originalIndex,
+      order: AUDIENCE_SEGMENT_ORDER.indexOf(segment.href.replace(/\/+$/, "")),
+    }))
+    .sort((a, b) => {
+      const orderA = a.order < 0 ? AUDIENCE_SEGMENT_ORDER.length + a.originalIndex : a.order;
+      const orderB = b.order < 0 ? AUDIENCE_SEGMENT_ORDER.length + b.originalIndex : b.order;
+      return orderA - orderB;
+    })
+    .map(({ segment }, index) => ({
+      ...segment,
+      num: String(index + 1).padStart(2, "0"),
+    }));
   const audience = {
     ...AUDIENCE,
     ...content,
-    segments: content?.segments ?? AUDIENCE.segments,
+    segments,
   };
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 

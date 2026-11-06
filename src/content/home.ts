@@ -260,15 +260,25 @@ export const BENEFITS_CONTENT = {
   heading: "Measurable Impact Across Resilience Operations",
   impactCards: [
     {
-      metric: "30–50%",
-      label: "More Infrastructure Managed",
-      detail: "Manage 30–50% more infrastructure with the same team.",
+      metric: "Up to 50%",
+      label: "Improve Business Resiliency",
+      detail: "Build business resiliency through continuous visibility, readiness, and coordinated response.",
+    },
+    {
+      metric: "20%",
+      label: "Faster Business Recovery",
+      detail: "IBM cites average unplanned downtime costs of $15,000 per minute for Global 2000 organizations.",
+      source: "https://www.ibm.com/think/topics/disaster-recovery-plan",
     },
     {
       metric: "Up to 80%",
       label: "Lower MTTR",
-      detail:
-        "Accelerates investigation, diagnosis, and remediation to restore services faster. Offload repetitive tasks to MeshDefend’s Agent Mesh with HITL/HIOL.",
+      detail: "Investigate, diagnose, and remediate incidents faster. Offload repetitive tasks to MeshDefend’s Agent Mesh with HITL/HIOL.",
+    },
+    {
+      metric: "30–50%",
+      label: "More Infrastructure Managed",
+      detail: "Manage 30–50% more infrastructure with the same team.",
     },
     {
       metric: "Up to 60%",
@@ -280,8 +290,8 @@ export const BENEFITS_CONTENT = {
   financialCard: {
     heading: "Financial ROI",
     lines: [
-      "Optimize Infrastructure Spend and Costs for resilience.",
-      "Lower Cyber Insurance Costs.",
+      "Optimize — Reclaim storage and reduce scanning cost.",
+      "Reduce Cyber Insurance Cost — Enterprises spend an average of $250,000–$500,000+ per year.",
     ],
   },
   postureCard: {
@@ -301,27 +311,27 @@ export const AUDIENCE_CONTENT = {
   audiences: [
     {
       num: "01",
-      title: "Systems Integrators",
-      desc: "Build repeatable assessment, implementation, integration, and managed-service offerings around resilience.",
-      href: "/solutions/system-integrators",
+      title: "Enterprises",
+      desc: "Reduce recovery uncertainty, operational complexity, and risk across large heterogeneous environments.",
+      href: "/solutions/enterprises",
     },
     {
       num: "02",
-      title: "Managed Service Providers",
-      desc: "Scale resilience services, improve margins, and support more customers without linear headcount growth.",
-      href: "/solutions/managed-services",
-    },
-    {
-      num: "03",
       title: "Advisory and Consulting",
       desc: "Turn resilience assessments into actionable roadmaps, measurable outcomes, and ongoing improvement programs.",
       href: "/solutions/advisory-consulting",
     },
     {
+      num: "03",
+      title: "Systems Integrators",
+      desc: "Build repeatable assessment, implementation, integration, and managed-service offerings around resilience.",
+      href: "/solutions/system-integrators",
+    },
+    {
       num: "04",
-      title: "Enterprises",
-      desc: "Reduce recovery uncertainty, operational complexity, and risk across large heterogeneous environments.",
-      href: "/solutions/enterprises",
+      title: "Managed Service Providers",
+      desc: "Scale resilience services, improve margins, and support more customers without linear headcount growth.",
+      href: "/solutions/managed-services",
     },
   ],
 };

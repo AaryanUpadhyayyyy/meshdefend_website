@@ -1,4 +1,8 @@
-import type { ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
+
+type PreviewVariant = "framed" | "bare";
+type PreviewPresentation = { variant: PreviewVariant };
+const PreviewPresentationContext = createContext<PreviewPresentation>({ variant: "framed" });
 
 type TextProps = {
   x: number;
@@ -28,15 +32,18 @@ function Dot({ x, y, color = orange, r = 5 }: { x: number; y: number; color?: st
 }
 
 function Canvas({ capability, children }: { capability: string; children: ReactNode }) {
+  const { variant } = useContext(PreviewPresentationContext);
   return (
-    <svg className="solution-story__image" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid meet" role="group" aria-label={`${capability} dashboard illustration`}>
-      <rect className="solution-story__svg-background" x="8" y="8" width="1184" height="604" rx="20" fill="#fff" />
+    <svg className={`solution-story__image${variant === "bare" ? " solution-story__image--bare" : ""}`} viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid meet" role="group" aria-label={`${capability} dashboard illustration`}>
+      {variant !== "bare" && <rect className="solution-story__svg-background" x="8" y="8" width="1184" height="604" rx="20" fill="#fff" />}
       {children}
     </svg>
   );
 }
 
 function Window({ x, y, w, h, title }: { x: number; y: number; w: number; h: number; title?: string }) {
+  const { variant } = useContext(PreviewPresentationContext);
+  if (variant === "bare") return null;
   return (
     <g>
       <rect x={x} y={y} width={w} height={h} rx="14" fill="#fff" stroke={line} strokeWidth="2" />
@@ -223,7 +230,17 @@ function PaymentsRecovery() {
 
 const visuals = [BackupInsights, ProtectionJobs, IncidentWorkflow, SmartRoutine, PaymentsRecovery];
 
-export function ResocSlideVisual({ index }: { index: number }) {
+export function ResocSlideVisual({
+  index,
+  variant = "framed",
+}: {
+  index: number;
+  variant?: PreviewVariant;
+}) {
   const Visual = visuals[index % visuals.length];
-  return <Visual />;
+  return (
+    <PreviewPresentationContext.Provider value={{ variant }}>
+      <Visual />
+    </PreviewPresentationContext.Provider>
+  );
 }
