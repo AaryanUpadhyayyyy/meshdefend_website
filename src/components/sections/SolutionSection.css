@@ -6,8 +6,8 @@
   --solution-surface: #f7f6f4;
   position: relative;
   isolation: isolate;
-  overflow: hidden;
-  padding: clamp(38px, 3.5vw, 52px) 0 clamp(18px, 2vw, 28px) !important;
+  overflow: visible;
+  padding: 0 0 clamp(18px, 2vw, 28px) !important;
   border-bottom: 1px solid var(--solution-border);
   background: #ffffff !important;
   color: var(--solution-ink);

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { AGENT_MESH_SECTION_CONTENT } from "@/lib/cmsHomepage";
+import { AGENT_MESH_SECTION_CONTENT } from "@/lib/homeSections";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { TechIndexTag } from "@/components/ui/TechIndexTag";
 import { Reveal } from "@/components/motion";

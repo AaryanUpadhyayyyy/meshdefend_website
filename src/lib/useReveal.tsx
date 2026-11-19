@@ -29,13 +29,14 @@ export function ScrollRevealObserver() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-revealed");
+            entry.target.setAttribute("data-revealed", "true");
             obs.unobserve(entry.target);
           }
         });
       },
       {
         rootMargin: "0px 0px -44px 0px",
-        threshold: 0.05,
+        threshold: 0.08,
       }
     );
 
@@ -47,9 +48,10 @@ export function ScrollRevealObserver() {
       const vh = window.innerHeight;
       targets.forEach((el) => {
         const rect = el.getBoundingClientRect();
-        // If element is already in initial view (or above fold), reveal immediately
-        if (rect.top < vh * 0.92) {
+        // Only elements visibly inside initial viewport on load are revealed immediately
+        if (rect.top < vh * 0.7 && rect.bottom > 0) {
           el.classList.add("is-revealed");
+          el.setAttribute("data-revealed", "true");
         } else {
           observer.observe(el);
         }

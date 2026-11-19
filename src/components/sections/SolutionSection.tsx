@@ -103,6 +103,19 @@ function CapabilityConnectors() {
   );
 }
 
+function clamp(val: number, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, val));
+}
+
+function smoothstep(start: number, end: number, val: number) {
+  const p = clamp((val - start) / (end - start));
+  return p * p * (3 - 2 * p);
+}
+
+function lerp(start: number, end: number, amount: number) {
+  return start + (end - start) * amount;
+}
+
 export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION> } = {}) {
   const solution = {
     ...SOLUTION,
@@ -148,7 +161,9 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
         const trackTop = track.getBoundingClientRect().top + window.scrollY;
         const stickyTop = Number.parseFloat(window.getComputedStyle(pin).top) || 0;
         const scrollDistance = Math.max(1, track.offsetHeight - pin.offsetHeight);
-        const target = trackTop - stickyTop + scrollDistance * ((requestedIndex + 0.5) / listItemCount);
+        // Map requestedIndex across 0.20 -> 0.98 range:
+        const progressTarget = 0.18 + 0.78 * ((requestedIndex + 0.5) / listItemCount);
+        const target = trackTop - stickyTop + scrollDistance * progressTarget;
         const lenis = (window as Window & {
           lenis?: { scrollTo?: (value: number, options?: { duration?: number; immediate?: boolean }) => void };
         }).lenis;
@@ -170,6 +185,14 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
 
     let frame = 0;
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
+
+    type HeroLenis = {
+      on?: (event: "scroll", handler: () => void) => void;
+      off?: (event: "scroll", handler: () => void) => void;
+    };
+    let lenis: HeroLenis | undefined;
+    const readLenis = () => (window as Window & { lenis?: HeroLenis }).lenis;
+
     const updateActiveFromScroll = () => {
       if (!desktopQuery.matches) return;
       const track = listTrackRef.current;
@@ -180,10 +203,46 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
       const stickyTop = Number.parseFloat(window.getComputedStyle(pin).top) || 0;
       const scrollStart = trackTop - stickyTop;
       const scrollDistance = Math.max(1, track.offsetHeight - pin.offsetHeight);
-      const progress = Math.max(0, Math.min(1, (window.scrollY - scrollStart) / scrollDistance));
-      const nextIndex = Math.min(listItemCount - 1, Math.floor(progress * listItemCount));
+      const progress = clamp((window.scrollY - scrollStart) / scrollDistance);
+
+      // Phase 1 (0.0 -> 0.18): Header scrolls up & fades; dashboard scales up and centers vertically
+      const pGrowth = smoothstep(0.0, 0.18, progress);
+      const headerY = lerp(0, -96, pGrowth);
+      const headerOpacity = lerp(1.0, 0.0, pGrowth);
+      const toggleY = lerp(0, -48, pGrowth);
+      const toggleOpacity = lerp(1.0, 0.0, pGrowth);
+      const cardScale = lerp(0.86, 1.0, pGrowth);
+      const cardY = lerp(28, -36, pGrowth);
+      const previewScale = lerp(0.92, 1.0, pGrowth);
+
+      pin.style.setProperty("--solution-header-y", `${headerY}px`);
+      pin.style.setProperty("--solution-header-opacity", String(headerOpacity));
+      pin.style.setProperty("--solution-toggle-y", `${toggleY}px`);
+      pin.style.setProperty("--solution-toggle-opacity", String(toggleOpacity));
+      pin.style.setProperty("--solution-card-scale", String(cardScale));
+      pin.style.setProperty("--solution-card-y", `${cardY}px`);
+      pin.style.setProperty("--solution-preview-scale", String(previewScale));
+
+      // Phase 2 (0.16 -> 0.98): Weighted deliberate scroll dwell (not easy / slippery scroll)
+      // Generous 110vh+ dedicated travel per capability with hysteresis detent
+      const slideProgress = clamp((progress - 0.16) / 0.82);
+      const rawPos = slideProgress * (listItemCount - 1); // continuous 0 -> 4
+      const cur = activeListSlideRef.current;
+
+      let nextIndex = cur;
+      if (rawPos > cur + 0.68 && cur < listItemCount - 1) {
+        nextIndex = Math.min(listItemCount - 1, cur + 1);
+      } else if (rawPos < cur - 0.32 && cur > 0) {
+        nextIndex = Math.max(0, cur - 1);
+      }
+
+      // Swiss Telemetry dwell progress within current capability (0 to 1)
+      const dwellFraction = clamp(rawPos - cur + 0.5);
+      pin.style.setProperty("--solution-slide-dwell", String(dwellFraction.toFixed(3)));
+
       updateActiveListSlide(nextIndex);
     };
+
     const requestUpdate = () => {
       if (frame) return;
       frame = window.requestAnimationFrame(() => {
@@ -192,11 +251,22 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
       });
     };
 
+    const subscribeToLenis = () => {
+      const activeLenis = readLenis();
+      if (!activeLenis || activeLenis === lenis) return;
+      lenis?.off?.("scroll", requestUpdate);
+      lenis = activeLenis;
+      lenis.on?.("scroll", requestUpdate);
+    };
+
     updateActiveFromScroll();
+    window.requestAnimationFrame(subscribeToLenis);
     window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("resize", requestUpdate, { passive: true });
+
     return () => {
       window.removeEventListener("scroll", requestUpdate);
+      lenis?.off?.("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
       if (frame) window.cancelAnimationFrame(frame);
     };
@@ -305,7 +375,11 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
     </header>
   );
 
-  const viewToggle = <ResocViewToggle view={viewMode} onChange={handleViewChange} />;
+  const viewToggle = (
+    <Reveal delay={0.16}>
+      <ResocViewToggle view={viewMode} onChange={handleViewChange} />
+    </Reveal>
+  );
   const rootModeClass = sectionView === "list"
     ? "solution-section--list-mode"
     : sectionView === "wheel"

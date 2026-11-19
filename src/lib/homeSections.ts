@@ -1,6 +1,8 @@
+import { AGENT_MESH } from "./content.ts";
+
 /**
- * Initial CMS values for the homepage sections that are currently composed in
- * React. These defaults preserve the site's existing copy and visual assets.
+ * Static homepage section data and configuration.
+ * Preserves the site's copy and visual assets without any CMS dependency.
  */
 export const HERO_BACKING_LINE =
   "Backed by Kalaari Capital · Kettleborough VC";
@@ -48,30 +50,18 @@ export const TRUST_SECTION_CONTENT = {
       href: "",
     },
   ],
-  partnersLabel: "Partners",
+  partnersLabel: "Supported Runtime Ecosystem & Partners",
   partners: [
     {
-      name: "Sapta Tunas Teknologi",
-      lightSrc: "/images/logos/saptatuns-light.webp",
-      darkSrc: "/images/logos/saptatuns-dark.webp",
-      height: 34,
-    },
-    {
-      name: "NVIDIA Inception Program",
-      lightSrc: "/images/logos/nvidia-light.webp",
-      darkSrc: "/images/logos/nvidia-dark.webp",
-      height: 32,
+      name: "Anthropic",
+      lightSrc: "/images/logos/anthropic-light.png",
+      darkSrc: "/images/logos/anthropic-dark.png",
+      height: 22,
     },
     {
       name: "OpenAI",
       lightSrc: "/images/logos/openai-light.png",
       darkSrc: "/images/logos/openai-dark.webp",
-      height: 28,
-    },
-    {
-      name: "AWS",
-      lightSrc: "/images/logos/aws-light.webp",
-      darkSrc: "/images/logos/aws-dark.webp",
       height: 28,
     },
     {
@@ -81,10 +71,16 @@ export const TRUST_SECTION_CONTENT = {
       height: 26,
     },
     {
-      name: "Anthropic",
-      lightSrc: "/images/logos/anthropic-light.png",
-      darkSrc: "/images/logos/anthropic-dark.png",
-      height: 22,
+      name: "AWS",
+      lightSrc: "/images/logos/aws-light.webp",
+      darkSrc: "/images/logos/aws-dark.webp",
+      height: 28,
+    },
+    {
+      name: "NVIDIA Inception Program",
+      lightSrc: "/images/logos/nvidia-light.webp",
+      darkSrc: "/images/logos/nvidia-dark.webp",
+      height: 32,
     },
     {
       name: "Azure AI Foundry",
@@ -97,6 +93,12 @@ export const TRUST_SECTION_CONTENT = {
       lightSrc: "/images/logos/dell-light.png",
       darkSrc: "/images/logos/dell-dark.png",
       height: 28,
+    },
+    {
+      name: "Sapta Tunas Teknologi",
+      lightSrc: "/images/logos/saptatuns-light.webp",
+      darkSrc: "/images/logos/saptatuns-dark.webp",
+      height: 34,
     },
   ],
 };
@@ -132,5 +134,3 @@ export const AGENT_MESH_SECTION_CONTENT = {
   ],
   pillars: AGENT_MESH.pillars,
 };
-import { AGENT_MESH } from "./content.ts";
-

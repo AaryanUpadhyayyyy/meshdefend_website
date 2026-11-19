@@ -694,29 +694,71 @@ section {
 /* ─── Scroll Reveal Animations ───────────────────────────────────── */
 
 /* When JS is initialized, hide reveal elements until scrolled into view */
-html.js-reveal .reveal-on-scroll,
-html.js-reveal .rv,
-html.js-reveal [data-reveal] {
+html.js-reveal .reveal-on-scroll:not(.is-revealed):not([data-revealed="true"]),
+html.js-reveal .rv:not(.is-revealed):not([data-revealed="true"]),
+html.js-reveal [data-reveal]:not(.is-revealed):not([data-revealed="true"]),
+[data-reveal][data-revealed="false"] {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(var(--reveal-y, 28px));
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-/* Revealed active state */
+/* Variant-specific hidden states */
+html.js-reveal [data-reveal="fade"]:not(.is-revealed):not([data-revealed="true"]),
+[data-reveal="fade"][data-revealed="false"],
+html.js-reveal .reveal-fade:not(.is-revealed) {
+  opacity: 0;
+  transform: none;
+  transition: opacity 0.7s ease;
+}
+
+html.js-reveal [data-reveal="scale-in"]:not(.is-revealed):not([data-revealed="true"]),
+[data-reveal="scale-in"][data-revealed="false"],
+html.js-reveal .reveal-scale:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.js-reveal [data-reveal="slide-left"]:not(.is-revealed):not([data-revealed="true"]),
+[data-reveal="slide-left"][data-revealed="false"] {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.js-reveal [data-reveal="slide-right"]:not(.is-revealed):not([data-revealed="true"]),
+[data-reveal="slide-right"][data-revealed="false"] {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Revealed active states */
 html.js-reveal .reveal-on-scroll.is-revealed,
 html.js-reveal .rv.is-revealed,
-html.js-reveal [data-reveal].is-revealed {
-  opacity: 1;
-  transform: translateY(0);
+html.js-reveal [data-reveal].is-revealed,
+html.js-reveal [data-reveal][data-revealed="true"],
+html.js-reveal .reveal-scale.is-revealed,
+html.js-reveal .reveal-fade.is-revealed,
+[data-reveal][data-revealed="true"] {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) !important;
+  pointer-events: auto !important;
   will-change: auto;
 }
 
 /* Instant hover restoration after reveal */
 html.js-reveal .reveal-on-scroll.is-revealed.card-hover,
-html.js-reveal .rv.is-revealed.card-hover {
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s;
+html.js-reveal .rv.is-revealed.card-hover,
+html.js-reveal [data-reveal][data-revealed="true"].card-hover,
+html.js-reveal [data-reveal].is-revealed.card-hover {
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s !important;
 }
 
 /* Scale-based reveal for cards, preview consoles & banners */
@@ -1136,6 +1178,20 @@ html.dark .partner-logo--dark,
   width: 100%;
   padding: 0 16px;
 }
+/* Hero page floating navbar: eliminates white space between hero and navbar */
+.nav-header--hero {
+  position: fixed !important;
+  top: 16px !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 80 !important;
+  pointer-events: none !important;
+}
+
+.nav-header--hero .nav-bar {
+  pointer-events: auto !important;
+}
+
 
 .nav-bar {
   width: min(var(--max-w), 100%);
@@ -1584,7 +1640,7 @@ html.dark .logo-img--dark,
     0 3px 10px rgba(34, 31, 34, 0.055);
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .pain-feature-row {
     position: sticky;
     top: 96px;
@@ -2534,9 +2590,11 @@ html.dark #trust .partner-logo--dark,
 
 #pain.home-pain-section {
   position: relative;
-  padding: clamp(76px, 9vw, 112px) 0;
+  margin-top: 0 !important;
+  border-top: none !important;
+  padding: clamp(56px, 7vw, 92px) 0 clamp(76px, 9vw, 112px);
   border-bottom: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--bg, #ffffff);
 }
 
 #pain .pain-section__header {
@@ -2648,7 +2706,26 @@ html.dark #trust .partner-logo--dark,
 
 #pain .pain-feature-points li {
   gap: 8px;
-  padding: 7px 0;
+  padding: 7px 8px;
+  border-radius: 4px;
+  transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1), background 160ms ease, padding 160ms ease;
+}
+
+#pain .pain-feature-points li:hover {
+  background: rgba(244, 85, 50, 0.06);
+  transform: translateX(4px);
+}
+
+#pain .pain-feature-points li:hover .pain-feature-point-mark {
+  background: #f45532 !important;
+  transform: scale(1.4);
+  box-shadow: 0 0 8px rgba(244, 85, 50, 0.6);
+  transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1), background 160ms ease, box-shadow 160ms ease;
+}
+
+#pain .pain-feature-points li:hover .pain-feature-point-label {
+  color: #f45532;
+  transition: color 160ms ease;
 }
 
 #pain .pain-feature-point-label {
@@ -2662,7 +2739,7 @@ html.dark #trust .partner-logo--dark,
   line-height: 1.45;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   #pain .pain-feature-row {
     position: sticky;
     top: 104px;

@@ -4,20 +4,22 @@ import { useId } from "react";
 import { Reveal } from "@/components/motion";
 import { MeshDefendBackground } from "@/components/hero/MeshDefendBackground";
 import { PainStackOpacity } from "@/components/sections/PainStackOpacity";
-import { PAIN_CAROUSEL_CARDS } from "@/lib/cmsHomepage";
+import { PAIN_CAROUSEL_CARDS } from "@/lib/homeSections";
 import { PAIN } from "@/lib/sections";
 
-type PainPointCMSContent = { label?: string; desc?: string };
+type PainPointContent = { label?: string; desc?: string };
 
-type PainCardCMSContent = {
+type PainCardContent = {
   num?: string;
   group?: string;
   imageUrl?: string;
   image?: { url?: string } | null;
   summary?: string;
   imageAlt?: string;
-  points?: PainPointCMSContent[];
+  points?: PainPointContent[];
 };
+type PainPointCMSContent = PainPointContent;
+type PainCardCMSContent = PainCardContent;
 
 const LEGACY_PAIN_ARTWORK: Record<string, string> = {
   "/images/img/backup-success-recovery-unproven.png": "/images/home/recovery-confidence-timeline.svg",

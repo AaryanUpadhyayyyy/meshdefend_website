@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { LogoMark } from "@/components/brand/Logo";
-import { TRUST_SECTION_CONTENT } from "@/lib/cmsHomepage";
+import { NumberCounter } from "@/components/motion/NumberCounter";
+import { TRUST_SECTION_CONTENT } from "@/lib/homeSections";
 import "./PixelStudioHero.css";
 
 type DashboardIconName = "overview" | "services" | "infrastructure" | "security" | "recovery" | "incidents" | "reports";
@@ -37,19 +38,7 @@ const dashboardNavigation: { label: string; icon: DashboardIconName }[] = [
   { label: "Reports", icon: "reports" },
 ];
 
-const partnerOrder = [
-  "OpenAI",
-  "Microsoft",
-  "AWS",
-  "Anthropic",
-  "Azure AI Foundry",
-  "Powered by Dell Technologies",
-  "NVIDIA Inception Program",
-];
-
-const partnerLogos = partnerOrder
-  .map((name) => TRUST_SECTION_CONTENT.partners.find((partner) => partner.name === name))
-  .filter((partner): partner is (typeof TRUST_SECTION_CONTENT.partners)[number] => Boolean(partner));
+const partnerLogos = TRUST_SECTION_CONTENT.partners;
 
 const partnerLogoDimensions: Record<string, { width: number; height: number }> = {
   "/images/logos/openai-light.png": { width: 255, height: 70 },
@@ -66,6 +55,8 @@ const partnerLogoDimensions: Record<string, { width: number; height: number }> =
   "/images/logos/dell-dark.png": { width: 289, height: 69 },
   "/images/logos/nvidia-light.webp": { width: 696, height: 243 },
   "/images/logos/nvidia-dark.webp": { width: 655, height: 229 },
+  "/images/logos/saptatuns-light.webp": { width: 240, height: 80 },
+  "/images/logos/saptatuns-dark.webp": { width: 240, height: 80 },
 };
 function DashboardPreview() {
   return (
@@ -103,15 +94,15 @@ function DashboardPreview() {
         <div className="mdph-dashboard-metrics">
           <article className="mdph-dashboard-metric">
             <span>Business services <b>↗</b></span>
-            <strong>46</strong>
+            <strong><NumberCounter value="46" duration={1100} /></strong>
           </article>
           <article className="mdph-dashboard-metric">
             <span>Recovery proven <b>↗</b></span>
-            <strong>39</strong>
+            <strong><NumberCounter value="39" duration={1100} /></strong>
           </article>
           <article className="mdph-dashboard-metric mdph-dashboard-metric--risk">
             <span>At risk <b>↗</b></span>
-            <strong>4</strong>
+            <strong><NumberCounter value="4" duration={900} /></strong>
           </article>
         </div>
 
@@ -151,14 +142,50 @@ function lerp(start: number, end: number, amount: number) {
   return start + (end - start) * amount;
 }
 
+const storyRulerMarks = [
+  { id: "01", label: "01" },
+  { id: "02", label: "02" },
+  { id: "03", label: "03" },
+  { id: "04", label: "04" },
+  { id: "05", label: "05" },
+  { id: "06", label: "06" },
+  { id: "07", label: "07" },
+  { id: "08", label: "08" },
+  { id: "09", label: "09" },
+  { id: "10", label: "10" },
+  { id: "11", label: "11" },
+  { id: "12", label: "12" },
+];
+
+const FULL_LINE_1 = "Are you confident to recover your";
+const FULL_LINE_2 = "Business Services end-to-end";
+const FULL_LINE_3 = "(not just data) from AI-led Attacks?";
+
 export function PixelStudioHero() {
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
+
+
   useEffect(() => {
     const track = trackRef.current;
     const stage = stageRef.current;
-    if (!track || !stage || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!track || !stage) return;
+
+    type HeroLenis = {
+      on?: (event: "scroll", handler: () => void) => void;
+      off?: (event: "scroll", handler: () => void) => void;
+    };
+    let lenis: HeroLenis | undefined;
+    const readLenis = () => (window as Window & { lenis?: HeroLenis }).lenis;
+
+    const subscribeToLenis = () => {
+      const activeLenis = readLenis();
+      if (!activeLenis || activeLenis === lenis) return;
+      lenis?.off?.("scroll", scheduleProgress);
+      lenis = activeLenis;
+      lenis.on?.("scroll", scheduleProgress);
+    };
 
     let frame = 0;
     const renderScrollState = () => {
@@ -167,22 +194,91 @@ export function PixelStudioHero() {
       if (travel <= 0) return;
 
       const rawProgress = clamp(-track.getBoundingClientRect().top / travel);
-      const dashboardProgress = smoothstep(0, 0.84, rawProgress);
-      const copyProgress = smoothstep(0.12, 0.72, rawProgress);
-      const logoProgress = smoothstep(0.7, 0.96, rawProgress);
 
-      stage.dataset.scene = rawProgress < 0.12 ? "intro" : rawProgress < 0.83 ? "moving" : "settled";
-      stage.style.setProperty("--mdph-dashboard-x", lerp(window.innerWidth * 0.39, 0, dashboardProgress) + "px");
-      stage.style.setProperty("--mdph-dashboard-y", lerp(window.innerHeight * 0.2, -window.innerHeight * 0.012, dashboardProgress) + "px");
-      stage.style.setProperty("--mdph-dashboard-scale", String(lerp(0.82, 0.9, dashboardProgress)));
-      stage.style.setProperty("--mdph-copy-opacity", String(1 - copyProgress));
-      stage.style.setProperty("--mdph-copy-y", -26 * copyProgress + "px");
-      stage.style.setProperty("--mdph-cta-opacity", String(1 - smoothstep(0.48, 0.59, rawProgress)));
-      stage.style.setProperty("--mdph-cta-visibility", rawProgress >= 0.59 ? "hidden" : "visible");
-      stage.style.setProperty("--mdph-description-stretch", String(lerp(1, 1.12, smoothstep(0.04, 0.52, rawProgress))));
+      // 3 DISTINCT VISUAL STATES:
+      // State 1 (intro, 0% - ~20%): Initial state, dashboard in bottom-right corner, heading crisp
+      // State 2 (mid, ~20% - ~62%): Dashboard centers & stays MORE DOWN; text translates ABOVE & sits BEHIND dashboard
+      // State 3 (settled, ~62% - 100%): Text scrolls away above, dashboard glides to center, logos visible below
+      stage.dataset.scene = rawProgress < 0.20 ? "intro" : rawProgress < 0.62 ? "mid" : "settled";
+
+      const p1 = smoothstep(0.02, 0.42, rawProgress);
+      const p2 = smoothstep(0.44, 0.78, rawProgress);
+
+      // Dynamic calculation to guarantee vertical space between line 3 and dashboard top across ALL views and zoom levels:
+      const headingEl = stage.querySelector<HTMLElement>(".mdph-story-heading");
+      const headingRect = headingEl?.getBoundingClientRect();
+      const stageRect = stage.getBoundingClientRect();
+      const headingBottom = headingRect ? headingRect.bottom - stageRect.top : 240;
+
+      // Actual dashboard card height:
+      const dashEl = stage.querySelector<HTMLElement>(".mdph-dashboard");
+      const cardHeight = dashEl ? dashEl.offsetHeight : 520;
+      const cardScaledHalfHeight = (cardHeight * 0.74) / 2;
+      const stageCenterY = stage.offsetHeight / 2;
+
+      // Desired top of dashboard card in State 1: minimum 54px below line 3:
+      const desiredCardTop = headingBottom + 54;
+      const requiredStartY = desiredCardTop - stageCenterY + cardScaledHalfHeight;
+
+      // State 1 coordinates: bottom-right corner
+      const startX = Math.min(window.innerWidth * 0.28, 420);
+      const startY = Math.max(requiredStartY, stage.offsetHeight * 0.28);
+
+      // State 2 coordinates: bottom-center (X: 0, moved down)
+      const midY = Math.max(requiredStartY - 24, stage.offsetHeight * 0.20);
+
+      // State 3 coordinates: centered settled position
+      const endY = -12;
+
+      let currentX: number;
+      let currentY: number;
+      let currentScale: number;
+
+      if (rawProgress <= 0.44) {
+        currentX = lerp(startX, 0, p1);
+        currentY = lerp(startY, midY, p1);
+        currentScale = lerp(0.74, 0.88, p1);
+      } else {
+        currentX = 0;
+        currentY = lerp(midY, endY, p2);
+        currentScale = lerp(0.88, 0.98, p2);
+      }
+
+      // Heading & text: goes BEHIND the dashboard and moves ABOVE (translates upwards)
+      const headingOpacity = rawProgress <= 0.44
+        ? lerp(1.0, 0.25, p1)
+        : lerp(0.25, 0.0, p2);
+
+      const detailsOpacity = rawProgress <= 0.44
+        ? lerp(1.0, 0.20, p1)
+        : lerp(0.20, 0.0, p2);
+
+      const copyScrollUp = rawProgress <= 0.44
+        ? lerp(0, -90, p1)
+        : lerp(-90, -400, p2);
+
+      const ctaOpacity = rawProgress <= 0.44
+        ? lerp(1.0, 0.20, p1)
+        : lerp(0.20, 0.0, smoothstep(0.44, 0.58, rawProgress));
+
+      const logoProgress = smoothstep(0.60, 0.82, rawProgress);
+      const logoY = lerp(20, 0, logoProgress);
+
+      stage.style.setProperty("--mdph-dashboard-x", `${currentX}px`);
+      stage.style.setProperty("--mdph-dashboard-y", `${currentY}px`);
+      stage.style.setProperty("--mdph-dashboard-scale", String(currentScale));
+
+      stage.style.setProperty("--mdph-heading-opacity", String(headingOpacity));
+      stage.style.setProperty("--mdph-details-opacity", String(detailsOpacity));
+      stage.style.setProperty("--mdph-cta-opacity", String(ctaOpacity));
+      stage.style.setProperty("--mdph-cta-visibility", rawProgress >= 0.55 ? "hidden" : "visible");
+      stage.style.setProperty("--mdph-cta-pointer-events", rawProgress >= 0.35 ? "none" : "auto");
+      stage.style.setProperty("--mdph-copy-y", `${copyScrollUp}px`);
+
+      stage.style.setProperty("--mdph-ruler-opacity", String(rawProgress <= 0.44 ? 1 - p1 * 0.5 : lerp(0.5, 0.0, p2)));
       stage.style.setProperty("--mdph-logos-opacity", String(logoProgress));
-      stage.style.setProperty("--mdph-logos-y", lerp(22, 0, logoProgress) + "px");
-      stage.style.setProperty("--mdph-art-y", lerp(0, -22, rawProgress) + "px");
+      stage.style.setProperty("--mdph-logos-y", `${logoY}px`);
+      stage.style.setProperty("--mdph-art-y", `${lerp(0, -20, rawProgress)}px`);
     };
 
     const scheduleProgress = () => {
@@ -191,15 +287,19 @@ export function PixelStudioHero() {
     };
 
     scheduleProgress();
+    window.requestAnimationFrame(subscribeToLenis);
     window.addEventListener("scroll", scheduleProgress, { passive: true });
     window.addEventListener("resize", scheduleProgress, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", scheduleProgress);
+      lenis?.off?.("scroll", scheduleProgress);
       window.removeEventListener("resize", scheduleProgress);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
+
+
 
   return (
     <section className="mdph" id="hero" aria-labelledby="mdph-title">
@@ -214,8 +314,8 @@ export function PixelStudioHero() {
                   <stop offset="1" stopColor="#ffe8dd" stopOpacity=".18" />
                 </linearGradient>
                 <linearGradient id="mdph-wave-bottom" x1="0" x2="1" y1="1" y2="0">
-                  <stop offset="0" stopColor="#ffd9c7" stopOpacity=".55" />
-                  <stop offset="1" stopColor="#fff0e9" stopOpacity=".1" />
+                  <stop offset="0" stopColor="#ffd9c7" stopOpacity=".28" />
+                  <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <path className="mdph-wave-shape mdph-wave-shape--top" d="M1440 0h-280c84 72 148 142 170 240 22 94-4 167 110 226V0Z" fill="url(#mdph-wave-top)" />
@@ -223,24 +323,41 @@ export function PixelStudioHero() {
               <path d="M1440 122c-140 48-199 136-183 225 13 73 76 112 183 150" fill="none" stroke="rgba(255,255,255,.6)" strokeWidth="1.4" />
               <path className="mdph-wave-shape mdph-wave-shape--bottom" d="M0 628c149 44 240 96 335 164 114 82 222 110 368 108H0V628Z" fill="url(#mdph-wave-bottom)" />
               <path d="M0 572c165 47 257 105 360 181 113 83 217 117 356 128" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="2" />
-              <path d="M0 637c146 42 231 92 329 160 107 74 202 104 325 116" fill="none" stroke="rgba(255,255,255,.65)" strokeWidth="1.4" />
             </svg>
+          </div>
+
+          <div className="mdph-story-ruler" aria-hidden="true">
+            {storyRulerMarks.map((mark) => (
+              <span className="mdph-story-ruler-mark" key={mark.id}>
+                <span className="mdph-story-ruler-num">{mark.label}</span>
+              </span>
+            ))}
           </div>
 
           <div className="mdph-story-copy">
             <div className="mdph-story-heading">
-              <h1 id="mdph-title">
-                Are you confident to recover your<br className="mdph-desktop-break" />
-                Business Services end-to-end<br className="mdph-desktop-break" />
-                <em>(not just data)</em> from <strong>AI-led Attacks?</strong>
+              <h1 id="mdph-title" aria-label="Are you confident to recover your Business Services end-to-end (not just data) from AI-led Attacks?">
+                <span className="mdph-line-mask">
+                  <span className="mdph-line-inner mdph-line-1">
+                    Are you confident to recover your
+                  </span>
+                </span>
+                <span className="mdph-line-mask">
+                  <span className="mdph-line-inner mdph-line-2">
+                    Business Services end-to-end
+                  </span>
+                </span>
+                <span className="mdph-line-mask">
+                  <span className="mdph-line-inner mdph-line-3">
+                    <em>(not just data)</em> <span>from </span><strong>AI-led Attacks?</strong>
+                  </span>
+                </span>
               </h1>
             </div>
             <div className="mdph-story-details">
-              <h2>Introducing Resilience Operations Centre (ResOC)</h2>
+              <h2>Introducing Resilience Operations<br />Centre (ResOC)</h2>
               <p className="mdph-story-description">
-                <span>A unified, AI-led solution to plan, build, operate,</span>
-                <span>recover and continuously improve business resilience</span>
-                <span>across Business, IT and Security.</span>
+                A unified, AI-led solution to plan, build, operate, recover and continuously improve business resilience across Business, IT and Security.
               </p>
               <Link className="mdph-story-cta" href="/demo">Book a demo <span aria-hidden="true">→</span></Link>
             </div>
@@ -250,13 +367,37 @@ export function PixelStudioHero() {
             <DashboardPreview />
           </div>
 
-          <div className="mdph-story-partners" role="list" aria-label="Technology partners">
-            {partnerLogos.map((partner) => (
-              <div className="mdph-story-partner" key={partner.name} title={partner.name} role="listitem">
-                <Image className="mdph-story-partner-logo mdph-story-partner-logo--light" src={partner.lightSrc} alt={partner.name} width={partnerLogoDimensions[partner.lightSrc].width} height={partnerLogoDimensions[partner.lightSrc].height} sizes="(max-width: 640px) 100px, (max-width: 900px) 118px, 132px" />
-                <Image className="mdph-story-partner-logo mdph-story-partner-logo--dark" src={partner.darkSrc} alt="" aria-hidden="true" width={partnerLogoDimensions[partner.darkSrc].width} height={partnerLogoDimensions[partner.darkSrc].height} sizes="(max-width: 640px) 100px, (max-width: 900px) 118px, 132px" />
-              </div>
-            ))}
+          <div className="mdph-story-marquee-wrapper" aria-label="Technology partners">
+            <div className="mdph-story-marquee-track">
+              {[1, 2].map((repeat) => (
+                <div key={repeat} className="mdph-story-marquee-group" aria-hidden={repeat === 2 ? "true" : undefined}>
+                  {partnerLogos.map((partner, index) => {
+                    const dims = partnerLogoDimensions[partner.lightSrc] || { width: 220, height: 60 };
+                    return (
+                      <div className="mdph-story-partner" key={`${partner.name}-${repeat}-${index}`} title={partner.name}>
+                        <Image
+                          className="mdph-story-partner-logo mdph-story-partner-logo--light"
+                          src={partner.lightSrc}
+                          alt={partner.name}
+                          width={dims.width}
+                          height={dims.height}
+                          sizes="(max-width: 640px) 100px, (max-width: 900px) 120px, 140px"
+                        />
+                        <Image
+                          className="mdph-story-partner-logo mdph-story-partner-logo--dark"
+                          src={partner.darkSrc}
+                          alt=""
+                          aria-hidden="true"
+                          width={dims.width}
+                          height={dims.height}
+                          sizes="(max-width: 640px) 100px, (max-width: 900px) 120px, 140px"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

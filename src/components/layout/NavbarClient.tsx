@@ -18,6 +18,7 @@ export function NavbarClient({
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const navRef = useRef<HTMLElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -50,9 +51,27 @@ export function NavbarClient({
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 20);
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        if (total > 0) {
+          setScrollProgress(Math.min(1, Math.max(0, window.scrollY / total)));
+        }
+      });
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const lenis = (window as Window & { lenis?: { on?: (event: string, cb: () => void) => void; off?: (event: string, cb: () => void) => void } }).lenis;
+    lenis?.on?.("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      lenis?.off?.("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -86,7 +105,27 @@ export function NavbarClient({
   }, [mobileOpen]);
 
   return (
-    <header ref={navRef} className={`nav-header${heroVariant ? " nav-header--hero" : ""}`}>
+    <>
+      <div
+        id="global-scroll-gauge"
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: 2.5,
+          background: "var(--orange, #f45532)",
+          boxShadow: "0 0 8px rgba(244, 85, 50, 0.75)",
+          transformOrigin: "0% 50%",
+          transform: `scaleX(${scrollProgress})`,
+          transition: "transform 0.06s linear",
+          pointerEvents: "none",
+          zIndex: 99999,
+          opacity: scrollProgress > 0.002 ? 1 : 0,
+        }}
+      />
+      <header ref={navRef} className={`nav-header${heroVariant ? " nav-header--hero" : ""}`}>
       <div
         className={`nav-bar${heroVariant ? " nav-bar--hero" : ""} ${scrolled ? "is-scrolled" : ""} ${openMenu ? "has-open-menu" : ""}`}
         onMouseLeave={handleMouseLeave}
@@ -240,6 +279,24 @@ export function NavbarClient({
             </div>
           </div>
         )}
+        {/* Navbar Pill Swiss Hairline Gauge */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 14,
+            right: 14,
+            height: 2,
+            background: "var(--orange, #f45532)",
+            transformOrigin: "0% 50%",
+            transform: `scaleX(${scrollProgress})`,
+            transition: "transform 0.06s linear",
+            pointerEvents: "none",
+            opacity: scrollProgress > 0.005 ? 0.95 : 0,
+            borderRadius: "0 0 2px 2px",
+          }}
+        />
       </div>
 
       {/* Mobile nav overlay */}
@@ -301,5 +358,6 @@ export function NavbarClient({
         </div>
       )}
     </header>
+    </>
   );
 }

@@ -26,7 +26,7 @@
   gap: 13px;
   padding: 8px 16px;
   border: 1px solid var(--border-hairline);
-  border-radius: 14px;
+  border-radius: 3px;
   background: var(--card-bg);
   color: var(--ink);
 }
@@ -130,11 +130,11 @@
 }
 
 #solution .capability-list__jobs-table th:first-child {
-  border-radius: 8px 0 0 8px;
+  border-radius: 2px 0 0 2px;
 }
 
 #solution .capability-list__jobs-table th:last-child {
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 2px 2px 0;
 }
 
 #solution .capability-list__jobs-table td {
@@ -400,9 +400,9 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 
 #solution.solution-section--list-mode .solution-section__container > .solution-list-stage:first-child {
   display: block;
+  position: relative;
   width: 100%;
-  height: auto;
-  min-height: 0;
+  height: 580vh !important;
   max-width: none !important;
   margin: 0 !important;
   padding: 0;
@@ -410,15 +410,22 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 
 #solution .solution-list-pin {
   position: sticky;
-  top: calc(var(--solution-header-bottom, 71px) + 20px);
+  top: clamp(64px, 8vh, 84px);
   display: grid;
-  height: calc(100svh - var(--solution-header-bottom, 71px) - 48px);
-  min-height: 0;
+  height: calc(100svh - clamp(64px, 8vh, 84px) - 24px);
+  min-height: 580px;
   grid-template-rows: auto auto minmax(0, 1fr);
-  gap: clamp(5px, 0.8svh, 9px);
+  gap: clamp(6px, 1svh, 12px);
 }
 
-#solution.solution-section--list-mode .resoc-view-toggle { min-height: 32px; margin: 0; }
+#solution.solution-section--list-mode .resoc-view-toggle {
+  min-height: 32px;
+  margin: 0;
+  transform: translate3d(0, var(--solution-toggle-y, 0px), 0);
+  opacity: var(--solution-toggle-opacity, 1);
+  will-change: transform, opacity;
+  transition: opacity 120ms ease;
+}
 
 #solution.solution-section--list-mode .solution-section__header {
   display: flex;
@@ -427,6 +434,9 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   gap: 4px;
   margin: 0;
   text-align: center;
+  transform: translate3d(0, var(--solution-header-y, 0px), 0);
+  opacity: var(--solution-header-opacity, 1);
+  will-change: transform, opacity;
 }
 
 #solution.solution-section--list-mode .solution-section__intro { width: 100%; text-align: center; }
@@ -456,6 +466,9 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 #solution .capability-list {
   height: calc(100% - clamp(14px, 2svh, 18px));
   margin-top: clamp(14px, 2svh, 18px);
+  transform: translate3d(0, var(--solution-card-y, 0px), 0) scale(var(--solution-card-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
 }
 
 #solution .capability-list__body {
@@ -527,17 +540,31 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   position: absolute;
   z-index: 0;
   inset: 0 0 0 -14px;
-  border-radius: 4px;
+  border-radius: 2px;
   background: #fdeee9;
 }
 
 #solution .capability-list__active-highlight::before {
   position: absolute;
   inset: 0 auto 0 0;
-  width: 6px;
-  border-radius: 4px 0 0 4px;
+  width: 5px;
+  border-radius: 2px 0 0 2px;
   background: #f45532;
   content: "";
+}
+
+/* Swiss Telemetry Dwell Gauge at bottom of active capability */
+#solution .capability-list__active-highlight::after {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, #f45532 0%, rgba(244, 85, 50, 0.4) 100%);
+  transform-origin: 0% 50%;
+  transform: scaleX(var(--solution-slide-dwell, 0.5));
+  content: "";
+  transition: transform 60ms linear;
+  opacity: 0.9;
 }
 
 #solution .capability-list__icon {
@@ -619,7 +646,7 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   margin: 0;
   padding: 0 14px;
   border: 1px solid #f45532;
-  border-radius: 9px;
+  border-radius: 3px;
   background: #f45532;
   box-shadow: 0 5px 14px rgba(244, 85, 50, 0.2);
   color: #fff;
@@ -653,6 +680,9 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   min-width: 0;
   min-height: 0;
   overflow: visible;
+  transform: scale(var(--solution-preview-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
 }
 
 #solution .capability-list__feature-content {
@@ -772,4 +802,50 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   #solution .capability-list__details p { font-size: 12px; }
   #solution .capability-list__feature { height: min(70vw, 350px); }
   #solution .capability-list__backup-canvas > .capability-list__backup-preview { width: 1200px; height: 320px; }
+}
+
+#solution .capability-list__tab-row:not(.is-active):hover {
+  background: rgba(244, 85, 50, 0.04);
+  border-radius: 6px;
+  transition: background 160ms ease;
+}
+
+#solution .capability-list__tab-row:not(.is-active):hover .capability-list__label {
+  color: var(--solution-orange, #f45532);
+  transition: color 160ms ease;
+}
+
+/* ResOC Telemetry Radar Beacon & Cable Pulse (Hero-grade precision) */
+@keyframes resocBeaconRing {
+  0% { transform: scale(0.85); opacity: 0.75; }
+  50% { transform: scale(1.45); opacity: 0.15; }
+  100% { transform: scale(0.85); opacity: 0.75; }
+}
+
+@keyframes resocBeaconHub {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.5); opacity: 0.2; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+@keyframes resocCablePulse {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -20; }
+}
+
+.resoc-beacon-ring {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: resocBeaconRing 2.4s ease-in-out infinite;
+}
+
+.resoc-beacon-hub {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: resocBeaconHub 2.2s ease-in-out infinite;
+}
+
+.resoc-telemetry-cable {
+  stroke-dasharray: 6 3;
+  animation: resocCablePulse 1.6s linear infinite;
 }

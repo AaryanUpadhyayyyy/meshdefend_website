@@ -62,12 +62,20 @@ export function Reveal({
 
   const Tag = as as any;
 
+  const combinedClassName = [
+    className,
+    "reveal-on-scroll",
+    revealed ? "is-revealed" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <Tag
       id={id}
       title={title}
       ref={ref}
-      className={className}
+      className={combinedClassName}
       style={customStyle}
       data-reveal={variant}
       data-revealed={revealed ? "true" : "false"}

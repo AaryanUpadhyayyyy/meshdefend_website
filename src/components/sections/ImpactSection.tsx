@@ -41,13 +41,15 @@ export function ImpactSection({
       >
         <div className="container home-impact__container">
           <header className="home-impact__header">
-            <h2 id="home-impact-heading" className="home-impact__heading">
-              {headline}
-            </h2>
+            <Reveal delay={0}>
+              <h2 id="home-impact-heading" className="home-impact__heading">
+                {headline}
+              </h2>
+            </Reveal>
           </header>
 
           <div className="home-impact__metrics" aria-label="Measured outcomes">
-            {stats.map((stat) => {
+            {stats.map((stat, statIdx) => {
               const sourceUrl = "sourceUrl" in stat && typeof stat.sourceUrl === "string"
                 ? stat.sourceUrl
                 : undefined;
@@ -57,7 +59,13 @@ export function ImpactSection({
               const sourceLogoLabel = sourceLabel.replace(/\s+source$/i, "");
 
               return (
-                <article className="home-impact__metric" key={stat.tag}>
+                <Reveal
+                  as="article"
+                  className="home-impact__metric"
+                  key={stat.tag}
+                  variant="fade-up"
+                  delay={statIdx * 0.08}
+                >
                   <div className="home-impact__metric-value">
                     <NumberCounter value={stat.value} />
                   </div>
@@ -79,7 +87,7 @@ export function ImpactSection({
                       </>
                     )}
                   </p>
-                </article>
+                </Reveal>
               );
             })}
           </div>
@@ -87,16 +95,27 @@ export function ImpactSection({
           <div className="home-impact__lower">
             <div className="home-impact__costs" aria-label="Cost outcomes">
               {costPoints.map((point, index) => (
-                <article className="home-impact__cost" key={`${index}-${point.title}`}>
+                <Reveal
+                  as="article"
+                  className="home-impact__cost"
+                  key={`${index}-${point.title}`}
+                  variant="fade-up"
+                  delay={0.12 + index * 0.08}
+                >
                   <div className="home-impact__cost-copy">
                     <h3>{point.title}</h3>
                     {point.desc && <p>{point.desc}</p>}
                   </div>
-                </article>
+                </Reveal>
               ))}
             </div>
 
-            <div className="home-impact__posture">
+            <Reveal
+              as="div"
+              className="home-impact__posture"
+              variant="fade-up"
+              delay={0.24}
+            >
               <h3>{resiliencePosture.title}</h3>
               <ul>
                 {resiliencePosture.points.map((point, index) => (
@@ -106,7 +125,7 @@ export function ImpactSection({
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>

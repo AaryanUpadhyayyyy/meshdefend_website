@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const STACK_MEDIA_QUERY = "(min-width: 1200px)";
+const STACK_MEDIA_QUERY = "(min-width: 992px)";
 const STACK_OPACITY_STEP = 0.5;
 
 /** Applies 100%, 50%, then 0% opacity by each card's position in the stack. */
@@ -55,11 +55,22 @@ export function PainStackOpacity() {
           );
         }
 
+        const stackDepth = stackedAbove + incomingOverlap;
         const opacity = Math.max(
-          0,
-          1 - STACK_OPACITY_STEP * (stackedAbove + incomingOverlap)
+          0.18,
+          1 - 0.38 * stackDepth
         );
+        const scale = Math.max(
+          0.91,
+          1 - 0.045 * stackDepth
+        );
+        const translateY = -12 * stackDepth;
         card.style.opacity = opacity.toFixed(3);
+        card.style.transform = stackDepth > 0
+          ? `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`
+          : "";
+        card.style.transformOrigin = "top center";
+        card.style.filter = stackDepth > 0 ? `brightness(${(1 - 0.04 * stackDepth).toFixed(2)})` : "";
       });
     };
 
@@ -77,7 +88,12 @@ export function PainStackOpacity() {
       window.removeEventListener("resize", scheduleUpdate);
       media.removeEventListener("change", scheduleUpdate);
       if (frame) window.cancelAnimationFrame(frame);
-      cards.forEach((card) => card.style.removeProperty("opacity"));
+      cards.forEach((card) => {
+        card.style.removeProperty("opacity");
+        card.style.removeProperty("transform");
+        card.style.removeProperty("transform-origin");
+        card.style.removeProperty("filter");
+      });
     };
   }, []);
 

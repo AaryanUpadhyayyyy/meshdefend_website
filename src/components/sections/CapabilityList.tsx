@@ -366,8 +366,28 @@ export function CapabilityList({
                         <CapabilityIcon sourceIndex={item.sourceIndex} />
                       </motion.span>
                       <span className="capability-list__label-stack">
-                        <motion.span className="capability-list__label capability-list__label--inactive" aria-hidden="true" animate={{ opacity: active ? 0 : 1, x: active && !prefersReducedMotion ? -4 : 0, scale: active && !prefersReducedMotion ? 0.96 : 1 }} transition={{ duration: prefersReducedMotion ? 0.15 : 0.32, ease: EASE }}>{item.capability}</motion.span>
-                        <motion.span className="capability-list__label capability-list__label--active" aria-hidden={!active} animate={{ opacity: active ? 1 : 0, y: active || prefersReducedMotion ? 0 : inactiveActiveLabelY }} transition={{ duration: prefersReducedMotion ? 0.15 : 0.38, ease: EASE }}>{item.capability}</motion.span>
+                        <motion.span
+                          className="capability-list__label capability-list__label--inactive"
+                          aria-hidden="true"
+                          animate={{
+                            opacity: active ? 0 : 1,
+                            y: active && !prefersReducedMotion ? -16 : 0,
+                          }}
+                          transition={{ duration: prefersReducedMotion ? 0.15 : 0.28, ease: EASE }}
+                        >
+                          {item.capability}
+                        </motion.span>
+                        <motion.span
+                          className="capability-list__label capability-list__label--active"
+                          aria-hidden={!active}
+                          animate={{
+                            opacity: active ? 1 : 0,
+                            y: active || prefersReducedMotion ? 0 : 20,
+                          }}
+                          transition={{ duration: prefersReducedMotion ? 0.15 : 0.44, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          {item.capability}
+                        </motion.span>
                       </span>
                     </button>
                     <AnimatePresence initial={false} mode="popLayout">

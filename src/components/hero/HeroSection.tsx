@@ -1,131 +1,348 @@
-import Link from "next/link";
-import Image from "next/image";
-import { HERO_CONTENT } from "@/content/home";
-import { HERO_BACKING_LINE } from "@/lib/cmsHomepage";
-import { ResocIsometricVisual } from "./ResocIsometricVisual";
-import "./HeroSection.css";
+"use client";
 
-export type HeroSectionCMSContent = Partial<typeof HERO_CONTENT> & {
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { HERO_CONTENT } from "@/content/home";
+import { GridPattern } from "@/components/magicui/GridPattern";
+import { ShimmerButton } from "@/components/magicui/ShimmerButton";
+import { BorderBeam } from "@/components/magicui/BorderBeam";
+
+export type HeroSectionContent = Partial<typeof HERO_CONTENT> & {
   backingLine?: string;
   dashboardImageUrl?: string;
   dashboardImage?: { url?: string } | null;
   dashboardImageAlt?: string;
   useResocVisual?: boolean;
 };
+export type HeroSectionCMSContent = HeroSectionContent;
 
 export function HeroSection({
   content,
 }: {
-  content?: HeroSectionCMSContent;
+  content?: HeroSectionContent;
 } = {}) {
-  const hero = {
-    ...HERO_CONTENT,
-    ...content,
-    primaryCta: { ...HERO_CONTENT.primaryCta, ...content?.primaryCta },
-    secondaryCta: { ...HERO_CONTENT.secondaryCta, ...content?.secondaryCta },
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 991px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleResize = () => setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleResize);
+    return () => mediaQuery.removeEventListener("change", handleResize);
+  }, []);
+
+  const primaryCta = {
+    label: content?.primaryCta?.label || "Book a demo",
+    href: content?.primaryCta?.href || "/demo",
   };
-  const headingPrefix = hero.h1Prefix.replace(/^Introducing\s+/i, "");
-  const useResocVisual = content == null || content.useResocVisual === true;
-  const dashboardImageSrc = hero.dashboardImage?.url ||
-    hero.dashboardImageUrl ||
-    "/images/agent-mesh_pixel-exact.svg";
-  const dashboardImageAlt =
-    hero.dashboardImageAlt ||
-    "Agent Mesh connecting enterprise systems to a unified resilience dashboard";
-  const isSelectableDashboardSvg =
-    dashboardImageSrc === "/images/agent-mesh_pixel-exact.svg";
+  const secondaryCta = {
+    label: content?.secondaryCta?.label || "See ResOC in action",
+    href: content?.secondaryCta?.href || "/platform/observability",
+  };
+  const imageSrc =
+    content?.dashboardImage?.url ||
+    content?.dashboardImageUrl ||
+    "/images/img/homepage.png";
+  const imageAlt =
+    content?.dashboardImageAlt ||
+    "Data recovered vs Business recovery - Resilience Operations Center";
 
   return (
     <section
       id="hero"
-      className={`home-hero ${useResocVisual ? "home-hero--resoc" : "home-hero--editorial"}`}
-      aria-label={`${headingPrefix} ${hero.h1Accent}`}
+      aria-label="Resilience Operations Centre (ResOC)"
+      style={{
+        position: "relative",
+        background: "var(--bg)",
+        paddingTop: isMobile ? "28px" : "44px",
+        paddingBottom: isMobile ? "44px" : "64px",
+        overflow: "hidden",
+      }}
     >
-      {useResocVisual ? (
-        <div className="home-hero__rulers" aria-hidden="true">
-          <span className="home-hero__ruler home-hero__ruler--left" />
-          <span className="home-hero__ruler home-hero__ruler--right" />
-        </div>
-      ) : (
-        <div className="home-hero__mesh" aria-hidden="true">
-          <svg viewBox="0 0 1440 560" preserveAspectRatio="none" focusable="false">
-            <g className="home-hero__mesh-lines">
-              <path d="M-40 156 92 94 224 146 356 78 488 130 620 62 752 116 884 54 1016 108 1148 48 1280 94 1480 18" />
-              <path d="M-40 330 92 266 224 318 356 250 488 302 620 234 752 288 884 226 1016 280 1148 220 1280 266 1480 190" />
-              <path d="M-40 506 92 442 224 494 356 426 488 478 620 410 752 464 884 402 1016 456 1148 396 1280 442 1480 366" />
-              <path d="M92 94 92 266 92 442M224 146 224 318 224 494M356 78 356 250 356 426M488 130 488 302 488 478M620 62 620 234 620 410M752 116 752 288 752 464M884 54 884 226 884 402M1016 108 1016 280 1016 456M1148 48 1148 220 1148 396M1280 94 1280 266 1280 442" />
-              <path d="M92 94 224 318 356 78 488 302 620 62 752 288 884 54 1016 280 1148 48 1280 266 1480 18M-40 330 92 442 224 318 356 426 488 302 620 410 752 288 884 402 1016 280 1148 396 1280 266 1480 366" />
-            </g>
-            <g className="home-hero__mesh-nodes">
-              <circle cx="92" cy="94" r="2.5" /><circle cx="224" cy="146" r="2" />
-              <circle cx="356" cy="78" r="2.5" /><circle cx="488" cy="130" r="2" />
-              <circle cx="620" cy="62" r="2.5" /><circle cx="752" cy="116" r="2" />
-              <circle cx="884" cy="54" r="2.5" /><circle cx="1016" cy="108" r="2" />
-              <circle cx="1148" cy="48" r="2.5" /><circle cx="1280" cy="94" r="2" />
-              <circle cx="92" cy="442" r="2" /><circle cx="356" cy="426" r="2" />
-              <circle cx="620" cy="410" r="2" /><circle cx="884" cy="402" r="2" />
-              <circle cx="1148" cy="396" r="2" /><circle cx="1280" cy="442" r="2" />
-            </g>
-          </svg>
-        </div>
-      )}
+      {/* Magic UI Architectural Grid Pattern Background */}
+      <GridPattern
+        width={36}
+        height={36}
+        strokeDasharray="2 4"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          color: "rgba(34, 31, 34, 0.05)",
+          maskImage: "radial-gradient(ellipse at 50% 40%, black 20%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 50% 40%, black 20%, transparent 75%)",
+          pointerEvents: "none",
+        }}
+      />
 
-      <div className="home-hero__container">
-        <div className="home-hero__content">
-          {useResocVisual && <p className="home-hero__eyebrow">Introducing</p>}
-          <h1 className="display home-hero__title">
-            {headingPrefix}{" "}
-            <span className="display-italic">{hero.h1Accent}</span>
-          </h1>
-
-          <p className="home-hero__subheading">{hero.subheading}</p>
-
-          <p className="home-hero__body">{hero.body}</p>
-
-          <div className="home-hero__actions">
-            <Link href={hero.primaryCta.href} className="btn btn-primary">
-              {hero.primaryCta.label}
-            </Link>
-            <Link
-              href={hero.secondaryCta.href}
-              className="hero-secondary-link home-hero__secondary-link"
+      <div
+        className="container hero-container"
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: 1220,
+          width: "min(1220px, calc(100% - 48px))",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          className="hero-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile
+              ? "1fr"
+              : "minmax(0, 640px) minmax(0, 480px)",
+            justifyContent: isMobile ? "stretch" : "space-between",
+            gap: isMobile ? "36px" : "48px",
+            alignItems: "center",
+          }}
+        >
+          {/* Left Column: Headings, Copy, CTAs */}
+          <div
+            className="hero-content"
+            style={{ maxWidth: isMobile ? "100%" : 640 }}
+          >
+            {/* Magic UI Status Pill */}
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 14px 6px 10px",
+                borderRadius: 100,
+                background: "rgba(244, 85, 50, 0.08)",
+                border: "1px solid rgba(244, 85, 50, 0.22)",
+                marginBottom: 20,
+                width: "fit-content",
+              }}
             >
-              {hero.secondaryCta.label}
-            </Link>
+              <span
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  height: 8,
+                  width: 8,
+                }}
+              >
+                <span
+                  style={{
+                    position: "absolute",
+                    display: "inline-flex",
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "50%",
+                    background: "#f45532",
+                    opacity: 0.75,
+                    animation: "hero-beacon-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+                  }}
+                />
+                <span
+                  style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    borderRadius: "50%",
+                    height: 8,
+                    width: 8,
+                    background: "#f45532",
+                  }}
+                />
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  fontWeight: 650,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "var(--ink)",
+                }}
+              >
+                Resilience Operations Center · ResOC
+              </span>
+            </div>
+
+            {/* Display H1 Heading */}
+            <h1
+              style={{
+                fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
+                fontSize: "clamp(32px, 3.5vw, 50px)",
+                fontWeight: 800,
+                lineHeight: 1.09,
+                letterSpacing: "-0.03em",
+                margin: "0 0 20px",
+                color: "var(--ink)",
+              }}
+            >
+              Are you confident to recover your<br />
+              Business Services end-to-end<br />
+              <span style={{ color: "#5a687a", fontWeight: 700 }}>(not just data)</span>{" "}
+              from <span style={{ color: "var(--orange)" }}>AI-led Attacks?</span>
+            </h1>
+
+            {/* Sub-heading */}
+            <p
+              style={{
+                fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
+                fontSize: "clamp(16px, 1.3vw, 19px)",
+                fontWeight: 750,
+                lineHeight: 1.35,
+                color: "var(--ink)",
+                margin: "0 0 12px",
+              }}
+            >
+              Introducing Resilience Operations Centre (ResOC)
+            </p>
+
+            {/* Description Body */}
+            <p
+              style={{
+                fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
+                fontSize: "clamp(14px, 1.05vw, 15.5px)",
+                lineHeight: 1.6,
+                color: "var(--muted)",
+                margin: "0 0 34px",
+                maxWidth: 550,
+              }}
+            >
+              A unified, AI-led solution to plan, build, operate, recover and continuously improve business resilience across Business, IT and Security.
+            </p>
+
+            {/* Inline CTAs with Magic UI ShimmerButton */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 20,
+                flexWrap: "wrap",
+                marginBottom: 16,
+              }}
+            >
+              <ShimmerButton href={primaryCta.href}>
+                {primaryCta.label}
+              </ShimmerButton>
+
+              <Link
+                href={secondaryCta.href}
+                className="hero-secondary-link"
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "var(--ink)",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  padding: "10px 0",
+                  position: "relative",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                <span>{secondaryCta.label}</span>
+                <span aria-hidden="true" style={{ transition: "transform 0.2s ease" }}>→</span>
+              </Link>
+            </div>
+
+            {/* Optional VC Caption if provided via CMS */}
+            {content?.backingLine ? (
+              <div
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 12.5,
+                  color: "var(--muted)",
+                  letterSpacing: "0.02em",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  opacity: 0.9,
+                  marginTop: 20,
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "var(--orange)",
+                    display: "inline-block",
+                    flexShrink: 0,
+                  }}
+                />
+                <span>{content.backingLine}</span>
+              </div>
+            ) : null}
           </div>
 
-          <p className="home-hero__backing">
-            <span aria-hidden="true" />
-            {content?.backingLine || HERO_BACKING_LINE}
-          </p>
-        </div>
-
-        <div className={`home-hero__visual${useResocVisual ? " home-hero__visual--isometric" : ""}`}>
-          {useResocVisual ? (
-            <ResocIsometricVisual />
-          ) : isSelectableDashboardSvg ? (
-            <object
-              className="home-hero__dashboard-image"
-              data={dashboardImageSrc}
-              type="image/svg+xml"
-              title={dashboardImageAlt}
+          {/* Right Column: Hero Graphic Framed with Magic UI BorderBeam */}
+          <div
+            className="hero-media"
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: isMobile ? "center" : "flex-end",
+              position: "relative",
+            }}
+          >
+            <div
+              className="hero-media-card"
+              style={{
+                position: "relative",
+                borderRadius: 18,
+                background: "var(--surface, #ffffff)",
+                border: "1px solid var(--border-hairline, rgba(0, 0, 0, 0.08))",
+                boxShadow: "0 22px 50px -12px rgba(34, 31, 34, 0.09), 0 1px 3px rgba(34, 31, 34, 0.04)",
+                padding: 10,
+                overflow: "hidden",
+                transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease",
+              }}
             >
-              {dashboardImageAlt}
-            </object>
-          ) : (
-            <Image
-              src={dashboardImageSrc}
-              alt={dashboardImageAlt}
-              width={useResocVisual ? 1504 : 1584}
-              height={useResocVisual ? 1046 : 993}
-              sizes="(max-width: 980px) 100vw, 58vw"
-              unoptimized={useResocVisual}
-              priority
-              className="home-hero__dashboard-image"
-            />
-          )}
+              <BorderBeam size={240} duration={12} colorFrom="#f45532" colorTo="#ff9a7b" />
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                style={{
+                  width: "100%",
+                  maxWidth: isMobile ? 380 : 470,
+                  height: "auto",
+                  display: "block",
+                  borderRadius: 12,
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes hero-beacon-ping {
+          75%, 100% {
+            transform: scale(2.2);
+            opacity: 0;
+          }
+        }
+
+        .hero-media-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 28px 60px -12px rgba(34, 31, 34, 0.13), 0 2px 6px rgba(34, 31, 34, 0.05);
+        }
+
+        [data-theme="dark"] .hero-media-card,
+        html.dark .hero-media-card,
+        .dark .hero-media-card {
+          background: rgba(255, 255, 255, 0.03) !important;
+          border-color: rgba(255, 255, 255, 0.08) !important;
+          box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        [data-theme="dark"] .hero-grid-pattern,
+        html.dark .hero-grid-pattern,
+        .dark .hero-grid-pattern {
+          color: rgba(255, 255, 255, 0.06) !important;
+        }
+      `}</style>
     </section>
   );
 }

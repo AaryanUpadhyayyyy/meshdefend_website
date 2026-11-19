@@ -18,8 +18,8 @@ export const REVEAL_CONFIG = {
   // IntersectionObserver trigger bounds
   viewport: {
     once: true, // trigger once per element (no replay on scroll up)
-    amount: 0.2, // ~20% of element visible
-    margin: "0px 0px -10% 0px", // bottom rootMargin about -10%
+    amount: 0.1, // ~10% of element visible
+    margin: "0px 0px -40px 0px", // bottom rootMargin about -40px
   },
 
   // Stagger intervals

@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
-import { withPayload } from "@payloadcms/next/withPayload";
 
-const nextConfig: NextConfig = withPayload({
+const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
@@ -45,6 +44,6 @@ const nextConfig: NextConfig = withPayload({
       },
     ];
   },
-});
+};
 
 export default nextConfig;
