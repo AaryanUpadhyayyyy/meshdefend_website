@@ -350,7 +350,7 @@ export function HeroSection({
           display: block;
           max-height: 26px;
           width: auto;
-          max-width: 115px;
+          max-width: 100%;
           object-fit: contain;
           pointer-events: none;
         }

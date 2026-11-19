@@ -159,7 +159,21 @@ function IncidentWorkflow() {
 }
 
 function SmartRoutine() {
-  const nodes = [["Storage Utilization","QUERY"],["Storage Forecast","QUERY"],["Alerts","QUERY"],["Generate Report","REPORT"],["Email Report Notification","EMAIL"]];
+  const nodes = [
+    { label: "Storage Utilization", kind: "QUERY", type: "query" },
+    { label: "Storage Forecast", kind: "QUERY", type: "query" },
+    { label: "Alerts", kind: "QUERY", type: "query" },
+    { label: "Generate Report", kind: "REPORT", type: "report" },
+    { label: "Email Report Notification", kind: "EMAIL", type: "email" },
+  ];
+  const nodeLayout = [
+    { x: 252, y: 200, w: 146 },
+    { x: 252, y: 300, w: 146 },
+    { x: 252, y: 400, w: 146 },
+    { x: 466, y: 300, w: 138 },
+    { x: 644, y: 300, w: 188 },
+  ];
+
   return (
     <Canvas capability="Agentic Automation">
       <Window x={28} y={42} w={846} h={538} title="MeshDefend · Routine Builder" />
@@ -167,16 +181,55 @@ function SmartRoutine() {
       <T x={64} y={129} size={14} weight={750}>Library</T>
       {["Nodes", "Assets", "Reports", "Storage", "Alerts", "Backup jobs"].map((label, i) => <g key={label}><rect x="58" y={146 + i * 43} width="128" height="34" rx="2" fill={i === 0 ? "#fff0eb" : "#fff"} stroke={i === 0 ? "#ffc7b7" : "#edf0f3"} /><T x={72} y={168 + i * 43} size={12} weight={i === 0 ? 700 : 500} fill={i === 0 ? orange : muted}>{label}</T></g>)}
       <rect x="220" y="100" width="634" height="458" rx="4" fill="#fff" stroke={line} />
-      <rect x="243" y="126" width="584" height="407" rx="3" fill="#fffaf8" stroke={orange} strokeWidth="2" strokeDasharray="7 5" />
-      <rect x="258" y="112" width="205" height="31" rx="3" fill={orange} /><T x={273} y={133} size={12} weight={750} fill="#fff">PPOD Storage Risk Overview</T>
-      <T x={266} y={170} size={12} fill={muted}>WHEN · DAILY AT 06:00</T>
-      <path d="M346 251 C385 251 381 329 414 329 M346 360 C382 360 382 329 414 329 M346 464 C387 464 381 329 414 329 M518 329h68M690 329h67" fill="none" stroke="#54c69c" strokeWidth="4" />
-      {nodes.map(([label, kind], i) => {
-        const pos = [[270,214],[270,323],[270,427],[431,294],[603,294]][i];
-        const [x,y] = pos;
-        const w = i < 3 ? 160 : i === 3 ? 150 : 202;
-        return <g key={label}><rect x={x} y={y} width={w} height="72" rx="3" fill="#fff" stroke={line} strokeWidth="2" /><circle cx={x + 18} cy={y + 20} r="7" fill="#fff" stroke={blue} strokeWidth="2" /><T x={x + 34} y={y + 26} size={13} weight={700}>{label}</T><T x={x + 34} y={y + 48} size={10} fill={muted}>{kind}</T><Dot x={x + w} y={y + 36} color={green} r={5} /></g>;
+      <rect x="238" y="126" width="604" height="407" rx="6" fill="#fffaf8" stroke={orange} strokeWidth="1.8" strokeDasharray="6 5" />
+      <rect x="252" y="112" width="205" height="31" rx="4" fill={orange} />
+      <circle cx="266" cy="127" r="3.5" fill="#fff" />
+      <T x={276} y={132} size={12} weight={750} fill="#fff">PPOD Storage Risk Overview</T>
+      <path d="M441 123l6 6 M447 123l-6 6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+      <T x={260} y={166} size={11} fill={muted}>WHEN · DAILY AT 06:00</T>
+
+      {/* Connector lines between nodes */}
+      <path
+        d="M398 229 C432 229, 432 329, 466 329 M398 329 H466 M398 429 C432 429, 432 329, 466 329 M604 329 H644 M832 329 H854"
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+      <path d="M638 325l4 4-4 4" fill="none" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M848 325l4 4-4 4" fill="none" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Workflow Nodes */}
+      {nodeLayout.map((layout, i) => {
+        const { x, y, w } = layout;
+        const { label, kind, type } = nodes[i];
+        const h = 58;
+        const hasInput = i >= 3;
+        return (
+          <g key={label}>
+            <rect x={x} y={y} width={w} height={h} rx="8" fill="#fff" stroke="#10b981" strokeWidth="1.5" />
+            <circle cx={x + 10} cy={y + 8} r="5.5" fill="#10b981" />
+            <path d={`M${x + 8} ${y + 8}l1.5 1.5 3-3`} fill="none" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x={x + 11} y={y + 17} width="24" height="24" rx="4" fill="#f1f5f9" />
+            {type === "query" && (
+              <path d={`M${x + 23} ${y + 22}l5 2.7v5.6l-5 2.7-5-2.7v-5.6z M${x + 23} ${y + 24.7}v5.6 M${x + 23} ${y + 24.7}l5-2.7 M${x + 23} ${y + 24.7}l-5-2.7`} fill="none" stroke="#475569" strokeWidth="1.1" strokeLinejoin="round" />
+            )}
+            {type === "report" && (
+              <path d={`M${x + 18} ${y + 22}h6l3.5 3.5v7.5h-9.5z M${x + 21} ${y + 27}h4 M${x + 21} ${y + 30}h5`} fill="none" stroke="#475569" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+            )}
+            {type === "email" && (
+              <path d={`M${x + 17} ${y + 24}h12v8h-12z M${x + 17} ${y + 25}l6 4 6-4`} fill="none" stroke="#475569" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+            )}
+            <T x={x + 41} y={y + 27} size={11} weight={700}>{label}</T>
+            <T x={x + 41} y={y + 42} size={9} weight={600} fill={muted}>{kind}</T>
+            {hasInput && (
+              <circle cx={x} cy={y + 29} r="4" fill="#10b981" stroke="#fff" strokeWidth="1.5" />
+            )}
+            <circle cx={x + w} cy={y + 29} r="4" fill="#10b981" stroke="#fff" strokeWidth="1.5" />
+          </g>
+        );
       })}
+
       <rect x="718" y="54" width="122" height="32" rx="3" fill={orange} /><T x={779} y={75} size={12} weight={750} fill="#fff" anchor="middle">Configure routine</T>
       <g transform="rotate(3 1037 330)">
         <rect x="904" y="92" width="270" height="450" rx="4" fill="#fff" stroke={line} strokeWidth="2" />
@@ -191,9 +244,10 @@ function SmartRoutine() {
         <rect x="925" y="470" width="217" height="10" rx="2" fill="#e8edf1" /><rect x="925" y="470" width="178" height="10" rx="2" fill={green} />
         <T x={925} y={511} size={11} fill={muted}>Protection coverage · 91%</T>
       </g>
-      <path d="M804 329h84" stroke="#7c9ab1" strokeWidth="3" />
-      <rect x="863" y="315" width="91" height="29" rx="3" fill="#fff" stroke={line} />
-      <T x={908} y={334} size={11} weight={700} anchor="middle">Email sent</T>
+      <path d="M832 329 H920" stroke="#7c9ab1" strokeWidth="2.5" />
+      <rect x="854" y="311" width="96" height="36" rx="6" fill="#fff" stroke="#94a3b8" strokeWidth="1.2" />
+      <path d="M865 323h13v10h-13z M865 324l6.5 4.5 6.5-4.5" fill="none" stroke="#2563eb" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <T x={884} y={333} size={11.5} weight={700} fill="#1e293b">Email sent</T>
     </Canvas>
   );
 }

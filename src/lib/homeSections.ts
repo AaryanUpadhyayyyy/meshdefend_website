@@ -56,7 +56,7 @@ export const TRUST_SECTION_CONTENT = {
       name: "Anthropic",
       lightSrc: "/images/logos/anthropic-light.png",
       darkSrc: "/images/logos/anthropic-dark.png",
-      height: 22,
+      height: 18,
     },
     {
       name: "OpenAI",
@@ -68,7 +68,7 @@ export const TRUST_SECTION_CONTENT = {
       name: "Microsoft",
       lightSrc: "/images/logos/microsoft-light.png",
       darkSrc: "/images/logos/microsoft-dark.png",
-      height: 26,
+      height: 24,
     },
     {
       name: "AWS",
