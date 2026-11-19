@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Logo, LogoMark } from "@/components/brand/Logo";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import type { CmsHeaderSettings } from "@/lib/siteSettingsTypes";
 
 export function NavbarClient({
@@ -18,7 +17,6 @@ export function NavbarClient({
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const navRef = useRef<HTMLElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -57,10 +55,6 @@ export function NavbarClient({
       frame = window.requestAnimationFrame(() => {
         frame = 0;
         setScrolled(window.scrollY > 20);
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        if (total > 0) {
-          setScrollProgress(Math.min(1, Math.max(0, window.scrollY / total)));
-        }
       });
     };
     onScroll();
@@ -106,25 +100,6 @@ export function NavbarClient({
 
   return (
     <>
-      <div
-        id="global-scroll-gauge"
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: 2.5,
-          background: "var(--orange, #f45532)",
-          boxShadow: "0 0 8px rgba(244, 85, 50, 0.75)",
-          transformOrigin: "0% 50%",
-          transform: `scaleX(${scrollProgress})`,
-          transition: "transform 0.06s linear",
-          pointerEvents: "none",
-          zIndex: 99999,
-          opacity: scrollProgress > 0.002 ? 1 : 0,
-        }}
-      />
       <header ref={navRef} className={`nav-header${heroVariant ? " nav-header--hero" : ""}`}>
       <div
         className={`nav-bar${heroVariant ? " nav-bar--hero" : ""} ${scrolled ? "is-scrolled" : ""} ${openMenu ? "has-open-menu" : ""}`}
@@ -191,7 +166,7 @@ export function NavbarClient({
 
         {/* Right actions */}
         <div className="nav-actions">
-          {!heroVariant && settings.showThemeToggle && <ThemeToggle />}
+          
           {heroVariant && (
             <Link className="nav-hero-secondary" href="/platform/observability" onClick={() => setOpenMenu(null)}>
               See ResOC in action
@@ -279,24 +254,6 @@ export function NavbarClient({
             </div>
           </div>
         )}
-        {/* Navbar Pill Swiss Hairline Gauge */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 14,
-            right: 14,
-            height: 2,
-            background: "var(--orange, #f45532)",
-            transformOrigin: "0% 50%",
-            transform: `scaleX(${scrollProgress})`,
-            transition: "transform 0.06s linear",
-            pointerEvents: "none",
-            opacity: scrollProgress > 0.005 ? 0.95 : 0,
-            borderRadius: "0 0 2px 2px",
-          }}
-        />
       </div>
 
       {/* Mobile nav overlay */}

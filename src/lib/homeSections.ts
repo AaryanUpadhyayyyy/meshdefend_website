@@ -50,7 +50,7 @@ export const TRUST_SECTION_CONTENT = {
       href: "",
     },
   ],
-  partnersLabel: "Supported Runtime Ecosystem & Partners",
+  partnersLabel: "",
   partners: [
     {
       name: "Anthropic",

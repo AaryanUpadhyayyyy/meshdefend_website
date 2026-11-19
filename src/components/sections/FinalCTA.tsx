@@ -23,7 +23,7 @@ export function FinalCTA({
         color: "#fefdfd",
         position: "relative",
         overflow: "hidden",
-        borderTop: "1px solid rgba(254, 253, 253, 0.1)",
+        // borderTop removed for seamless flow
       }}
     >
       {/* ─── Subtle Geometric Grid Texture ─── */}

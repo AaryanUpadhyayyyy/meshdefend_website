@@ -209,7 +209,7 @@ export const DEFAULT_SITE_SETTINGS = {
     logoHeight: 30,
     logoAsset: null,
     showPrimaryNavigation: true,
-    showThemeToggle: true,
+    showThemeToggle: false,
     featuredColumnLabel: "EXPLORE",
     primaryCta: { label: "Book a Demo", href: "/demo" },
     menus: DEFAULT_MEGA_MENUS,

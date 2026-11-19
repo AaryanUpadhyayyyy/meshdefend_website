@@ -137,7 +137,7 @@ export function ImpactSection({
       id="impact"
       style={{
         padding: "96px 0 112px",
-        borderBottom: "1px solid var(--border)",
+        // borderBottom removed for seamless flow
         background: "var(--bg)",
         position: "relative",
       }}

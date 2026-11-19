@@ -8,7 +8,7 @@
   isolation: isolate;
   overflow: visible;
   padding: 0 0 clamp(18px, 2vw, 28px) !important;
-  border-bottom: 1px solid var(--solution-border);
+  /* border-bottom removed */
   background: #ffffff !important;
   color: var(--solution-ink);
 }
@@ -46,7 +46,7 @@ html.dark #solution.home-solution-section.solution-section--light,
   --solution-muted: #b5aeb1;
   --solution-border: rgba(244, 240, 242, 0.12);
   --solution-surface: #292629;
-  border-bottom-color: var(--solution-border);
+  /* border-bottom removed */
   background: #171517 !important;
   color: var(--solution-ink);
 }
@@ -1337,7 +1337,7 @@ html.dark #solution .solution-story__image [stroke="#edf1f5"],
   align-items: center;
   gap: 13px;
   padding: 0 16px;
-  border-bottom: 1px solid var(--solution-border);
+  /* border-bottom removed */
   background: color-mix(in srgb, #ffffff 94%, var(--solution-surface));
   color: var(--solution-ink);
   font-family: var(--font-body), Inter, -apple-system, sans-serif;
@@ -1969,7 +1969,7 @@ html.dark #solution .solution-wheel-feature__chrome,
   gap: 12px;
   flex: 0 0 42px;
   padding: 0 16px;
-  border-bottom: 1px solid var(--solution-border);
+  /* border-bottom removed */
   background: color-mix(in srgb, var(--solution-wheel-hub) 94%, var(--solution-surface));
   color: var(--solution-ink);
   font-family: var(--font-body), Inter, -apple-system, sans-serif;

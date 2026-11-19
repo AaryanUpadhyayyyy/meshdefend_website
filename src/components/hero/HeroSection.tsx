@@ -5,7 +5,6 @@ import Link from "next/link";
 import { HERO_CONTENT } from "@/content/home";
 import { GridPattern } from "@/components/magicui/GridPattern";
 import { ShimmerButton } from "@/components/magicui/ShimmerButton";
-import { BorderBeam } from "@/components/magicui/BorderBeam";
 
 export type HeroSectionContent = Partial<typeof HERO_CONTENT> & {
   backingLine?: string;
@@ -55,8 +54,12 @@ export function HeroSection({
       style={{
         position: "relative",
         background: "var(--bg)",
-        paddingTop: isMobile ? "28px" : "44px",
-        paddingBottom: isMobile ? "44px" : "64px",
+        minHeight: isMobile ? "auto" : "calc(100svh - 80px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        paddingTop: isMobile ? "28px" : "32px",
+        paddingBottom: isMobile ? "36px" : "40px",
         overflow: "hidden",
       }}
     >
@@ -82,8 +85,8 @@ export function HeroSection({
         style={{
           position: "relative",
           zIndex: 1,
-          maxWidth: 1220,
-          width: "min(1220px, calc(100% - 48px))",
+          maxWidth: 1320,
+          width: "min(1320px, calc(100% - 48px))",
           margin: "0 auto",
         }}
       >
@@ -93,7 +96,7 @@ export function HeroSection({
             display: "grid",
             gridTemplateColumns: isMobile
               ? "1fr"
-              : "minmax(0, 640px) minmax(0, 480px)",
+              : "minmax(0, 1.2fr) minmax(0, 1fr)",
             justifyContent: isMobile ? "stretch" : "space-between",
             gap: isMobile ? "36px" : "48px",
             alignItems: "center",
@@ -102,7 +105,7 @@ export function HeroSection({
           {/* Left Column: Headings, Copy, CTAs */}
           <div
             className="hero-content"
-            style={{ maxWidth: isMobile ? "100%" : 640 }}
+            style={{ maxWidth: isMobile ? "100%" : 680, width: "100%" }}
           >
             {/* Magic UI Status Pill */}
             <div
@@ -165,31 +168,34 @@ export function HeroSection({
 
             {/* Display H1 Heading */}
             <h1
+              className="hero-headline"
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(32px, 3.5vw, 50px)",
+                fontSize: "clamp(28px, 2.75vw, 44px)",
                 fontWeight: 800,
-                lineHeight: 1.09,
+                lineHeight: 1.13,
                 letterSpacing: "-0.03em",
-                margin: "0 0 20px",
+                margin: "0 0 22px",
                 color: "var(--ink)",
               }}
             >
-              Are you confident to recover your<br />
-              Business Services end-to-end<br />
-              <span style={{ color: "#5a687a", fontWeight: 700 }}>(not just data)</span>{" "}
-              from <span style={{ color: "var(--orange)" }}>AI-led Attacks?</span>
+              <span className="hero-h1-line">
+                Recover Your Business{" "}
+                <span style={{ color: "var(--orange, #f45532)" }}>End-to-End</span>,
+              </span>
+              <span className="hero-h1-line">Not Just Your Data,</span>
+              <span className="hero-h1-line">After Any Disruption.</span>
             </h1>
 
             {/* Sub-heading */}
             <p
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(16px, 1.3vw, 19px)",
+                fontSize: "clamp(17px, 1.35vw, 20px)",
                 fontWeight: 750,
                 lineHeight: 1.35,
                 color: "var(--ink)",
-                margin: "0 0 12px",
+                margin: "0 0 14px",
               }}
             >
               Introducing Resilience Operations Centre (ResOC)
@@ -199,11 +205,11 @@ export function HeroSection({
             <p
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(14px, 1.05vw, 15.5px)",
-                lineHeight: 1.6,
+                fontSize: "clamp(15px, 1.05vw, 16.5px)",
+                lineHeight: 1.62,
                 color: "var(--muted)",
-                margin: "0 0 34px",
-                maxWidth: 550,
+                margin: "0 0 36px",
+                maxWidth: 620,
               }}
             >
               A unified, AI-led solution to plan, build, operate, recover and continuously improve business resilience across Business, IT and Security.
@@ -275,48 +281,36 @@ export function HeroSection({
             ) : null}
           </div>
 
-          {/* Right Column: Hero Graphic Framed with Magic UI BorderBeam */}
+          {/* Right Column: Open spacer allowing background iceberg visual to showcase */}
           <div
-            className="hero-media"
+            aria-hidden="true"
+            className="hero-media-spacer"
             style={{
               width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: isMobile ? "center" : "flex-end",
-              position: "relative",
+              minHeight: isMobile ? 320 : 440,
+              pointerEvents: "none",
             }}
-          >
-            <div
-              className="hero-media-card"
-              style={{
-                position: "relative",
-                borderRadius: 18,
-                background: "var(--surface, #ffffff)",
-                border: "1px solid var(--border-hairline, rgba(0, 0, 0, 0.08))",
-                boxShadow: "0 22px 50px -12px rgba(34, 31, 34, 0.09), 0 1px 3px rgba(34, 31, 34, 0.04)",
-                padding: 10,
-                overflow: "hidden",
-                transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease",
-              }}
-            >
-              <BorderBeam size={240} duration={12} colorFrom="#f45532" colorTo="#ff9a7b" />
-              <img
-                src={imageSrc}
-                alt={imageAlt}
-                style={{
-                  width: "100%",
-                  maxWidth: isMobile ? 380 : 470,
-                  height: "auto",
-                  display: "block",
-                  borderRadius: 12,
-                }}
-              />
-            </div>
-          </div>
+          />
         </div>
       </div>
 
       <style>{`
+        .hero-h1-line {
+          display: block;
+        }
+
+        @media (min-width: 992px) {
+          .hero-h1-line {
+            white-space: nowrap;
+          }
+        }
+
+        @media (max-width: 991px) {
+          .hero-h1-line {
+            display: inline;
+          }
+        }
+
         @keyframes hero-beacon-ping {
           75%, 100% {
             transform: scale(2.2);
@@ -324,17 +318,11 @@ export function HeroSection({
           }
         }
 
-        .hero-media-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 28px 60px -12px rgba(34, 31, 34, 0.13), 0 2px 6px rgba(34, 31, 34, 0.05);
-        }
-
-        [data-theme="dark"] .hero-media-card,
-        html.dark .hero-media-card,
-        .dark .hero-media-card {
-          background: rgba(255, 255, 255, 0.03) !important;
-          border-color: rgba(255, 255, 255, 0.08) !important;
-          box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5) !important;
+        [data-theme="dark"] .hero-graphic-blend,
+        html.dark .hero-graphic-blend,
+        .dark .hero-graphic-blend {
+          mix-blend-mode: screen;
+          filter: invert(1) hue-rotate(180deg) brightness(0.92);
         }
 
         [data-theme="dark"] .hero-grid-pattern,

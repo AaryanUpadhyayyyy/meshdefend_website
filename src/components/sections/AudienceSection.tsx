@@ -90,7 +90,7 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
       className="home-audience-section"
       style={{
         padding: "96px 0 112px",
-        borderBottom: "1px solid var(--border)",
+        // borderBottom removed for seamless flow
         background: "var(--bg)",
         position: "relative",
       }}

@@ -410,21 +410,16 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 
 #solution .solution-list-pin {
   position: sticky;
-  top: clamp(64px, 8vh, 84px);
-  display: grid;
-  height: calc(100svh - clamp(64px, 8vh, 84px) - 24px);
-  min-height: 580px;
-  grid-template-rows: auto auto minmax(0, 1fr);
-  gap: clamp(6px, 1svh, 12px);
+  top: clamp(64px, 7.5vh, 80px);
+  display: flex;
+  flex-direction: column;
+  height: calc(100svh - clamp(64px, 7.5vh, 80px) - 20px);
+  min-height: 560px;
+  gap: clamp(8px, 1.4svh, 16px);
 }
 
 #solution.solution-section--list-mode .resoc-view-toggle {
-  min-height: 32px;
-  margin: 0;
-  transform: translate3d(0, var(--solution-toggle-y, 0px), 0);
-  opacity: var(--solution-toggle-opacity, 1);
-  will-change: transform, opacity;
-  transition: opacity 120ms ease;
+  display: none !important;
 }
 
 #solution.solution-section--list-mode .solution-section__header {
@@ -434,9 +429,10 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   gap: 4px;
   margin: 0;
   text-align: center;
-  transform: translate3d(0, var(--solution-header-y, 0px), 0);
-  opacity: var(--solution-header-opacity, 1);
-  will-change: transform, opacity;
+  transform: none !important;
+  opacity: 1 !important;
+  flex: 0 0 auto;
+  will-change: auto;
 }
 
 #solution.solution-section--list-mode .solution-section__intro { width: 100%; text-align: center; }
@@ -444,15 +440,18 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 
 #solution.solution-section--list-mode .solution-section__headline {
   max-width: none;
-  font-size: clamp(40px, 3.2vw, 56px);
-  line-height: 0.98;
+  font-size: clamp(30px, 2.5vw, 40px);
+  line-height: 1.06;
+  margin: 0;
+  color: var(--solution-ink);
 }
 
 #solution.solution-section--list-mode .solution-section__lede {
-  max-width: 980px;
+  max-width: 860px;
   margin: 0 auto;
-  font-size: clamp(15px, 1.15vw, 18px);
-  line-height: 1.35;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.4;
+  color: var(--solution-muted);
 }
 
 #solution .capability-list,
@@ -464,11 +463,13 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 }
 
 #solution .capability-list {
-  height: calc(100% - clamp(14px, 2svh, 18px));
-  margin-top: clamp(14px, 2svh, 18px);
-  transform: translate3d(0, var(--solution-card-y, 0px), 0) scale(var(--solution-card-scale, 1));
+  flex: 1 1 0;
+  min-height: 0;
+  height: 100%;
+  margin-top: 0;
+  transform: none !important;
   transform-origin: center center;
-  will-change: transform;
+  will-change: auto;
 }
 
 #solution .capability-list__body {
@@ -765,8 +766,8 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
     position: relative;
     top: auto;
     height: auto;
-    grid-template-rows: auto auto auto;
-    gap: 15px;
+    min-height: 0;
+    gap: 16px;
   }
 
   #solution.solution-section--list-mode .solution-section__headline { font-size: clamp(32px, 5.8vw, 42px); }
