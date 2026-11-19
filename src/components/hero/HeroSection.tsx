@@ -96,7 +96,7 @@ export function HeroSection({
             display: "grid",
             gridTemplateColumns: isMobile
               ? "1fr"
-              : "minmax(0, 1.2fr) minmax(0, 1fr)",
+              : "minmax(0, 1.35fr) minmax(0, 0.85fr)",
             justifyContent: isMobile ? "stretch" : "space-between",
             gap: isMobile ? "36px" : "48px",
             alignItems: "center",
@@ -105,7 +105,7 @@ export function HeroSection({
           {/* Left Column: Headings, Copy, CTAs */}
           <div
             className="hero-content"
-            style={{ maxWidth: isMobile ? "100%" : 680, width: "100%" }}
+            style={{ maxWidth: isMobile ? "100%" : 780, width: "100%" }}
           >
             {/* Magic UI Status Pill */}
             <div
@@ -171,10 +171,10 @@ export function HeroSection({
               className="hero-headline"
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(28px, 2.75vw, 44px)",
+                fontSize: "clamp(34px, 3.5vw, 54px)",
                 fontWeight: 800,
-                lineHeight: 1.13,
-                letterSpacing: "-0.03em",
+                lineHeight: 1.1,
+                letterSpacing: "-0.035em",
                 margin: "0 0 22px",
                 color: "var(--ink)",
               }}
@@ -191,7 +191,7 @@ export function HeroSection({
             <p
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(17px, 1.35vw, 20px)",
+                fontSize: "clamp(18px, 1.4vw, 22px)",
                 fontWeight: 750,
                 lineHeight: 1.35,
                 color: "var(--ink)",
@@ -205,11 +205,11 @@ export function HeroSection({
             <p
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(15px, 1.05vw, 16.5px)",
+                fontSize: "clamp(16px, 1.1vw, 17.5px)",
                 lineHeight: 1.62,
                 color: "var(--muted)",
                 margin: "0 0 36px",
-                maxWidth: 620,
+                maxWidth: 660,
               }}
             >
               A unified, AI-led solution to plan, build, operate, recover and continuously improve business resilience across Business, IT and Security.
@@ -299,7 +299,7 @@ export function HeroSection({
           display: block;
         }
 
-        @media (min-width: 992px) {
+        @media (min-width: 1100px) {
           .hero-h1-line {
             white-space: nowrap;
           }
