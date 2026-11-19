@@ -109,65 +109,6 @@ export function HeroSection({
               width: "100%",
             }}
           >
-            {/* Status Pill */}
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "6px 14px 6px 10px",
-                borderRadius: 100,
-                background: "rgba(244, 85, 50, 0.08)",
-                border: "1px solid rgba(244, 85, 50, 0.22)",
-                marginBottom: 20,
-                width: "fit-content",
-              }}
-            >
-              <span
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  height: 8,
-                  width: 8,
-                }}
-              >
-                <span
-                  style={{
-                    position: "absolute",
-                    display: "inline-flex",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "50%",
-                    background: "#f45532",
-                    opacity: 0.75,
-                    animation: "hero-beacon-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
-                  }}
-                />
-                <span
-                  style={{
-                    position: "relative",
-                    display: "inline-flex",
-                    borderRadius: "50%",
-                    height: 8,
-                    width: 8,
-                    background: "#f45532",
-                  }}
-                />
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                  fontSize: 11,
-                  fontWeight: 650,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "var(--ink)",
-                }}
-              >
-                Resilience Operations Center · ResOC
-              </span>
-            </div>
-
             {/* Display H1 Heading */}
             <h1
               className="hero-headline"
@@ -458,13 +399,6 @@ export function HeroSection({
           .trust-logo-card {
             height: 58px;
             padding: 8px 10px;
-          }
-        }
-
-        @keyframes hero-beacon-ping {
-          75%, 100% {
-            transform: scale(2.2);
-            opacity: 0;
           }
         }
       `}</style>
