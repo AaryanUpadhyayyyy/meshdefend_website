@@ -80,9 +80,19 @@ function BackupInsights() {
       <rect x="698" y="138" width="150" height="30" rx="3" fill="#fff" stroke={line} /><T x={715} y={158} size={13}>All engines</T>
       <T x={240} y={198} size={12} fill={muted}>JOBS</T>
       {[green, "#b8e5b4", "#f4df87", "#ffad69", orange, "#ed4c43"].map((color, i) => <g key={color}><rect x={310 + i * 75} y="184" width="14" height="14" rx="2" fill={color} /><T x={331 + i * 75} y={196} size={12} fill={muted}>{["Low", "Light", "Medium", "High", "Max", "Risk"][i]}</T></g>)}
-      <path d="M239 220H850" stroke={line} strokeWidth="2" />
-      {Array.from({ length: 16 }, (_, i) => <T key={i} x={300 + i * 33} y={242} size={10} fill={muted} anchor="middle">{String(i).padStart(2, "0")}</T>)}
-      {rows.map((row, r) => <g key={row}><T x={240} y={274 + r * 58} size={11} fill={muted}>{row}</T>{heat[r].map((color, c) => <g key={`${r}-${c}`}><rect x={285 + c * 34} y={253 + r * 58} width="31" height="38" rx="2" fill={color} stroke="#fff" /><T x={300 + c * 34} y={277 + r * 58} size={10} fill="#526070" anchor="middle">{(c * 3 + r) % 9}</T></g>)}</g>)}
+      <path d="M239 220H855" stroke={line} strokeWidth="2" />
+      {Array.from({ length: 16 }, (_, i) => <T key={i} x={341 + i * 33} y={242} size={10} fill={muted} anchor="middle">{String(i).padStart(2, "0")}</T>)}
+      {rows.map((row, r) => (
+        <g key={row}>
+          {heat[r].map((color, c) => (
+            <g key={`${r}-${c}`}>
+              <rect x={326 + c * 33} y={253 + r * 58} width="30" height="38" rx="2" fill={color} stroke="#fff" />
+              <T x={341 + c * 33} y={277 + r * 58} size={10} fill="#526070" anchor="middle">{(c * 3 + r) % 9}</T>
+            </g>
+          ))}
+          <T x={242} y={275 + r * 58} size={11} fill={muted}>{row}</T>
+        </g>
+      ))}
       <rect x="907" y="92" width="258" height="425" rx="4" fill="#fff" stroke={line} strokeWidth="1.5" />
       <T x={930} y={124} size={18} weight={750}>Protection Copies</T>
       {[ ["Total assets", "164"], ["Total copies", "1,750"], ["Single-copy risk", "114"] ].map(([label, value], i) => <g key={label}><rect x="926" y={145 + i * 98} width="220" height="82" rx="3" fill={pale} /><T x={943} y={173 + i * 98} size={13} fill={muted}>{label}</T><T x={943} y={207 + i * 98} size={24} weight={750}>{value}</T><Dot x={1125} y={166 + i * 98} r={4} /></g>)}
@@ -168,7 +178,6 @@ function SmartRoutine() {
         return <g key={label}><rect x={x} y={y} width={w} height="72" rx="3" fill="#fff" stroke={line} strokeWidth="2" /><circle cx={x + 18} cy={y + 20} r="7" fill="#fff" stroke={blue} strokeWidth="2" /><T x={x + 34} y={y + 26} size={13} weight={700}>{label}</T><T x={x + 34} y={y + 48} size={10} fill={muted}>{kind}</T><Dot x={x + w} y={y + 36} color={green} r={5} /></g>;
       })}
       <rect x="718" y="54" width="122" height="32" rx="3" fill={orange} /><T x={779} y={75} size={12} weight={750} fill="#fff" anchor="middle">Configure routine</T>
-      <path d="M804 329h84" stroke="#7c9ab1" strokeWidth="3" /><rect x="863" y="315" width="91" height="29" rx="3" fill="#fff" stroke={line} /><T x={908} y={334} size={11} weight={700} anchor="middle">Email sent</T>
       <g transform="rotate(3 1037 330)">
         <rect x="904" y="92" width="270" height="450" rx="4" fill="#fff" stroke={line} strokeWidth="2" />
         <path d="M905 134h268" stroke={line} strokeWidth="2" />
@@ -182,6 +191,9 @@ function SmartRoutine() {
         <rect x="925" y="470" width="217" height="10" rx="2" fill="#e8edf1" /><rect x="925" y="470" width="178" height="10" rx="2" fill={green} />
         <T x={925} y={511} size={11} fill={muted}>Protection coverage · 91%</T>
       </g>
+      <path d="M804 329h84" stroke="#7c9ab1" strokeWidth="3" />
+      <rect x="863" y="315" width="91" height="29" rx="3" fill="#fff" stroke={line} />
+      <T x={908} y={334} size={11} weight={700} anchor="middle">Email sent</T>
     </Canvas>
   );
 }
