@@ -570,7 +570,8 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
       )}
 
-      {/* ─── MONUMENTAL DISPLAY BRAND WATERMARK ─── */}
+      {/* ─── MONUMENTAL DISPLAY BRAND WATERMARK (REMOVED) ─── */}
+      {false && (
 
       <div
 
@@ -624,6 +625,8 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
 
 
+      )}
+
       {/* ─── BOTTOM LEGAL & CONTACT BAR ─── */}
 
       <div
@@ -664,7 +667,8 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
           >
 
-            {/* Copyright & Legal */}
+            {/* Copyright & Legal (removed) */}
+            {false && (
 
             <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
               <span>{settings.copyrightText}</span>
@@ -677,6 +681,8 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
             </div>
 
 
+
+            )}
 
             {/* Direct Contact & Footprint */}
 
