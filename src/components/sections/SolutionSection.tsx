@@ -49,12 +49,26 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
     [listItemCount]
   );
 
+  const isClickingRef = useRef(false);
+  const clickTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const selectListSlide = useCallback(
     (requestedIndex: number, requestedDirection?: -1 | 1) => {
+      // 1. Immediately switch the active slide in UI
+      updateActiveListSlide(requestedIndex, requestedDirection);
+
+      // 2. Prevent scroll listeners from interrupting or resetting this user selection
+      isClickingRef.current = true;
+      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = setTimeout(() => {
+        isClickingRef.current = false;
+      }, 900);
+
+      // 3. Align the sticky scroll track to this slide position
       if (window.matchMedia("(min-width: 1024px)").matches) {
         const track = listTrackRef.current;
         const pin = listPinRef.current;
-        if (track && pin && window.getComputedStyle(pin).position === "sticky") {
+        if (track && pin) {
           const trackTop = track.getBoundingClientRect().top + window.scrollY;
           const stickyTop = Number.parseFloat(window.getComputedStyle(pin).top) || 0;
           const scrollDistance = Math.max(1, track.offsetHeight - pin.offsetHeight);
@@ -68,17 +82,14 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
 
           if (lenis?.scrollTo) {
             lenis.scrollTo(target, {
-              duration: prefersReducedMotion ? 0 : 0.72,
+              duration: prefersReducedMotion ? 0 : 0.55,
               immediate: prefersReducedMotion,
             });
           } else {
             window.scrollTo({ top: target, behavior: prefersReducedMotion ? "auto" : "smooth" });
           }
-          return;
         }
       }
-
-      updateActiveListSlide(requestedIndex, requestedDirection);
     },
     [listItemCount, prefersReducedMotion, updateActiveListSlide]
   );
@@ -115,22 +126,18 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
       pin.style.setProperty("--solution-card-y", "0px");
       pin.style.setProperty("--solution-preview-scale", "1");
 
-      // Weighted deliberate scroll dwell across the capabilities (0 to 4)
-      const rawPos = progress * (listItemCount - 1);
       const cur = activeListSlideRef.current;
-
-      let nextIndex = cur;
-      if (rawPos > cur + 0.65 && cur < listItemCount - 1) {
-        nextIndex = Math.min(listItemCount - 1, cur + 1);
-      } else if (rawPos < cur - 0.35 && cur > 0) {
-        nextIndex = Math.max(0, cur - 1);
-      }
-
-      // Telemetry dwell progress within current capability (0 to 1)
+      const rawPos = progress * (listItemCount - 1);
       const dwellFraction = clamp(rawPos - cur + 0.5);
       pin.style.setProperty("--solution-slide-dwell", String(dwellFraction.toFixed(3)));
 
-      updateActiveListSlide(nextIndex);
+      // If user recently clicked a slide, do not let scroll override it
+      if (isClickingRef.current) return;
+
+      const nextIndex = Math.max(0, Math.min(listItemCount - 1, Math.floor(progress * listItemCount)));
+      if (nextIndex !== cur) {
+        updateActiveListSlide(nextIndex);
+      }
     };
 
     const requestUpdate = () => {
@@ -187,6 +194,29 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
       window.removeEventListener("resize", updateHeaderOffset);
     };
   }, []);
+
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window === "undefined") return;
+      const hash = window.location.hash.toLowerCase();
+      if (!hash) return;
+      if (hash.includes("cyber-recovery") || hash.includes("cyber-resilience")) {
+        selectListSlide(4);
+      } else if (hash.includes("agentic-automation") || hash.includes("automation")) {
+        selectListSlide(3);
+      } else if (hash.includes("incident-resolution") || hash.includes("incident")) {
+        selectListSlide(2);
+      } else if (hash.includes("backup-operations") || hash.includes("backup")) {
+        selectListSlide(1);
+      } else if (hash.includes("observability") || hash.includes("unified-resilience")) {
+        selectListSlide(0);
+      }
+    };
+
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, [selectListSlide]);
 
   return (
     <section

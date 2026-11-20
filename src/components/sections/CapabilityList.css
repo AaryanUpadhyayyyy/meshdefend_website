@@ -850,3 +850,16 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   stroke-dasharray: 6 3;
   animation: resocCablePulse 1.6s linear infinite;
 }
+
+#solution .capability-list__tab-row {
+  cursor: pointer;
+}
+
+#solution .capability-list__feature-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}

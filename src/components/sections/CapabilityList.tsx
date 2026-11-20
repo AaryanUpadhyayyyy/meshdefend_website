@@ -337,7 +337,8 @@ export function CapabilityList({
                     key={`${item.num}-${item.sourceIndex}`}
                     role="listitem"
                     className={`capability-list__tab-row${active ? " is-active" : ""}`}
-                    style={{ flexGrow: active ? 2.5 : 1 }}
+                    style={{ flexGrow: active ? 2.5 : 1, cursor: "pointer" }}
+                    onClick={() => goTo(index)}
                   >
                     {active && (
                       <motion.span
@@ -357,9 +358,9 @@ export function CapabilityList({
                       aria-pressed={active}
                       aria-describedby={active ? detailIds[index] : undefined}
                       aria-label={`Show capability ${String(index + 1).padStart(2, "0")}: ${item.capability}`}
-                      tabIndex={active ? 0 : -1}
+                      tabIndex={0}
                       className="capability-list__tab-trigger"
-                      onClick={() => goTo(index)}
+                      onClick={(e) => { e.stopPropagation(); goTo(index); }}
                       onKeyDown={(event) => onTabKeyDown(event, index)}
                     >
                       <motion.span className="capability-list__icon" animate={{ x: !prefersReducedMotion && active ? 4 : 0 }} transition={{ duration: prefersReducedMotion ? 0.15 : 0.3, ease: EASE }}>
@@ -402,7 +403,7 @@ export function CapabilityList({
                           transition={{ duration: prefersReducedMotion ? 0.15 : 0.38, ease: EASE }}
                         >
                           <p>{item.solves}</p>
-                          <Link className="capability-list__read-more" href={item.href}>
+                          <Link className="capability-list__read-more" href={item.href} onClick={(e) => e.stopPropagation()}>
                             <span>Read more</span>
                             <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.5 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
                           </Link>
@@ -426,7 +427,13 @@ export function CapabilityList({
                 exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -direction * 16 }}
                 transition={{ duration: prefersReducedMotion ? 0.15 : 0.2, ease: EASE }}
               >
-                <ScaledPreview item={activeItem} size={designSize} reducedMotion={prefersReducedMotion} direction={direction} />
+                <Link
+                  href={activeItem.href}
+                  className="capability-list__feature-link"
+                  aria-label={`Explore ${activeItem.capability}`}
+                >
+                  <ScaledPreview item={activeItem} size={designSize} reducedMotion={prefersReducedMotion} direction={direction} />
+                </Link>
               </motion.div>
             </AnimatePresence>
           </div>
