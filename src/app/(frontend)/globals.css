@@ -3502,7 +3502,8 @@ html.dark #pain .pain-feature-visual img,
 }
 
 #impact.home-impact-section {
-  padding-block: clamp(24px, 4svh, 48px) !important;
+  padding-top: clamp(96px, 11vh, 150px) !important;
+  padding-bottom: clamp(60px, 7vh, 90px) !important;
 }
 
 @media (max-width: 760px) {

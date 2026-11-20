@@ -389,7 +389,7 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   --capability-title-weight-fix: 0.3px;
   overflow: visible;
   min-height: calc(100svh - var(--solution-header-bottom, 71px) - 24px);
-  padding: 24px 0 16px !important;
+  padding: 24px 0 clamp(64px, 8vh, 100px) !important;
   scroll-margin-top: 106px;
 }
 
@@ -872,7 +872,7 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   display: block;
   width: 100%;
   height: 100%;
-  color: inherit;
+  cursor: default !important;
   text-decoration: none;
   cursor: pointer;
 }
