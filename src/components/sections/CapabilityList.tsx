@@ -11,7 +11,7 @@ const PREVIEW_WIDTH = 1200;
 const BACKUP_PREVIEW_HEIGHT = 320;
 const STANDARD_PREVIEW_HEIGHT = 620;
 const POPOVER_OVERHANG = 50;
-const CYBER_RECOVERY_PREVIEW_SCALE = 0.84;
+const CYBER_RECOVERY_PREVIEW_SCALE = 1;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 type CapabilityPreviewSize = {
@@ -28,7 +28,7 @@ type PreviewBounds = {
 
 function previewSize(sourceIndex: number): CapabilityPreviewSize {
   return sourceIndex === 1
-    ? { width: PREVIEW_WIDTH + POPOVER_OVERHANG, height: BACKUP_PREVIEW_HEIGHT }
+    ? { width: PREVIEW_WIDTH + POPOVER_OVERHANG, height: BACKUP_PREVIEW_HEIGHT } : sourceIndex === 4 ? { width: 1802, height: 873 }
     : { width: PREVIEW_WIDTH, height: STANDARD_PREVIEW_HEIGHT };
 }
 
@@ -205,7 +205,7 @@ function ScaledPreview({ item, size, reducedMotion, direction }: {
       const { width, height } = slot.getBoundingClientRect();
       setSlotSize({ width, height });
 
-      if (item.sourceIndex === 1) {
+      if (item.sourceIndex === 1 || item.sourceIndex === 4) {
         setBounds({ x: 0, y: 0, width: size.width, height: size.height });
         return;
       }

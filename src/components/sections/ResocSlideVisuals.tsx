@@ -252,49 +252,24 @@ function SmartRoutine() {
   );
 }
 
-function PaymentsRecovery() {
-  const nodes = [
-    { n: "1", label: "database", x: 562, y: 72, kind: "db" },
-    { n: "2", label: "queue", x: 212, y: 218, kind: "queue" },
-    { n: "3", label: "auth", x: 212, y: 398, kind: "shield" },
-    { n: "4", label: "storage", x: 848, y: 218, kind: "cloud" },
-    { n: "5", label: "checkout", x: 848, y: 398, kind: "cart" },
-  ];
+function CleanRoomRecovery() {
+  const { variant } = useContext(PreviewPresentationContext);
   return (
-    <Canvas capability="Cyber Recovery">
-      {[96,142,188].map((r) => <circle key={r} cx="628" cy="322" r={r} fill="none" stroke="#edf1f5" strokeWidth="2" />)}
-      <path d="M628 192v75M378 257c66 0 80 58 134 58M378 437c66 0 80-58 134-58M756 315c56 0 69-58 92-58M756 379c56 0 69 58 92 58" fill="none" stroke="#a7b4c1" strokeWidth="3" />
-      {nodes.map((node) => <g key={node.n}>
-        <rect x={node.x} y={node.y} width="132" height="120" rx="4" fill="#fff" stroke={line} strokeWidth="2" />
-        <circle cx={node.x + 8} cy={node.y + 7} r="16" fill={blue} /><T x={node.x + 8} y={node.y + 13} size={14} weight={800} fill="#fff" anchor="middle">{node.n}</T>
-        {node.kind === "db" && <g fill="none" stroke={ink} strokeWidth="4"><ellipse cx={node.x+66} cy={node.y+34} rx="17" ry="7"/><path d={`M${node.x+49} ${node.y+34}v29c0 9 34 9 34 0v-29M${node.x+49} ${node.y+48}c0 9 34 9 34 0`}/></g>}
-        {node.kind === "queue" && <g fill="none" stroke={ink} strokeWidth="4"><rect x={node.x+49} y={node.y+27} width="34" height="38" rx="2"/><path d={`M${node.x+56} ${node.y+39}h20m-20 10h20m-20 10h14`}/></g>}
-        {node.kind === "shield" && <path d={`M${node.x+66} ${node.y+25}l18 7v15c0 13-8 22-18 29-10-7-18-16-18-29V${node.y+32}l18-7Z`} fill="none" stroke={ink} strokeWidth="4"/>}
-        {node.kind === "cloud" && <path d={`M${node.x+48} ${node.y+53}c-15 0-16-20 0-22 5-18 31-17 35 0 20 0 18 23 0 23h-35Z`} fill="none" stroke={ink} strokeWidth="4"/>}
-        {node.kind === "cart" && <g fill="none" stroke={ink} strokeWidth="4"><path d={`M${node.x+43} ${node.y+31}h10l8 35h32l9-25h-44`}/><circle cx={node.x+65} cy={node.y+76} r="4" fill={ink}/><circle cx={node.x+88} cy={node.y+76} r="4" fill={ink}/></g>}
-        <T x={node.x+66} y={node.y+100} size={15} weight={700} anchor="middle">{node.label}</T>
-      </g>)}
-      <rect x="552" y="267" width="152" height="112" rx="4" fill="#fff" stroke="#d8e1e9" strokeWidth="2" />
-      <g fill="none" stroke={ink} strokeWidth="5"><ellipse cx="628" cy="292" rx="22" ry="9"/><path d="M606 292v34c0 12 44 12 44 0v-34m-44 17c0 12 44 12 44 0"/></g>
-      <T x={628} y={360} size={19} weight={750} anchor="middle">payments</T>
-      <path d="M628 379v102" stroke={orange} strokeWidth="3" strokeDasharray="8 7" /><Dot x={628} y={394} r={6} /><Dot x={628} y={481} r={6} />
-      <rect x="506" y="500" width="244" height="54" rx="3" fill="#fff8f5" stroke={orange} strokeWidth="2" strokeDasharray="7 5" />
-      <path d="m533 528 13-13a8 8 0 0 1 11 11l-5 5m-3-3-5 5a8 8 0 1 1-11-11l5-5" fill="none" stroke={orange} strokeWidth="3" />
-      <T x={568} y={533} size={14} weight={700}>Missed dependency</T>
-      <rect x="1010" y="220" width="160" height="146" rx="4" fill="#fff" stroke={line} strokeWidth="1.5" />
-      <T x={1032} y={251} size={14} weight={750}>Recovery proof</T>
-      <T x={1032} y={288} size={15} fill={muted}>RTO</T><rect x="1080" y="265" width="70" height="34" rx="2" fill="#f0f3f6" /><T x={1115} y={288} size={13} weight={700} anchor="middle">Unproven</T>
-      <T x={1032} y={341} size={15} fill={muted}>RPO</T><rect x="1080" y="318" width="70" height="34" rx="2" fill="#f0f3f6" /><T x={1115} y={341} size={13} weight={700} anchor="middle">Unproven</T>
-      <T x={1010} y={398} size={14} weight={800} fill={ink}>RECOVERY ORDER</T>
-      {[118, 100, 82].map((width, index) => {
-        const y = 420 + index * 23;
-        return <g key={width}><Dot x={1018} y={y} r={4} /><rect x="1032" y={y - 4} width={width} height="8" rx="2" fill="#e3e8ee" /></g>;
-      })}
-    </Canvas>
+    <img
+      src="/images/clean-room-recovery-animated.svg"
+      alt="Clean-room cyber recovery workflow"
+      className={`solution-story__image${variant === "bare" ? " solution-story__image--bare" : ""}`}
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "contain",
+      }}
+    />
   );
 }
 
-const visuals = [BackupInsights, ProtectionJobs, IncidentWorkflow, SmartRoutine, PaymentsRecovery];
+const visuals = [BackupInsights, ProtectionJobs, IncidentWorkflow, SmartRoutine, CleanRoomRecovery];
 
 export function ResocSlideVisual({
   index,

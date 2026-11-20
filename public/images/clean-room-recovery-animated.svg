@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1802" height="873" viewBox="0 0 1802 873" role="img" aria-labelledby="title description">
+  <title id="title">Clean-room recovery workflow</title>
+  <desc id="description">Ransomware detected, recovery point selection, clean-room recovery, security validation, and restoration to production. The selected recovery point is Oct 21, 06:00 PM. All labels remain visible. Subtle vector motion repeats continuously in the warning, connectors, clean-room blocks, validation checks, and recovery progress.</desc>
+  <style><![CDATA[
+    text { font-family: Arial, Helvetica, sans-serif; }
+    .heading { fill: #19232f; font-size: 24px; font-weight: 700; letter-spacing: -.65px; }
+    .body { fill: #18212a; font-size: 21px; letter-spacing: -.25px; }
+    .flow-trace { stroke-dasharray: 7 43; animation: arrow-flow 2s linear infinite; }
+    .progress-trace { stroke-dasharray: 23 121; animation: progress-flow 2.8s linear infinite; }
+    #warning-halo { transform-box: fill-box; transform-origin: center; animation: warning-breathe 2.7s ease-in-out infinite; }
+    #selected-point-ring { transform-box: fill-box; transform-origin: center; animation: selection-breathe 2.7s ease-in-out infinite; }
+    #database-block { animation: block-float 4.8s -1.6s ease-in-out infinite; }
+    #application-block { animation: block-float 4.8s ease-in-out infinite; }
+    #server-block { animation: block-float 4.8s -3.2s ease-in-out infinite; }
+    #platform-glow { animation: platform-breathe 4.8s ease-in-out infinite; }
+    #dome-outline { stroke-dasharray: 12 7; animation: dome-flow 7s linear infinite; }
+    #clean-room-scan { animation: room-scan 5.6s ease-in-out infinite; }
+    #clean-room-shield { transform-origin: 1043px 315px; animation: shield-breathe 3.8s ease-in-out infinite; }
+    .check-pulse { transform-box: fill-box; transform-origin: center; animation: check-breathe 4s var(--phase, 0s) ease-in-out infinite; }
+    #restore-halo { transform-box: fill-box; transform-origin: center; animation: restore-breathe 3.6s ease-in-out infinite; }
+    #restore-spinner { transform-origin: 1515.5px 744px; animation: spinner-turn 2.4s linear infinite; }
+    @keyframes arrow-flow { to { stroke-dashoffset: -50; } }
+    @keyframes progress-flow { to { stroke-dashoffset: -144; } }
+    @keyframes warning-breathe { 0%, 100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.09); opacity: 1; } }
+    @keyframes selection-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+    @keyframes block-float { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
+    @keyframes platform-breathe { 0%, 100% { opacity: .22; } 50% { opacity: .34; } }
+    @keyframes dome-flow { to { stroke-dashoffset: -38; } }
+    @keyframes room-scan { 0%, 100% { transform: translateY(-43px); opacity: .15; } 50% { transform: translateY(58px); opacity: .4; } }
+    @keyframes shield-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+    @keyframes check-breathe { 0%, 35%, 100% { transform: scale(1); } 17% { transform: scale(1.07); } }
+    @keyframes restore-breathe { 0%, 100% { transform: scale(1); opacity: .72; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes spinner-turn { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-trace, .progress-trace, #warning-halo, #selected-point-ring,
+      #database-block, #application-block, #server-block, #platform-glow,
+      #dome-outline, #clean-room-scan, #clean-room-shield, .check-pulse,
+      #restore-halo, #restore-spinner { animation: none !important; }
+    }
+  ]]></style>
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#fefefe"/></linearGradient>
+    <pattern id="background-grid" x="36" y="29" width="83" height="83" patternUnits="userSpaceOnUse"><path d="M0 83V0H83" fill="none" stroke="#e9edf1" stroke-width="1"/></pattern>
+    <linearGradient id="panel" x1="0" y1="0" x2=".35" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#fcfcfd"/></linearGradient>
+    <linearGradient id="room-panel" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fffaf7"/><stop offset=".5" stop-color="#fffdfb"/><stop offset="1" stop-color="#fff9f6"/></linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff663d"/><stop offset=".54" stop-color="#ff512c"/><stop offset="1" stop-color="#ff4924"/></linearGradient>
+    <linearGradient id="warning" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff7559"/><stop offset="1" stop-color="#ff4a2a"/></linearGradient>
+    <radialGradient id="warning-glow"><stop stop-color="#ffd9cf"/><stop offset="1" stop-color="#fff0eb"/></radialGradient>
+    <linearGradient id="selection" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0e9"/><stop offset="1" stop-color="#ffede5"/></linearGradient>
+    <radialGradient id="dome" cx="52%" cy="45%" r="69%"><stop stop-color="#fffdfb" stop-opacity=".15"/><stop offset=".61" stop-color="#ffe6db" stop-opacity=".56"/><stop offset=".83" stop-color="#ffcab5" stop-opacity=".28"/><stop offset="1" stop-color="#fff9f5" stop-opacity=".05"/></radialGradient>
+    <linearGradient id="scan-line"><stop stop-color="#ff9c72" stop-opacity="0"/><stop offset=".5" stop-color="#ffab87"/><stop offset="1" stop-color="#ff9c72" stop-opacity="0"/></linearGradient>
+    <linearGradient id="platform-top" x1="0" y1="0" x2=".25" y2="1"><stop stop-color="#fff3eb"/><stop offset=".6" stop-color="#fff6f0"/><stop offset="1" stop-color="#fffdfb"/></linearGradient>
+    <linearGradient id="platform-edge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff7f0"/><stop offset="1" stop-color="#ffe6d8"/></linearGradient>
+    <linearGradient id="glass-top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".91"/><stop offset="1" stop-color="#fff2eb" stop-opacity=".67"/></linearGradient>
+    <linearGradient id="glass-front" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#fff" stop-opacity=".94"/><stop offset=".55" stop-color="#fff" stop-opacity=".82"/><stop offset="1" stop-color="#fff9f6" stop-opacity=".91"/></linearGradient>
+    <linearGradient id="glass-side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3ed" stop-opacity=".83"/><stop offset="1" stop-color="#ffd6c4" stop-opacity=".48"/></linearGradient>
+    <radialGradient id="green"><stop stop-color="#6acd7e"/><stop offset=".72" stop-color="#50bf6c"/><stop offset="1" stop-color="#48b963"/></radialGradient>
+    <linearGradient id="restore-pill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#effaf2"/><stop offset="1" stop-color="#e5f6eb"/></linearGradient>
+    <filter id="panel-shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="9" stdDeviation="12" flood-color="#a5aeb8" flood-opacity=".045"/></filter>
+    <filter id="orange-glow" x="-30%" y="-70%" width="160%" height="240%"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="block-shadow" x="-35%" y="-25%" width="170%" height="165%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#ff9d77" flood-opacity=".25"/></filter>
+    <clipPath id="dome-clip"><path d="M695.5 498V478c0-106.7 86.5-193.2 193.2-193.2S1082 371.3 1082 478v20Z"/></clipPath>
+    <g id="round-check"><circle r="16" fill="url(#green)"/><path d="m-6.7.1 4.6 4.7L7.3-5.1" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g id="progress-check"><circle r="18" fill="url(#green)"/><path d="m-7.5.4 5.1 5.1L8-5.4" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+  </defs>
+
+  <rect width="1802" height="873" fill="url(#page)"/>
+  <rect width="1802" height="873" fill="url(#background-grid)" opacity=".38"/>
+
+  <!-- Each connector continuously carries a small accent along its fixed arrow. -->
+  <g id="workflow-connectors" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#b2bcc6" stroke-width="2.8">
+      <path d="M292.5 433.4H330m-10.8-8 9.3 8-9.3 8"/>
+      <path d="M603 433.4h31m-10.2-8 9.3 8-9.3 8"/>
+      <path d="M1138.5 433.4h39m-10.4-8 9.3 8-9.3 8"/>
+      <path d="M1496 433.4h46m-12.3-8 9.3 8-9.3 8"/>
+    </g>
+    <g stroke="#ff9d79" stroke-width="2.5" opacity=".82">
+      <path class="flow-trace" d="M293 433.4H330"/>
+      <path class="flow-trace" d="M603 433.4H634"/>
+      <path class="flow-trace" d="M1139 433.4H1178"/>
+      <path class="flow-trace" d="M1496 433.4H1540"/>
+    </g>
+  </g>
+
+  <g id="ransomware-detected">
+    <rect x="33.5" y="317" width="259" height="227.5" rx="20" fill="url(#panel)" stroke="#dfe4e9" stroke-width="1.8" filter="url(#panel-shadow)"/>
+    <circle id="warning-halo" cx="83.5" cy="372.7" r="31.5" fill="url(#warning-glow)"/>
+    <path d="M78.8 352.3q4.7-7.8 9.5 0l17.2 28.9q4.5 7.9-4.8 7.9H66.3q-8.9 0-4.4-7.9Z" fill="url(#warning)" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M83.8 361.7v11.6" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="83.8" cy="380.1" r="1.9" fill="#fff"/>
+    <text class="heading" x="124" y="366.3" font-size="23.6"><tspan x="124">Ransomware</tspan><tspan x="124" dy="29">Detected</tspan></text>
+    <text x="61" y="437" font-size="20" letter-spacing="-.2" fill="#798491">Production impacted</text>
+    <g fill="#e9ecef"><rect x="61" y="458.7" width="197.5" height="11.2" rx="5.6"/><rect x="61" y="480.4" width="162" height="11.2" rx="5.6"/><rect x="61" y="501.9" width="122" height="11.2" rx="5.6"/></g>
+  </g>
+
+  <g id="recovery-points">
+    <rect x="335.2" y="262.8" width="267.5" height="327" rx="19" fill="url(#panel)" stroke="#e0e5e9" stroke-width="1.8" filter="url(#panel-shadow)"/>
+    <path d="M336 332H602" stroke="#f2f3f5" stroke-width="1.1"/>
+    <text class="heading" x="363" y="309">Recovery Points</text>
+    <rect x="350" y="453.5" width="239.5" height="57.6" rx="13" fill="url(#selection)"/>
+    <g fill="#fff" stroke="#c7cfd6" stroke-width="2.2"><circle cx="378.6" cy="366.5" r="11.3"/><circle cx="378.6" cy="425" r="11.3"/><circle cx="378.6" cy="540.5" r="11.3"/></g>
+    <g id="selected-point-ring"><circle cx="378.6" cy="482.2" r="10.9" fill="#ff6840"/><circle cx="378.6" cy="482.2" r="4.6" fill="#fff"/></g>
+    <g font-size="20" letter-spacing="-.35" fill="#4a5563"><text x="404" y="373.7">Oct 21, 10:30 PM</text><text x="404" y="432.2">Oct 21, 08:00 PM</text><text x="404" y="547.6">Oct 21, 04:00 PM</text></g>
+    <text x="404" y="489.7" font-size="21" font-weight="700" letter-spacing="-.35" fill="#e84321">Oct 21, 06:00 PM</text>
+  </g>
+
+  <g id="clean-room">
+    <rect x="639" y="218.6" width="499.5" height="419.5" rx="36" fill="url(#room-panel)" stroke="#ffe0d4" stroke-width="2" filter="url(#panel-shadow)"/>
+    <path d="M695.5 498V478c0-106.7 86.5-193.2 193.2-193.2S1082 371.3 1082 478v20Z" fill="url(#dome)"/>
+    <g clip-path="url(#dome-clip)"><path id="clean-room-scan" d="M698 401Q889 357 1081 401" fill="none" stroke="url(#scan-line)" stroke-width="5"/></g>
+    <path id="dome-outline" d="M695.5 496V478c0-106.7 86.5-193.2 193.2-193.2S1082 371.3 1082 478v18" fill="none" stroke="#ffc5af" stroke-width="1.5" stroke-linecap="round"/>
+
+    <ellipse id="platform-glow" cx="890" cy="554" rx="203" ry="41" fill="#ff9b73" opacity=".27" filter="url(#orange-glow)"/>
+    <g id="isometric-platform">
+      <path d="m684.8 521.3 188-59.5q15.9-5.3 32 .1l188.5 59.7q11.1 3.4 11.1 11.7v7.5q0 7.5-11.1 11.3l-187 60.5q-16.3 5.4-33.4 0L685 552.1q-11.5-3.7-11.5-10.8v-8.1q0-8.1 11.3-11.9Z" fill="url(#platform-edge)" stroke="#ffbaa3" stroke-width="1.8"/>
+      <path d="m684.8 521.3 188-59.5q15.9-5.3 32 .1l188.5 59.7q21 6.5 0 13.5l-187 58.3q-16.3 5.4-33.4 0L685 535q-22-6.9-.2-13.7Z" fill="url(#platform-top)" stroke="#ffe5d9" stroke-width="1.8"/>
+      <path d="m675.5 530.1 197.4 63.3q16.4 5.2 33.4 0l196-62.3" fill="none" stroke="#fff" stroke-width="2.2" opacity=".94"/>
+    </g>
+
+    <g id="database-pedestal">
+      <path d="m821 465 55-17.5q12-3.9 24 0l55 17.5q8 2.6 8 8.7v7.5q0 5.5-8 8.1l-55 18.3q-12 4-24 0l-55-18.3q-8-2.6-8-8.1v-7.5q0-6.1 8-8.7Z" fill="#ffdfcf" fill-opacity=".75" stroke="#fff5ee" stroke-width="1.8"/>
+      <path d="m821 462.7 55-17.5q12-3.9 24 0l55 17.5q15 5 0 10L900 491q-12 4-24 0l-55-18.3q-15-5 0-10Z" fill="#fff7f1" stroke="#fff" stroke-width="1.8"/>
+      <path d="m814 478 62 19.8q12 4 24 0l62-19.8" fill="none" stroke="#fff" stroke-width="2.2"/>
+    </g>
+
+    <!-- Three glass blocks are constructed from separate vector faces. -->
+    <g id="database-block" filter="url(#block-shadow)">
+      <path d="m844 352.6 30.9-13.1q11.2-5.1 23-1.5l48.8 14.8q11.1 3.4 11.1 13.8v64.8q0 9.9-10.5 13.5l-48.1 16.3q-11.2 3.8-23.3-.1l-31.9-10.5q-10.5-3.5-10.5-14.2v-67.3q0-11.6 10.5-16.5Z" fill="url(#glass-top)" stroke="#dedbd9" stroke-width="2"/>
+      <path d="m927.3 356.7 20.4-2.9q10.1 3.3 10.1 12.8v64.8q0 9.9-10.5 13.5l-13.7 4.7 4.8-18.7v-59.3q0-10.7-11.1-14.9Z" fill="url(#glass-side)"/>
+      <rect x="833.5" y="355.8" width="105" height="92.4" rx="14" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
+      <g fill="none" stroke="#ff5b34" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="886.6" cy="388.7" rx="19" ry="8.3"/>
+        <path d="M867.6 388.7V414c0 4.7 8.5 8.6 19 8.6s19-3.9 19-8.6v-25.3M867.6 401.4c0 4.6 8.5 8.3 19 8.3s19-3.7 19-8.3"/>
+      </g>
+    </g>
+
+    <g id="application-block" filter="url(#block-shadow)">
+      <path d="m747.1 431.2 31.6-13.5q11.4-5 22.7-1.4l49.4 14.6q11.2 3.3 11.2 13.9v65.6q0 9.8-10.7 13.3l-48.7 16.8q-11.4 3.8-22.8-.1l-32.7-10.9q-10.6-3.5-10.6-14.1v-67.1q0-12.3 10.6-17.1Z" fill="url(#glass-top)" stroke="#dedbd9" stroke-width="2"/>
+      <path d="m829.8 434.7 22-2.2q10.2 3.6 10.2 12.3v65.6q0 9.8-10.7 13.3l-14 4.8 5-16.4v-62.7q0-10.8-12.5-14.7Z" fill="url(#glass-side)"/>
+      <rect x="736.5" y="433.6" width="106" height="92.4" rx="13.8" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
+      <g fill="none" stroke="#ff5a32" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"><rect x="767.3" y="460.1" width="44.6" height="38.2" rx="2.6"/><path d="M767.3 470.4h44.6"/><path d="M773.8 465.2h.1m6.1 0h.1" stroke-width="3.2"/></g>
+    </g>
+
+    <g id="server-block" filter="url(#block-shadow)">
+      <path d="m926.7 442 32.2-13.5q11.4-5.1 22.7-1.7l47.7 13.8q11.1 3.3 11.1 13.8v65.3q0 10.1-10.6 13.5l-47.9 15.5q-11.3 3.9-22.6.1L927 538q-10.8-3.6-10.8-14.2v-65.5q0-11.6 10.5-16.3Z" fill="url(#glass-top)" stroke="#dedbd9" stroke-width="2"/>
+      <path d="m1009.3 445.6 20.2-3.3q10.9 3.1 10.9 12.1v65.3q0 10.1-10.6 13.5l-14.5 4.6 5.9-18.1v-58.6q0-10.7-11.9-15.5Z" fill="url(#glass-side)"/>
+      <rect x="916.2" y="444.5" width="105" height="89.4" rx="13.8" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
+      <g fill="none" stroke="#ff5a32" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><rect x="947.8" y="471.1" width="41.6" height="10.8" rx="2.7"/><rect x="947.8" y="484.6" width="41.6" height="10.8" rx="2.7"/><rect x="947.8" y="498.1" width="41.6" height="10.8" rx="2.7"/><path d="M981.5 476.5h.1m-.1 13.5h.1m-.1 13.5h.1" stroke-width="3.3"/></g>
+    </g>
+
+    <g id="clean-room-shield" fill="none" stroke="#ff633b" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1042.7 281.6q13.4 9.2 28.4 12v19.7q0 21.7-28.4 35.4-28-13.7-28-35.4v-19.7q14.5-2.8 28-12Z" fill="#fff" fill-opacity=".78" stroke="#fff" stroke-width="8.5"/>
+      <path d="M1042.7 281.6q13.4 9.2 28.4 12v19.7q0 21.7-28.4 35.4-28-13.7-28-35.4v-19.7q14.5-2.8 28-12Z"/>
+      <path d="m1032.6 314.3 8.7 8.6 13.6-14.7"/>
+    </g>
+
+    <g id="clean-room-ribbon">
+      <path d="M653 196.6h286.5q14 0 14 14v26.1q0 13.7-14 13.7H639v-39.8q0-14 14-14Z" fill="url(#ribbon)" stroke="#ff5631" stroke-width="1.3"/>
+      <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"><path d="m675.5 208.9 13 7.5v15l-13 7.5-13-7.5v-15Z"/><path d="m662.5 216.4 13 7.5 13-7.5m-13 7.5v15"/></g>
+      <text x="704" y="232" fill="#fff" font-size="23.5" font-weight="700" letter-spacing="-.4">Clean-room Recovery</text>
+    </g>
+  </g>
+
+  <g id="security-validation">
+    <rect x="1183" y="247.3" width="313" height="351" rx="19.5" fill="url(#panel)" stroke="#e0e5ea" stroke-width="1.8" filter="url(#panel-shadow)"/>
+    <path d="M1184 317H1495" stroke="#e8ecf0" stroke-width="1.5"/>
+    <g fill="none" stroke="#1d2834" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"><path d="M1228.5 267q7.1 4.9 14 6.4v10.5q0 11.1-14 18-14-6.9-14-18v-10.5q6.9-1.5 14-6.4Z"/><path d="m1222.5 284 4.3 4.3 7.2-7.5"/></g>
+    <text class="heading" x="1261" y="293.1" font-size="23.5">Security Validation</text>
+    <g transform="translate(1228 353.5)"><g class="check-pulse" style="--phase:0s"><use href="#round-check"/></g></g>
+    <g transform="translate(1228 403.3)"><g class="check-pulse" style="--phase:-.55s"><use href="#round-check"/></g></g>
+    <g transform="translate(1228 453.2)"><g class="check-pulse" style="--phase:-1.1s"><use href="#round-check"/></g></g>
+    <g transform="translate(1228 503)"><g class="check-pulse" style="--phase:-1.65s"><use href="#round-check"/></g></g>
+    <g transform="translate(1228 552.7)"><g class="check-pulse" style="--phase:-2.2s"><use href="#round-check"/></g></g>
+    <g class="body"><text x="1262" y="361">EDR / XDR Scan</text><text x="1262" y="410.8">Malware Check</text><text x="1262" y="460.6">Data Integrity</text><text x="1262" y="510.4">Application Health</text><text x="1262" y="560.3">Dependency Check</text></g>
+  </g>
+
+  <g id="restore-to-production">
+    <rect x="1546.5" y="317.1" width="234" height="235.5" rx="20" fill="url(#panel)" stroke="#dfe4e9" stroke-width="1.8" filter="url(#panel-shadow)"/>
+    <circle id="restore-halo" cx="1664" cy="366.4" r="36.9" fill="#e5f5e9"/>
+    <circle cx="1664" cy="365.2" r="21.4" fill="url(#green)"/>
+    <path d="m1654.5 365.4 6.1 6.2 12.2-13" fill="none" stroke="#fff" stroke-width="4.1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1663.5" y="425.5" text-anchor="middle" fill="#19232f" font-size="25.5" font-weight="700" letter-spacing="-.6"><tspan x="1663.5">Restore to</tspan><tspan x="1663.5" dy="30.4">Production</tspan></text>
+    <g fill="#e9ecef"><rect x="1579.8" y="483.9" width="169.2" height="11.5" rx="5.7"/><rect x="1579.8" y="508" width="138" height="11.5" rx="5.7"/></g>
+  </g>
+
+  <g id="recovery-progress">
+    <rect x="116.5" y="695.8" width="1572.5" height="95.2" rx="24" fill="url(#panel)" stroke="#e8ecef" stroke-width="1.8" filter="url(#panel-shadow)"/>
+    <text x="161.5" y="752.6" fill="#19232f" font-size="26" font-weight="700" letter-spacing="-.75">Recovery Progress</text>
+    <g fill="none" stroke-linecap="butt" stroke-width="2.8">
+      <path d="M646 744H755M1054 744H1167M1349 744H1465" stroke="#4cc270"/>
+      <g stroke="#a0e5ad"><path class="progress-trace" d="M646 744H755"/><path class="progress-trace" d="M1054 744H1167"/><path class="progress-trace" d="M1349 744H1465"/></g>
+    </g>
+    <g transform="translate(499.7 743.7)"><use href="#progress-check"/></g>
+    <g transform="translate(794.5 743.7)"><use href="#progress-check"/></g>
+    <g transform="translate(1209.5 743.7)"><use href="#progress-check"/></g>
+    <g fill="#171b1e" font-size="21.5" letter-spacing="-.3"><text x="532" y="751.2">Select RP</text><text x="826" y="751.2">Provision Clean-room</text><text x="1243" y="751.2">Validate</text></g>
+    <rect x="1476.5" y="716.8" width="176" height="54" rx="27" fill="url(#restore-pill)"/>
+    <circle cx="1515.5" cy="744" r="18" fill="url(#green)"/>
+    <g id="restore-spinner"><circle cx="1515.5" cy="744" r="5.5" fill="#fff" opacity=".35"/><path d="M1515.5 738.5a5.5 5.5 0 0 1 5.5 5.5" fill="none" stroke="#fff" stroke-width="4.1" stroke-linecap="round"/></g>
+    <text x="1551" y="751.2" fill="#171b1e" font-size="21.5" letter-spacing="-.3">Restore</text>
+  </g>
+</svg>
