@@ -3542,9 +3542,4 @@ html.dark #pain .pain-feature-visual img,
   display: none !important;
 }
 
-.home-page #solution .solution-section__headline {
-  font-size: clamp(30px, 3vw, 46px) !important;
-  line-height: 1.08 !important;
-  max-width: 980px !important;
-  margin: 0 auto !important;
-}
+

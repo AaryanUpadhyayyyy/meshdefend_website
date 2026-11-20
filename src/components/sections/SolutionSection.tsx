@@ -243,14 +243,14 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: 600,
                     fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                     letterSpacing: "0.06em",
                     color: "var(--solution-muted, #64748b)",
                     textTransform: "uppercase",
-                    marginTop: 6,
-                    marginBottom: 6,
+                    marginTop: 3,
+                    marginBottom: 3,
                   }}
                 >
                   Powered by Agent Mesh™
@@ -259,18 +259,18 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
                   className="solution-section__subheading"
                   style={{
                     fontFamily: 'var(--font-body), Inter, -apple-system, sans-serif',
-                    fontSize: "clamp(17px, 1.35vw, 21px)",
+                    fontSize: "clamp(15px, 1.2vw, 18.5px)",
                     fontWeight: 600,
                     color: "var(--solution-ink, #0f172a)",
-                    margin: "4px auto 10px",
-                    lineHeight: 1.3,
+                    margin: "2px auto 6px",
+                    lineHeight: 1.25,
                   }}
                 >
                   Keep Your Business Recovery-Ready at all times
                 </p>
               </div>
 
-              <p className="solution-section__lede" style={{ maxWidth: 860, fontSize: "clamp(13.5px, 0.95vw, 15px)", lineHeight: 1.45, color: "var(--solution-muted, #4b5563)" }}>
+              <p className="solution-section__lede" style={{ maxWidth: "min(1280px, 96%)", width: "100%", margin: "0 auto", fontSize: "clamp(14px, 1vw, 15.5px)", lineHeight: 1.48, color: "var(--solution-muted, #4b5563)", textAlign: "center" }}>
                 {solution.lede}
               </p>
             </header>

@@ -427,13 +427,12 @@ export function CapabilityList({
                 exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -direction * 16 }}
                 transition={{ duration: prefersReducedMotion ? 0.15 : 0.2, ease: EASE }}
               >
-                <Link
-                  href={activeItem.href}
-                  className="capability-list__feature-link"
-                  aria-label={`Explore ${activeItem.capability}`}
+                <div
+                  className="capability-list__feature-visual"
+                  aria-label={`Visual preview for ${activeItem.capability}`}
                 >
                   <ScaledPreview item={activeItem} size={designSize} reducedMotion={prefersReducedMotion} direction={direction} />
-                </Link>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
