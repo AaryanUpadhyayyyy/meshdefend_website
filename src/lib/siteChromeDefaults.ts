@@ -79,25 +79,13 @@ export const DEFAULT_MEGA_MENUS: MegaMenuSection[] = [
     },
   },
   {
-    key: "support",
-    label: "Support",
-    columns: [
-      {
-        eyebrow: "CUSTOMER SUPPORT",
-        items: [
-          { label: "MD Support Portal", desc: "Technical documentation, ticketing & enterprise customer support", href: "/support" },
-        ],
-      },
-    ],
-  },
-  {
     key: "resources",
     label: "Resources",
     columns: [
       {
         eyebrow: "PUBLICATIONS",
         items: [
-          { label: "WTR : What The Resilience - Newsletter", desc: "Bi-weekly executive briefings on autonomous cyber recovery", href: "/resources/newsletter" },
+          { label: "WTR : What The Resilience - Newsletter", desc: "Bi-weekly executive briefings on autonomous cyber recovery", href: "/#newsletter" },
           { label: "Engineering Blog", desc: "Technical deep dives, post-mortems & systems architecture", href: "/resources/blog" },
         ],
       },
@@ -178,19 +166,18 @@ export const DEFAULT_FOOTER_NAV_GROUPS: FooterNavGroup[] = [
       { label: "Enterprises", href: "/solutions/enterprises" },
     ],
   },
-  { num: "04", title: "Support", links: [{ label: "MD Support Portal", href: "/support" }] },
   {
-    num: "05",
+    num: "04",
     title: "Resources",
     links: [
-      { label: "WTR : What The Resilience - Newsletter", href: "/resources/newsletter" },
+      { label: "WTR : What The Resilience - Newsletter", href: "/#newsletter" },
       { label: "WTR : What The Resilience - Podcast", href: "/resources/podcast" },
       { label: "Blogs", href: "/resources/blog" },
       { label: "FAQ", href: "/resources/faq" },
     ],
   },
   {
-    num: "06",
+    num: "05",
     title: "Company",
     links: [
       { label: "About Us", href: "/company/about" },

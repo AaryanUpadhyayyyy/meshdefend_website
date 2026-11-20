@@ -58,42 +58,44 @@ export function FinalCTA({
         }}
       >
         {/* Eyebrow */}
-        <Reveal delay={0}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              marginBottom: 20,
-              padding: "4px 12px",
-              borderRadius: 3,
-              background: "rgba(254, 253, 253, 0.06)",
-              border: "1px solid rgba(254, 253, 253, 0.1)",
-            }}
-          >
-            <span
+        {copy.eyebrow ? (
+          <Reveal delay={0}>
+            <div
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "var(--orange)",
-                display: "inline-block",
-              }}
-            />
-            <span
-              style={{
-                fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-                fontSize: 11,
-                letterSpacing: "0.1em",
-                color: "#d5d2d3",
-                textTransform: "uppercase",
-                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 20,
+                padding: "4px 12px",
+                borderRadius: 3,
+                background: "rgba(254, 253, 253, 0.06)",
+                border: "1px solid rgba(254, 253, 253, 0.1)",
               }}
             >
-              {copy.eyebrow}
-            </span>
-          </div>
-        </Reveal>
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--orange)",
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                  fontSize: 11,
+                  letterSpacing: "0.1em",
+                  color: "#d5d2d3",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                {copy.eyebrow}
+              </span>
+            </div>
+          </Reveal>
+        ) : null}
 
         {/* H2 Headline */}
         <Reveal delay={0.08}>

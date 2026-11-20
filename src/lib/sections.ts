@@ -227,7 +227,7 @@ export const AUDIENCE = {
 };
 
 export const FINAL_CTA = {
-  eyebrow: "[ CONTINUOUS RESILIENCE ]",
+  eyebrow: "",
   headline: "Don’t Wait for the Next Incident to Test Your Resilience",
   lede: "Modern resilience requires continuous visibility, readiness, and action. Recovery plans tested only after failure are no longer enough.",
   ctaPrimary: "Book a demo",

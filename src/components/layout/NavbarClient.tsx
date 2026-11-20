@@ -98,6 +98,25 @@ export function NavbarClient({
     };
   }, [mobileOpen]);
 
+
+  const handleNavClick = (hrefOrEvent?: string | React.MouseEvent) => {
+    setOpenMenu(null);
+    setMobileOpen(false);
+    if (typeof window !== "undefined") {
+      const href = typeof hrefOrEvent === "string" ? hrefOrEvent : undefined;
+      if (href && href.includes("#")) {
+        const hash = href.substring(href.indexOf("#"));
+        const target = document.querySelector(hash);
+        if (target) {
+          (window as unknown as { lenis?: { scrollTo?: (target: Element | string, opts?: unknown) => void } }).lenis?.scrollTo?.(hash, { offset: -40 });
+          return;
+        }
+      }
+      (window as unknown as { lenis?: { scrollTo?: (target: number, opts?: unknown) => void } }).lenis?.scrollTo?.(0, { immediate: true, force: true });
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <>
       <header ref={navRef} className={`nav-header${heroVariant ? " nav-header--hero" : ""}`}>
@@ -110,7 +129,7 @@ export function NavbarClient({
           href="/"
           aria-label={`${settings.brandName} home`}
           className="nav-logo"
-          onClick={() => setOpenMenu(null)}
+          onClick={handleNavClick}
         >
           {settings.logoAsset?.url ? (
             <img
@@ -168,7 +187,7 @@ export function NavbarClient({
         <div className="nav-actions">
           
           {heroVariant && (
-            <Link className="nav-hero-secondary" href="/platform/observability" onClick={() => setOpenMenu(null)}>
+            <Link className="nav-hero-secondary" href="/platform/observability" onClick={handleNavClick}>
               See ResOC in action
             </Link>
           )}
@@ -176,7 +195,7 @@ export function NavbarClient({
             <Link
               href={settings.primaryCta.href}
               className={`btn btn-primary nav-cta-btn${heroVariant ? " nav-hero-primary" : ""}`}
-              onClick={() => setOpenMenu(null)}
+              onClick={handleNavClick}
             >
               {heroVariant ? "Book a demo" : settings.primaryCta.label}
             </Link>
@@ -214,7 +233,7 @@ export function NavbarClient({
                         key={item.label}
                         href={item.href}
                         className="nav-mega-link"
-                        onClick={() => setOpenMenu(null)}
+                        onClick={() => handleNavClick(item.href)}
                       >
                         <span className="nav-mega-link-title">{item.label}</span>
                         {item.desc && (
@@ -232,7 +251,7 @@ export function NavbarClient({
                   <Link
                     href={megaMenus[openMenu].featured!.href}
                     className="nav-mega-card"
-                    onClick={() => setOpenMenu(null)}
+                    onClick={() => handleNavClick(megaMenus[openMenu].featured!.href)}
                   >
                     <div>
                       <span className="nav-mega-card-tag">
@@ -284,7 +303,7 @@ export function NavbarClient({
                       <Link
                         key={item.label}
                         href={item.href}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={() => handleNavClick(item.href)}
                         style={{ padding: "8px 0", fontSize: 14, color: "var(--muted)", textDecoration: "none" }}
                       >
                         {item.label}
@@ -297,14 +316,14 @@ export function NavbarClient({
             <div style={{ marginTop: 20 }}>
               {heroVariant && <Link
                 href="/platform/observability"
-                onClick={() => setMobileOpen(false)}
+                onClick={handleNavClick}
                 className="nav-mobile-hero-secondary"
               >
                 See ResOC in action
               </Link>}
               {settings.primaryCta.label && settings.primaryCta.href && <Link
                 href={settings.primaryCta.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={handleNavClick}
                 className={`btn btn-primary${heroVariant ? " nav-mobile-hero-primary" : ""}`}
                 style={{ width: "100%", justifyContent: "center", height: 44, fontSize: 14 }}
               >

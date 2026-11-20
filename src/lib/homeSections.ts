@@ -94,11 +94,23 @@ export const TRUST_SECTION_CONTENT = {
       darkSrc: "/images/logos/dell-dark.png",
       height: 28,
     },
-    {
+        {
       name: "Sapta Tunas Teknologi",
-      lightSrc: "/images/logos/saptatuns-light.webp",
-      darkSrc: "/images/logos/saptatuns-dark.webp",
-      height: 34,
+      lightSrc: "/images/logo/Sapta Logo.png",
+      darkSrc: "/images/logo/Sapta Logo.png",
+      height: 30,
+    },
+    {
+      name: "HCL",
+      lightSrc: "/images/logo/HCL logo.jpg",
+      darkSrc: "/images/logo/HCL logo.jpg",
+      height: 22,
+    },
+    {
+      name: "itsimple",
+      lightSrc: "/images/logo/itsimple logo.jpg",
+      darkSrc: "/images/logo/itsimple logo.jpg",
+      height: 24,
     },
   ],
 };

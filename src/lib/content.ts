@@ -59,16 +59,10 @@ export const NAV = {
       { label: "Enterprises", href: "/solutions/enterprises" },
     ],
   },
-  support: {
-    label: "Support",
-    items: [
-      { label: "MD Support Portal", href: "/support" },
-    ],
-  },
   resources: {
     label: "Resources",
     items: [
-      { label: "WTR : What The Resilience - Newsletter", href: "/resources/newsletter" },
+      { label: "WTR : What The Resilience - Newsletter", href: "/#newsletter" },
       { label: "WTR : What The Resilience - Podcast", href: "/resources/podcast" },
       { label: "Blog", href: "/resources/blog" },
       { label: "FAQ", href: "/resources/faq" },

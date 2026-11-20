@@ -445,7 +445,7 @@ export function BlogClient() {
           </div>
 
           <Link
-            href="/company/contact?intent=demo"
+            href="/#newsletter"
             className="newsletter-banner-btn"
           >
             <span>Subscribe to WTR</span>

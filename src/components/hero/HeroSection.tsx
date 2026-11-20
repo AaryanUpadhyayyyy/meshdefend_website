@@ -200,7 +200,7 @@ export function HeroSection({
               className="hero-trust-logos"
               style={{
                 marginTop: isMobile ? 24 : 32,
-                maxWidth: isMobile ? "100%" : 600,
+                maxWidth: isMobile ? "100%" : 640,
               }}
             >
               <div className="hero-trust-grid">
@@ -321,7 +321,7 @@ export function HeroSection({
 
         .hero-trust-grid {
           display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
+          grid-template-columns: repeat(5, minmax(0, 1fr));
           gap: 10px;
           width: 100%;
         }

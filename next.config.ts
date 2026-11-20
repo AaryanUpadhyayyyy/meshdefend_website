@@ -42,6 +42,11 @@ const nextConfig: NextConfig = {
         destination: "/resources/blog",
         permanent: true,
       },
+      {
+        source: "/resources/newsletter",
+        destination: "/#newsletter",
+        permanent: false,
+      },
     ];
   },
 };
