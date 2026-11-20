@@ -274,7 +274,7 @@ export function HeroSection({
             }}
           >
             <img
-              src="/images/home/hero-iceberg-full.png"
+              src="/images/business-recovery.svg"
               alt="Data recovered vs Business recovery - Resilience Operations Center"
               className="hero-iceberg-img"
               style={{

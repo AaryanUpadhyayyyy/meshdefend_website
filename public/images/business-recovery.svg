@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1078" height="679" viewBox="0 0 1078 679" role="img" aria-labelledby="title description">
+  <title id="title">Agent Mesh business recovery iceberg</title>
+  <desc id="description">A hand-built vector recreation. Data recovered sits above the waterline. Infrastructure, Dependencies, Recovery order, Access, and Business applications and services sit below it, forming business recovery. A small flying Agent Mesh robot illuminates the iceberg.</desc>
+  <style><![CDATA[
+    .label-enter {
+      animation: label-arrive .72s cubic-bezier(.16,.75,.25,1) both;
+      animation-delay: var(--delay, 0s);
+    }
+    #data-recovered { --delay: .12s; }
+    #agent-mesh-label { --delay: .35s; }
+    .step-1 { --delay: .42s; --highlight-delay: 2.2s; }
+    .step-2 { --delay: .61s; --highlight-delay: 3.3s; }
+    .step-3 { --delay: .80s; --highlight-delay: 4.4s; }
+    .step-4 { --delay: .99s; --highlight-delay: 5.5s; }
+    .step-5 { --delay: 1.18s; --highlight-delay: 6.6s; }
+    #business-recovery { --delay: 1.45s; }
+    .recovery-step > rect {
+      animation: highlight-card 8s var(--highlight-delay) linear both infinite;
+    }
+    .recovery-step > g[id$="-icon"], .recovery-step > path {
+      animation: highlight-icon 8s var(--highlight-delay) linear both infinite;
+    }
+    #waterline {
+      transform-origin: 539px 210px;
+      animation: water-drift 6s ease-in-out infinite;
+    }
+    #surface-ripples {
+      transform-origin: 539px 210px;
+      animation: ripple-drift 4.8s ease-in-out infinite;
+    }
+    #flying-agent, #agent-light {
+      transform-origin: 318px 327px;
+      animation: agent-hover 4.8s ease-in-out infinite;
+    }
+    #search-light {
+      transform-origin: 334px 336px;
+      animation: search-sweep 7.2s ease-in-out infinite;
+    }
+    #propeller-blades {
+      transform-origin: 318px 273px;
+      animation: propeller-spin .16s linear infinite;
+    }
+    #recovery-bracket {
+      stroke-dasharray: 360;
+      animation: bracket-arrive 1s 1.45s ease-out both;
+    }
+    @keyframes label-arrive {
+      from { opacity: 0; transform: translate(24px, 7px); }
+      to { opacity: 1; transform: translate(0, 0); }
+    }
+    @keyframes highlight-card {
+      0%, 13.75%, 100% { fill: #fff; stroke: #b4bec6; }
+      1.6%, 12% { fill: #ffe8dc; stroke: #ff925b; }
+    }
+    @keyframes highlight-icon {
+      0%, 13.75%, 100% { stroke: #14212c; }
+      1.6%, 12% { stroke: #ba5027; }
+    }
+    @keyframes water-drift {
+      0%, 100% { transform: translate(-3px, 0) scaleX(1.025); }
+      50% { transform: translate(3px, 1.2px) scaleX(1.025); }
+    }
+    @keyframes ripple-drift {
+      0%, 100% { transform: translate(6px, -.5px) scaleY(.9); opacity: .82; }
+      50% { transform: translate(-7px, .6px) scaleY(1.12); opacity: 1; }
+    }
+    @keyframes agent-hover {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(3px, -7px) rotate(-1.5deg); }
+      50% { transform: translate(0, -3px) rotate(.6deg); }
+      75% { transform: translate(-3px, 4px) rotate(1.2deg); }
+    }
+    @keyframes search-sweep {
+      0%, 100% { transform: rotate(-49deg); opacity: .82; }
+      48%, 56% { transform: rotate(0deg); opacity: 1; }
+    }
+    @keyframes propeller-spin {
+      0%, 100% { transform: scaleX(1); }
+      50% { transform: scaleX(.15); }
+    }
+    @keyframes bracket-arrive {
+      from { stroke-dashoffset: 360; }
+      to { stroke-dashoffset: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .label-enter, #flying-agent, #agent-light, #search-light,
+      #propeller-blades, #recovery-bracket, #waterline, #surface-ripples,
+      .recovery-step > rect, .recovery-step > g[id$="-icon"], .recovery-step > path {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+        stroke-dashoffset: 0;
+      }
+    }
+  ]]></style>
+  <defs>
+    <radialGradient id="background" cx="56%" cy="44%" r="72%">
+      <stop stop-color="#fff"/><stop offset=".76" stop-color="#fdfdfd"/><stop offset="1" stop-color="#fafbfc"/>
+    </radialGradient>
+    <linearGradient id="gridFade" x2="1" y2=".25">
+      <stop stop-color="#fff" stop-opacity=".62"/><stop offset=".43" stop-color="#fff" stop-opacity=".22"/><stop offset=".74" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="45" height="45" x="39" y="20" patternUnits="userSpaceOnUse">
+      <path d="M0 0H45 M0 0V45" fill="none" stroke="#a9b6bf" stroke-width=".75" stroke-dasharray="1.5 6"/>
+    </pattern>
+    <mask id="gridMask"><rect width="1078" height="679" fill="url(#gridFade)"/></mask>
+    <linearGradient id="iceTop" x1=".05" y1=".25" x2=".95" y2=".8">
+      <stop stop-color="#edf2f5"/><stop offset=".38" stop-color="#e2eaf0"/><stop offset=".7" stop-color="#b6c6d0"/><stop offset="1" stop-color="#dbe5eb"/>
+    </linearGradient>
+    <linearGradient id="iceBody" x1=".1" y1=".13" x2=".88" y2=".86">
+      <stop stop-color="#e0e8ed"/><stop offset=".3" stop-color="#bfccd5"/><stop offset=".58" stop-color="#b2c1cc"/><stop offset=".81" stop-color="#ced9e0"/><stop offset="1" stop-color="#e6edf1"/>
+    </linearGradient>
+    <linearGradient id="facetLight" x1="0" y1=".1" x2="1" y2=".7">
+      <stop stop-color="#fff" stop-opacity=".93"/><stop offset=".43" stop-color="#eaf1f5" stop-opacity=".72"/><stop offset="1" stop-color="#afc1cc" stop-opacity=".12"/>
+    </linearGradient>
+    <linearGradient id="facetShade" x1="0" y1=".2" x2="1" y2=".7">
+      <stop stop-color="#d7e3eb" stop-opacity=".2"/><stop offset=".55" stop-color="#90a8b8" stop-opacity=".61"/><stop offset="1" stop-color="#d4e0e7" stop-opacity=".5"/>
+    </linearGradient>
+    <linearGradient id="ridge" x1="0" y1="0" x2="1" y2=".7">
+      <stop stop-color="#fff" stop-opacity=".94"/><stop offset=".62" stop-color="#f1f6f8" stop-opacity=".62"/><stop offset="1" stop-color="#e4edf2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#c4d4dd" stop-opacity="0"/><stop offset=".3" stop-color="#98aeba" stop-opacity=".5"/><stop offset=".53" stop-color="#d9e5ea" stop-opacity=".76"/><stop offset=".67" stop-color="#93aab8" stop-opacity=".45"/><stop offset="1" stop-color="#eaf0f3" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="waterEdge"><stop stop-color="#e1e9ee" stop-opacity="0"/><stop offset=".16" stop-color="#c0d1da"/><stop offset=".5" stop-color="#8faab9"/><stop offset=".84" stop-color="#cbd9e1"/><stop offset="1" stop-color="#eaf0f3" stop-opacity="0"/></linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2=".6"><stop stop-color="#ff955b" stop-opacity=".64"/><stop offset="1" stop-color="#ffb98e" stop-opacity=".18"/></linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2=".4" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#fcfdfe"/></linearGradient>
+    <linearGradient id="orangeCard" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe8dc"/><stop offset="1" stop-color="#ffede3"/></linearGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff2e9"/><stop offset="1" stop-color="#ffebdc"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c0e6b3"/><stop offset=".6" stop-color="#a6d89b"/><stop offset="1" stop-color="#e5f2db"/></linearGradient>
+    <radialGradient id="robotBody" cx="37%" cy="26%" r="78%"><stop stop-color="#fffef9"/><stop offset=".47" stop-color="#eeece5"/><stop offset=".75" stop-color="#cdccc5"/><stop offset="1" stop-color="#a7a9a5"/></radialGradient>
+    <linearGradient id="robotFace" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#191c1b"/><stop offset="1" stop-color="#353631"/></linearGradient>
+    <linearGradient id="rotor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffb789"/><stop offset="1" stop-color="#ff8b4b"/></linearGradient>
+    <linearGradient id="ear" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e76b30"/><stop offset=".48" stop-color="#ffa266"/><stop offset="1" stop-color="#e8c4a6"/></linearGradient>
+    <filter id="iceShadow" x="-30%" y="-15%" width="160%" height="140%"><feGaussianBlur stdDeviation="15"/></filter>
+    <filter id="haze" x="-25%" y="-100%" width="150%" height="300%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softIce" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation=".75"/></filter>
+    <filter id="sculptedIce" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".033 .049" numOctaves="3" seed="8" result="crags"/>
+      <feDisplacementMap in="SourceGraphic" in2="crags" scale="10" xChannelSelector="R" yChannelSelector="G" result="sculpt"/>
+      <feGaussianBlur in="sculpt" stdDeviation="1.1" result="softSculpt"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".07 .1" numOctaves="3" seed="21" result="crystal"/>
+      <feDiffuseLighting in="crystal" surfaceScale="2.3" diffuseConstant="1" lighting-color="#ffffff" result="crystalLight"><feDistantLight azimuth="230" elevation="52"/></feDiffuseLighting>
+      <feComposite in="crystalLight" in2="softSculpt" operator="in" result="crystalClip"/>
+      <feComposite in="softSculpt" in2="crystalClip" operator="arithmetic" k1="0" k2=".94" k3=".06" k4="0"/>
+    </filter>
+    <filter id="softRidge" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.45"/></filter>
+    <filter id="cardShadow" x="-15%" y="-50%" width="130%" height="210%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#3d5361" flood-opacity=".17"/></filter>
+    <filter id="robotShadow" x="-35%" y="-35%" width="170%" height="180%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#7b7d77" flood-opacity=".11"/></filter>
+    <filter id="iceGrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".12 .18" numOctaves="3" seed="14"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".1"/></feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="soft-light"/>
+    </filter>
+    <path id="topShape" d="M418 204 432 187 451 176 467 161 479 151 493 134 505 120 520 103 547 109 560 92 575 77 585 62 605 48 625 29 638 40 650 49 661 61 674 75 691 89 704 108 716 127 732 116 746 132 758 146 777 168 795 184 816 204Z"/>
+    <path id="bottomShape" d="M425 203 810 203 826 232 839 254 853 277 846 310 849 339 838 368 834 393 838 422 826 450 817 478 800 510 779 532 756 553 728 579 699 602 674 626 648 644 621 658 606 635 582 613 554 591 532 572 517 554 492 546 470 528 451 503 437 480 421 453 408 423 399 395 387 371 376 342 367 315 364 279 385 250 402 226Z"/>
+    <clipPath id="topClip"><use href="#topShape"/></clipPath>
+    <clipPath id="bottomClip"><use href="#bottomShape"/></clipPath>
+  </defs>
+
+  <rect width="1078" height="679" fill="url(#background)"/>
+  <rect width="1078" height="679" fill="url(#grid)" mask="url(#gridMask)" opacity=".44"/>
+
+  <!-- Ice is drawn from paths and translucent facets; no raster assets. -->
+  <use href="#bottomShape" transform="translate(0 9)" fill="#819bac" opacity=".22" filter="url(#iceShadow)"/>
+  <g id="iceberg-above-water" filter="url(#sculptedIce)">
+    <use href="#topShape" fill="url(#iceTop)"/>
+    <g clip-path="url(#topClip)">
+      <path d="M625 29 622 63 607 82 591 106 555 127 523 155 481 184 449 202 418 204 453 177 490 151 520 104 546 111 572 80 601 51Z" fill="#eef3f6"/>
+      <path d="M625 30 634 69 622 99 598 112 611 83 618 59Z" fill="url(#facetShade)"/>
+      <path d="M626 31 649 51 651 80 674 101 645 94 633 68Z" fill="#b7c8d3"/>
+      <path d="M648 49 663 63 674 82 671 99 653 80Z" fill="#a9bdcb" opacity=".61"/>
+      <path d="M622 62 615 86 592 108 586 102 600 82 607 58Z" fill="url(#facetLight)"/>
+      <path d="M605 49 600 75 582 93 570 99 583 74Z" fill="#d4e0e9"/>
+      <path d="M595 61 581 87 564 108 569 94 580 77Z" fill="#fff" opacity=".68"/>
+      <path d="M582 86 578 108 557 120 546 118 563 104Z" fill="#bdcdd8"/>
+      <path d="M567 103 557 125 532 141 545 119Z" fill="#f9fcfd"/>
+      <path d="M520 104 526 122 510 138 500 147 507 125Z" fill="#adbfcd" opacity=".51"/>
+      <path d="M523 107 538 112 533 131 517 143 525 122Z" fill="#c4d2dc"/>
+      <path d="M517 111 504 137 491 149 484 155 496 134Z" fill="#f8fbfd"/>
+      <path d="M522 128 515 150 497 162 505 143Z" fill="#b7c9d5"/>
+      <path d="M504 144 490 168 473 181 453 194 464 178 485 158Z" fill="#d5e1e8"/>
+      <path d="M479 152 474 169 458 179 446 194 431 200 446 181Z" fill="#a7bdcc" opacity=".6"/>
+      <path d="M468 162 456 184 441 195 433 197 449 176Z" fill="#f0f6f9"/>
+      <path d="M619 93 645 96 667 100 647 118 623 125 601 138 578 151 554 175 520 191 491 204 455 204 495 183 527 158 560 130 593 115Z" fill="url(#facetLight)"/>
+      <path d="M636 93 653 95 671 103 653 110 632 114 619 121 599 126 582 139 566 142 589 119 614 107Z" fill="#f9fcfd" opacity=".9"/>
+      <path d="M610 126 601 148 577 174 555 192 529 203 545 182 559 164 578 141Z" fill="url(#facetShade)"/>
+      <path d="M582 137 574 156 557 177 544 189 548 170 561 150Z" fill="#a9becd" opacity=".55"/>
+      <path d="M560 149 549 171 526 185 515 199 490 205 514 180 532 164Z" fill="#f7fafc" opacity=".85"/>
+      <path d="M539 169 526 192 511 201 502 202 518 183Z" fill="#a9bfce" opacity=".63"/>
+      <path d="M622 126 611 155 603 178 582 197 559 206 570 184 590 157 601 136Z" fill="#f7fafc" opacity=".9"/>
+      <path d="M632 126 646 144 652 160 668 181 694 199 675 204 643 180 629 157 614 151Z" fill="#b5c7d3"/>
+      <path d="M631 131 627 153 638 174 646 196 626 183 614 164 619 144Z" fill="url(#facetShade)"/>
+      <path d="M630 135 638 151 638 165 654 186 662 202 649 201 637 179 626 162Z" fill="#f4f8fa" opacity=".94"/>
+      <path d="M619 153 613 178 606 189 598 203 583 205 597 177Z" fill="#d5e1e9"/>
+      <path d="M624 170 626 191 641 204 613 206 609 189Z" fill="#f8fbfc"/>
+      <path d="M672 101 686 99 705 117 716 139 729 155 744 172 772 197 744 206 707 192 687 164 673 143 653 125Z" fill="url(#facetShade)"/>
+      <path d="M678 108 683 131 698 151 703 174 716 186 702 183 690 165 681 143 669 130Z" fill="#dce7ed"/>
+      <path d="M688 112 699 126 702 145 714 160 722 179 706 164 692 143Z" fill="#a8becc" opacity=".55"/>
+      <path d="M652 125 667 139 679 160 695 175 714 192 734 204 711 201 692 185 672 172 661 150Z" fill="#f2f7fa" opacity=".88"/>
+      <path d="M652 132 659 155 679 180 686 196 669 184 654 164 646 150Z" fill="#bdced9"/>
+      <path d="M732 117 734 140 750 161 757 180 775 196 764 199 744 179 732 154 718 137Z" fill="#b6c8d3"/>
+      <path d="M733 119 749 140 760 151 770 171 791 190 804 201 784 196 770 181 752 163 742 141Z" fill="#d8e4eb"/>
+      <path d="M726 124 726 145 739 166 744 183 730 172 717 152 713 137Z" fill="#eef4f7"/>
+      <path d="M760 151 765 175 777 187 787 200 774 192 762 178 754 158Z" fill="#9fb5c4" opacity=".5"/>
+      <g fill="none" stroke="#fff" stroke-linecap="round" opacity=".45" filter="url(#softRidge)">
+        <path d="m625 34-13 40-26 37-31 22-36 29-41 27" stroke-width="3"/>
+        <path d="m632 43 9 36 25 25-36 20-18 30-15 32" stroke-width="2.5"/>
+        <path d="m520 108-13 29-22 24-35 27" stroke-width="2"/>
+        <path d="m673 104 10 32 17 24 14 28" stroke-width="2"/>
+        <path d="m732 121 9 31 19 27" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+
+  <g id="iceberg-below-water">
+    <use href="#bottomShape" fill="url(#iceBody)"/>
+    <g clip-path="url(#bottomClip)" filter="url(#sculptedIce)">
+      <path d="M427 203 474 204 451 238 429 257 410 290 391 302 367 313 364 279 385 251Z" fill="#e1eaf0"/>
+      <path d="M435 207 416 243 392 266 376 294 367 279 387 249 405 225Z" fill="#f4f8fa" opacity=".7"/>
+      <path d="M449 207 444 225 425 244 412 267 396 283 384 310 372 322 371 299 389 275 401 252 426 225Z" fill="url(#facetShade)"/>
+      <path d="M471 204 466 225 450 244 438 272 416 288 410 312 394 335 381 335 388 307 406 280 419 255 444 231Z" fill="url(#facetLight)"/>
+      <path d="M466 237 454 268 440 291 424 307 414 336 401 350 390 372 378 346 390 326 410 310 415 291 435 269Z" fill="#bdcdd8"/>
+      <path d="M437 270 429 294 410 319 406 337 394 347 387 373 380 355 386 334 404 314 416 289Z" fill="#f3f7fa" opacity=".74"/>
+      <path d="M377 310 383 340 395 361 399 392 411 416 420 447 406 420 394 387 381 366 370 337Z" fill="#a9becb" opacity=".58"/>
+      <path d="M398 347 404 375 418 395 422 417 433 438 438 470 423 451 414 426 409 405 395 384 391 367Z" fill="url(#facetLight)"/>
+      <path d="M416 324 427 354 421 379 435 398 437 426 451 454 452 484 434 460 428 435 418 414 414 392 403 374 410 355Z" fill="#a3b9c8" opacity=".53"/>
+      <path d="M429 329 440 356 438 379 452 402 450 425 466 449 463 476 452 455 446 430 434 410 435 387 425 365Z" fill="#eaf1f5" opacity=".8"/>
+      <path d="M464 214 516 209 551 228 527 268 489 285 458 274 448 255Z" fill="#b2c4d0" opacity=".65"/>
+      <path d="M516 207 581 209 604 244 563 281 527 268 549 231Z" fill="#e0e9ef"/>
+      <path d="M582 205 654 207 678 246 640 285 605 243Z" fill="#9eb4c3" opacity=".65"/>
+      <path d="M654 206 729 207 751 245 711 283 677 248Z" fill="#d9e4eb"/>
+      <path d="M729 207 788 206 807 236 790 281 752 246Z" fill="#adbfcc"/>
+      <path d="M789 206 810 204 830 241 853 277 834 269 819 250 802 240Z" fill="#e2eaf0"/>
+      <path d="M809 232 820 263 819 290 831 310 826 341 835 358 846 337 844 310 852 278 834 258Z" fill="#b0c2ce"/>
+      <path d="M809 242 813 269 801 294 817 316 813 347 823 368 815 394 829 416 837 421 834 391 838 365 826 344 831 313 818 288 821 267Z" fill="url(#facetLight)"/>
+      <path d="M838 284 833 306 841 330 832 354 832 375 820 396 825 423 815 450 826 450 837 422 832 396 838 373 843 345 846 324Z" fill="#91abba" opacity=".34"/>
+      <path d="M814 340 806 364 815 386 809 415 819 442 810 472 798 490 799 468 806 441 799 419 806 392 798 372Z" fill="#ecf3f7" opacity=".85"/>
+      <path d="M831 423 817 433 815 454 802 476 794 501 772 526 771 548 793 520 807 497 817 475 821 450Z" fill="#a9becb" opacity=".65"/>
+      <path d="M817 454 798 466 787 493 765 508 750 536 729 558 728 580 757 553 776 533 792 511 800 485Z" fill="url(#facetLight)"/>
+      <path d="M472 272 489 285 478 321 452 337 441 309Z" fill="#9fb7c6" opacity=".6"/>
+      <path d="M489 285 528 268 563 282 549 329 511 345 478 320Z" fill="#dae5ec"/>
+      <path d="M562 281 604 244 641 286 618 334 580 348 549 328Z" fill="#b6c9d5"/>
+      <path d="M641 286 677 247 712 284 700 328 661 349 618 334Z" fill="#d9e4eb"/>
+      <path d="M712 283 752 245 791 281 779 332 737 352 700 328Z" fill="#a7bdcb"/>
+      <path d="M453 338 478 321 510 345 496 388 465 403 439 377Z" fill="#dae5eb"/>
+      <path d="M510 345 550 329 581 348 565 396 526 410 497 389Z" fill="#a7bdca"/>
+      <path d="M580 348 619 334 662 349 646 391 604 419 566 396Z" fill="#d4e1e9"/>
+      <path d="M661 349 701 329 738 352 723 396 681 420 646 391Z" fill="#a6bccb"/>
+      <path d="M738 352 779 332 808 364 798 407 766 427 724 396Z" fill="#d1dfe7"/>
+      <path d="M465 403 496 388 527 410 512 450 478 470 451 445Z" fill="#c5d6df"/>
+      <path d="M526 410 565 396 604 419 583 457 551 478 512 450Z" fill="#dfe9ef"/>
+      <path d="M604 419 645 391 682 420 665 466 626 485 583 457Z" fill="#9eb6c6"/>
+      <path d="M681 420 724 396 766 427 741 469 705 489 665 466Z" fill="#dce6ed"/>
+      <path d="M766 427 799 407 807 440 787 478 755 500 741 469Z" fill="#aec3d0"/>
+      <path d="M452 451 464 470 475 484 473 507 489 526 493 545 472 530 457 507 442 486 434 464 430 441Z" fill="#e3edf2" opacity=".78"/>
+      <path d="M474 468 491 484 494 503 509 516 517 537 536 549 544 569 520 554 508 539 487 527 481 511 469 499Z" fill="#b6c9d5"/>
+      <path d="M480 470 513 450 551 477 540 516 509 531 494 505Z" fill="#cbdbe4"/>
+      <path d="M550 477 583 457 626 485 602 527 568 550 539 516Z" fill="#b0c6d4"/>
+      <path d="M625 485 665 466 705 489 691 533 649 552 601 527Z" fill="#d8e4eb"/>
+      <path d="M705 489 742 469 756 500 737 537 707 558 691 533Z" fill="#afc4d2"/>
+      <path d="M509 531 539 516 569 550 555 576 534 570 521 552Z" fill="#eaf2f6"/>
+      <path d="M569 550 602 527 649 552 629 587 605 611 575 587 555 576Z" fill="#c6d8e3"/>
+      <path d="M649 552 691 533 707 558 680 585 658 608 629 587Z" fill="#a9c0cf"/>
+      <path d="M707 558 737 537 727 578 700 601 674 625 658 608 680 585Z" fill="#c9dae4"/>
+      <path d="M541 558 557 575 582 585 590 604 609 619 621 657 603 635 586 618 569 602 549 586 534 572Z" fill="#eef5f8"/>
+      <path d="M559 573 577 580 588 594 606 600 612 620 621 657 609 636 599 620 581 608 575 591Z" fill="#b9cedc"/>
+      <path d="M588 565 605 550 604 578 613 595 607 618 599 605 588 594 594 578Z" fill="url(#facetLight)"/>
+      <path d="M633 535 646 548 633 572 634 591 623 612 621 657 612 627 615 601 622 580 618 563Z" fill="#eef5f8" opacity=".8"/>
+      <path d="M655 553 663 570 649 588 650 605 638 628 621 657 625 629 636 606 634 588 646 569Z" fill="#9fb8c9" opacity=".55"/>
+      <path d="M689 555 695 567 677 582 669 601 649 620 637 642 622 657 637 629 644 609 662 591 670 574Z" fill="#f1f7fa" opacity=".78"/>
+      <path d="M707 545 711 560 698 578 684 586 679 602 660 618 668 597 675 580 691 568Z" fill="#eaf3f7" opacity=".7"/>
+      <path d="M720 523 735 529 723 548 721 564 703 583 694 585 710 565 709 549Z" fill="#e8f1f6"/>
+      <path d="M755 513 764 524 748 544 730 556 735 541Z" fill="#a3bdce" opacity=".6"/>
+      <g fill="none" stroke="#f8fcfe" stroke-linecap="round" filter="url(#softRidge)">
+        <path d="m437 211-16 31-26 32-17 25 7 36 14 27 7 31 15 29 10 34 15 27 19 31 30 25" opacity=".55" stroke-width="3"/>
+        <path d="m461 215-20 34-18 31-10 29-17 27 9 24 6 26 14 23 9 28" opacity=".62" stroke-width="4"/>
+        <path d="m812 215 8 38 15 25-9 32 6 24-12 39 5 26-8 34-17 37-10 28-22 25-24 20" opacity=".49" stroke-width="3"/>
+        <path d="m482 516 23 19 14 20 27 16 20 20 27 17 15 21 13 28" opacity=".7" stroke-width="3"/>
+        <path d="m577 550 3 29 13 16 5 18 16 20 7 24" opacity=".5" stroke-width="2.5"/>
+        <path d="m633 539-5 26 2 20-12 26 3 46" opacity=".65" stroke-width="4"/>
+        <path d="m747 531-32 26-13 22-26 19-15 26-40 33" opacity=".62" stroke-width="3"/>
+      </g>
+      <use href="#bottomShape" fill="#f2f6f9" opacity=".08" filter="url(#iceGrain)"/>
+    </g>
+  </g>
+
+  <!-- The waterline remains above the iceberg facets. -->
+  <g id="waterline">
+    <ellipse cx="540" cy="217" rx="515" ry="12" fill="#9eb5c3" opacity=".18" filter="url(#haze)"/>
+    <path d="M0 210 57 207 106 202 159 196 194 194 243 199 280 203 323 200 369 198 416 199 459 195 510 198 552 196 597 198 636 193 677 198 715 195 768 197 812 202 862 198 907 194 961 196 1017 201 1078 209V224H0Z" fill="url(#water)"/>
+    <path d="m0 214 50-1 60-8 69-7 47 4 73 3 68-7 53 3 48-3 54 3 52-3 64 3 65-5 48 6 52-3 43 7 71-5 53-5 59 4 54 7 50 4-69-3-48-3-64 2-59 5-54-3-56 2-53-3-50 5-58-3-50 3-55-2-65 3-60-3-52 4-64-3-66 3-53-3-49 5Z" fill="url(#waterEdge)" opacity=".68" filter="url(#softIce)"/>
+    <g id="surface-ripples" fill="none" stroke-linecap="round">
+      <path d="M5 215C84 219 133 203 195 206S290 211 355 205 441 207 492 201 572 207 620 202 690 207 748 203 820 212 872 206 954 211 1064 210" stroke="#f8fcfe" stroke-width="2.5" opacity=".88"/>
+      <path d="M19 219C88 210 130 220 190 213S275 216 335 211 424 216 483 209 561 215 621 208 688 216 753 209 822 216 890 211 992 216 1069 212" stroke="#f7fbfd" stroke-width="1.7" opacity=".92"/>
+      <path d="m109 204 67-5 76 5 53 2M328 203l57-3 42 3M452 201l57-4 34 3M600 199l37-4 44 5M720 199l46-2 45 5M868 201l54-5 67 3" stroke="#ecf4f8" stroke-width="1.5" opacity=".68"/>
+      <path d="M0 222C77 218 130 225 205 217S323 222 402 215 505 218 574 213 691 220 759 214 877 218 952 215 1029 217 1078 215" stroke="#d2e0e7" stroke-width="1.2" opacity=".56"/>
+    </g>
+  </g>
+
+  <g id="agent-light">
+    <path id="search-light" d="M334 336 466 359 466 520 423 465Z" fill="url(#beam)"/>
+  </g>
+
+  <g id="data-recovered" class="label-enter">
+    <path d="M742 67H715L676 107" fill="none" stroke="#bac4cc" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M742 67H715L676 107" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="676" cy="107" r="5.7" fill="#fff" stroke="#b9c5ce" stroke-width="1.4"/>
+    <rect x="741.5" y="39.2" width="272" height="56" rx="7" fill="#fff" fill-opacity=".75" stroke="#b9c3cc" stroke-width="1.5"/>
+    <circle cx="774.8" cy="67.4" r="16.6" fill="url(#green)"/>
+    <path d="m768.4 67.8 4.2 4.1 8.4-8.7" fill="none" stroke="#199b23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="802.5" y="76.1" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="-.65" fill="#14212b">Data recovered</text>
+  </g>
+
+  <g id="recovery-cards" font-family="Arial, Helvetica, sans-serif" fill="#14232e">
+    <g class="label-enter recovery-step step-1">
+      <rect x="465.5" y="217.4" width="343" height="53.6" rx="4" fill="url(#card)" stroke="#b4bec6" stroke-width="1.2" filter="url(#cardShadow)"/>
+      <path d="M551.8 232.5V257.5" fill="none" stroke="#7f8c96" stroke-width="1.25"/>
+      <g id="infrastructure-icon" fill="none" stroke="#14212c" stroke-width="2.3" stroke-linejoin="round">
+        <rect x="497.2" y="233.5" width="9.5" height="9.5" rx="1.2"/><rect x="511.5" y="233.5" width="9.5" height="9.5" rx="1.2"/>
+        <rect x="497.2" y="247.7" width="9.5" height="9.5" rx="1.2"/><rect x="511.5" y="247.7" width="9.5" height="9.5" rx="1.2"/>
+      </g>
+      <g font-weight="700" font-size="24" letter-spacing="-.62">
+      <text x="574" y="252.7">Infrastructure</text>
+      </g>
+    </g>
+    <g class="label-enter recovery-step step-2">
+      <rect x="465.5" y="276.8" width="343" height="53.6" rx="4" fill="url(#card)" stroke="#b4bec6" stroke-width="1.2" filter="url(#cardShadow)"/>
+      <path d="M551.8 291.8V316.4" fill="none" stroke="#7f8c96" stroke-width="1.25"/>
+      <g id="dependencies-icon" fill="none" stroke="#14212c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m507 300.9 7.3-7.4a5.5 5.5 0 0 1 7.5 7.8l-5.9 5.8a5.4 5.4 0 0 1-7.7-.1"/>
+        <path d="m512.6 307-7.2 7.4a5.5 5.5 0 0 1-7.5-7.8l5.9-5.8a5.4 5.4 0 0 1 7.7.1"/>
+      </g>
+      <g font-weight="700" font-size="24" letter-spacing="-.62">
+      <text x="574" y="311.9">Dependencies</text>
+      </g>
+    </g>
+    <g class="label-enter recovery-step step-3">
+      <rect x="465.5" y="335.6" width="343" height="53.6" rx="4" fill="url(#card)" stroke="#b4bec6" stroke-width="1.2" filter="url(#cardShadow)"/>
+      <path d="M551.8 350.7V375.1" fill="none" stroke="#7f8c96" stroke-width="1.25"/>
+      <g id="recovery-order-icon" fill="none" stroke="#14212c" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round">
+        <path d="m497.2 356.7 12.4-6.9 12.5 6.9-12.5 7-12.4-7Z"/>
+        <path d="m497.2 362.4 12.4 7 12.5-7M497.2 368.5l12.4 6.9 12.5-6.9"/>
+      </g>
+      <g font-weight="700" font-size="24" letter-spacing="-.62">
+      <text x="574" y="370.8">Recovery order</text>
+      </g>
+    </g>
+    <g class="label-enter recovery-step step-4">
+      <rect x="465.5" y="394.5" width="343" height="53.3" rx="4" fill="url(#card)" stroke="#b4bec6" stroke-width="1.2" filter="url(#cardShadow)"/>
+      <path d="M551.8 409.6V434.3" fill="none" stroke="#7f8c96" stroke-width="1.25"/>
+      <g id="access-icon" fill="none" stroke="#14212c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M509 423.1a7.1 7.1 0 1 0-1.7-2l-9.1 9.1 3.9 3.1 3-2.9-.5-2.9 3.3-.3 2-2.1"/>
+        <circle cx="515.6" cy="415.7" r="1" fill="#14212c" stroke="none"/>
+      </g>
+      <g font-weight="700" font-size="24" letter-spacing="-.62">
+      <text x="574" y="429.7">Access</text>
+      </g>
+    </g>
+    <g class="label-enter recovery-step step-5">
+      <rect x="465.5" y="453.8" width="343" height="69.5" rx="5.8" fill="url(#orangeCard)" stroke="#ff925b" stroke-width="1.1" filter="url(#cardShadow)"/>
+      <path d="M551.8 471V508.2" fill="none" stroke="#cb6c43" stroke-width="1.25"/>
+      <g id="applications-icon" fill="none" stroke="#ba5027" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="494.2" y="476.2" width="32.5" height="10.6" rx="2.6"/>
+        <rect x="494.2" y="492.6" width="32.5" height="10.6" rx="2.6"/>
+        <path d="M516.4 481.5h.1M521.6 481.5h.1M516.4 498h.1M521.6 498h.1" stroke-width="2.6"/>
+      </g>
+      <text x="574" y="484.8" font-size="21.5" font-weight="700" letter-spacing="-.45"><tspan x="574">Business applications</tspan><tspan x="574" dy="23.4">&amp; services</tspan></text>
+    </g>
+  </g>
+
+  <g id="agent-mesh-label" class="label-enter">
+    <rect x="89.4" y="290.4" width="171.5" height="43.1" rx="21.5" fill="url(#pill)" fill-opacity=".85" stroke="#ffba94" stroke-width="1.1"/>
+    <text x="110" y="319.2" fill="#14232e" font-family="Arial, Helvetica, sans-serif" font-size="21.6" font-weight="700" letter-spacing="-.65">Agent Mesh<tspan dy="-7.1" font-size="12.5" letter-spacing="-.5">TM</tspan></text>
+  </g>
+
+  <g id="flying-agent">
+    <path d="m311.7 294.1 3.7-19.9 4.9.6-.9 19.8Z" fill="#64625b"/>
+    <path d="m315.2 276.2 1.2-3.8 3.3.1.7 4.1Z" fill="#444640"/>
+    <g transform="rotate(8 318 273)">
+      <g id="propeller-blades">
+      <ellipse cx="298.4" cy="272.2" rx="19.5" ry="2.55" fill="url(#rotor)"/>
+      <ellipse cx="337.9" cy="273.7" rx="19.2" ry="2.45" fill="url(#rotor)"/>
+      </g>
+      <ellipse cx="318.3" cy="273" rx="4.1" ry="2.05" fill="#b98b65"/>
+      <ellipse cx="318" cy="271.8" rx="2.1" ry="1.2" fill="#7c786d"/>
+    </g>
+    <g filter="url(#robotShadow)">
+      <path d="M296.5 297.2C306.2 292.3 321.5 293.4 330 300.2 337.4 306.1 340 315.4 342 325.9 344.7 340.2 338.4 353.5 325.8 359.3 316 363.9 300.6 362.3 290.6 355.5 280.3 348.7 276.1 338.4 278.3 325.7 280 312.8 284.7 302.9 296.5 297.2Z" fill="url(#robotBody)"/>
+      <path d="M299 297.7c8.3-3 20-2.3 26.6 1.7-11.6-2.2-21.4-.5-29.5 6.2-6.4 5.3-10.6 15.7-10.3 26.8-4.4-11.7.3-28.6 13.2-34.7Z" fill="#fff" opacity=".3"/>
+      <ellipse cx="278.7" cy="320.9" rx="4.55" ry="10.1" transform="rotate(10 278.7 320.9)" fill="url(#ear)"/>
+      <ellipse cx="279.9" cy="319.3" rx="2.3" ry="7.2" transform="rotate(10 279.9 319.3)" fill="#ff9359"/>
+      <path d="M340 321.3q5 3.8 3 12.7l-2.7 4.5 1-10Z" fill="#f29a68"/>
+      <g transform="rotate(9 317 319)">
+        <path d="M306.2 306.5h21.2q9 0 9 9v6.3q0 10-10 10h-20q-9.3 0-9.3-9.5v-7q0-8.8 9.1-8.8Z" fill="#e9e7df"/>
+        <path d="M305.3 307.5h22.1q8.3 0 8.3 8.1v6q0 9-9.1 9h-21.5q-8.3 0-8.3-8.5v-6q0-8.6 8.5-8.6Z" fill="url(#robotFace)"/>
+        <rect x="307.7" y="313" width="3.7" height="11.1" rx="1.85" fill="#fffef6"/>
+        <rect x="324.4" y="313" width="3.7" height="11.1" rx="1.85" fill="#fffef6"/>
+      </g>
+      <path d="m307.3 349.1 5-8.3 4.2 4.8 3.4-4.8 2.3 2.8-2.4 3.6-3.4-2.1-4 5.2 1.2-5.6-4.5 5Z" fill="#ff8748"/>
+      <path d="m315.7 350 3.5-1.5 2.2 1.5" fill="none" stroke="#ff8748" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g id="business-recovery" class="label-enter">
+    <path id="recovery-bracket" d="M850 225.1h13.3q10.7 0 10.7 11v128.1q0 2.6 2.3 4.1l11.6 7.6-11.6 7.6q-2.3 1.5-2.3 4.1v120.9q0 11-10.7 11H850" fill="none" stroke="#ff7c37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="905.6" y="301.3" width="57.7" height="54.6" rx="12.6" fill="url(#pill)" fill-opacity=".7" stroke="#ffb998" stroke-width="1.1"/>
+    <g fill="none" stroke="#ff7e35" stroke-width="2.8">
+      <path d="M927.8 343.3v-28.6h14.3v28.6M927.8 326.7h-8.3v16.6H950v-16.6h-7.9M934.9 343.3v-9.7"/>
+      <path d="M933.2 320.1h3.6M933.2 326h3.6" stroke-width="2.5"/>
+    </g>
+    <text x="905" y="389.7" fill="#1d2b35" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="-.8"><tspan x="905">Business</tspan><tspan x="905" dy="30.4">recovery</tspan></text>
+  </g>
+</svg>
