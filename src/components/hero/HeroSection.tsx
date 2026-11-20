@@ -108,6 +108,8 @@ export function HeroSection({
             style={{
               maxWidth: isMobile ? "100%" : 620,
               width: "100%",
+              position: "relative",
+              zIndex: 10,
             }}
           >
             {/* Display H1 Heading */}
@@ -201,6 +203,8 @@ export function HeroSection({
               style={{
                 marginTop: isMobile ? 24 : 32,
                 maxWidth: isMobile ? "100%" : 640,
+                position: "relative",
+                zIndex: 10,
               }}
             >
               <div className="hero-trust-grid">
@@ -271,6 +275,7 @@ export function HeroSection({
               alignItems: "center",
               justifyContent: isMobile ? "center" : "flex-start",
               position: "relative",
+              zIndex: 1,
             }}
           >
             <img

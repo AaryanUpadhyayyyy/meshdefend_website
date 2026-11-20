@@ -158,10 +158,21 @@
     <path id="bottomShape" d="M425 203 810 203 826 232 839 254 853 277 846 310 849 339 838 368 834 393 838 422 826 450 817 478 800 510 779 532 756 553 728 579 699 602 674 626 648 644 621 658 606 635 582 613 554 591 532 572 517 554 492 546 470 528 451 503 437 480 421 453 408 423 399 395 387 371 376 342 367 315 364 279 385 250 402 226Z"/>
     <clipPath id="topClip"><use href="#topShape"/></clipPath>
     <clipPath id="bottomClip"><use href="#bottomShape"/></clipPath>
+    <linearGradient id="waterFadeMaskGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="2%" stop-color="#555" stop-opacity="0.25"/>
+      <stop offset="5%" stop-color="#aaa" stop-opacity="0.75"/>
+      <stop offset="8%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="92%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="98%" stop-color="#555" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="waterFadeMask">
+      <rect x="0" y="0" width="1078" height="679" fill="url(#waterFadeMaskGrad)"/>
+    </mask>
   </defs>
 
-  <rect width="1078" height="679" fill="url(#background)"/>
-  <rect width="1078" height="679" fill="url(#grid)" mask="url(#gridMask)" opacity=".44"/>
+  <!-- Transparent background for hero integration -->
 
   <!-- Ice is drawn from paths and translucent facets; no raster assets. -->
   <use href="#bottomShape" transform="translate(0 9)" fill="#819bac" opacity=".22" filter="url(#iceShadow)"/>
@@ -288,7 +299,7 @@
   </g>
 
   <!-- The waterline remains above the iceberg facets. -->
-  <g id="waterline">
+  <g id="waterline" mask="url(#waterFadeMask)">
     <ellipse cx="540" cy="217" rx="515" ry="12" fill="#9eb5c3" opacity=".18" filter="url(#haze)"/>
     <path d="M0 210 57 207 106 202 159 196 194 194 243 199 280 203 323 200 369 198 416 199 459 195 510 198 552 196 597 198 636 193 677 198 715 195 768 197 812 202 862 198 907 194 961 196 1017 201 1078 209V224H0Z" fill="url(#water)"/>
     <path d="m0 214 50-1 60-8 69-7 47 4 73 3 68-7 53 3 48-3 54 3 52-3 64 3 65-5 48 6 52-3 43 7 71-5 53-5 59 4 54 7 50 4-69-3-48-3-64 2-59 5-54-3-56 2-53-3-50 5-58-3-50 3-55-2-65 3-60-3-52 4-64-3-66 3-53-3-49 5Z" fill="url(#waterEdge)" opacity=".68" filter="url(#softIce)"/>
