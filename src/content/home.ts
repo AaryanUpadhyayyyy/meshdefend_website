@@ -19,6 +19,10 @@ export const HERO_CONTENT = {
   primaryCta: {
     label: "Book a demo",
     href: "/demo",
+  },
+  secondaryCta: {
+    label: "See ResOC in action",
+    href: "/platform/observability",
   },
 };
 
@@ -339,10 +343,6 @@ export const FINAL_CTA_CONTENT = {
   primaryCta: {
     label: "Book a demo",
     href: "/demo",
-  },
-  secondaryCta: {
-    label: "See ResOC in action",
-    href: "/platform/observability",
   },
 };
 

@@ -8,6 +8,7 @@ import { ShimmerButton } from "@/components/magicui/ShimmerButton";
 import { TRUST_SECTION_CONTENT } from "@/lib/homeSections";
 
 export type HeroSectionContent = Partial<typeof HERO_CONTENT> & {
+  secondaryCta?: { label?: string; href?: string };
   backingLine?: string;
   dashboardImageUrl?: string;
   dashboardImage?: { url?: string } | null;
