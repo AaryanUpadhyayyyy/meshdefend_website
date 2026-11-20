@@ -78,7 +78,7 @@ export default function NewsletterPage() {
                 fontWeight: 600,
               }}
             >
-              [ RESOURCES · WEEKLY RESILIENCE BRIEF ]
+              [ RESOURCES · WTR : WHAT THE RESILIENCE ]
             </div>
 
             {/* H1 (Instrument Serif, 64px+) */}
@@ -300,7 +300,7 @@ export default function NewsletterPage() {
                         <span>Encrypting &amp; Submitting...</span>
                       </>
                     ) : (
-                      <span>Subscribe to Briefing</span>
+                      <span>Subscribe to WTR</span>
                     )}
                   </button>
 

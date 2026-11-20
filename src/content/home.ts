@@ -19,11 +19,7 @@ export const HERO_CONTENT = {
   primaryCta: {
     label: "Book a demo",
     href: "/demo",
-  },
-  secondaryCta: {
-    label: "See ResOC in action",
-    href: "/platform/observability",
-  },
+  },
 };
 
 export const CONSOLE_PREVIEW_CONTENT = {
@@ -76,8 +72,8 @@ export const TRUST_BAND_CONTENT = {
     },
     {
       name: "Anthropic",
-      light: "/images/anthropic-dark.png",
-      dark: "/images/anthropic-light.png",
+      light: "/images/logo/anthropic-com-brandmark-dark.svg",
+      dark: "/images/logo/anthropic-com-brandmark.svg",
       alt: "Anthropic Claude AI Partner Logo",
     },
     {
@@ -354,8 +350,8 @@ export const FOOTER_CONTENT = {
   tagline: "An agentic OS for enterprise Resilience Operations, powered by Agent Mesh™.",
   body: "ResOC unifies business, infrastructure and security to deliver continuous resilience.",
   newsletter: {
-    heading: "Stay informed",
-    subtext: "Subscribe to the MeshDefend newsletter.",
+    heading: "What The Resilience - Weekly Newsletter",
+    subtext: "Subscribe to WTR",
     buttonLabel: "Subscribe",
   },
 };

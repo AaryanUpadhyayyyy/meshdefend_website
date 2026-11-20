@@ -217,14 +217,14 @@ export function PodcastClient() {
   return (
     <div className="md-podcast-page">
       {/* ─── SECTION 1: HERO MASTHEAD (Editorial Broadsheet) ─── */}
-      <section className="md-podcast-hero" aria-label="Podcast Hero">
+      <section className="md-podcast-hero" aria-label="WTR : What The Resilience Hero">
         <div className="md-podcast-container md-podcast-hero__inner">
           <div className="md-podcast-hero__left">
             <div className="md-podcast-hero__eyebrow">
               <span className="md-podcast-hero__eyebrow-dot" />
-              Resources · The Resilience Ledger Video Podcast
+              Resources · WTR : What The Resilience
             </div>
-            <h1 className="md-podcast-hero__title">The Resilience Ledger</h1>
+            <h1 className="md-podcast-hero__title">WTR : What The Resilience</h1>
             <p className="md-podcast-hero__subtitle">
               Engineering dispatches on heterogeneous storage estates, automated recovery validation, and eliminating silent backup failures across enterprise infrastructure.
             </p>

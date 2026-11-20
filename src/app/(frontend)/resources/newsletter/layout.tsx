@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Weekly Resilience Brief | MeshDefend",
+  title: "What The Resilience - Weekly Newsletter | MeshDefend",
   description:
     "Join technical leaders receiving our weekly executive briefing on multi-vendor cyber recovery, RTO/RPO proof engineering, and agentic resilience.",
   openGraph: {
-    title: "Weekly Resilience Brief | MeshDefend",
+    title: "What The Resilience - Weekly Newsletter | MeshDefend",
     description:
       "Operational thinking, direct to your inbox. Weekly executive briefings for enterprise technical leaders.",
     siteName: "MeshDefend",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MeshDefend - Weekly Resilience Brief",
+        alt: "MeshDefend - What The Resilience - Weekly Newsletter",
       },
     ],
   },

@@ -70,9 +70,9 @@ export function PodcastShelfClient() {
         <div className="masthead__main">
           <div className="masthead__pill">
             <span className="masthead__pill-dot" />
-            <span>Video Podcast Series · Recorded Episodes</span>
+            <span>WTR : What The Resilience · Recorded Episodes</span>
           </div>
-          <h1 className="masthead__title">The Resilience Ledger</h1>
+          <h1 className="masthead__title">WTR : What The Resilience</h1>
           <p className="masthead__deck">
             Unfiltered conversations with enterprise infrastructure leaders and resilience architects on AI operations, autonomous recovery, and cyber defense truth.
           </p>

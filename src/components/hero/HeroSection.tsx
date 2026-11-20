@@ -283,7 +283,6 @@ export function HeroSection({
                 height: "auto",
                 display: "block",
                 objectFit: "contain",
-                filter: "drop-shadow(0 16px 36px rgba(0, 0, 0, 0.04))",
               }}
             />
           </div>

@@ -5,11 +5,11 @@ import { PodcastClient } from "./components/PodcastClient";
 import "./podcast.css";
 
 export const metadata: Metadata = {
-  title: "The Resilience Ledger · Video Podcast | MeshDefend",
+  title: "WTR : What The Resilience | MeshDefend",
   description:
     "Engineering dispatches on heterogeneous storage estates, automated recovery validation, and eliminating silent backup failures across enterprise infrastructure.",
   openGraph: {
-    title: "The Resilience Ledger · Video Podcast | MeshDefend",
+    title: "WTR : What The Resilience | MeshDefend",
     description:
       "Engineering dispatches on heterogeneous storage estates, automated recovery validation, and eliminating silent backup failures across enterprise infrastructure.",
     siteName: "MeshDefend",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         url: "/images/yt-thumb-2A46u6gUETc.jpg",
         width: 1280,
         height: 720,
-        alt: "MeshDefend - The Resilience Ledger Video Podcast",
+        alt: "MeshDefend - WTR : What The Resilience",
       },
     ],
   },

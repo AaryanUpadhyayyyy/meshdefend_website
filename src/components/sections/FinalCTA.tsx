@@ -158,23 +158,6 @@ export function FinalCTA({
             >
               {copy.ctaPrimary}
             </motion.a>
-
-            <motion.a
-              href={content?.ctaSecondaryHref || "/platform/observability"}
-              className="btn btn-secondary"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                fontSize: 14,
-                padding: "14px 28px",
-                border: "1px solid rgba(254, 253, 253, 0.2)",
-                color: "#fefdfd",
-                borderRadius: 4,
-                textDecoration: "none",
-              }}
-            >
-              {copy.ctaSecondary}
-            </motion.a>
           </div>
         </Reveal>
       </div>

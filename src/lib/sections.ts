@@ -231,5 +231,5 @@ export const FINAL_CTA = {
   headline: "Don’t Wait for the Next Incident to Test Your Resilience",
   lede: "Modern resilience requires continuous visibility, readiness, and action. Recovery plans tested only after failure are no longer enough.",
   ctaPrimary: "Book a demo",
-  ctaSecondary: "See ResOC in action",
+  ctaSecondary: "",
 };

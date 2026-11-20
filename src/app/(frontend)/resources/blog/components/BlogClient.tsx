@@ -430,7 +430,7 @@ export function BlogClient() {
         >
           <div className="newsletter-banner-left">
             <div className="newsletter-banner-eyebrow">
-              [ WEEKLY RESILIENCE BRIEF ]
+              [ WTR : WHAT THE RESILIENCE ]
             </div>
             <h2
               id="banner-briefing-title"
@@ -448,7 +448,7 @@ export function BlogClient() {
             href="/company/contact?intent=demo"
             className="newsletter-banner-btn"
           >
-            <span>Subscribe to Briefing</span>
+            <span>Subscribe to WTR</span>
             <span aria-hidden="true">→</span>
           </Link>
         </section>

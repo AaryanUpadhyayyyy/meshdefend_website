@@ -190,57 +190,6 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
 
 
-              {/* Live telemetry heartbeat */}
-
-              <div
-
-                style={{
-
-                  display: "inline-flex",
-
-                  alignItems: "center",
-
-                  gap: 10,
-
-                  padding: "6px 14px",
-
-                  borderRadius: 20,
-
-                  background: "rgba(255, 255, 255, 0.04)",
-
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-
-                  fontSize: 11.5,
-
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-
-                  color: "#d5d2d3",
-
-                }}
-
-              >
-
-                <span
-
-                  style={{
-
-                    width: 7,
-
-                    height: 7,
-
-                    borderRadius: "50%",
-
-                    background: "var(--orange)",
-
-                    boxShadow: "0 0 8px rgba(244, 85, 50, 0.6)",
-
-                  }}
-
-                />
-
-                <span>{settings.statusText}</span>
-
-              </div>
 
             </div>
 
@@ -428,25 +377,6 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
 
 
-              <div
-
-                style={{
-
-                  marginTop: 12,
-
-                  fontSize: 11,
-
-                  color: "#a09a9c",
-
-                  fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
-
-                }}
-
-              >
-
-                {settings.newsletterPrivacyNote}
-
-              </div>
 
             </div>}
 

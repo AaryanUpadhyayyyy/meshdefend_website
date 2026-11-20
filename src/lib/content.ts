@@ -68,8 +68,8 @@ export const NAV = {
   resources: {
     label: "Resources",
     items: [
-      { label: "Newsletter", href: "/resources/newsletter" },
-      { label: "Podcast", href: "/resources/podcast" },
+      { label: "WTR : What The Resilience - Newsletter", href: "/resources/newsletter" },
+      { label: "WTR : What The Resilience - Podcast", href: "/resources/podcast" },
       { label: "Blog", href: "/resources/blog" },
       { label: "FAQ", href: "/resources/faq" },
     ],
@@ -324,7 +324,7 @@ export const INSIGHTS = {
   headline: "Operational thinking from the resilience frontier.",
   shelfItems: [
     {
-      type: "PODCAST",
+      type: "WTR : WHAT THE RESILIENCE",
       title: "Episode 12: Why Backups Succeed While Recovery Fails",
       desc: "A deep dive with enterprise infrastructure architects into unowned handoff gaps.",
       duration: "34 min",
@@ -338,7 +338,7 @@ export const INSIGHTS = {
       href: "/resources/blogs",
     },
     {
-      type: "PODCAST",
+      type: "WTR : WHAT THE RESILIENCE",
       title: "Episode 11: The Governance Mandate for Autonomous IT Ops",
       desc: "Designing agentic systems that refuse to act without authenticated human sign-off.",
       duration: "41 min",

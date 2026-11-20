@@ -54,8 +54,8 @@ export const TRUST_SECTION_CONTENT = {
   partners: [
     {
       name: "Anthropic",
-      lightSrc: "/images/logos/anthropic-light.png",
-      darkSrc: "/images/logos/anthropic-dark.png",
+      lightSrc: "/images/logo/anthropic-com-brandmark.svg",
+      darkSrc: "/images/logo/anthropic-com-brandmark-dark.svg",
       height: 18,
     },
     {

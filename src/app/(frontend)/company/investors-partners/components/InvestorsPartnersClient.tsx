@@ -21,7 +21,7 @@ const TECH_ECOSYSTEM = [
   },
   {
     name: "Anthropic",
-    logo: "/images/logos/anthropic-transparent.png",
+    logo: "/images/logo/anthropic-com-brandmark.svg",
   },
   {
     name: "Dell",
