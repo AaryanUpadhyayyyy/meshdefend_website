@@ -80,7 +80,7 @@ export const SOLUTION = {
     },
     {
       num: "02",
-      capability: "Backup and Recovery Operations",
+      capability: "Continuous Recovery Readiness",
       solves: "Solves manual operations and repetitive L1/L2 work",
       href: "/platform/backup-operations",
     },
@@ -99,7 +99,7 @@ export const SOLUTION = {
     },
     {
       num: "05",
-      capability: "Cyber Recovery",
+      capability: "Agentic Recovery",
       solves: "Solves uncertain recovery readiness and unproven RTO/RPO",
       href: "/platform/cyber-resilience",
     },

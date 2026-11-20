@@ -57,48 +57,36 @@ function Window({ x, y, w, h, title }: { x: number; y: number; w: number; h: num
 }
 
 function BackupInsights() {
-  const rows = ["Oct 21 · 00:00", "Oct 20 · 23:00", "Oct 20 · 22:00"];
-  const heat = [
-    ["#e7f6eb", "#d8f2e1", "#c2edce", "#d6edb7", "#f6e596", "#ffce79", "#ffab69", "#f98767", "#f4765b", "#f8926d", "#ffcb77", "#d7efb7", "#a7dfaa", "#8ed69a", "#acdca5", "#e5efc1"],
-    ["#edf7e9", "#e3f4dd", "#c2edce", "#b9e5bc", "#f1e9a4", "#ffd27d", "#ffb16b", "#fb8160", "#f45b4b", "#f76b50", "#ffbd73", "#c5e7a8", "#a0d995", "#84d08c", "#9ed995", "#dceec0"],
-    ["#edf7e9", "#d9f1dd", "#b6e8c4", "#cfeab5", "#eee99a", "#ffd47c", "#ffab68", "#f67d5d", "#f45b4b", "#fa7457", "#ffc475", "#d1ecad", "#9cda98", "#84d08b", "#9bd994", "#e7f2c8"],
-  ];
+  const { variant } = useContext(PreviewPresentationContext);
   return (
-    <Canvas capability="Unified Resilience Observability">
-      <T x={34} y={49} size={14} weight={800} family="monospace">BACKUP · STORAGE · CLOUD</T>
-      <T x={34} y={75} size={14} fill={muted}>Connected protection sources</T>
-      {["Backup", "Storage", "Cloud", "Security", "ITSM"].map((label, i) => {
-        const y = 124 + i * 79;
-        return <g key={label} className="resoc-telemetry-source"><rect x="32" y={y} width="140" height="54" rx="4" fill="#fff" stroke={line} strokeWidth="1.5" /><circle className="resoc-beacon-ring" cx="54" cy={y + 27} r="11" fill="#fff3ef" /><Dot x={54} y={y + 27} r={4.5} color={orange} /><T x={75} y={y + 33} size={15} weight={650}>{label}</T><path className="resoc-telemetry-cable" d={`M172 ${y + 27} C195 ${y + 27}, 193 271, 220 271`} fill="none" stroke="#aab8c7" strokeWidth="1.5" /></g>;
-      })}
-      <circle className="resoc-beacon-hub" cx={220} cy={271} r={12} fill="rgba(244, 85, 50, 0.18)" /><Dot x={220} y={271} r={5} color={orange} />
-      <Window x={216} y={77} w={656} h={464} title="MD Insights · Backup Window Analysis" />
-      <rect x="238" y="138" width="54" height="30" rx="3" fill={pale} stroke={line} /><T x={265} y={158} size={13} anchor="middle">6h</T>
-      <rect x="300" y="138" width="54" height="30" rx="3" fill={pale} stroke={line} /><T x={327} y={158} size={13} anchor="middle">12h</T>
-      <rect x="362" y="138" width="58" height="30" rx="3" fill={orange} /><T x={391} y={158} size={13} fill="#fff" weight={700} anchor="middle">24h</T>
-      <rect x="428" y="138" width="82" height="30" rx="3" fill={pale} stroke={line} /><T x={469} y={158} size={13} anchor="middle">Custom</T>
-      <rect x="698" y="138" width="150" height="30" rx="3" fill="#fff" stroke={line} /><T x={715} y={158} size={13}>All engines</T>
-      <T x={240} y={198} size={12} fill={muted}>JOBS</T>
-      {[green, "#b8e5b4", "#f4df87", "#ffad69", orange, "#ed4c43"].map((color, i) => <g key={color}><rect x={310 + i * 75} y="184" width="14" height="14" rx="2" fill={color} /><T x={331 + i * 75} y={196} size={12} fill={muted}>{["Low", "Light", "Medium", "High", "Max", "Risk"][i]}</T></g>)}
-      <path d="M239 220H855" stroke={line} strokeWidth="2" />
-      {Array.from({ length: 16 }, (_, i) => <T key={i} x={341 + i * 33} y={242} size={10} fill={muted} anchor="middle">{String(i).padStart(2, "0")}</T>)}
-      {rows.map((row, r) => (
-        <g key={row}>
-          {heat[r].map((color, c) => (
-            <g key={`${r}-${c}`}>
-              <rect x={326 + c * 33} y={253 + r * 58} width="30" height="38" rx="2" fill={color} stroke="#fff" />
-              <T x={341 + c * 33} y={277 + r * 58} size={10} fill="#526070" anchor="middle">{(c * 3 + r) % 9}</T>
-            </g>
-          ))}
-          <T x={242} y={275 + r * 58} size={11} fill={muted}>{row}</T>
-        </g>
-      ))}
-      <rect x="907" y="92" width="258" height="425" rx="4" fill="#fff" stroke={line} strokeWidth="1.5" />
-      <T x={930} y={124} size={18} weight={750}>Protection Copies</T>
-      {[ ["Total assets", "164"], ["Total copies", "1,750"], ["Single-copy risk", "114"] ].map(([label, value], i) => <g key={label}><rect x="926" y={145 + i * 98} width="220" height="82" rx="3" fill={pale} /><T x={943} y={173 + i * 98} size={13} fill={muted}>{label}</T><T x={943} y={207 + i * 98} size={24} weight={750}>{value}</T><Dot x={1125} y={166 + i * 98} r={4} /></g>)}
-      {[0, 1, 2].map((i) => <g key={i}><rect x="935" y={456 + i * 16} width="120" height="7" rx="2" fill="#e7ebef" /><circle cx="1125" cy={459 + i * 16} r="4" fill={i === 1 ? orange : green} /></g>)}
-      <rect x="748" y="70" width="120" height="45" rx="3" fill="#fff" stroke="#ffd0c2" strokeWidth="2" /><path d="m766 84 10 0 0 16-10 0 0-16m-3 5 6-5 0 16-6-5" fill={orange} /><T x={787} y={98} size={14} weight={700}>One view</T>
-    </Canvas>
+    <img
+      src="/images/Unified_Recovery_Observability_Animated.svg"
+      alt="Unified Resilience Observability"
+      className={`solution-story__image${variant === "bare" ? " solution-story__image--bare" : ""}`}
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "contain",
+      }}
+    />
+  );
+}
+
+function ContinuousRecoveryReadiness() {
+  const { variant } = useContext(PreviewPresentationContext);
+  return (
+    <img
+      src="/images/Continuous_Recovery_Readiness_Animated.svg"
+      alt="Continuous Recovery Readiness"
+      className={`solution-story__image${variant === "bare" ? " solution-story__image--bare" : ""}`}
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "contain",
+      }}
+    />
   );
 }
 
@@ -256,8 +244,8 @@ function CleanRoomRecovery() {
   const { variant } = useContext(PreviewPresentationContext);
   return (
     <img
-      src="/images/clean-room-recovery-animated.svg"
-      alt="Clean-room cyber recovery workflow"
+      src="/images/Agentic_Recovery_Animated.svg"
+      alt="Agentic Recovery workflow"
       className={`solution-story__image${variant === "bare" ? " solution-story__image--bare" : ""}`}
       style={{
         width: "100%",
@@ -269,7 +257,7 @@ function CleanRoomRecovery() {
   );
 }
 
-const visuals = [BackupInsights, ProtectionJobs, IncidentWorkflow, SmartRoutine, CleanRoomRecovery];
+const visuals = [BackupInsights, ContinuousRecoveryReadiness, IncidentWorkflow, SmartRoutine, CleanRoomRecovery];
 
 export function ResocSlideVisual({
   index,

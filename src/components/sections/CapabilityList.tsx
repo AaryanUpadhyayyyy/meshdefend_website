@@ -11,7 +11,8 @@ const PREVIEW_WIDTH = 1200;
 const BACKUP_PREVIEW_HEIGHT = 320;
 const STANDARD_PREVIEW_HEIGHT = 620;
 const POPOVER_OVERHANG = 50;
-const CYBER_RECOVERY_PREVIEW_SCALE = 1;
+const CYBER_RECOVERY_PREVIEW_SCALE = 1.06;
+const CONTINUOUS_RECOVERY_PREVIEW_SCALE = 1.14;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 type CapabilityPreviewSize = {
@@ -28,7 +29,7 @@ type PreviewBounds = {
 
 function previewSize(sourceIndex: number): CapabilityPreviewSize {
   return sourceIndex === 1
-    ? { width: PREVIEW_WIDTH + POPOVER_OVERHANG, height: BACKUP_PREVIEW_HEIGHT } : sourceIndex === 4 ? { width: 1802, height: 873 }
+    ? { width: 1568, height: 774 } : sourceIndex === 4 ? { width: 1800, height: 880 } : sourceIndex === 0 ? { width: 1695, height: 828 }
     : { width: PREVIEW_WIDTH, height: STANDARD_PREVIEW_HEIGHT };
 }
 
@@ -205,7 +206,7 @@ function ScaledPreview({ item, size, reducedMotion, direction }: {
       const { width, height } = slot.getBoundingClientRect();
       setSlotSize({ width, height });
 
-      if (item.sourceIndex === 1 || item.sourceIndex === 4) {
+      if (item.sourceIndex === 0 || item.sourceIndex === 1 || item.sourceIndex === 4) {
         setBounds({ x: 0, y: 0, width: size.width, height: size.height });
         return;
       }
@@ -236,9 +237,9 @@ function ScaledPreview({ item, size, reducedMotion, direction }: {
   const artboardHeight = bounds ? bounds.height * scale : 0;
 
   return (
-    <div ref={slotRef} className={`capability-list__preview-slot${item.sourceIndex === 1 ? " is-backup" : " is-standard"}`}>
+    <div ref={slotRef} className="capability-list__preview-slot is-standard">
       <AnimatePresence initial={false} custom={direction}>
-        {item.sourceIndex === 1 ? (
+        {item.sourceIndex === -1 ? (
           <motion.div
             key={item.sourceIndex}
             data-preview-index={item.sourceIndex}
