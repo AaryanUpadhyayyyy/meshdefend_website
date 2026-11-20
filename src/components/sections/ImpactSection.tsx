@@ -4,6 +4,50 @@ import { IMPACT } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 import { NumberCounter } from "@/components/motion/NumberCounter";
 
+function renderFormattedDesc(text: React.ReactNode) {
+  if (typeof text !== "string") return text;
+  const lines = text.split("\n").filter(l => l.trim().length > 0);
+  return lines.map((line, lineIdx) => {
+    const parts: React.ReactNode[] = [];
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(line)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(line.slice(lastIndex, match.index));
+      }
+      parts.push(
+        <a
+          key={`${lineIdx}-${match.index}`}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: "var(--orange, #f45532)",
+            textDecoration: "underline",
+            textUnderlineOffset: "3px",
+            wordBreak: "break-word",
+          }}
+        >
+          {match[1]}
+        </a>
+      );
+      lastIndex = regex.lastIndex;
+    }
+
+    if (lastIndex < line.length) {
+      parts.push(line.slice(lastIndex));
+    }
+
+    return (
+      <span key={lineIdx} style={{ display: lineIdx > 0 ? "block" : "inline", marginTop: lineIdx > 0 ? 6 : 0 }}>
+        {parts.length > 0 ? parts : line}
+      </span>
+    );
+  });
+}
+
 export function ImpactSection({
   content,
   showQualitativeSplit = true,
@@ -73,18 +117,23 @@ export function ImpactSection({
                   <p className="home-impact__metric-description">
                     {stat.desc}
                     {sourceUrl && (
-                      <>
-                        {" "}
-                        <a
-                          className="home-impact__source"
-                          href={sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${sourceLogoLabel} source`}
-                        >
-                          {sourceLogoLabel}
-                        </a>
-                      </>
+                      <a
+                        className="home-impact__source-icon-link"
+                        href={sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={sourceLabel || "Source link"}
+                        aria-label={sourceLabel || "Source link"}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          marginLeft: 6,
+                          color: "var(--orange, #f45532)",
+                          verticalAlign: "middle",
+                        }}
+                      >
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+                      </a>
                     )}
                   </p>
                 </Reveal>

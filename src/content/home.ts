@@ -267,8 +267,8 @@ export const BENEFITS_CONTENT = {
     {
       metric: "20%",
       label: "Faster Business Recovery",
-      detail: "IBM cites average unplanned downtime costs of $15,000 per minute for Global 2000 organizations.",
-      source: "https://www.ibm.com/think/topics/disaster-recovery-plan",
+      detail: "According to Splunk’s research, unplanned downtime costs Global 2000 organizations an average of $15,000 per minute ($600B annually).",
+      source: "https://discover.splunk.com/The-600-Billion-Blind-Spot-Why-Downtime-is-Now-a-Boardroom-Crisis-Sep26.html",
     },
     {
       metric: "Up to 80%",
