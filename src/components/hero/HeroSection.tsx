@@ -54,9 +54,9 @@ export function HeroSection({
         minHeight: isMobile ? "auto" : "calc(100svh - 80px)",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        paddingTop: isMobile ? "24px" : "32px",
-        paddingBottom: isMobile ? "32px" : "64px",
+        justifyContent: "space-between",
+        paddingTop: isMobile ? "20px" : "10px",
+        paddingBottom: isMobile ? "24px" : "12px",
         overflow: "hidden",
       }}
     >
@@ -88,6 +88,7 @@ export function HeroSection({
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          flex: 1,
         }}
       >
         <div
@@ -98,11 +99,11 @@ export function HeroSection({
               ? "1fr"
               : "minmax(0, 1fr) minmax(0, 1.32fr)",
             justifyContent: isMobile ? "stretch" : "space-between",
-            gap: isMobile ? "32px" : "36px",
+            gap: isMobile ? "28px" : "36px",
             alignItems: "center",
           }}
         >
-          {/* Left Column: Headings, Copy, CTAs, and Partner Logos */}
+          {/* Left Column: Headings, Copy, and CTAs (shifted UP so it clears the image) */}
           <div
             className="hero-content"
             style={{
@@ -121,13 +122,13 @@ export function HeroSection({
                 fontWeight: 700,
                 lineHeight: 1.05,
                 letterSpacing: "-0.03em",
-                margin: "0 0 20px",
+                margin: "0 0 16px",
                 color: "var(--ink)",
               }}
             >
-              <span className="hero-h1-line">
-                Recover Your Business{" "}
-                <span className="display-italic" style={{ color: "var(--orange, #f45532)", fontStyle: "italic" }}>End-to-End,</span>
+              <span className="hero-h1-line">Recover Your Business</span>
+              <span className="hero-h1-line display-italic" style={{ color: "var(--orange, #f45532)", fontStyle: "italic" }}>
+                End-to-End,
               </span>
               <span className="hero-h1-line">Not Just Your Data,</span>
               <span className="hero-h1-line">After Any Disruption.</span>
@@ -141,7 +142,7 @@ export function HeroSection({
                 fontWeight: 600,
                 lineHeight: 1.35,
                 color: "var(--ink)",
-                margin: "0 0 12px",
+                margin: "0 0 10px",
               }}
             >
               Introducing Agent Mesh™ - Your AI ResOps Team
@@ -152,9 +153,9 @@ export function HeroSection({
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
                 fontSize: "clamp(15px, 1.05vw, 16.5px)",
-                lineHeight: 1.6,
+                lineHeight: 1.55,
                 color: "var(--muted)",
-                margin: "0 0 30px",
+                margin: "0 0 22px",
                 maxWidth: 600,
               }}
             >
@@ -168,7 +169,7 @@ export function HeroSection({
                 alignItems: "center",
                 gap: 20,
                 flexWrap: "wrap",
-                marginBottom: 20,
+                marginBottom: 0,
               }}
             >
               <ShimmerButton
@@ -202,45 +203,6 @@ export function HeroSection({
               </Link>
             </div>
 
-            {/* Partner Logos Grid on Left Side below CTAs */}
-            <div
-              className="hero-trust-logos"
-              style={{
-                marginTop: isMobile ? 24 : 32,
-                maxWidth: isMobile ? "100%" : 640,
-                position: "relative",
-                zIndex: 10,
-              }}
-            >
-              <div className="hero-trust-grid">
-                {partners.map((partner, index) => (
-                  <div
-                    key={`${partner.name}-${index}`}
-                    className="trust-logo-card"
-                    title={partner.name}
-                  >
-                    {partner.lightSrc && (
-                      <img
-                        src={partner.lightSrc}
-                        alt={partner.name}
-                        className="trust-logo-img trust-logo-img--light"
-                        style={{ height: partner.height ? Math.min(partner.height, 26) : 24 }}
-                      />
-                    )}
-                    {partner.darkSrc && (
-                      <img
-                        src={partner.darkSrc}
-                        alt={partner.name}
-                        aria-hidden="true"
-                        className="trust-logo-img trust-logo-img--dark"
-                        style={{ height: partner.height ? Math.min(partner.height, 26) : 24 }}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Optional VC Caption if provided via CMS */}
             {content?.backingLine ? (
               <div
@@ -253,7 +215,7 @@ export function HeroSection({
                   alignItems: "center",
                   gap: 8,
                   opacity: 0.9,
-                  marginTop: 18,
+                  marginTop: 14,
                 }}
               >
                 <span
@@ -271,7 +233,7 @@ export function HeroSection({
             ) : null}
           </div>
 
-          {/* Right Column: Full Uncut Iceberg Visual (Doubled Scale, Shifted Left & Down) */}
+          {/* Right Column: Full Iceberg Visual (Position and Scale Untouched) */}
           <div
             className="hero-iceberg-visual"
             style={{
@@ -300,6 +262,39 @@ export function HeroSection({
         </div>
       </div>
 
+      {/* Full-width horizontal logo marquee brought up into the same frame */}
+      <div className="hero-fullwidth-marquee">
+        <div className="hero-marquee-viewport">
+          <div className="hero-marquee-track">
+            {[...partners, ...partners, ...partners].map((partner, index) => (
+              <div
+                key={`${partner.name}-${index}`}
+                className="trust-logo-card hero-trust-marquee-card"
+                title={partner.name}
+              >
+                {partner.lightSrc && (
+                  <img
+                    src={partner.lightSrc}
+                    alt={partner.name}
+                    className="trust-logo-img trust-logo-img--light"
+                    style={{ height: partner.height ? Math.min(partner.height, 26) : 24 }}
+                  />
+                )}
+                {partner.darkSrc && (
+                  <img
+                    src={partner.darkSrc}
+                    alt={partner.name}
+                    aria-hidden="true"
+                    className="trust-logo-img trust-logo-img--dark"
+                    style={{ height: partner.height ? Math.min(partner.height, 26) : 24 }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <style>{`
         .hero-h1-line {
           display: block;
@@ -318,30 +313,76 @@ export function HeroSection({
         }
 
         @media (min-width: 992px) {
+          /* Shift text content up so Recover Your Business End-to-End clears the image */
+          .hero-content {
+            transform: translateY(-32px);
+          }
           .hero-iceberg-visual {
             overflow: visible !important;
           }
+          /* SVG gently shifted a little down */
           .hero-iceberg-img {
             width: clamp(920px, 64vw, 1140px) !important;
             min-width: 920px !important;
             max-width: none !important;
-            transform: translate(-90px, 48px) !important;
+            transform: translate(-75px, -12px) !important;
+          }
+          /* Bring logo marquee up into full view above taskbar */
+          .hero-fullwidth-marquee {
+            transform: translateY(-38px);
+            margin-bottom: -16px;
           }
         }
 
-        .hero-trust-grid {
-          display: grid;
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-          gap: 10px;
+        /* ── Full Width Circular Motion Logo Marquee in One Frame ── */
+        .hero-fullwidth-marquee {
           width: 100%;
+          margin-top: 4px;
+          position: relative;
+          z-index: 5;
+          overflow: hidden;
         }
 
-        .trust-logo-card {
+        .hero-marquee-viewport {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+          mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+          padding: 4px 0 6px;
+        }
+
+        .hero-marquee-track {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          width: max-content;
+          animation: hero-marquee-ltr 40s linear infinite;
+          will-change: transform;
+        }
+
+        .hero-marquee-track:hover {
+          animation-play-state: paused;
+        }
+
+        /* Continuous circular loop from Left to Right */
+        @keyframes hero-marquee-ltr {
+          from {
+            transform: translateX(-33.333333%);
+          }
+          to {
+            transform: translateX(0);
+          }
+        }
+
+        .hero-trust-marquee-card {
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 64px;
-          padding: 10px 12px;
+          flex-shrink: 0;
+          min-width: 154px;
+          height: 56px;
+          padding: 8px 20px;
           background: #ffffff;
           border: 1px solid rgba(0, 0, 0, 0.07);
           border-radius: 12px;
@@ -350,7 +391,7 @@ export function HeroSection({
           cursor: default;
         }
 
-        .trust-logo-card:hover {
+        .hero-trust-marquee-card:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
           border-color: rgba(244, 85, 50, 0.25);
@@ -358,7 +399,7 @@ export function HeroSection({
 
         .trust-logo-img {
           display: block;
-          max-height: 26px;
+          max-height: 25px;
           width: auto;
           max-width: 100%;
           object-fit: contain;
@@ -373,17 +414,17 @@ export function HeroSection({
           display: none !important;
         }
 
-        [data-theme="dark"] .trust-logo-card,
-        html.dark .trust-logo-card,
-        .dark .trust-logo-card {
+        [data-theme="dark"] .hero-trust-marquee-card,
+        html.dark .hero-trust-marquee-card,
+        .dark .hero-trust-marquee-card {
           background: rgba(255, 255, 255, 0.03) !important;
           border-color: rgba(255, 255, 255, 0.09) !important;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
         }
 
-        [data-theme="dark"] .trust-logo-card:hover,
-        html.dark .trust-logo-card:hover,
-        .dark .trust-logo-card:hover {
+        [data-theme="dark"] .hero-trust-marquee-card:hover,
+        html.dark .hero-trust-marquee-card:hover,
+        .dark .hero-trust-marquee-card:hover {
           background: rgba(255, 255, 255, 0.06) !important;
           border-color: rgba(244, 85, 50, 0.4) !important;
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
@@ -401,16 +442,7 @@ export function HeroSection({
           display: block !important;
         }
 
-        @media (max-width: 640px) {
-          .hero-trust-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            gap: 8px !important;
-          }
-          .trust-logo-card {
-            height: 58px;
-            padding: 8px 10px;
-          }
-        }
+        /* Keep marquee flowing smoothly */
       `}</style>
     </section>
   );
