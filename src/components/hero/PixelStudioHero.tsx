@@ -357,9 +357,9 @@ export function PixelStudioHero() {
               </h1>
             </div>
             <div className="mdph-story-details">
-              <h2>Introducing Resilience Operations<br />Centre (ResOC)</h2>
+              <h2>Introducing Agent Mesh™ - Your AI ResOps Team</h2>
               <p className="mdph-story-description">
-                A unified, AI-led solution to plan, build, operate, recover and continuously improve business resilience across Business, IT and Security.
+                MeshDefend helps enterprises reduce recovery risk and recover critical business services with confidence by bringing Business, IT Infrastructure, and Security together through Agentic Resilience Operations.
               </p>
               <Link className="mdph-story-cta" href="/demo">Book a demo <span aria-hidden="true">→</span></Link>
             </div>

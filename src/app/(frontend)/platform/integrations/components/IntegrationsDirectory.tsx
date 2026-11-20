@@ -85,7 +85,7 @@ export function IntegrationsDirectory() {
           {/* Eyebrow & Figure Meta */}
           <div
             style={{
-              display: "flex",
+              display: "none",
               justifyContent: "space-between",
               alignItems: "baseline",
               marginBottom: 32,
@@ -105,7 +105,7 @@ export function IntegrationsDirectory() {
               [ PLATFORM · INTEGRATIONS ]
             </span>
             <span
-              style={{
+              style={{ display: "none",
                 fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
                 fontSize: 11,
                 color: "var(--muted)",

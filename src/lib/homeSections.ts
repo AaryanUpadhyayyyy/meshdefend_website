@@ -17,16 +17,16 @@ export const PAIN_CAROUSEL_CARDS = [
   },
   {
     num: "02",
-    group: "Complexity at Scale",
-    imageAlt: "Complex hybrid cloud environments connected across AWS, Azure, Veeam, Commvault, Rubrik, and Dell",
-    imageUrl: "/images/img/1000227811.png",
+    group: "Fragmented Recovery Operations",
+    imageAlt: "An overwhelmed operator surrounded by disconnected runbooks, tickets, tools, and specialist handoffs",
+    imageUrl: "/images/img/Operational Friction.png",
     summary: "",
   },
   {
     num: "03",
-    group: "Operational Friction",
-    imageAlt: "An overwhelmed operator surrounded by disconnected runbooks, tickets, tools, and specialist handoffs",
-    imageUrl: "/images/img/Operational Friction.png",
+    group: "Complexity at Scale",
+    imageAlt: "Complex hybrid cloud environments connected across AWS, Azure, Veeam, Commvault, Rubrik, and Dell",
+    imageUrl: "/images/img/1000227811.png",
     summary: "",
   },
 ];

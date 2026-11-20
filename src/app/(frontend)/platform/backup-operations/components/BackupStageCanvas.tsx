@@ -87,7 +87,7 @@ export function BackupStageCanvas({
           aria-hidden="true"
         >
           <div
-            style={{
+            style={{ display: "none",
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               letterSpacing: "0.06em",

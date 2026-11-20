@@ -394,8 +394,9 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 }
 
 #solution.solution-section--list-mode .solution-section__container {
-  width: min(1560px, calc(100% - 80px));
-  max-width: none;
+  width: min(1360px, calc(100% - 48px));
+  max-width: 1360px;
+  margin: 0 auto;
 }
 
 #solution.solution-section--list-mode .solution-section__container > .solution-list-stage:first-child {
@@ -474,9 +475,13 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
 
 #solution .capability-list__body {
   display: grid;
-  grid-template-columns: minmax(360px, 39fr) minmax(0, 61fr);
-  align-items: stretch;
-  gap: clamp(24px, 2.5vw, 38px);
+  grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 2.5vw, 40px);
+  width: 100%;
+  height: 100%;
+  max-height: 640px;
   overflow: visible;
 }
 
@@ -484,18 +489,24 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   position: relative;
   z-index: 3;
   min-width: 0;
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   margin: 0;
   padding-left: 14px;
   overflow: visible;
   overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #solution .capability-list__tabs {
   display: flex;
-  height: 100%;
+  height: auto;
   min-height: 0;
   flex-direction: column;
+  justify-content: center;
+  gap: 4px;
   overflow: visible;
 }
 
@@ -504,12 +515,14 @@ html.dark #solution .capability-list__retry-popover button.is-ghost,
   z-index: 0;
   display: flex;
   min-height: 48px;
-  flex: 1 1 0;
+  flex: 0 0 auto;
   flex-direction: column;
   justify-content: center;
   border-bottom: 1px solid var(--solution-border);
   isolation: isolate;
-  transition: flex-grow 640ms cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 4px;
+  margin-bottom: 2px;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 #solution .capability-list__tab-row:first-child { border-top: 1px solid var(--solution-border); }

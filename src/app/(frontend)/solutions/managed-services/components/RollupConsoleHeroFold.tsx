@@ -100,7 +100,7 @@ export function RollupConsoleHeroFold() {
             paddingBottom: 14,
           }}
         >
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "none", alignItems: "center", gap: 10 }}>
             <span
               style={{
                 fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',

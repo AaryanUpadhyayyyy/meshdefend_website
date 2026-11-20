@@ -59,7 +59,7 @@ export function IntegrationsCTA() {
             ECOSYSTEM CONNECTIVITY &amp; EVALUATION
           </span>
           <span
-            style={{
+            style={{ display: "none",
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "rgba(254, 253, 253, 0.4)",

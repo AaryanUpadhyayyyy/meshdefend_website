@@ -3509,3 +3509,27 @@ html.dark #pain .pain-feature-visual img,
   border-top: none !important;
   border-bottom: none !important;
 }
+
+/* Global suppression of eyebrow pills, meta bars, and figure captions */
+.stage-intro-header,
+.stage-eyebrow-row,
+.eyebrow-bullet,
+.figure-caption,
+.fig-caption,
+.poster-caption,
+.careers-eyebrow,
+.careers-meta-bar,
+.ip-eyebrow,
+.ip-meta-bar,
+.blog-eyebrow,
+.sample-data-tag,
+.pain-card__diagram-caption {
+  display: none !important;
+}
+
+.home-page #solution .solution-section__headline {
+  font-size: clamp(30px, 3vw, 46px) !important;
+  line-height: 1.08 !important;
+  max-width: 980px !important;
+  margin: 0 auto !important;
+}

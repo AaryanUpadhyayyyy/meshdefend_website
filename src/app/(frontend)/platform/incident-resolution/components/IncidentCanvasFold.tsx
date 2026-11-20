@@ -334,7 +334,7 @@ export function IncidentCanvasFold() {
           >
             <div
               style={{
-                display: "inline-flex",
+                display: "none",
                 alignItems: "center",
                 gap: 8,
                 fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',

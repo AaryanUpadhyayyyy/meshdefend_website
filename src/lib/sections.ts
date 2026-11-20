@@ -7,75 +7,53 @@ export const HOME_AGENT_MESH_SECTION_VISIBLE = false;
 
 export const PAIN = {
   eyebrow: "",
-  headline: "The Reality of Business, Data & Cyber Resilience",
+  headline: "The Reality of Business Recovery",
+  subheadline: "A Successful Backup Doesn't Mean Your Business Can Recover.",
   openingLine:
-    "Modern enterprises face rising recovery uncertainty, growing infrastructure complexity, and operations that struggle to scale.",
+    "MeshDefend helps enterprises bridge the gap between data restoration and business recovery by connecting critical services, infrastructure, security, and recovery operations.",
   clusters: [
     {
       num: "01",
       group: "Recovery Confidence",
       tag: "RECOVERY CONFIDENCE",
-      diagramCaption: "FIG. 2.1 — ASSUMED BACKUP SUCCESS VS. PROVABLE APPLICATION RECOVERY",
       items: [
         {
-          label: "Cyber Recovery Lags AI-Driven Attacks",
-          desc: "Recovery strategies struggle to match the speed, scale, and complexity of modern cyberattacks.",
+          label: "Recovery Readiness Lags Evolving Threats",
+          desc: "AI-driven attacks are advancing faster than traditional recovery strategies, leaving businesses uncertain whether they can recover critical operations after a disruption.",
         },
         {
-          label: "Unverified Application Recovery",
-          desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
-        },
-        {
-          label: "Low Recovery Confidence",
-          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
-        },
-        {
-          label: "Unproven RTO/RPO",
-          desc: "Recovery objectives often remain assumptions until they are actually tested.",
+          label: "Unverified Business Recovery",
+          desc: "Successful backups don't guarantee that applications, infrastructure, and dependencies will function after restoration. Without continuous testing, recovery confidence and RTO/RPO targets remain unproven.",
         },
       ],
     },
     {
       num: "02",
-      group: "Complexity at Scale",
-      tag: "COMPLEXITY AT SCALE",
-      diagramCaption: "FIG. 2.2 — DISCONNECTED PLATFORMS, CLOUDS, AND PROTECTION VENDORS",
+      group: "Fragmented Recovery Operations",
+      tag: "FRAGMENTED RECOVERY OPERATIONS",
       items: [
         {
-          label: "Data and Platform Sprawl",
-          desc: "Data and Dependencies span multiple platforms, clouds, and protection vendors.",
+          label: "Disconnected Teams and Workflows",
+          desc: "Recovery spans multiple teams, tools, vendors, and runbooks, requiring manual coordination of tasks, approvals, and dependencies during critical incidents.",
         },
         {
-          label: "Heterogeneous Environments",
-          desc: "Multi-cloud, multi-vendor environments are increasingly difficult to operate consistently at scale.",
-        },
-        {
-          label: "Siloed Visibility",
-          desc: "No single view connects protection health, failures, dependencies, and recovery risk.",
+          label: "Human Error and Delays",
+          desc: "Manual handoffs and inconsistent procedures create bottlenecks, increase human error, and make recovery outcomes unpredictable.",
         },
       ],
     },
     {
       num: "03",
-      group: "Operational Friction",
-      tag: "OPERATIONAL FRICTION",
-      diagramCaption: "FIG. 2.3 — MANUAL CORRELATION AND CONTEXT LOSS ACROSS L1 / L2 / L3",
+      group: "Complexity at Scale",
+      tag: "COMPLEXITY AT SCALE",
       items: [
         {
-          label: "Fragmented knowledge",
-          desc: "Critical expertise is scattered across runbooks, tickets, tools, and specialists.",
+          label: "Sprawling, Heterogeneous Environments",
+          desc: "Critical applications, data, and dependencies span multiple clouds, infrastructure platforms, and protection vendors, making consistent recovery difficult at scale.",
         },
         {
-          label: "Slow investigation",
-          desc: "Teams manually correlate signals across systems before identifying root cause.",
-        },
-        {
-          label: "Context-Losing Handoffs",
-          desc: "Critical context is lost across L1, L2, L3, and specialist escalations.",
-        },
-        {
-          label: "Brittle Automation",
-          desc: "Scripts and workflows break as infrastructure changes, creating constant maintenance.",
+          label: "Siloed Recovery Visibility",
+          desc: "Without a unified view of protection health, infrastructure dependencies, and recovery failures, teams struggle to assess business recovery risks.",
         },
       ],
     },
@@ -84,8 +62,10 @@ export const PAIN = {
 
 export const SOLUTION = {
   eyebrow: "",
-  headline: "ResOC: Resilience Operations Center",
-  lede: "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments.",
+  headline: "Introducing ResOC™: The Resilience Operations Centre",
+  badge: "Powered by Agent Mesh™",
+  subheading: "Keep Your Business Recovery-Ready at all times",
+  lede: "MeshDefend helps enterprises continuously maintain and improve business recovery readiness. ResOC™ unifies business priorities, IT infrastructure, and security to continuously assess recovery readiness, coordinate corrective actions, and orchestrate end-to-end business recovery.",
   columns: {
     number: "#",
     col1: "ResOC Capability",

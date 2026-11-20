@@ -142,7 +142,7 @@ export function HeroSection({
                 margin: "0 0 12px",
               }}
             >
-              Introducing Resilience Operations Centre (ResOC)
+              Introducing Agent Mesh™ - Your AI ResOps Team
             </p>
 
             {/* Description Body */}
@@ -156,7 +156,7 @@ export function HeroSection({
                 maxWidth: 600,
               }}
             >
-              A unified, AI-led solution to plan, build, operate, recover and continuously improve business resilience across Business, IT and Security.
+              MeshDefend helps enterprises reduce recovery risk and recover critical business services with confidence by bringing Business, IT Infrastructure, and Security together through Agentic Resilience Operations.
             </p>
 
             {/* Inline CTAs with ShimmerButton */}

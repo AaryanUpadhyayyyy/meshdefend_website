@@ -34,7 +34,7 @@ export function AugmentAdvisorFold() {
 
       <div className="container" style={{ position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
         {/* Eyebrow */}
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ display: "none", marginBottom: 20 }}>
           <span
             style={{
               fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",

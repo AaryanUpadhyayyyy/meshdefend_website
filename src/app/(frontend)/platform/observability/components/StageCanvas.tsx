@@ -81,7 +81,7 @@ export function StageCanvas({
               <div className="poster-unified-card">
                 <div className="poster-threshold-bar">
                   <div className="threshold-bar-ink" style={{ width: "74%" }} />
-                  <div className="threshold-bar-orange" style={{ width: "8%" }} />
+                  <div className="threshold-bar-orange" style={{ display: "none", width: "8%" }} />
                   <div className="threshold-tick" />
                 </div>
                 <span className="poster-note">Backup window · rising 3 nights · still within SLA</span>

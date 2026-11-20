@@ -42,7 +42,7 @@ export function IntegratorContinuityFold() {
             [ CONTINUITY & PROGRESSIVE DISCLOSURE ]
           </span>
           <span
-            style={{
+            style={{ display: "none",
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",

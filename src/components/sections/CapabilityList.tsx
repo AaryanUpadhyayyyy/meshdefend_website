@@ -337,7 +337,7 @@ export function CapabilityList({
                     key={`${item.num}-${item.sourceIndex}`}
                     role="listitem"
                     className={`capability-list__tab-row${active ? " is-active" : ""}`}
-                    style={{ flexGrow: active ? 2.5 : 1, cursor: "pointer" }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => goTo(index)}
                   >
                     {active && (

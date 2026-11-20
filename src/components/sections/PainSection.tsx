@@ -129,6 +129,26 @@ export function PainSection({
             <h2 className="display pain-section__title">{copy.headline}</h2>
           </Reveal>
 
+          {copy.subheadline && (
+            <Reveal delay={0.12}>
+              <p
+                className="pain-section__subheadline"
+                style={{
+                  fontFamily: 'var(--font-body), Inter, -apple-system, sans-serif',
+                  fontSize: "clamp(18px, 1.4vw, 22px)",
+                  fontWeight: 600,
+                  color: "var(--ink)",
+                  margin: "14px auto 10px",
+                  maxWidth: 880,
+                  lineHeight: 1.35,
+                  textAlign: "center",
+                }}
+              >
+                {copy.subheadline}
+              </p>
+            </Reveal>
+          )}
+
           <Reveal delay={0.16}>
             <p className="pain-section__intro">{copy.openingLine}</p>
           </Reveal>
@@ -146,7 +166,7 @@ export function PainSection({
             const replacementImage =
               title === "Complexity at Scale"
                 ? "/images/img/1000227811.png"
-                : title === "Operational Friction"
+                : title === "Fragmented Recovery Operations" || title === "Operational Friction"
                   ? "/images/img/Operational Friction.png"
                   : undefined;
             const imageSrc =

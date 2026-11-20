@@ -93,7 +93,7 @@ export function BoundaryEnforcerFold() {
             [ SECURITY BOUNDARY ENFORCER ]
           </span>
           <span
-            style={{
+            style={{ display: "none",
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "var(--muted)",

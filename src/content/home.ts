@@ -110,9 +110,10 @@ export interface PainGroup {
 }
 
 export const PAIN_POINTS_CONTENT = {
-  heading: "The Reality of Business, Data & Cyber Resilience",
+  heading: "The Reality of Business Recovery",
+  subheadline: "A Successful Backup Doesn't Mean Your Business Can Recover.",
   subtext:
-    "Modern enterprises face rising recovery uncertainty, growing infrastructure complexity, and operations that struggle to scale.",
+    "MeshDefend helps enterprises bridge the gap between data restoration and business recovery by connecting critical services, infrastructure, security, and recovery operations.",
   groups: [
     {
       id: "recovery-confidence",
@@ -122,26 +123,33 @@ export const PAIN_POINTS_CONTENT = {
         {
           id: "rc-1",
           num: "01",
-          title: "Cyber Recovery Lags AI-Driven Attacks",
-          desc: "Recovery strategies struggle to match the speed, scale, and complexity of modern cyberattacks.",
+          title: "Recovery Readiness Lags Evolving Threats",
+          desc: "AI-driven attacks are advancing faster than traditional recovery strategies, leaving businesses uncertain whether they can recover critical operations after a disruption.",
         },
         {
           id: "rc-2",
           num: "02",
-          title: "Unverified Application Recovery",
-          desc: "Application-level recovery remains unproven. Successful backups do not prove applications can be restored and operated correctly.",
+          title: "Unverified Business Recovery",
+          desc: "Successful backups don't guarantee that applications, infrastructure, and dependencies will function after restoration. Without continuous testing, recovery confidence and RTO/RPO targets remain unproven.",
+        },
+      ],
+    },
+    {
+      id: "fragmented-recovery-operations",
+      name: "Fragmented Recovery Operations",
+      eyebrowPrefix: "FRAGMENTED RECOVERY OPERATIONS",
+      items: [
+        {
+          id: "fro-1",
+          num: "01",
+          title: "Disconnected Teams and Workflows",
+          desc: "Recovery spans multiple teams, tools, vendors, and runbooks, requiring manual coordination of tasks, approvals, and dependencies during critical incidents.",
         },
         {
-          id: "rc-3",
-          num: "03",
-          title: "Low Recovery Confidence",
-          desc: "Teams lack continuous proof that critical workloads can be recovered when needed.",
-        },
-        {
-          id: "rc-4",
-          num: "04",
-          title: "Unproven RTO/RPO",
-          desc: "Recovery objectives often remain assumptions until they are actually tested.",
+          id: "fro-2",
+          num: "02",
+          title: "Human Error and Delays",
+          desc: "Manual handoffs and inconsistent procedures create bottlenecks, increase human error, and make recovery outcomes unpredictable.",
         },
       ],
     },
@@ -151,53 +159,16 @@ export const PAIN_POINTS_CONTENT = {
       eyebrowPrefix: "COMPLEXITY AT SCALE",
       items: [
         {
-          id: "cs-1",
+          id: "cas-1",
           num: "01",
-          title: "Data and Platform Sprawl",
-          desc: "Data and Dependencies span multiple platforms, clouds, and protection vendors.",
+          title: "Sprawling, Heterogeneous Environments",
+          desc: "Critical applications, data, and dependencies span multiple clouds, infrastructure platforms, and protection vendors, making consistent recovery difficult at scale.",
         },
         {
-          id: "cs-2",
+          id: "cas-2",
           num: "02",
-          title: "Heterogeneous Environments",
-          desc: "Multi-cloud, multi-vendor environments are increasingly difficult to operate consistently at scale.",
-        },
-        {
-          id: "cs-3",
-          num: "03",
-          title: "Siloed Visibility",
-          desc: "No single view connects protection health, failures, dependencies, and recovery risk.",
-        },
-      ],
-    },
-    {
-      id: "operational-friction",
-      name: "Operational Friction",
-      eyebrowPrefix: "OPERATIONAL FRICTION",
-      items: [
-        {
-          id: "of-1",
-          num: "01",
-          title: "Fragmented knowledge",
-          desc: "Critical expertise is scattered across runbooks, tickets, tools, and specialists.",
-        },
-        {
-          id: "of-2",
-          num: "02",
-          title: "Slow investigation",
-          desc: "Teams manually correlate signals across systems before identifying root cause.",
-        },
-        {
-          id: "of-3",
-          num: "03",
-          title: "Context-Losing Handoffs",
-          desc: "Critical context is lost across L1, L2, L3, and specialist escalations.",
-        },
-        {
-          id: "of-4",
-          num: "04",
-          title: "Brittle Automation",
-          desc: "Scripts and workflows break as infrastructure changes, creating constant maintenance.",
+          title: "Siloed Recovery Visibility",
+          desc: "Without a unified view of protection health, infrastructure dependencies, and recovery failures, teams struggle to assess business recovery risks.",
         },
       ],
     },
@@ -205,9 +176,11 @@ export const PAIN_POINTS_CONTENT = {
 };
 
 export const SOLUTION_CONTENT = {
-  heading: "ResOC: Resilience Operations Center",
+  heading: "Introducing ResOC™: The Resilience Operations Centre",
+  badge: "Powered by Agent Mesh™",
+  subheading: "Keep Your Business Recovery-Ready at all times",
   subtext:
-    "A Resilience Operations Center that unifies visibility, operations, automation, and recovery across heterogeneous environments.",
+    "MeshDefend helps enterprises continuously maintain and improve business recovery readiness. ResOC™ unifies business priorities, IT infrastructure, and security to continuously assess recovery readiness, coordinate corrective actions, and orchestrate end-to-end business recovery.",
   columns: {
     col1: "ResOC Capability",
     col2: "What It Solves",

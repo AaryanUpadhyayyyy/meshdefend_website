@@ -235,19 +235,44 @@ export function SolutionSection({ content }: { content?: Partial<typeof SOLUTION
               <div className="solution-section__intro">
                 {solution.eyebrow && <p className="solution-section__eyebrow">{solution.eyebrow}</p>}
                 <h2 className="solution-section__headline">
-                  {headlineParts ? (
-                    <>
-                      <span className="solution-section__headline-accent">{headlineParts[1]}</span>
-                      {headlineParts[2]}
-                      {headlineParts[3]}
-                    </>
-                  ) : (
-                    solution.headline
-                  )}
+                  Introducing <span className="solution-section__headline-accent" style={{ color: "var(--orange, #f45532)" }}>ResOC™</span>: The Resilience Operations Centre
                 </h2>
+                <div
+                  className="solution-section__badge"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
+                    letterSpacing: "0.06em",
+                    color: "var(--solution-muted, #64748b)",
+                    textTransform: "uppercase",
+                    marginTop: 6,
+                    marginBottom: 6,
+                  }}
+                >
+                  Powered by Agent Mesh™
+                </div>
+                <p
+                  className="solution-section__subheading"
+                  style={{
+                    fontFamily: 'var(--font-body), Inter, -apple-system, sans-serif',
+                    fontSize: "clamp(17px, 1.35vw, 21px)",
+                    fontWeight: 600,
+                    color: "var(--solution-ink, #0f172a)",
+                    margin: "4px auto 10px",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Keep Your Business Recovery-Ready at all times
+                </p>
               </div>
 
-              <p className="solution-section__lede">{solution.lede}</p>
+              <p className="solution-section__lede" style={{ maxWidth: 860, fontSize: "clamp(13.5px, 0.95vw, 15px)", lineHeight: 1.45, color: "var(--solution-muted, #4b5563)" }}>
+                {solution.lede}
+              </p>
             </header>
 
             <CapabilityList

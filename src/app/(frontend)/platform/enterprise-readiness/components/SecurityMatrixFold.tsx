@@ -99,7 +99,7 @@ export function SecurityMatrixFold() {
             [ ADDRESS VENDOR RISK ]
           </span>
           <span
-            style={{
+            style={{ display: "none",
               fontFamily: 'var(--font-mono), "JetBrains Mono", monospace',
               fontSize: 11,
               color: "rgba(255, 255, 255, 0.4)",
