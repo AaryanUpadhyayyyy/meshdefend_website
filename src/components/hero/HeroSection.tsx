@@ -180,27 +180,6 @@ export function HeroSection({
               >
                 {primaryCta.label}
               </ShimmerButton>
-
-              <Link
-                href={secondaryCta.href}
-                className="hero-secondary-link"
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "var(--ink)",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  padding: "10px 0",
-                  position: "relative",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                <span>{secondaryCta.label}</span>
-                <span aria-hidden="true" style={{ transition: "transform 0.2s ease" }}>→</span>
-              </Link>
             </div>
 
             {/* Optional VC Caption if provided via CMS */}

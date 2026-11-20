@@ -12,7 +12,6 @@ const BACKUP_PREVIEW_HEIGHT = 320;
 const STANDARD_PREVIEW_HEIGHT = 620;
 const POPOVER_OVERHANG = 50;
 const CYBER_RECOVERY_PREVIEW_SCALE = 1.06;
-const CONTINUOUS_RECOVERY_PREVIEW_SCALE = 1.14;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 type CapabilityPreviewSize = {
