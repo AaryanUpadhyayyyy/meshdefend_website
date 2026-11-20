@@ -10,7 +10,7 @@ declare global {
 
 export function CalEmbed() {
   useEffect(() => {
-    // Cal element-click embed initialization
+    // 1. Initialize Cal embed script
     (function (C: any, A: string, L: string) {
       const p = function (a: any, ar: any) {
         a.q.push(ar);
@@ -31,7 +31,7 @@ export function CalEmbed() {
             cal.loaded = true;
           }
           if (ar[0] === L) {
-            const api = function () {
+            const api: any = function () {
               p(api, arguments);
             };
             const namespace = ar[1];
@@ -52,6 +52,7 @@ export function CalEmbed() {
       Cal("init", "intro", { origin: "https://app.cal.com" });
       Cal.config = Cal.config || {};
       Cal.config.forwardQueryParams = true;
+
       if (Cal.ns && Cal.ns.intro) {
         Cal.ns.intro("ui", {
           cssVarsPerTheme: {
@@ -61,10 +62,76 @@ export function CalEmbed() {
           hideEventTypeDetails: false,
           layout: "month_view",
         });
+
+        // Preload calendar link so modal opens instantaneously without loading lag
+        Cal.ns.intro("preload", {
+          calLink: "meshdefend/intro",
+        });
       }
+
+      Cal("preload", {
+        calLink: "meshdefend/intro",
+      });
     }
 
-    // Global click listener as a seamless fallback for any "Book a demo" or "/demo" element
+    // 2. Hide Cal.com branding text in light DOM and shadow DOM
+    const removeBranding = () => {
+      // Light DOM check
+      const modalBoxes = document.querySelectorAll("cal-modal-box, [data-cal-modal]");
+      modalBoxes.forEach((box) => {
+        // If shadowRoot exists, inject style to hide branding
+        if ((box as any).shadowRoot) {
+          const shadow = (box as any).shadowRoot;
+          if (!shadow.querySelector("#hide-cal-branding")) {
+            const style = document.createElement("style");
+            style.id = "hide-cal-branding";
+            style.textContent = `
+              a[href*="cal.com"],
+              a[href*="utm_source=embed"],
+              [class*="branding"],
+              [class*="powered"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                pointer-events: none !important;
+              }
+            `;
+            shadow.appendChild(style);
+          }
+        }
+
+        // Direct light DOM links
+        box.querySelectorAll("a").forEach((a) => {
+          if (
+            a.textContent?.toLowerCase().includes("cal.com") ||
+            a.href.includes("cal.com")
+          ) {
+            a.style.setProperty("display", "none", "important");
+          }
+        });
+      });
+
+      // Target any stand-alone Cal.com text/link below modal
+      document.querySelectorAll('a[href*="cal.com"]').forEach((a) => {
+        if ((a.textContent || "").toLowerCase().includes("cal.com")) {
+          (a as HTMLElement).style.setProperty("display", "none", "important");
+        }
+      });
+    };
+
+    // Run immediately and observe for modal injection
+    removeBranding();
+    const observer = new MutationObserver(() => {
+      removeBranding();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    // 3. Global click listener to open popup immediately
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
@@ -79,7 +146,7 @@ export function CalEmbed() {
       const isDemo =
         trigger.hasAttribute("data-cal-link") ||
         href === "/demo" ||
-        href?.includes("demo") ||
+        href === "#demo" ||
         text.includes("book a demo");
 
       if (isDemo) {
@@ -95,10 +162,26 @@ export function CalEmbed() {
     };
 
     document.addEventListener("click", handleGlobalClick, true);
+
     return () => {
+      observer.disconnect();
       document.removeEventListener("click", handleGlobalClick, true);
     };
   }, []);
 
-  return null;
+  return (
+    <style>{`
+      cal-modal-box a[href*="cal.com"],
+      cal-modal-box a,
+      [data-cal-modal] a[href*="cal.com"],
+      a[href*="cal.com?utm_source=embed"],
+      a[href*="cal.com"],
+      cal-modal-box [class*="branding"] {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    `}</style>
+  );
 }

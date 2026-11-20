@@ -104,7 +104,7 @@ export function NavbarClient({
     setOpenMenu(null);
     setMobileOpen(false);
     if (typeof window !== "undefined") {
-      const href = typeof hrefOrEvent === "string" ? hrefOrEvent : undefined;
+      const href = typeof hrefOrEvent === "string" ? hrefOrEvent : ((hrefOrEvent as any)?.currentTarget?.getAttribute?.("href") || undefined);
       if (href && href.includes("#")) {
         const hash = href.substring(href.indexOf("#"));
         const target = document.querySelector(hash);
@@ -342,7 +342,7 @@ export function NavbarClient({
             <div style={{ marginTop: 20 }}>
               {heroVariant && <Link
                 href="#solution"
-                onClick={() => handleNavClick("#solution")}
+
                 onClick={handleNavClick}
                 className="nav-mobile-hero-secondary"
               >
