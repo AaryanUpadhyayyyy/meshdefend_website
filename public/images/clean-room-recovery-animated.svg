@@ -126,8 +126,8 @@
 
     <!-- Three glass blocks are constructed from separate vector faces. -->
     <g id="database-block" filter="url(#block-shadow)">
-      <path d="m844 352.6 30.9-13.1q11.2-5.1 23-1.5l48.8 14.8q11.1 3.4 11.1 13.8v64.8q0 9.9-10.5 13.5l-48.1 16.3q-11.2 3.8-23.3-.1l-31.9-10.5q-10.5-3.5-10.5-14.2v-67.3q0-11.6 10.5-16.5Z" fill="url(#glass-top)" stroke="#dedbd9" stroke-width="2"/>
-      <path d="m927.3 356.7 20.4-2.9q10.1 3.3 10.1 12.8v64.8q0 9.9-10.5 13.5l-13.7 4.7 4.8-18.7v-59.3q0-10.7-11.1-14.9Z" fill="url(#glass-side)"/>
+      <path d="M847.5 355.8 L863.5 343.8 Q867 341 876 341 L926 341 Q934 341 940.5 343.8 L954.5 357.8 L938.5 369.8 Q932 355.8 924.5 355.8 Z" fill="url(#glass-top)" stroke="#e2dedb" stroke-width="1.6"/>
+      <path d="M938.5 369.8 L954.5 357.8 L954.5 422.2 Q954.5 431 940.5 436.2 L924.5 448.2 Q938.5 443 938.5 434.2 Z" fill="url(#glass-side)"/>
       <rect x="833.5" y="355.8" width="105" height="92.4" rx="14" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
       <g fill="none" stroke="#ff5b34" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round">
         <ellipse cx="886.6" cy="388.7" rx="19" ry="8.3"/>
@@ -136,16 +136,16 @@
     </g>
 
     <g id="application-block" filter="url(#block-shadow)">
-      <path d="m747.1 431.2 31.6-13.5q11.4-5 22.7-1.4l49.4 14.6q11.2 3.3 11.2 13.9v65.6q0 9.8-10.7 13.3l-48.7 16.8q-11.4 3.8-22.8-.1l-32.7-10.9q-10.6-3.5-10.6-14.1v-67.1q0-12.3 10.6-17.1Z" fill="url(#glass-top)" stroke="#dedbd9" stroke-width="2"/>
-      <path d="m829.8 434.7 22-2.2q10.2 3.6 10.2 12.3v65.6q0 9.8-10.7 13.3l-14 4.8 5-16.4v-62.7q0-10.8-12.5-14.7Z" fill="url(#glass-side)"/>
-      <rect x="736.5" y="433.6" width="106" height="92.4" rx="13.8" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
+      <path d="M750.5 433.6 L766.5 421.6 Q770 419 779 419 L829 419 Q837 419 844.5 421.6 L858.5 435.6 L842.5 447.6 Q836 433.6 828.5 433.6 Z" fill="url(#glass-top)" stroke="#e2dedb" stroke-width="1.6"/>
+      <path d="M842.5 447.6 L858.5 435.6 L858.5 500.0 Q858.5 509 844.5 514.0 L828.5 526.0 Q842.5 521 842.5 512.0 Z" fill="url(#glass-side)"/>
+      <rect x="736.5" y="433.6" width="106" height="92.4" rx="14" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
       <g fill="none" stroke="#ff5a32" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"><rect x="767.3" y="460.1" width="44.6" height="38.2" rx="2.6"/><path d="M767.3 470.4h44.6"/><path d="M773.8 465.2h.1m6.1 0h.1" stroke-width="3.2"/></g>
     </g>
 
     <g id="server-block" filter="url(#block-shadow)">
-      <path d="m926.7 442 32.2-13.5q11.4-5.1 22.7-1.7l47.7 13.8q11.1 3.3 11.1 13.8v65.3q0 10.1-10.6 13.5l-47.9 15.5q-11.3 3.9-22.6.1L927 538q-10.8-3.6-10.8-14.2v-65.5q0-11.6 10.5-16.3Z" fill="url(#glass-top)" stroke="#dedbd9" stroke-width="2"/>
-      <path d="m1009.3 445.6 20.2-3.3q10.9 3.1 10.9 12.1v65.3q0 10.1-10.6 13.5l-14.5 4.6 5.9-18.1v-58.6q0-10.7-11.9-15.5Z" fill="url(#glass-side)"/>
-      <rect x="916.2" y="444.5" width="105" height="89.4" rx="13.8" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
+      <path d="M930.2 444.5 L946.2 432.5 Q950 430 959 430 L1008 430 Q1016 430 1023.2 432.5 L1037.2 446.5 L1021.2 458.5 Q1015 444.5 1007.2 444.5 Z" fill="url(#glass-top)" stroke="#e2dedb" stroke-width="1.6"/>
+      <path d="M1021.2 458.5 L1037.2 446.5 L1037.2 510.9 Q1037.2 520 1023.2 524.9 L1007.2 536.9 Q1021.2 532 1021.2 522.9 Z" fill="url(#glass-side)"/>
+      <rect x="916.2" y="444.5" width="105" height="92.4" rx="14" fill="url(#glass-front)" stroke="#dedddd" stroke-width="2"/>
       <g fill="none" stroke="#ff5a32" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><rect x="947.8" y="471.1" width="41.6" height="10.8" rx="2.7"/><rect x="947.8" y="484.6" width="41.6" height="10.8" rx="2.7"/><rect x="947.8" y="498.1" width="41.6" height="10.8" rx="2.7"/><path d="M981.5 476.5h.1m-.1 13.5h.1m-.1 13.5h.1" stroke-width="3.3"/></g>
     </g>
 
@@ -156,9 +156,9 @@
     </g>
 
     <g id="clean-room-ribbon">
-      <path d="M653 196.6h286.5q14 0 14 14v26.1q0 13.7-14 13.7H639v-39.8q0-14 14-14Z" fill="url(#ribbon)" stroke="#ff5631" stroke-width="1.3"/>
-      <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"><path d="m675.5 208.9 13 7.5v15l-13 7.5-13-7.5v-15Z"/><path d="m662.5 216.4 13 7.5 13-7.5m-13 7.5v15"/></g>
-      <text x="704" y="232" fill="#fff" font-size="23.5" font-weight="700" letter-spacing="-.4">Clean-room Recovery</text>
+      <rect x="664" y="236" width="294" height="48" rx="24" fill="url(#ribbon)" stroke="#ff5631" stroke-width="1.3" filter="url(#block-shadow)"/>
+      <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"><path d="m692 248.5 11 6.3v12.6l-11 6.3-11-6.3v-12.6Z"/><path d="m681 254.8 11 6.3 11-6.3m-11 6.3v12.6"/></g>
+      <text x="716" y="268.5" fill="#fff" font-size="22" font-weight="700" letter-spacing="-.3">Clean-room Recovery</text>
     </g>
   </g>
 
