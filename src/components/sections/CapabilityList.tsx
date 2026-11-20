@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import Link from "next/link";
+
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { CapabilityWheelItem } from "./CapabilityWheel";
 import { ResocSlideVisual } from "./ResocSlideVisuals";
@@ -403,10 +403,10 @@ export function CapabilityList({
                           transition={{ duration: prefersReducedMotion ? 0.15 : 0.38, ease: EASE }}
                         >
                           <p>{item.solves}</p>
-                          <Link className="capability-list__read-more" href={item.href} onClick={(e) => e.stopPropagation()}>
-                            <span>Read more</span>
-                            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.5 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                          </Link>
+
+
+
+
                         </motion.div>
                       )}
                     </AnimatePresence>

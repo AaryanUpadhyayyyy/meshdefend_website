@@ -12,7 +12,8 @@ export function NavbarClient({
   settings: CmsHeaderSettings;
   heroVariant?: boolean;
 }) {
-  const menuEntries = settings.menus.map((section) => [section.key, section] as const);
+  const navMenus = settings.menus.filter((section) => section.key === "resources");
+  const menuEntries = navMenus.map((section) => [section.key, section] as const);
   const megaMenus = Object.fromEntries(menuEntries);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -150,12 +151,20 @@ export function NavbarClient({
         {/* Desktop Nav */}
         {settings.showPrimaryNavigation && (
           <nav className="desktop-nav" aria-label="Main navigation">
+            <Link
+              href="/"
+              className="nav-item-btn"
+              onClick={() => handleNavClick("/")}
+              style={{ textDecoration: "none" }}
+            >
+              <span>Home</span>
+            </Link>
           {menuEntries.map(([key, section]) => {
             const isActive = openMenu === key;
             return (
               <button
-                key={key}
-                type="button"
+                key={key} type="button"
+
                 className={`nav-item-btn ${isActive ? "is-active" : ""}`}
                 onClick={() => handleToggle(key)}
                 onMouseEnter={() => handleMouseEnter(key)}
@@ -187,13 +196,16 @@ export function NavbarClient({
         <div className="nav-actions">
           
           {heroVariant && (
-            <Link className="nav-hero-secondary" href="/platform/observability" onClick={handleNavClick}>
+            <Link className="nav-hero-secondary" href="#solution" onClick={() => handleNavClick("#solution")}>
               See ResOC in action
             </Link>
           )}
-          {settings.primaryCta.label && settings.primaryCta.href && (
+          {settings.primaryCta.label && (
             <Link
-              href={settings.primaryCta.href}
+              href="#"
+              data-cal-link="meshdefend/intro"
+              data-cal-namespace="intro"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               className={`btn btn-primary nav-cta-btn${heroVariant ? " nav-hero-primary" : ""}`}
               onClick={handleNavClick}
             >
@@ -322,7 +334,10 @@ export function NavbarClient({
                 See ResOC in action
               </Link>}
               {settings.primaryCta.label && settings.primaryCta.href && <Link
-                href={settings.primaryCta.href}
+
+              data-cal-link="meshdefend/intro"
+              data-cal-namespace="intro"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
                 onClick={handleNavClick}
                 className={`btn btn-primary${heroVariant ? " nav-mobile-hero-primary" : ""}`}
                 style={{ width: "100%", justifyContent: "center", height: 44, fontSize: 14 }}

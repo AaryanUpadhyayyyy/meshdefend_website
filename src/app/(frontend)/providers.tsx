@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { type ReactNode } from "react";
 import { ScrollRevealObserver } from "@/lib/useReveal";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { CalEmbed } from "@/components/common/CalEmbed";
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
@@ -15,6 +16,7 @@ export function Providers({ children }: { children: ReactNode }) {
       disableTransitionOnChange
     >
       <SmoothScroll>
+        <CalEmbed />
         <ScrollRevealObserver />
         {children}
       </SmoothScroll>

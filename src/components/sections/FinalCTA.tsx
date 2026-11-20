@@ -144,6 +144,9 @@ export function FinalCTA({
             <motion.a
               href={content?.ctaPrimaryHref || "/demo"}
               className="btn btn-primary"
+              data-cal-link="meshdefend/intro"
+              data-cal-namespace="intro"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               style={{

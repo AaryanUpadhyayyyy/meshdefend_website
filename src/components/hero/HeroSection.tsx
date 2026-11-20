@@ -39,7 +39,7 @@ export function HeroSection({
   };
   const secondaryCta = {
     label: content?.secondaryCta?.label || "See ResOC in action",
-    href: content?.secondaryCta?.href || "/platform/observability",
+    href: content?.secondaryCta?.href || "#solution",
   };
 
   const partners = TRUST_SECTION_CONTENT.partners;
@@ -114,20 +114,20 @@ export function HeroSection({
           >
             {/* Display H1 Heading */}
             <h1
-              className="hero-headline"
+              className="display hero-headline"
               style={{
-                fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
-                fontSize: "clamp(32px, 3.2vw, 50px)",
-                fontWeight: 800,
-                lineHeight: 1.12,
-                letterSpacing: "-0.035em",
+                fontFamily: 'var(--font-display), "Instrument Serif", Georgia, serif',
+                fontSize: "clamp(38px, 4.4vw, 64px)",
+                fontWeight: 700,
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
                 margin: "0 0 20px",
                 color: "var(--ink)",
               }}
             >
               <span className="hero-h1-line">
                 Recover Your Business{" "}
-                <span style={{ color: "var(--orange, #f45532)" }}>End-to-End,</span>
+                <span className="display-italic" style={{ color: "var(--orange, #f45532)", fontStyle: "italic" }}>End-to-End,</span>
               </span>
               <span className="hero-h1-line">Not Just Your Data,</span>
               <span className="hero-h1-line">After Any Disruption.</span>
@@ -138,7 +138,7 @@ export function HeroSection({
               style={{
                 fontFamily: "var(--font-body), Inter, -apple-system, sans-serif",
                 fontSize: "clamp(17px, 1.35vw, 20px)",
-                fontWeight: 750,
+                fontWeight: 600,
                 lineHeight: 1.35,
                 color: "var(--ink)",
                 margin: "0 0 12px",
@@ -171,7 +171,12 @@ export function HeroSection({
                 marginBottom: 20,
               }}
             >
-              <ShimmerButton href={primaryCta.href}>
+              <ShimmerButton
+                href={primaryCta.href}
+                data-cal-link="meshdefend/intro"
+                data-cal-namespace="intro"
+                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+              >
                 {primaryCta.label}
               </ShimmerButton>
 

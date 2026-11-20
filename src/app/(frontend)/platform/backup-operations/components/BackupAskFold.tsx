@@ -67,6 +67,9 @@ export function BackupAskFold() {
               <Link
                 href="/demo"
                 className="btn btn-primary"
+                data-cal-link="meshdefend/intro"
+                data-cal-namespace="intro"
+                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
                 style={{
                   fontSize: 14,
                   padding: "14px 28px",

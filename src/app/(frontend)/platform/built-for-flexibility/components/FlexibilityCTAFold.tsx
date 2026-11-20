@@ -110,6 +110,9 @@ export function FlexibilityCTAFold() {
           {/* General CTA: Book a demo (/demo) */}
           <Link
             href="/demo"
+            data-cal-link="meshdefend/intro"
+            data-cal-namespace="intro"
+            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
             style={{
               display: "inline-flex",
               alignItems: "center",

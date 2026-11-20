@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+
 import { AUDIENCE } from "@/lib/sections";
 import { Reveal, RevealGroup } from "@/components/motion";
 
@@ -173,9 +173,9 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
                 const isLast = idx === audience.segments.length - 1;
 
                 return (
-                  <Link
+                  <div
                     key={seg.id}
-                    href={seg.href}
+
                     onMouseEnter={() => setHoveredIdx(idx)}
                     onMouseLeave={() => setHoveredIdx(null)}
                     style={{
@@ -189,6 +189,7 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
                       position: "relative",
                       textDecoration: "none",
                       transition: "background 0.2s ease",
+                      cursor: "default",
                     }}
                     className="audience-cell"
                   >
@@ -265,7 +266,7 @@ export function AudienceSection({ content }: { content?: Partial<typeof AUDIENCE
                     >
                       →
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </RevealGroup>

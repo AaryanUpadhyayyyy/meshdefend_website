@@ -361,7 +361,13 @@ export function PixelStudioHero() {
               <p className="mdph-story-description">
                 MeshDefend helps enterprises reduce recovery risk and recover critical business services with confidence by bringing Business, IT Infrastructure, and Security together through Agentic Resilience Operations.
               </p>
-              <Link className="mdph-story-cta" href="/demo">Book a demo <span aria-hidden="true">→</span></Link>
+              <Link
+                className="mdph-story-cta"
+                href="/demo"
+                data-cal-link="meshdefend/intro"
+                data-cal-namespace="intro"
+                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+              >Book a demo <span aria-hidden="true">→</span></Link>
             </div>
           </div>
 

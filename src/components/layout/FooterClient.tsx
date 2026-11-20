@@ -394,6 +394,8 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
       {/* ─── NAVIGATION COLUMNS (5 BALANCED PILLARS) ─── */}
 
+      {/* Navigation columns removed per user request */}
+      {false && (
       <div style={{ padding: "64px 0 48px" }}>
 
         <div className="container">
@@ -565,6 +567,8 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
 
 
+
+      )}
 
       {/* ─── MONUMENTAL DISPLAY BRAND WATERMARK ─── */}
 

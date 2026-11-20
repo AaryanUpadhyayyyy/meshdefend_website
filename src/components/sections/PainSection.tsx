@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { useId } from "react";
 import { Reveal } from "@/components/motion";
-import { MeshDefendBackground } from "@/components/hero/MeshDefendBackground";
+
 import { PainStackOpacity } from "@/components/sections/PainStackOpacity";
 import { PAIN_CAROUSEL_CARDS } from "@/lib/homeSections";
 import { PAIN } from "@/lib/sections";
@@ -112,7 +112,7 @@ export function PainSection({
       id="pain"
       className="pain-section home-pain-section"
     >
-      <MeshDefendBackground variant="subtle" density="sparse" />
+
 
       <div className="container pain-section__container">
         <header className="pain-section__header">

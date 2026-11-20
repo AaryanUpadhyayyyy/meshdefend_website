@@ -13,6 +13,10 @@ interface ShimmerButtonProps {
   textColor?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
+  "data-cal-link"?: string;
+  "data-cal-namespace"?: string;
+  "data-cal-config"?: string;
+  [key: `data-${string}`]: any;
 }
 
 export function ShimmerButton({
@@ -27,6 +31,10 @@ export function ShimmerButton({
   textColor = "#fefdfd",
   onClick,
   style,
+  "data-cal-link": calLink,
+  "data-cal-namespace": calNamespace,
+  "data-cal-config": calConfig,
+  ...rest
 }: ShimmerButtonProps) {
   const content = (
     <span
@@ -113,7 +121,14 @@ export function ShimmerButton({
 
   if (href) {
     return (
-      <Link href={href} style={{ textDecoration: "none", display: "inline-block" }}>
+      <Link
+        href={href}
+        style={{ textDecoration: "none", display: "inline-block" }}
+        data-cal-link={calLink}
+        data-cal-namespace={calNamespace}
+        data-cal-config={calConfig}
+        {...rest}
+      >
         {content}
       </Link>
     );

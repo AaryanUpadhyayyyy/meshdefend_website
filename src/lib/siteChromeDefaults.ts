@@ -113,7 +113,22 @@ export const DEFAULT_MEGA_MENUS: MegaMenuSection[] = [
   },
 ];
 
-export const DEFAULT_FOOTER_NAV_GROUPS: FooterNavGroup[] = [
+export const DEFAULT_FOOTER_NAV_GROUPS: FooterNavGroup[] = [];
+
+const RESOURCES_NAV_BACKUP: FooterNavGroup[] = [
+  {
+    num: "01",
+    title: "Resources",
+    links: [
+      { label: "WTR : What The Resilience - Newsletter", href: "/#newsletter" },
+      { label: "WTR : What The Resilience - Podcast", href: "/resources/podcast" },
+      { label: "Blogs", href: "/resources/blog" },
+      { label: "FAQ", href: "/resources/faq" },
+    ],
+  },
+];
+
+const REMOVED_NAV_GROUPS: FooterNavGroup[] = [
   {
     num: "01",
     title: "Product",
