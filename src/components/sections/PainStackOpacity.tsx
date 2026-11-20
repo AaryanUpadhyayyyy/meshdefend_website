@@ -56,21 +56,23 @@ export function PainStackOpacity() {
         }
 
         const stackDepth = stackedAbove + incomingOverlap;
-        const opacity = Math.max(
-          0.18,
-          1 - 0.38 * stackDepth
-        );
+        // Top of stack = 100%, second in stack = 30%, end of stack = 0%
+        const opacity = stackDepth <= 1
+          ? Math.max(0.3, 1 - 0.7 * stackDepth)
+          : Math.max(0, 0.3 - 0.3 * (stackDepth - 1));
         const scale = Math.max(
-          0.91,
-          1 - 0.045 * stackDepth
+          0.88,
+          1 - 0.05 * stackDepth
         );
-        const translateY = -12 * stackDepth;
+        const translateY = -16 * stackDepth;
         card.style.opacity = opacity.toFixed(3);
+        card.style.visibility = opacity <= 0.005 ? "hidden" : "visible";
+        card.style.pointerEvents = stackDepth >= 0.9 ? "none" : "auto";
         card.style.transform = stackDepth > 0
           ? `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`
           : "";
         card.style.transformOrigin = "top center";
-        card.style.filter = stackDepth > 0 ? `brightness(${(1 - 0.04 * stackDepth).toFixed(2)})` : "";
+        card.style.filter = stackDepth > 0 ? `brightness(${(1 - 0.05 * stackDepth).toFixed(2)})` : "";
       });
     };
 
