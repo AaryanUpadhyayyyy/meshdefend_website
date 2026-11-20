@@ -38,7 +38,6 @@ export const DEFAULT_MEGA_MENUS: MegaMenuSection[] = [
         eyebrow: "CYBER RESILIENCE",
         items: [
           { label: "Cyber Resilience", desc: "Air-gapped immutable recovery orchestration", href: "/platform/cyber-resilience" },
-          { label: "Integrations", desc: "Commvault, Veeam, Dell PowerProtect & ServiceNow", href: "/platform/integrations" },
         ],
       },
       {
@@ -70,13 +69,6 @@ export const DEFAULT_MEGA_MENUS: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      tag: "READINESS ASSESSMENT",
-      title: "Validate Cyber Recovery Posture",
-      desc: "Evaluate cross-vendor backup SLAs, air-gapped vaults, and recovery posture with our architecture team.",
-      cta: "Request Architecture Review →",
-      href: "/company/contact?intent=arch-review",
-    },
   },
   {
     key: "resources",
@@ -97,13 +89,6 @@ export const DEFAULT_MEGA_MENUS: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      tag: "TECHNICAL ARCHITECTURE",
-      title: "Autonomous Resilience Operations",
-      desc: "Deep-dive into Agent Mesh™ non-disintermediation covenants, air-gap integrity, and failover runbooks.",
-      cta: "Read Architecture FAQs →",
-      href: "/resources/faq",
-    },
   },
   {
     key: "company",
@@ -125,13 +110,6 @@ export const DEFAULT_MEGA_MENUS: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      tag: "EXPERIENCE RESOC",
-      title: "Private Architecture Briefing",
-      desc: "See how ResOC orchestrates cross-vendor recovery across Commvault, Veeam, Dell, and ServiceNow in a live console.",
-      cta: "Book a Live Demo →",
-      href: "/demo",
-    },
   },
 ];
 
@@ -144,7 +122,6 @@ export const DEFAULT_FOOTER_NAV_GROUPS: FooterNavGroup[] = [
       { label: "Backup Operations", href: "/platform/backup-operations" },
       { label: "Incident Resolution", href: "/platform/incident-resolution" },
       { label: "Cyber Resilience", href: "/platform/cyber-resilience" },
-      { label: "Integrations", href: "/platform/integrations" },
     ],
   },
   {

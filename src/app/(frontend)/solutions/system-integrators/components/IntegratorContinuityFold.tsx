@@ -194,7 +194,7 @@ export function IntegratorContinuityFold() {
             {/* Action Links */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <Link
-                href="/platform/integrations"
+                href="/platform/built-for-flexibility"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

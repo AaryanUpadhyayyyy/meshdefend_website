@@ -223,7 +223,7 @@ export function NavbarClient({
             onMouseEnter={handleMenuEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="nav-mega-grid">
+            <div className="nav-mega-grid" style={{ gridTemplateColumns: `repeat(${megaMenus[openMenu].columns.length + (megaMenus[openMenu].featured ? 1 : 0)}, minmax(0, 1fr))` }}>
               {megaMenus[openMenu].columns.map((column) => (
                 <div key={column.eyebrow} className="nav-mega-col">
                   <div className="nav-mega-eyebrow">{column.eyebrow}</div>

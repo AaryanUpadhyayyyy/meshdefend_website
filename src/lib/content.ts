@@ -37,7 +37,6 @@ export const NAV = {
           { label: "Backup Operations", href: "/platform/backup-operations" },
           { label: "Incident Resolution", href: "/platform/incident-resolution" },
           { label: "Cyber Resilience", desc: "Resiliency Operations Centre", href: "/platform/cyber-resilience" },
-          { label: "Integrations", desc: "Commvault, Veeam, Dell PowerProtect Data Manager, Dell NetWorker, Dell PowerProtect DataDomain, ServiceNow", href: "/platform/integrations" },
         ],
       },
       {

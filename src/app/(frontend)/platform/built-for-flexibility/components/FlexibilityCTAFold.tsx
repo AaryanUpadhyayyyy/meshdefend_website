@@ -155,7 +155,7 @@ export function FlexibilityCTAFold() {
 
           {/* Scoped CTA: Check compatibility (/platform/integrations) */}
           <Link
-            href="/platform/integrations"
+            href="/company/contact?intent=compatibility"
             style={{
               display: "inline-flex",
               alignItems: "center",

@@ -47,6 +47,11 @@ const nextConfig: NextConfig = {
         destination: "/#newsletter",
         permanent: false,
       },
+      {
+        source: "/platform/integrations",
+        destination: "/platform/observability",
+        permanent: false,
+      },
     ];
   },
 };
