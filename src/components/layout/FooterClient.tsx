@@ -667,7 +667,12 @@ export function FooterClient({ settings }: { settings: CmsFooterSettings }) {
 
           >
 
-            {/* Copyright & Legal (removed) */}
+            {/* Privacy Policy */}
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <a href="/privacy" className="footer-sub-link">
+                Privacy Policy
+              </a>
+            </div>
             {false && (
 
             <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
