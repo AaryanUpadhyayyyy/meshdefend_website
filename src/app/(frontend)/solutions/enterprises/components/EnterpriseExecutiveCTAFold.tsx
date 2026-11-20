@@ -110,7 +110,7 @@ export function EnterpriseExecutiveCTAFold() {
           }}
         >
           <Link
-            href="/demo"
+            href="#"
             data-cal-link="meshdefend/intro"
             data-cal-namespace="intro"
             data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'

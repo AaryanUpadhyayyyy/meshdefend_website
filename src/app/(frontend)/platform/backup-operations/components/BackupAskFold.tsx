@@ -65,7 +65,7 @@ export function BackupAskFold() {
               }}
             >
               <Link
-                href="/demo"
+                href="#"
                 className="btn btn-primary"
                 data-cal-link="meshdefend/intro"
                 data-cal-namespace="intro"
@@ -80,7 +80,7 @@ export function BackupAskFold() {
                 Book a demo
               </Link>
               <Link
-                href="/demo"
+                href="#"
                 className="btn btn-secondary"
                 style={{
                   fontSize: 14,

@@ -190,7 +190,7 @@ export const DEFAULT_SITE_SETTINGS = {
     showPrimaryNavigation: true,
     showThemeToggle: false,
     featuredColumnLabel: "EXPLORE",
-    primaryCta: { label: "Book a Demo", href: "/demo" },
+    primaryCta: { label: "Book a Demo", href: "#" },
     menus: DEFAULT_MEGA_MENUS,
   },
   footer: {

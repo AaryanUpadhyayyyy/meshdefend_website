@@ -127,6 +127,12 @@ export function ShimmerButton({
         data-cal-link={calLink}
         data-cal-namespace={calNamespace}
         data-cal-config={calConfig}
+        onClick={(e) => {
+          if (calLink) {
+            e.preventDefault();
+          }
+          onClick?.();
+        }}
         {...rest}
       >
         {content}

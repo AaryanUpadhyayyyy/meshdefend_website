@@ -35,7 +35,7 @@ export function HeroSection({
 
   const primaryCta = {
     label: content?.primaryCta?.label || "Book a demo",
-    href: content?.primaryCta?.href || "/demo",
+    href: content?.primaryCta?.href || "#",
   };
   const secondaryCta = {
     label: content?.secondaryCta?.label || "See ResOC in action",

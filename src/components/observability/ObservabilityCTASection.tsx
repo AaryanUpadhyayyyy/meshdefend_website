@@ -17,7 +17,7 @@ export function ObservabilityCTASection() {
 
             <div className="cta-actions">
               <a
-                href="/demo"
+                href="#"
                 className="btn btn-primary"
                 data-cal-link="meshdefend/intro"
                 data-cal-namespace="intro"

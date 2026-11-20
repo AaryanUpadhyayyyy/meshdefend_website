@@ -24,7 +24,7 @@ export const PATH_CARDS: PathCardItem[] = [
     title: "Book a demo",
     topic: "Demo or sales",
     cluster: "Business apps",
-    linkHref: "/demo",
+    linkHref: "#",
   },
   {
     id: "partnerships",

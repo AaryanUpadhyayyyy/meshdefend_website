@@ -303,6 +303,20 @@ export function NavbarClient({
           }}
         >
           <nav aria-label="Mobile navigation" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <Link
+              href="/"
+              onClick={() => handleNavClick("/")}
+              style={{
+                padding: "12px 0",
+                fontSize: 15,
+                fontWeight: 600,
+                color: "var(--ink)",
+                textDecoration: "none",
+                borderBottom: "1px solid var(--border)",
+              }}
+            >
+              Home
+            </Link>
             {menuEntries.map(([key, section]) => {
               const allItems = section.columns.flatMap((col) => col.items);
               return (
@@ -327,13 +341,14 @@ export function NavbarClient({
             })}
             <div style={{ marginTop: 20 }}>
               {heroVariant && <Link
-                href="/platform/observability"
+                href="#solution"
+                onClick={() => handleNavClick("#solution")}
                 onClick={handleNavClick}
                 className="nav-mobile-hero-secondary"
               >
                 See ResOC in action
               </Link>}
-              {settings.primaryCta.label && settings.primaryCta.href && <Link
+              {settings.primaryCta.label && <Link href="#"
 
               data-cal-link="meshdefend/intro"
               data-cal-namespace="intro"
