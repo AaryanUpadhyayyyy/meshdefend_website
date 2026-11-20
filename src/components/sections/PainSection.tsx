@@ -261,8 +261,28 @@ export function PainSection({
                       <li key={`${point.label || "point"}-${pointIndex}`}>
                         <span className="pain-feature-point-mark" aria-hidden="true" />
                         <div>
-                          <h4 className="pain-feature-point-label">{point.label}</h4>
-                          <p className="pain-feature-point-description">{point.desc}</p>
+                          <h4
+                            className="pain-feature-point-label"
+                            style={{
+                              fontSize: "clamp(15px, 1.05vw, 16.5px)",
+                              fontWeight: 600,
+                              lineHeight: 1.35,
+                              color: "var(--ink)",
+                            }}
+                          >
+                            {point.label}
+                          </h4>
+                          <p
+                            className="pain-feature-point-description"
+                            style={{
+                              marginTop: 4,
+                              fontSize: "clamp(13px, 0.92vw, 14.5px)",
+                              lineHeight: 1.52,
+                              color: "#4e5968",
+                            }}
+                          >
+                            {point.desc}
+                          </p>
                         </div>
                       </li>
                     ))}

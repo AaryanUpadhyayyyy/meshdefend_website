@@ -2729,17 +2729,17 @@ html.dark #trust .partner-logo--dark,
 }
 
 #pain .pain-feature-point-label {
-  font-size: clamp(16px, 1.2vw, 19px);
-  font-weight: 650;
-  line-height: 1.32;
-  color: var(--ink);
+  font-size: clamp(15px, 1.05vw, 16.5px) !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  color: var(--ink) !important;
 }
 
 #pain .pain-feature-point-description {
-  margin-top: 6px;
-  font-size: clamp(14px, 1.05vw, 16px);
-  line-height: 1.55;
-  color: #475569;
+  margin-top: 4px !important;
+  font-size: clamp(13px, 0.92vw, 14.5px) !important;
+  line-height: 1.52 !important;
+  color: #4e5968 !important;
 }
 
 #pain .pain-feature-points {
